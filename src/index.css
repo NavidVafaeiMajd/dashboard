@@ -5,12 +5,19 @@
   line-height: 1.5;
   font-weight: 400;
   direction: rtl;
+  background-color: #ebebeb ;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+div#navbar-content ul li a{
+    text-align: right;
+    padding: 15px 50px;
+    border-top: 1px solid #80808037;
+    width: 100% !important;
+    display: block;
+}
 /* 
 a {
   font-weight: 500;
@@ -58,17 +65,29 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+    background-color: #ebebeb !important;
   }
 }
 
 #right-header >ul > li:hover{
   background-color: rgba(255, 255, 255, 0.173) !important;
   border-radius: 100px;
+}
+
+/* some change in style of scrill bar */
+::-webkit-scrollbar {
+  width: 6px;        
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }

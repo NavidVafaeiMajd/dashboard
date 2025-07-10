@@ -1,7 +1,9 @@
 const Desk = () => {
     return (
     <>
-    content
+    <div className="overflow-auto h-700">
+                gfdg
+    </div>
     </>);
 }
  
