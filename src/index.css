@@ -13,10 +13,19 @@
 }
 div#navbar-content ul li a{
     text-align: right;
-    padding: 15px 50px;
+    padding: 15px 40px;
     border-top: 1px solid #80808037;
     width: 100% !important;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+    
+}
+div#navbar-content ul li a:hover{
+  background-color: #ebebeb;
+  color: blue;
+    
 }
 /* 
 a {
@@ -61,6 +70,7 @@ button:focus-visible {
 } */
 @theme{
   --color-primary: #1e824c;
+  --color-navbar : #e1f0f0;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -73,6 +83,8 @@ button:focus-visible {
   background-color: rgba(255, 255, 255, 0.173) !important;
   border-radius: 100px;
 }
+
+
 
 /* some change in style of scrill bar */
 ::-webkit-scrollbar {
