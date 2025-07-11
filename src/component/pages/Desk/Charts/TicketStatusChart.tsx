@@ -12,21 +12,18 @@ const TicketStatusChart = () => {
                                     fontFamily: 'Tahoma',
                                     
                                 },
-                                
                                 labels: ["باز کردن" , " بسته شدن" ],
                                 title: {
                                     text: 'وضعیت درخواست پشتیبانی',
                                     align: 'right',
                                     style: {
                                         fontFamily: 'Tahoma',
-                                        
                                     }
                                  },
                                 colors: ["#199afb", "#00e396"],
                                   legend: {
                                       horizontalAlign: 'center',
                                       position: 'right'
-
                                 },
                                 fill: {
                                 type: 'gradient',
@@ -39,7 +36,17 @@ const TicketStatusChart = () => {
                                     ],
                                     stops: [0, 100]
                                 },
-                                }
+                                },
+                                 responsive: [
+                                    {
+                                        breakpoint: 900, // هر عرضی کمتر از این مقدار
+                                        options: {
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                        }
+                                    }
+                                ],
                                 
                                 
                             }}

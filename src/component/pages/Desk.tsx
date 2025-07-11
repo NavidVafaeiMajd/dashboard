@@ -11,7 +11,7 @@ const Desk = () => {
     <>
     <div className="overflow-auto min-h-200 py-10 px-5">
                 <FeedCart/>
-                <div className="grid grid-cols-2 mt-5 gap-5">
+                <div className="grid md:grid-cols-2 mt-5 gap-5">
                     <DepartmentWiseChart />
                     <StaffPositionChart />
                     <TicketStatusChart />

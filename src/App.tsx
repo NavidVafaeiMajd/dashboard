@@ -15,11 +15,12 @@ function App() {
           <Header />
         </div>
         <Router>
-          <div className=' flex flex-1 py-5 mt-[75px] '>
-            <div className='w-[25%] overflow-auto '>
-              <Navbar/>
+          <div className=' flex flex-1 py-5 lg:mt-[75px] mt-[50px] max-lg:flex-col'>
+            <div className='w-[25%] overflow-auto max-lg:hidden'>
+              <Navbar />
+              <div className='max-lg:bg-black/50 md:hidden fixed h-full w-full z-9'></div>
             </div>
-            <div className='w-[75%] overflow-auto'>
+            <div className='lg:w-[75%] overflow-auto'>
               <Routes>
                 <Route path="/" element={<Desk />} />
               </Routes>

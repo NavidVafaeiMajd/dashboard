@@ -9,7 +9,7 @@ const Navbar = () => {
     return (
         <> 
             {/* nav height */}
-            <div id="navbar-content" className="h-[calc(100vh-110px)]! fixed w-[20%] right-10 overflow-auto bg-navbar shadow shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
+            <div id="navbar-content" className="lg:h-[calc(100vh-110px)]! h-full z-10   fixed w-[50%] lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
                 <ul>
                     <NavbarItems DropMenu={false} itemInfo={[<> <CiHome/> پیشخـوان</>, "/"]} dropInfo={[]} />
                     <NavbarItems DropMenu={false} itemInfo={["پرسنل", "/persnel"]} dropInfo={[]} />

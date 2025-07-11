@@ -27,7 +27,16 @@ const TicketPriorityChart = () => {
                                       position: 'right'
 
                                 },
-                                
+                                responsive: [
+                                    {
+                                        breakpoint: 900, // هر عرضی کمتر از این مقدار
+                                        options: {
+                                        legend: {
+                                            position: 'bottom'
+                                        }
+                                        }
+                                    }
+                                ],
                                 
                             }}
                         />

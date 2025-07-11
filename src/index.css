@@ -104,6 +104,15 @@ button:focus-visible {
   display: none;
 }
 
+
+
+.desk-cart {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 11px #00000010;
+}
+
+@media screen and (min-width: 600px) {
 /* style of charts */
 .apexcharts-legend {
   display: flex !important;
@@ -120,9 +129,4 @@ text.apexcharts-title-text{
   padding: 20px 0 !important;
   display: block;
 }
-
-.desk-cart {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 11px #0000001a;
 }

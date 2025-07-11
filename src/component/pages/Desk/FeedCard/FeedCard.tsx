@@ -3,7 +3,7 @@ import { LuMessageCircleMore, LuMessageCircleOff } from "react-icons/lu";
 
 const FeedCart = () => {
     return (<>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div className="flex gap-3 items-center rounded-md shadow-md overflow-hidden desk-cart">
                         <div className="desk-icon"><FaUserTie className="w-10 h-10  bg-primary text-white! hover:bg-green-200 hover:text-primary! transition ease-in-out box-content p-5" /></div>
                         <div className="flex flex-col gap-3">
