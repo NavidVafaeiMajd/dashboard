@@ -5,8 +5,10 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useState } from "react";
-
-const Header = () => {
+interface ChildProps {
+  headerMenu: () => void;
+}
+const Header: React.FC<ChildProps>  = ({headerMenu})  => {
     const [fisrtMenu, setFisrtMenu] = useState(false);
     return (
     <>
@@ -76,7 +78,7 @@ const Header = () => {
                             </a>
                         </div>
                         <div id="mobile-menu-header">
-                            <AiOutlineMenu className="w-8 h-8 md:hidden"/>
+                            <AiOutlineMenu onClick={headerMenu} className="w-8 h-8 md:hidden"/>
                         </div>
                     </div>
                 </div>
