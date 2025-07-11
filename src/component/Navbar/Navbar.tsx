@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom';
 import NavbarItems from './NavbarItems';
+import { CiHome } from "react-icons/ci";
 
 const Navbar = () => {
     // const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({hr:false});
@@ -11,18 +11,22 @@ const Navbar = () => {
             {/* nav height */}
             <div id="navbar-content" className="h-[calc(100vh-110px)]! fixed w-[20%] right-10 overflow-auto bg-navbar shadow shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
                 <ul>
-                    <li><NavLink to="/" className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`}>پیشخـوان</NavLink></li>
-                    <li><NavLink to="#">پرسنل</NavLink></li>
-                    <NavbarItems DropMenu={true} itemInfo={["salam" , "/"]} dropInfo={[["salam" , "salam"] , ["by" , "by"]]}/>
-                    <li><NavLink to="#">حضور و غیاب</NavLink></li>
-                    <li><NavLink to="#">حساب بانکی</NavLink></li>
-                    <li><NavLink to="#">گواهی اشتغال به کار</NavLink></li>
-                    <li><NavLink to="#">عملیات حقوق</NavLink></li>
-                    <li><NavLink to="#">مدیریت مشتریان</NavLink></li>
-                    <li><NavLink to="#">رهبران</NavLink></li>
-                    <li><NavLink to="#">ارزیابی عملکرد کارکنان</NavLink></li>
-                    <li><NavLink to="#">ارزیابی عملکرد کارکنان</NavLink></li>
-                    <li><NavLink to="#">ارزیابی عملکرد کارکنان</NavLink></li>
+                    <NavbarItems DropMenu={false} itemInfo={[<> <CiHome/> پیشخـوان</>, "/"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["پرسنل", "/persnel"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={true} itemInfo={["مدیریت منابع انسانی" , "managment"]} dropInfo={[["واحد سازمانی " , "managment/vahed"] , ["سمت سازمانی" , "managment/semat"] , ["خط مشی ها" , "managment/khat"] ,["ابلاغیه" , "managment/eblaghie"] , ["چارت سازمانی " , "managment/chart"]]}/>
+                    <NavbarItems DropMenu={true} itemInfo={["حضور و غیاب", "/hozoor"]} dropInfo={[[" حضور و غیاب " , "hozoor"]]} />
+                    <NavbarItems DropMenu={false} itemInfo={["حساب بانکی", "/hesab"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["گواهی اشتغال به کار", "/govahi"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["عملیات حقوق", "/hoghoogh"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["مدیریت مشتریان", "/moshtarian"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["رهبران", "/rahbaran"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["ارزیابی عملکرد کارکنان", "/arzyabi"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["ترفیعات و تبدیل وضعیت", "/tarfiyat"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["پشتیبـانی", "/support"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["درخواست مرخصی", "/morkhasi"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["آموزش", "/amoozesh"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["پرونده های انضباطی", "/enzebati"]} dropInfo={[]} />
+
 
                 </ul>
         </div>

@@ -5,23 +5,23 @@ import { GoDotFill } from "react-icons/go";
 
 interface NavbarItemsProps {
     DropMenu: boolean,
-    itemInfo : Array<string>,
+    itemInfo : [React.ReactNode, string],
     dropInfo : Array<Array<string>>
 }
 const NavbarItems = ({DropMenu , itemInfo , dropInfo} : NavbarItemsProps) => {
     const [openMenus, setOpenMenus] = useState(false);
 
     return (<>
-        <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> { itemInfo[0]}
+        <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
                 {DropMenu? openMenus ? <IoIosArrowUp/> : <IoIosArrowBack/> :"" }
                 </NavLink>
             {openMenus && DropMenu && (
                 
-                <ul>
+                <ul className="bg-white">
                     {
                         dropInfo.map((info, index) => (
                             <li key={index}>
-                                <NavLink className={({isActive})=> ` py-5! px-6! ${isActive?  " text-blue-600":""}`} to={info[1]}>
+                                <NavLink className={({isActive})=> ` py-3! px-6! ${isActive?  " text-blue-600":""}`} to={info[1]}>
                                     {info[0]}
                                     <GoDotFill/>
                                 </NavLink>

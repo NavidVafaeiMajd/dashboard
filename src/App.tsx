@@ -4,18 +4,18 @@
 import Header from './component/Header'
 import './App.css'
 import Navbar from './component/Navbar/Navbar'
-import Desk from './assets/pages/Desk'
+import Desk from './component/pages/Desk'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <>
       <main className='w-full! min-h-screen flex flex-col'>
-        <div className='fixed w-full'>
+        <div className='fixed z-100 w-full'>
           <Header />
         </div>
         <Router>
-          <div className='container m-auto flex flex-1 py-5 mt-[75px] '>
+          <div className=' flex flex-1 py-5 mt-[75px] '>
             <div className='w-[25%] overflow-auto '>
               <Navbar/>
             </div>

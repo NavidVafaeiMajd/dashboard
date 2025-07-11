@@ -13,7 +13,7 @@
 }
 div#navbar-content ul li a{
     text-align: right;
-    padding: 15px 40px;
+    padding: 10px 40px;
     border-top: 1px solid #80808037;
     width: 100% !important;
     display: flex;
@@ -102,4 +102,27 @@ button:focus-visible {
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+/* style of charts */
+.apexcharts-legend {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: end !important;
+  justify-content: center !important;
+}
+.apexcharts-legend-series {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  align-items: center;
+}
+text.apexcharts-title-text{
+  padding: 20px 0 !important;
+  display: block;
+}
+
+.desk-cart {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 11px #0000001a;
 }

@@ -8,7 +8,7 @@ const Header = () => {
     return (
     <>
             <div className="bg-primary text-white h-[75px] px-10 w-full!">
-                <div className="container m-auto flex justify-between items-center h-full!">
+                <div className=" flex justify-between items-center h-full!">
                     <div id="right-header">
                         <ul className="flex items-center gap-5">
                                 <li className="px-5 py-1">
