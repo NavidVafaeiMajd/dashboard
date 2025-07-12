@@ -9,10 +9,10 @@ const Navbar = () => {
     return (
         <> 
             {/* nav height */}
-            <div id="navbar-content" className="lg:h-[calc(100vh-110px)]! h-full z-10   fixed w-[70%] lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
+            <div id="navbar-content" className="lg:h-[calc(100vh-110px)]! h-full z-10 fixed w-[70%] mt-1 lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
                 <ul>
                     <NavbarItems DropMenu={false} itemInfo={[<> <CiHome/> پیشخـوان</>, "/"]} dropInfo={[]} />
-                    <NavbarItems DropMenu={false} itemInfo={["پرسنل", "/persnel"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={["پرسنل", "/personnel"]} dropInfo={[]} />
                     <NavbarItems DropMenu={true} itemInfo={["مدیریت منابع انسانی" , "managment"]} dropInfo={[["واحد سازمانی " , "managment/vahed"] , ["سمت سازمانی" , "managment/semat"] , ["خط مشی ها" , "managment/khat"] ,["ابلاغیه" , "managment/eblaghie"] , ["چارت سازمانی " , "managment/chart"]]}/>
                     <NavbarItems DropMenu={true} itemInfo={["حضور و غیاب", "/hozoor"]} dropInfo={[[" حضور و غیاب " , "hozoor"]]} />
                     <NavbarItems DropMenu={false} itemInfo={["حساب بانکی", "/hesab"]} dropInfo={[]} />

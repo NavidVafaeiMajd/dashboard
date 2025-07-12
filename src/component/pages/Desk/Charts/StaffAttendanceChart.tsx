@@ -6,9 +6,9 @@ import { IoIosArrowRoundUp ,IoIosArrowRoundDown  } from "react-icons/io";
 const StaffAttendanceChart = () => {
     return (
         <>
-            <div className="text-left! desk-cart p-5 grid grid-cols-2">
+            <div className="text-left! desk-cart p-1 md:p-5 grid grid-cols-2 md:col-start-2">
                 <div>
-                    <h2>حضور کارکنان  <span className="mx-3">۲۰ تیر, ۱۴۰۴</span></h2>
+                    <h2 className="flex max-md:flex-col items-center"> <span>حضور کارکنان</span> <span className="mx-3">۲۰ تیر, ۱۴۰۴</span></h2>
                     <div className="mt-5 flex flex-col gap-3">
                         <div className="flex gap-2">
                             <LuUsersRound className="w-5 h-5 text-blue-500" />
@@ -30,8 +30,6 @@ const StaffAttendanceChart = () => {
                 </div>
                 <div className="flex justify-center">
                     <Chart
-                        height={200}
-                        width={200}
                         type="bar"
                         series={[
                             {
@@ -44,8 +42,9 @@ const StaffAttendanceChart = () => {
                             }
                         ]}
                         options={{
+                        
                         chart: {
-                            fontFamily: 'Tahoma',
+                            fontFamily: 'myFirstFont',
                             toolbar: {
                                 show: false 
                             }

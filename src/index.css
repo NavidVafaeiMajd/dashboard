@@ -1,11 +1,18 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: myFirstFont;
+  src: url(./assets/fonts/_Woff2/KalamehWeb-Regular.woff2);
+  font-weight: bold;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: myFirstFont , system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: 14px;
   direction: rtl;
-  background-color: #ebebeb ;
+  background-color: #F0F2F8 ;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,49 +34,9 @@ div#navbar-content ul li a:hover{
   color: blue;
     
 }
-/* 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-} */
-/* 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 @theme{
-  --color-primary: #1e824c;
+  --color-primary: #1E824C;
   --color-navbar : #e1f0f0;
 }
 @media (prefers-color-scheme: light) {
@@ -107,9 +74,9 @@ button:focus-visible {
 
 
 .desk-cart {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 11px #00000010;
+    background: #F9F9FB;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.052);
+    overflow: hidden;
 }
 
 @media screen and (min-width: 600px) {
@@ -129,4 +96,12 @@ text.apexcharts-title-text{
   padding: 20px 0 !important;
   display: block;
 }
+}
+
+.apexcharts-canvas {
+    font-family: 'myFirstFont' !important;
+}
+
+g {
+    font-family: 'myFirstFont' !important;
 }

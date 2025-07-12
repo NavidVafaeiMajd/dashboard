@@ -5,18 +5,23 @@ import StaffPositionChart from './Desk/Charts/StaffPositionChart';
 import TicketStatusChart from "./Desk/Charts/TicketStatusChart";
 import TicketPriorityChart from "./Desk/Charts/TicketPriorityChart";
 import StaffAttendanceChart from "./Desk/Charts/staffAttendanceChart";
+import { useEffect } from "react";
 
 const Desk = () => {
+        const title = "پیشخوان";
+        useEffect(() => {
+        document.title = title;
+      }, []);
     return (
     <>
-    <div className="overflow-auto min-h-200 py-10 px-5">
+    <div className="min-h-200 py-10">
                 <FeedCart/>
-                <div className="grid md:grid-cols-2 mt-5 gap-5">
+                <div className="grid md:grid-cols-2 items-end mt-10 gap-10">
                     <DepartmentWiseChart />
                     <StaffPositionChart />
                     <TicketStatusChart />
                     <TicketPriorityChart />
-                    <StaffAttendanceChart/>
+                    <StaffAttendanceChart />
         </div>
     </div>
     </>);

@@ -8,11 +8,12 @@ interface NavbarItemsProps {
     itemInfo : [React.ReactNode, string],
     dropInfo : Array<Array<string>>
 }
+
 const NavbarItems = ({DropMenu , itemInfo , dropInfo} : NavbarItemsProps) => {
     const [openMenus, setOpenMenus] = useState(false);
 
     return (<>
-        <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
+                <li><NavLink className={({ isActive }) => ` ${isActive ? "bg-[#ebebeb]! text-blue-600" : ""}`} to={itemInfo[1]} onClick={(e) => { setOpenMenus(!openMenus); if(DropMenu){e.preventDefault();} }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
                 {DropMenu? openMenus ? <IoIosArrowUp/> : <IoIosArrowBack/> :"" }
                 </NavLink>
             {openMenus && DropMenu && (
@@ -34,6 +35,29 @@ const NavbarItems = ({DropMenu , itemInfo , dropInfo} : NavbarItemsProps) => {
                 </ul>
                     )}
             </li>
+
+        {/* <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
+                {DropMenu? openMenus ? <IoIosArrowUp/> : <IoIosArrowBack/> :"" }
+                </NavLink>
+            {openMenus && DropMenu && (
+                
+                <ul className="bg-white">
+                    {
+                        dropInfo.map((info, index) => (
+                            <li key={index}>
+                                <NavLink className={({isActive})=> ` py-3! px-6! ${isActive?  " text-blue-600":""}`} to={info[1]}>
+                                    {info[0]}
+                                    <GoDotFill/>
+                                </NavLink>
+                            </li>
+                        ))
+                    }
+                    <li>
+
+                    </li>
+                </ul>
+                    )}
+            </li> */}
     </>);
 }
  

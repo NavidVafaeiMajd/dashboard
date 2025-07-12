@@ -3,13 +3,13 @@ import Chart from "react-apexcharts";
 const TicketPriorityChart = () => {
     return (
         <>
-                    <div className="text-left! desk-cart p-5">
+                    <div className="text-left! desk-cart p-1 md:p-5">
                 <Chart
                             type="pie"
                             series={[0, 1 , 2,1]}
                             options={{
                                 chart: {
-                                    fontFamily: 'Tahoma',
+                                    fontFamily: 'myFirstFont',
                                     
                                 },
                                 labels: ["کم" , "متوسط" , "زیاد" , "خیلی زیاد"],
@@ -17,7 +17,7 @@ const TicketPriorityChart = () => {
                                     text: 'اولویت درخواست پشتیبانی',
                                     align: 'right',
                                     style: {
-                                        fontFamily: 'Tahoma',
+                                        fontFamily: 'myFirstFont',
                                         
                                     }
                                  },

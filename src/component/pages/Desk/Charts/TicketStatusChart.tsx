@@ -3,13 +3,16 @@ import Chart from "react-apexcharts";
 const TicketStatusChart = () => {
     return (
         <>
-                    <div className="text-left! desk-cart p-5">
+                    <div className="text-left! desk-cart p-1 md:p-5">
                 <Chart
                             type="donut"
                             series={[4, 0]}
-                            options={{
+                    options={{
+                                dataLabels: {
+                                    enabled: true,
+                                },
                                 chart: {
-                                    fontFamily: 'Tahoma',
+                                    fontFamily: 'myFirstFont',
                                     
                                 },
                                 labels: ["باز کردن" , " بسته شدن" ],
@@ -17,7 +20,7 @@ const TicketStatusChart = () => {
                                     text: 'وضعیت درخواست پشتیبانی',
                                     align: 'right',
                                     style: {
-                                        fontFamily: 'Tahoma',
+                                        fontFamily: 'myFirstFont',
                                     }
                                  },
                                 colors: ["#199afb", "#00e396"],
