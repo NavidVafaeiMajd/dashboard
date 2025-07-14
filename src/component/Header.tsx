@@ -80,7 +80,7 @@ const Header: React.FC<ChildProps>  = ({headerMenu})  => {
                             </a>
                         </div>
                         <div id="mobile-menu-header">
-                            <AiOutlineMenu onClick={headerMenu} className="w-8 h-8 md:hidden"/>
+                            <AiOutlineMenu onClick={headerMenu} className="w-8 h-8 lg:hidden"/>
                         </div>
                     </div>
                 </div>

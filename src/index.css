@@ -38,6 +38,7 @@ div#navbar-content ul li a:hover{
 @theme{
   --color-primary: #1E824C;
   --color-navbar : #e1f0f0;
+  --color-cupurple : #7267EF;
 }
 @media (prefers-color-scheme: light) {
   :root {
