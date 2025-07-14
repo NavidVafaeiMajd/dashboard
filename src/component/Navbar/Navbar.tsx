@@ -22,7 +22,7 @@ const Navbar = () => {
             <div id="navbar-content" className="lg:h-[calc(100vh-110px)]! h-full z-10 fixed w-[70%] mt-1 lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow-xl" style={{ direction: 'ltr', textAlign: 'right' }}>
                 <ul>
                     <NavbarItems DropMenu={false} itemInfo={[<> <CiHome className='w-7 h-7'/> پیشخـوان</>, "/"]} dropInfo={[]} />
-                    <NavbarItems DropMenu={false} itemInfo={[<> <FiUsers className='w-7 h-7'/> پرسنل</>, "/personnel"]} dropInfo={[]} />
+                    <NavbarItems DropMenu={false} itemInfo={[<> <FiUsers className='w-7 h-7'/> پرسنل</>, "/staff"]} dropInfo={[]} />
                     <NavbarItems DropMenu={true} itemInfo={[<> <TfiTarget className='w-7 h-7'/> مدیریت منابع انسانی</> , "managment"]} dropInfo={[["واحد سازمانی " , "managment/vahed"] , ["سمت سازمانی" , "managment/semat"] , ["خط مشی ها" , "managment/khat"] ,["ابلاغیه" , "managment/eblaghie"] , ["چارت سازمانی " , "managment/chart"]]}/>
                     <NavbarItems DropMenu={true} itemInfo={[<> <GoClock className='w-7 h-7'/> حضور و غیاب</>, "/hozoor"]} dropInfo={[[" حضور و غیاب " , "hozoor"]]} />
                     <NavbarItems DropMenu={false} itemInfo={[<> <MdPayment className='w-7 h-7'/>حساب بانکی </>, "/hesab"]} dropInfo={[]} />

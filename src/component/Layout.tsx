@@ -3,8 +3,9 @@ import Navbar from './Navbar/Navbar';
 import Desk from './pages/Desk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import Personnel from './pages/personnel/personnel';
-
+import LayoutStaffList from './pages/StaffList/LayoutStaffList';
+import StaffList from './pages/StaffList/StaffList';
+import SetRoles from './pages/StaffList/SetRoles';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -27,7 +28,10 @@ const Layout = () => {
                         <div className='lg:w-[85%] overflow-auto  px-5 md:px-10'>
                         <Routes>
                                 <Route path="/" element={<Desk />} />
-                                <Route path="/personnel" element={<Personnel />} />
+                                <Route path="/staff" element={<LayoutStaffList />} >
+                                    <Route index element={<StaffList />} />
+                                    <Route path='staff/set-roles' element={<SetRoles/>} />
+                                </Route>
                         </Routes>
                         </div>
                     </div>

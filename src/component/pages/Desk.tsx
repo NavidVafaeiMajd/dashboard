@@ -4,7 +4,7 @@ import DepartmentWiseChart from './Desk/Charts/DepartmentWiseChart';
 import StaffPositionChart from './Desk/Charts/StaffPositionChart';
 import TicketStatusChart from "./Desk/Charts/TicketStatusChart";
 import TicketPriorityChart from "./Desk/Charts/TicketPriorityChart";
-import StaffAttendanceChart from "./Desk/Charts/staffAttendanceChart";
+import StaffAttendanceChart from "./Desk/Charts/StaffAttendanceChart";
 import { useEffect } from "react";
 
 const Desk = () => {

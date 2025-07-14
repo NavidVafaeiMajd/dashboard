@@ -3,6 +3,11 @@
 @font-face {
   font-family: myFirstFont;
   src: url(./assets/fonts/_Woff2/KalamehWeb-Regular.woff2);
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url(./assets/fonts/_Woff2/KalamehWeb-Bold.woff2);
   font-weight: bold;
 }
 
@@ -39,6 +44,8 @@ div#navbar-content ul li a:hover{
   --color-primary: #1E824C;
   --color-navbar : #e1f0f0;
   --color-cupurple : #7267EF;
+  --color-greenDark : #0EC497;
+  --color-greenLight : #DFF5E2;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -51,7 +58,6 @@ div#navbar-content ul li a:hover{
   background-color: rgba(255, 255, 255, 0.173) !important;
   border-radius: 100px;
 }
-
 
 
 /* some change in style of scrill bar */
@@ -105,4 +111,27 @@ text.apexcharts-title-text{
 
 g {
     font-family: 'myFirstFont' !important;
+}
+
+/* table style */
+th{
+  border: 1px solid #DBDBDB !important;
+  padding: 15px  !important;
+  font-weight: bold;
+}
+td{
+  padding: 20px  !important;
+}
+tr:not(:last-child){
+  border-bottom: 1px solid #DBDBDB !important;
+}
+
+tbody tr:hover{
+  background-color: #FCFBFF;
+}
+.overlay-edit{
+  display: none;
+}
+tbody tr:hover .overlay-edit{
+  display: flex;
 }
