@@ -135,3 +135,11 @@ tbody tr:hover{
 tbody tr:hover .overlay-edit{
   display: flex;
 }
+
+:disabled{
+  opacity: .5;
+  cursor: not-allowed;
+}
+button{
+  cursor: pointer;
+}
