@@ -23,6 +23,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+:disabled{
+  opacity: .5;
+  cursor: not-allowed;
+}
+button{
+  cursor: pointer;
+}
+
 div#navbar-content ul li a{
     text-align: right;
     padding: 10px 40px;
@@ -46,6 +54,8 @@ div#navbar-content ul li a:hover{
   --color-cupurple : #7267EF;
   --color-greenDark : #0EC497;
   --color-greenLight : #DFF5E2;
+  --color-bgBack : #FFF7FA;
+  --color-border : #DBDBDB;
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -135,11 +145,13 @@ tbody tr:hover{
 tbody tr:hover .overlay-edit{
   display: flex;
 }
+.accordion{
+  transition: all .5s ease-in-out;
+  transition-delay: 250ms;
 
-:disabled{
-  opacity: .5;
-  cursor: not-allowed;
 }
-button{
-  cursor: pointer;
+.file-input::before{
+  content: "Browse";
+  background: #F0F2F8;
+  padding: 10px;
 }
