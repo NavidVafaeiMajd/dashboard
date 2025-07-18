@@ -1,7 +1,7 @@
 
 import { useEffect } from "react";
-import Breadcrumb from "../breadcrumb";
-import Smartwizard from "../Smartwizard";
+import Breadcrumb from "../../breadcrumb";
+import Smartwizard from "../../Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";

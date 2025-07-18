@@ -3,9 +3,9 @@ import Navbar from './Navbar/Navbar';
 import Desk from './pages/Desk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import LayoutStaffList from './pages/StaffList/LayoutStaffList';
-import StaffList from './pages/StaffList/StaffList';
-import SetRoles from './pages/StaffList/SetRoles';
+import LayoutStaffList from './pages/Staff/StaffList/LayoutStaffList';
+import StaffList from './pages/Staff/StaffList/StaffList';
+import SetRoles from './pages/Staff/SetRoles/SetRoles';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);

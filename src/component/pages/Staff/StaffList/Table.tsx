@@ -70,7 +70,7 @@ const Table: React.FC = () => {
                             <div>
                                 <label>
                                     نمایش ورودی های
-                                    <select value={itemsPerPage} onChange={(e)=>{ setItemsPerPage(Number(e.target.value));setCurrentPage(1);}} name="table-lenght" id="table-lenght" className="border-1 bg-white border-black/10 p-2 py-1 rounded-sm m-1 cursor-pointer">
+                                    <select value={itemsPerPage} onChange={(e)=>{ setItemsPerPage(Number(e.target.value));setCurrentPage(1);}} name="table-lenght" id="table-lenght" className="border-1 bg-white border-black/10 p-2! py-1! outline-none! rounded-sm m-1 cursor-pointer w-auto!">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>

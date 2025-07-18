@@ -155,3 +155,32 @@ tbody tr:hover .overlay-edit{
   background: #F0F2F8;
   padding: 10px;
 }
+
+input{
+  border: 1px dashed var(--color-border);
+  transition: all .1s ease-in-out;
+  padding: 10px 15px;
+  background-color: white;
+}
+input:focus{
+  outline: none;
+  border: 1px dashed var(--color-cupurple);
+}
+
+select{
+  width: 100%;
+    padding: 9px 15px;
+  border: 1px solid var(--color-border);
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: solid var(--color-blue-100);
+  background-color: white;
+}
+button[type="submit"] , button[type="reset"]{
+  background: var(--color-greenDark) !important;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px var(--color-border);
+}
