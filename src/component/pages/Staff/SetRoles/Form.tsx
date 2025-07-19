@@ -1,11 +1,16 @@
 import { FaMinus } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
+import { useState } from "react";
+import PermissionsTree from "./PermissionsTree/PermissionsTree";
+import { staffPermissions } from "./PermissionsTree/permissionsData";
 
 interface Props {
     accordion: boolean,
     setAccordion : React.Dispatch<React.SetStateAction<boolean>>
 }
 const Form = ({ accordion , setAccordion} : Props) => {
+
+    const [showChildern, setShowChildern] = useState(false);
 
     return (
         <>
@@ -20,8 +25,41 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                     مخفی
                                 </button>
                             </div> 
-                            <div className="p-5 flex flex-col gap-5">
-                                <div className="grid grid-cols-2 gap-10">
+                            <div className="p-5 grid grid-cols-6 gap-10">
+                                <div className="col-span-2">
+                                    <div>
+                                        <label htmlFor="">نام
+                                            <span className="text-red-500">*</span>
+                                            <div className="flex my-2">
+                                                <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
+                                                <input type="text" className="w-full" placeholder="نام"/>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label htmlFor="">
+                                            جنسیت 
+                                            <select name="" id="" className="">
+                                                <option value="">اقا</option>
+                                                <option value="hh">خانم</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="col-span-4 grid grid-cols-2 gap-4">
+                                    <div className="text-lg!">
+                                        <label htmlFor="" className="">
+                                            <h2 className="text-greenDark bg-greenLight w-full py-4 px-2">سطح دسترسی کارکنان</h2>
+                                            <div>
+                                                <PermissionsTree  data={staffPermissions} onChange={(selected) => {console.log("Selected permissions:", selected);}}/>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <PermissionsTree  data={staffPermissions} onChange={(selected) => {console.log("Selected permissions:", selected);}}/>
+                                    </div>
+                                </div>
+                                {/* <div className="grid grid-cols-2 gap-10">
                                     <div>
                                         <label htmlFor="">نام
                                             <span className="text-red-500">*</span>
@@ -161,12 +199,15 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                             </select>
                                         </label>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="border-t-1 border-border bg-white p-5 flex gap-3">
                                 <button type="reset">بازنشانی</button>
                                 <button type="submit">ذخیره</button>
                             </div>
+                        </div>
+                        <div>
+                            
                         </div>
                     </form>
                 </div>

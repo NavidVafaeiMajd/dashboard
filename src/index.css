@@ -187,3 +187,7 @@ text.apexcharts-title-text{
 g {
     font-family: 'myFirstFont' !important;
 }
+input[type="checkbox"]:checked {
+  fill: var(--color-greenDark) !important;
+  color: var(--color-greenLight) !important;
+ }
