@@ -24,7 +24,7 @@ const LayoutStaffList = () => {
             <div className=''>
                 <div className="">
                     <div>
-                        <Smartwizard data={ [[<><FaUserFriends className="w-7 h-7"/></> , "/staff" , "پرسنل" ,"تنظیمات پرسنل"] , [<><FaUserLock className="w-7 h-7"/></> , "staff/set-roles" , "سطح دسترسی ها" ,"سطح دسترسی  نقشها"]  , [<><FaRegClock className="w-7 h-7"/></> , "fdsf" , "شیفت و برنامه ریزی" ," شیفت ها"]  , [<><IoMdExit className="w-7 h-7"/></> , "fdsf" , "انفصال از خدمت" ,"تنظیمات انفصال از خدمت"]  ] } />
+                        <Smartwizard data={ [[<><FaUserFriends className="w-7 h-7"/></> , "/staff" , "پرسنل" ,"تنظیمات پرسنل"] , [<><FaUserLock className="w-7 h-7"/></> , "set-roles" , "سطح دسترسی ها" ,"سطح دسترسی  نقشها"]  , [<><FaRegClock className="w-7 h-7"/></> , "office-shifts" , "شیفت و برنامه ریزی" ," شیفت ها"]  , [<><IoMdExit className="w-7 h-7"/></> , "employ-exit" , "انفصال از خدمت" ,"تنظیمات انفصال از خدمت"]  ] } />
                     </div>
                 </div>
                 <div>

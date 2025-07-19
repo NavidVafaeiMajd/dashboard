@@ -9,7 +9,7 @@ const Form = ({ accordion , setAccordion} : Props) => {
 
     return (
         <>
-                        <div className={`accordion  ${accordion? " mb-10 show": "h-0 hidden"}`}>
+            <div className={`accordion  ${accordion? " mb-10 show": "h-0 hidden"}`}>
                 <div className="">
                     <form action="" className="gap-5 h-full">
                         <div className="col-span-4 shadow-md bg-bgBack">

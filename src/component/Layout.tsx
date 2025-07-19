@@ -6,6 +6,8 @@ import { useState } from 'react';
 import LayoutStaffList from './pages/Staff/LayoutStaffList';
 import StaffList from './pages/Staff/StaffList/StaffList';
 import SetRoles from './pages/Staff/SetRoles/SetRoles';
+import OfficeShifts from './pages/Staff/OfficeShifts/OfficeShifts';
+import EmployExit from './pages/Staff/EmployExit/EmployExit';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -30,7 +32,10 @@ const Layout = () => {
                                 <Route path="/" element={<Desk />} />
                                 <Route path="staff" element={<LayoutStaffList />} >
                                     <Route index element={<StaffList />} />
-                                    <Route path='staff/set-roles' element={<SetRoles/>} />
+                                    <Route path='set-roles' element={<SetRoles />} />
+                                    <Route path='office-shifts' element={<OfficeShifts/>} />
+                                    <Route path='employ-exit' element={<EmployExit/>} />
+
                                 </Route>
                         </Routes>
                         </div>
