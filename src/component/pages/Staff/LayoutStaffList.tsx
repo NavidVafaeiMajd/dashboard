@@ -1,17 +1,20 @@
 
-import { useEffect } from "react";
-import Breadcrumb from "../../breadcrumb";
-import Smartwizard from "../../Smartwizard";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Breadcrumb from "../breadcrumb";
+import Smartwizard from "../Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import { IoMdExit } from "react-icons/io";
 import { Outlet } from "react-router-dom";
 const LayoutStaffList = () => {
-    const title = "پرسنل";
+    const location = useLocation();
+    const [title, setTitle] = useState(document.title);
+
     useEffect(() => {
-    document.title = title;
-  }, []);
+        setTitle(document.title);
+    }, [location.pathname]); 
 
     return (
         <>

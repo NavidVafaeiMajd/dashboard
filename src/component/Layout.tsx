@@ -3,7 +3,7 @@ import Navbar from './Navbar/Navbar';
 import Desk from './pages/Desk';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import LayoutStaffList from './pages/Staff/StaffList/LayoutStaffList';
+import LayoutStaffList from './pages/Staff/LayoutStaffList';
 import StaffList from './pages/Staff/StaffList/StaffList';
 import SetRoles from './pages/Staff/SetRoles/SetRoles';
 
@@ -28,7 +28,7 @@ const Layout = () => {
                         <div className='lg:w-[85%] overflow-auto  px-5 md:px-10'>
                         <Routes>
                                 <Route path="/" element={<Desk />} />
-                                <Route path="/staff" element={<LayoutStaffList />} >
+                                <Route path="staff" element={<LayoutStaffList />} >
                                     <Route index element={<StaffList />} />
                                     <Route path='staff/set-roles' element={<SetRoles/>} />
                                 </Route>
