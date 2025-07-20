@@ -11,6 +11,9 @@
   font-weight: bold;
 }
 
+.custom-toast-font{
+  font-family: myFirstFont;
+}
 :root {
   font-family: myFirstFont , system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
