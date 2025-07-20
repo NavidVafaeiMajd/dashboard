@@ -7,7 +7,7 @@ const Smartwizard = ({data} :dataProps) => {
     return (
         <>
 
-            <div id="smartwizard" className="flex mt-10 mb-5 justify-around border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md" >
+            <div id="smartwizard" className="flex flex-wrap gap-5 mt-10 mb-5 justify-around border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md" >
                 {data.map((item , index) => (
                     <div>
                         <NavLink key={index} to={item[1]} className={({isActive})=>` flex items-center gap-5 ${isActive && "text-cupurple"} hover:text-cupurple`} end>

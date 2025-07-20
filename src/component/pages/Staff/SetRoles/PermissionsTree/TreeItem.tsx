@@ -1,5 +1,7 @@
 import { useState } from "react";
 import type { PermissionItem } from "./permissionsData";
+import { IoMdArrowDroprightCircle } from "react-icons/io";
+import { IoMdArrowDropdownCircle } from "react-icons/io";
 
 interface Props {
   item: PermissionItem;
@@ -12,13 +14,15 @@ const TreeItem  = ({item , selected , onSelect} : Props) => {
 
     return (
         <>
-            <div>
+            <div >
                 <ul>
                     <li className="border-b-1 border-dashed border-border p-2">
-                        {hasChildren && <button onClick={(e)=>{setShowChildern(!showChildern) ; e.preventDefault() }} >🔽🔼</button> }
-                        {item.label}
-                        <input type="checkbox" checked={selected.includes(item.id)} onChange={() => onSelect(item.id)} name="" id="" />
-                        {showChildern && hasChildren && (
+                        <div className="flex items-center gap-2">
+                            {hasChildren && <button className="" onClick={(e)=>{setShowChildern(!showChildern) ; e.preventDefault() }} >{!showChildern ? <IoMdArrowDroprightCircle className="w-5 h-5"/> : <IoMdArrowDropdownCircle className="w-5 h-5"/>}</button> }
+                            {item.label}
+                            <input type="checkbox" checked={selected.includes(item.id)} onChange={() => onSelect(item.id)} name={item.label} id="" />
+                        </div>
+                        {showChildern && hasChildren && item.children &&item.children.length > 0 && (
                             <>
                                 {item.children.map((child ) => (
                                     <TreeItem

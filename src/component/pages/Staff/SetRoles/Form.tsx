@@ -1,16 +1,13 @@
 import { FaMinus } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { useState } from "react";
 import PermissionsTree from "./PermissionsTree/PermissionsTree";
-import { staffPermissions } from "./PermissionsTree/permissionsData";
+import { staffPermissions , managePermissions } from "./PermissionsTree/permissionsData";
 
 interface Props {
     accordion: boolean,
     setAccordion : React.Dispatch<React.SetStateAction<boolean>>
 }
 const Form = ({ accordion , setAccordion} : Props) => {
-
-    const [showChildern, setShowChildern] = useState(false);
 
     return (
         <>
@@ -28,20 +25,20 @@ const Form = ({ accordion , setAccordion} : Props) => {
                             <div className="p-5 grid grid-cols-6 gap-10">
                                 <div className="col-span-2">
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">نام سطح دسترسی 
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
                                                 <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
-                                                <input type="text" className="w-full" placeholder="نام"/>
+                                                <input type="text" className="w-full" placeholder="نام سطح دسترسی "/>
                                             </div>
                                         </label>
                                     </div>
                                     <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            انتخاب دسترسی  
                                             <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
+                                                <option value="">دسترسی به کل منو</option>
+                                                <option value="">دسترسی به منو سفارشی</option>
                                             </select>
                                         </label>
                                     </div>
@@ -50,14 +47,20 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                     <div className="text-lg!">
                                         <label htmlFor="" className="">
                                             <h2 className="text-greenDark bg-greenLight w-full py-4 px-2">سطح دسترسی کارکنان</h2>
-                                            <div>
+                                            <div className="bg-white border-4 border-border">
                                                 <PermissionsTree  data={staffPermissions} onChange={(selected) => {console.log("Selected permissions:", selected);}}/>
                                             </div>
                                         </label>
                                     </div>
-                                    <div>
-                                        <PermissionsTree  data={staffPermissions} onChange={(selected) => {console.log("Selected permissions:", selected);}}/>
+                                    <div className="text-lg!">
+                                        <label htmlFor="" className="">
+                                            <h2 className="text-greenDark bg-greenLight w-full py-4 px-2"> سطح دسترسی مدیر </h2>
+                                            <div className="bg-white border-4 border-border">
+                                                <PermissionsTree  data={managePermissions} onChange={(selected) => {console.log("Selected permissions:", selected);}}/>
+                                            </div>
+                                        </label>
                                     </div>
+
                                 </div>
                                 {/* <div className="grid grid-cols-2 gap-10">
                                     <div>

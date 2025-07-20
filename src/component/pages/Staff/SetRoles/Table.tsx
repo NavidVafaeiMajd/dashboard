@@ -66,9 +66,9 @@ const Table: React.FC = () => {
 
     return (
         <>
-                <div className="py-5 p-10">
+                <div className="py-5 p-2 md:p-10">
                     <div>
-                        <div className="grid grid-cols-2 items-center justify-center">
+                        <div className="grid md:grid-cols-2 items-center justify-center">
                             <div>
                                 <label>
                                     نمایش ورودی های

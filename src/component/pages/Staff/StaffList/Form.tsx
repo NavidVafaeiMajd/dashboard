@@ -1,6 +1,8 @@
 import { FaMinus } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
+import { MdEmail } from "react-icons/md";
+import { FaEyeSlash } from "react-icons/fa";
 
 interface Props {
     accordion: boolean,
@@ -21,7 +23,7 @@ const Form = ({ accordion , setAccordion} : Props) => {
         <>
                         <div className={`accordion  ${accordion? " mb-10 show": "h-0 hidden"}`}>
                 <div className="">
-                    <form action="" className="grid grid-cols-6 gap-5  h-full">
+                    <form action="" className="grid md:grid-cols-6 gap-5  h-full">
                         <div className="col-span-4 shadow-md bg-bgBack">
                             <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13">
                                 <h2>ثبت جدید کارمند</h2>
@@ -31,9 +33,9 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                 </button>
                             </div> 
                             <div className="p-5 flex flex-col gap-5">
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid md:grid-cols-2 gap-10">
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">نام 
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
                                                 <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
@@ -42,7 +44,7 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                         </label>
                                     </div>
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">نام خانوداگی
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
                                                 <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
@@ -51,20 +53,20 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-3 gap-10">
+                                <div className="grid md:grid-cols-3 gap-10">
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">کد پرسنلی
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <input type="text" className="w-full" placeholder="کد پرسنلی" />
                                             </div>
                                         </label>
                                     </div>
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">شماره تماس
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <input type="text" className="w-full" placeholder="شماره تماس" />
                                             </div>
                                         </label>
                                     </div>
@@ -78,12 +80,13 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid md:grid-cols-2 gap-10">
                                     <div>
                                         <label htmlFor="">ایمیل
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <MdEmail className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
+                                                <input type="text" className="w-full" placeholder="ایمیل" />
                                             </div>
                                         </label>
                                     </div>
@@ -91,52 +94,54 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                         <label htmlFor="">نام کاربری
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
+                                                <input type="text" className="w-full" placeholder="نام کاربری" />
                                             </div>
                                         </label>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-3 gap-10">
+                                <div className="grid md:grid-cols-3 gap-10">
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">رمز عبور
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <FaEyeSlash className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13"/>
+                                                <input type="text" className="w-full" placeholder="رمز عبور" />
                                             </div>
                                         </label>
                                     </div>
                                   <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            شیفت اداره 
                                             <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
+                                                <option value="">اداری</option>
+                                                <option value="hh">ستادی</option>
                                             </select>
                                         </label>
                                     </div>
                                     <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            سطح دسترسی 
                                             <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
+                                                <option value="">مدیر</option>
+                                                <option value="hh">کارمند</option>
                                             </select>
                                         </label>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid md:grid-cols-2 gap-10">
                                   <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            واحد سازمانی 
                                             <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
+                                                <option value="">فناوری اطلاعات</option>
+                                                <option value="hh">مالی و اقتصادی</option>
                                             </select>
                                         </label>
                                     </div>
                                     <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            سمت سازمانی 
                                             <select name="" id="" className="">
                                                 <option value="">اقا</option>
                                                 <option value="hh">خانم</option>
@@ -144,30 +149,28 @@ const Form = ({ accordion , setAccordion} : Props) => {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-3 gap-10">
+                                <div className="grid md:grid-cols-3 gap-10">
                                     <div>
-                                        <label htmlFor="">نام
+                                        <label htmlFor="">دستمزد ماهیانه 
                                             <span className="text-red-500">*</span>
                                             <div className="flex my-2">
-                                                <input type="text" className="w-full" placeholder="نام خانوداگی" />
+                                                <input type="text" className="w-full" placeholder="دستمزد ماهیانه " />
                                             </div>
                                         </label>
                                     </div>
-                                  <div>
-                                        <label htmlFor="">
-                                            جنسیت 
-                                            <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
-                                            </select>
+                                    <div>
+                                        <label htmlFor="">دستمزد روزانه 
+                                            <span className="text-red-500">*</span>
+                                            <div className="flex my-2">
+                                                <input type="text" className="w-full" placeholder="دستمزد روزانه " />
+                                            </div>
                                         </label>
                                     </div>
                                     <div>
                                         <label htmlFor="">
-                                            جنسیت 
+                                            نوع فیش حقوقی 
                                             <select name="" id="" className="">
-                                                <option value="">اقا</option>
-                                                <option value="hh">خانم</option>
+                                                <option value="">هر ماه</option>
                                             </select>
                                         </label>
                                     </div>

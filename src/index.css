@@ -191,3 +191,29 @@ input[type="checkbox"]:checked {
   fill: var(--color-greenDark) !important;
   color: var(--color-greenLight) !important;
  }
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 10px !important;
+  padding: 10px !important;
+  margin:  none !important;
+  height: 20px;
+  cursor: pointer;
+  border: 2px solid gray;
+  border-radius: 4px;
+  position: relative;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4f46e5; /* رنگ بنفش */
+  border-color: #4f46e5;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  position: absolute;
+  left: 3px;
+  top: -1px;
+  font-size: 14px;
+  color: white;
+}
