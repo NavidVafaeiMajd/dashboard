@@ -179,6 +179,7 @@ const Table: React.FC = () => {
       <DataTable
          columns={userColumns}
          data={data}
+         searchableKeys={["name", "position", "phone", "accessLevel"]}
       />
    );
 };

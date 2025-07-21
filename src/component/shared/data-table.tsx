@@ -21,21 +21,27 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { SearchInput } from "./SearchInput";
+import { PageSizeSelector } from "./PageSizeSelector";
 
 interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
+   searchableKeys?: (keyof TData)[];
 }
 
 export function DataTable<TData, TValue>({
    columns,
    data,
+   searchableKeys,
 }: DataTableProps<TData, TValue>) {
    const [sorting, setSorting] = useState<SortingState>([]);
    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+   const [filteredData, setFilteredData] = useState<TData[]>(data);
+   const [pageSize, setPageSize] = useState(10);
 
    const table = useReactTable({
-      data,
+      data: filteredData,
       columns,
       getCoreRowModel: getCoreRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
@@ -46,14 +52,40 @@ export function DataTable<TData, TValue>({
       state: {
          sorting,
          columnFilters,
+         pagination: {
+            pageSize,
+            pageIndex: 0,
+         },
+      },
+      onPaginationChange: (updater) => {
+         const newState =
+            typeof updater === "function"
+               ? updater({ pageSize, pageIndex: 0 })
+               : updater;
+         setPageSize(newState.pageSize);
       },
    });
 
    return (
       <div
          dir="rtl"
-         className="rounded-md border overflow-x-auto"
+         className="rounded-md border overflow-x-auto pt-4"
       >
+         <div className="flex items-center justify-between gap-2 px-4 pb-2">
+            <PageSizeSelector
+               value={table.getState().pagination.pageSize}
+               onChange={(size) => {
+                  table.setPageSize(size);
+                  setPageSize(size);
+               }}
+            />
+            <SearchInput<TData>
+               data={data}
+               onFilter={setFilteredData}
+               searchableKeys={searchableKeys}
+            />
+         </div>
+
          <Table className="min-w-full">
             <TableHeader>
                {table.getHeaderGroups().map((headerGroup) => (
