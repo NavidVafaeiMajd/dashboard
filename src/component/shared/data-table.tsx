@@ -24,7 +24,7 @@ import { useState } from "react";
 import { SearchInput } from "./SearchInput";
 import { PageSizeSelector } from "./PageSizeSelector";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends Record<string, unknown>, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
    searchableKeys?: (keyof TData)[];

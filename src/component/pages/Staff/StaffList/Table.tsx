@@ -11,6 +11,7 @@ export interface User {
    country: string;
    accessLevel: "admin" | "user" | "guest";
    status: "active" | "inactive" | "pending";
+   [key: string]: unknown;
 }
 
 const Table: React.FC = () => {
@@ -176,7 +177,7 @@ const Table: React.FC = () => {
    }, []);
 
    return (
-      <DataTable
+      <DataTable<User, unknown>
          columns={userColumns}
          data={data}
          searchableKeys={["name", "position", "phone", "accessLevel"]}
