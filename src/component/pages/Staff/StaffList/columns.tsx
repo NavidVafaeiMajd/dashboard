@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { User } from "./Table";
 import { Button } from "@/components/ui/button";
 import { LuArrowUpDown } from "react-icons/lu";
+import { cn } from "@/lib/utils";
 
 export const userColumns: ColumnDef<User>[] = [
    {
@@ -108,7 +109,18 @@ export const userColumns: ColumnDef<User>[] = [
       cell(props) {
          const status = props.getValue() as string;
          return (
-            <span>
+            <span
+               className={cn(
+                  status === "active"
+                     ? "bg-green-100 text-green-500"
+                     : status === "inactive"
+                     ? "bg-red-100 text-red-500"
+                     : status === "pending"
+                     ? "bg-yellow-100 text-yellow-500"
+                     : "",
+                  "p-2 rounded-sm"
+               )}
+            >
                {status === "active"
                   ? "فعال"
                   : status === "inactive"
@@ -152,6 +164,8 @@ export const userColumns: ColumnDef<User>[] = [
             </div>
          );
       },
-      header: "عملیات",
+      header: () => {
+         return <span className="font-normal">عملیات</span>;
+      },
    },
 ];

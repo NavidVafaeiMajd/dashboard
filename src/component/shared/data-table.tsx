@@ -109,26 +109,15 @@ export function DataTable<TData, TValue>({
             <TableBody>
                {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => {
-                     const status = (row.original as { status?: string })
-                        ?.status;
                      return (
                         <TableRow
                            key={row.id}
                            data-state={row.getIsSelected() && "selected"}
-                           className={
-                              status === "active"
-                                 ? "bg-green-100"
-                                 : status === "inactive"
-                                 ? "bg-red-100"
-                                 : status === "pending"
-                                 ? "bg-yellow-100"
-                                 : ""
-                           }
                         >
                            {row.getVisibleCells().map((cell) => (
                               <TableCell
                                  key={cell.id}
-                                 className="text-right whitespace-nowrap px-4 py-2"
+                                 className="text-center whitespace-nowrap px-4 py-2"
                               >
                                  {flexRender(
                                     cell.column.columnDef.cell,
