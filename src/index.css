@@ -334,3 +334,7 @@ input[type="checkbox"]:checked::after {
     @apply bg-background text-foreground;
   }
 }
+
+.react-timekeeper.css-1opryko-timepicker {
+    direction: ltr;
+}

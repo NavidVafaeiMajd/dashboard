@@ -8,6 +8,7 @@ import StaffList from './pages/Staff/StaffList/StaffList';
 import SetRoles from './pages/Staff/SetRoles/SetRoles';
 import OfficeShifts from './pages/Staff/OfficeShifts/OfficeShifts';
 import EmployExit from './pages/Staff/EmployExit/EmployExit';
+import { ToastContainer } from 'react-toastify';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -17,7 +18,9 @@ const Layout = () => {
     };
     return (
     <>
-              <main className='w-full! min-h-screen flex flex-col'>
+    
+            <main className='w-full! min-h-screen flex flex-col'>
+                      <ToastContainer toastClassName="custom-toast-font" position="top-right" />
                     <div className='fixed z-100 w-full'>
                     <Header headerMenu={handleDataFromChild} />
                     </div>
