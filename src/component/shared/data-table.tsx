@@ -24,13 +24,13 @@ import { useState } from "react";
 import { SearchInput } from "./SearchInput";
 import { PageSizeSelector } from "./PageSizeSelector";
 
-interface DataTableProps<TData extends Record<string, unknown>, TValue> {
+interface DataTableProps<TData, TValue> {
    columns: ColumnDef<TData, TValue>[];
    data: TData[];
    searchableKeys?: (keyof TData)[];
 }
 
-export function DataTable<TData extends Record<string, unknown>, TValue>({
+export function DataTable<TData, TValue>({
    columns,
    data,
    searchableKeys,
@@ -109,7 +109,8 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
             <TableBody>
                {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => {
-                     const status = row.original.status;
+                     const status = (row.original as { status?: string })
+                        ?.status;
                      return (
                         <TableRow
                            key={row.id}
