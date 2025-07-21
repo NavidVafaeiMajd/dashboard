@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { FaArrowRightLong } from "react-icons/fa6";
-import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
-import { sortBy } from "../../../../lib/helpers";
 import { DataTable } from "@/component/shared/data-table";
 import { userColumns } from "./columns";
 

@@ -4,7 +4,7 @@ import Table from "./Table";
 import { GoPlus } from "react-icons/go";
 
 const SetRoles = () => {
-    const title = "پرسنل";
+    const title = "نقش های کارکنان";
     useEffect(() => {
     document.title = title;
     }, []);
