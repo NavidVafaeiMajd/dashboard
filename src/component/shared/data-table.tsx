@@ -18,6 +18,7 @@ import {
    TableHeader,
    TableRow,
 } from "@/components/ui/table";
+
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -49,23 +50,27 @@ export function DataTable<TData, TValue>({
    });
 
    return (
-      <div className="rounded-md border">
-         <Table>
+      <div
+         dir="rtl"
+         className="rounded-md border overflow-x-auto"
+      >
+         <Table className="min-w-full">
             <TableHeader>
                {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
-                     {headerGroup.headers.map((header) => {
-                        return (
-                           <TableHead key={header.id}>
-                              {header.isPlaceholder
-                                 ? null
-                                 : flexRender(
-                                      header.column.columnDef.header,
-                                      header.getContext()
-                                   )}
-                           </TableHead>
-                        );
-                     })}
+                     {headerGroup.headers.map((header) => (
+                        <TableHead
+                           key={header.id}
+                           className="text-right whitespace-nowrap px-4 py-2"
+                        >
+                           {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                   header.column.columnDef.header,
+                                   header.getContext()
+                                )}
+                        </TableHead>
+                     ))}
                   </TableRow>
                ))}
             </TableHeader>
@@ -77,7 +82,10 @@ export function DataTable<TData, TValue>({
                         data-state={row.getIsSelected() && "selected"}
                      >
                         {row.getVisibleCells().map((cell) => (
-                           <TableCell key={cell.id}>
+                           <TableCell
+                              key={cell.id}
+                              className="text-right whitespace-nowrap px-4 py-2"
+                           >
                               {flexRender(
                                  cell.column.columnDef.cell,
                                  cell.getContext()
@@ -98,22 +106,27 @@ export function DataTable<TData, TValue>({
                )}
             </TableBody>
          </Table>
-         <div className="flex items-center justify-end space-x-2 py-4">
+
+         <div className="flex items-center justify-between gap-2 py-4 px-2 rtl:space-x-reverse">
             <Button
                variant="outline"
                size="sm"
                onClick={() => table.previousPage()}
                disabled={!table.getCanPreviousPage()}
             >
-               Previous
+               قبلی
             </Button>
+            <span className="text-sm text-muted-foreground">
+               صفحه {table.getState().pagination.pageIndex + 1} از{" "}
+               {table.getPageCount()}
+            </span>
             <Button
                variant="outline"
                size="sm"
                onClick={() => table.nextPage()}
                disabled={!table.getCanNextPage()}
             >
-               Next
+               بعدی
             </Button>
          </div>
       </div>
