@@ -69,7 +69,7 @@ export function DataTable<TData, TValue>({
    return (
       <div
          dir="rtl"
-         className="rounded-md border overflow-x-auto pt-4"
+         className="rounded-md border pt-4"
       >
          <div className="flex items-center justify-between gap-2 px-4 pb-2">
             <PageSizeSelector
