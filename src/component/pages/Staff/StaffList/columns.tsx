@@ -105,6 +105,18 @@ export const userColumns: ColumnDef<User>[] = [
    },
    {
       accessorKey: "status",
+      cell(props) {
+         const status = props.getValue() as string;
+         return (
+            <span>
+               {status === "active"
+                  ? "فعال"
+                  : status === "inactive"
+                  ? "غیرفعال"
+                  : "در حال بررسی"}
+            </span>
+         );
+      },
       header: ({ column }) => {
          return (
             <Button

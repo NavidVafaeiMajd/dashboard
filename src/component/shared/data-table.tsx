@@ -87,7 +87,7 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
          </div>
 
          <Table className="min-w-full">
-            <TableHeader>
+            <TableHeader className="bg-[#F9FBE4]">
                {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                      {headerGroup.headers.map((header) => (
@@ -108,24 +108,36 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
             </TableHeader>
             <TableBody>
                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                     <TableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
-                     >
-                        {row.getVisibleCells().map((cell) => (
-                           <TableCell
-                              key={cell.id}
-                              className="text-right whitespace-nowrap px-4 py-2"
-                           >
-                              {flexRender(
-                                 cell.column.columnDef.cell,
-                                 cell.getContext()
-                              )}
-                           </TableCell>
-                        ))}
-                     </TableRow>
-                  ))
+                  table.getRowModel().rows.map((row) => {
+                     const status = row.original.status;
+                     return (
+                        <TableRow
+                           key={row.id}
+                           data-state={row.getIsSelected() && "selected"}
+                           className={
+                              status === "active"
+                                 ? "bg-green-100"
+                                 : status === "inactive"
+                                 ? "bg-red-100"
+                                 : status === "pending"
+                                 ? "bg-yellow-100"
+                                 : ""
+                           }
+                        >
+                           {row.getVisibleCells().map((cell) => (
+                              <TableCell
+                                 key={cell.id}
+                                 className="text-right whitespace-nowrap px-4 py-2"
+                              >
+                                 {flexRender(
+                                    cell.column.columnDef.cell,
+                                    cell.getContext()
+                                 )}
+                              </TableCell>
+                           ))}
+                        </TableRow>
+                     );
+                  })
                ) : (
                   <TableRow>
                      <TableCell
