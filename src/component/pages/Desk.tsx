@@ -11,7 +11,7 @@ const Desk = () => {
         const title = "پیشخوان";
         useEffect(() => {
         document.title = title;
-      }, []);
+        }, []);
     return (
     <>
     <div className="min-h-200 py-10">

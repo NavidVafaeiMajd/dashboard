@@ -7,9 +7,17 @@ import { toast, ToastContainer } from "react-toastify";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
+// فرمت‌های مجاز عکس
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp"
+];
 
 //shema
 const schema = z.object({
@@ -71,18 +79,24 @@ const schema = z.object({
     message: "لطفاً یک گزینه انتخاب کنید",
   }),
 
-
-  profileImage: z
-    .any()
-    .refine((file) => file instanceof File, {
-      message: "آپلود فایل الزامی است",
-    })
-    .refine((file) => file?.size <= MAX_FILE_SIZE, {
-      message: "حجم فایل نباید بیشتر از ۵ مگابایت باشد",
-    })
-    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-      message: "فقط فرمت‌های JPG، JPEG و PNG مجاز هستند",
-    }),
+profileImage: z
+  .any()
+  .refine((files) => files instanceof FileList && files.length > 0, {
+    message: "فایل انتخاب نشده",
+  })
+  .refine((files) => {
+    const file = files[0];
+    return file && file.size <= MAX_FILE_SIZE;
+  }, {
+    message: "حجم فایل باید کمتر از ۲ مگابایت باشد",
+  })
+  .refine((files) => {
+    const file = files[0];
+    return file && ACCEPTED_IMAGE_TYPES.includes(file.type);
+  }, {
+    message: "فرمت فایل باید jpeg، jpg، png یا webp باشد",
+  }),
+  
 });
 
 
@@ -92,12 +106,16 @@ interface Props {
     accordion: boolean,
     setAccordion : React.Dispatch<React.SetStateAction<boolean>>
 }
+
+
 const Form = ({ accordion, setAccordion }: Props) => {
 
     const {
         register,
         handleSubmit,
         formState: { errors },
+        watch,
+
     } = useForm<FormData>({
         resolver: zodResolver(schema),
     });
@@ -106,22 +124,24 @@ const Form = ({ accordion, setAccordion }: Props) => {
         console.log("📦 Submitted Data:", data);
     };
     
-    const onError : SubmitErrorHandler<FormData> = (formErrors) => {
-        Object.values(formErrors).forEach((error) => {
-            toast.error(error.message);
-        });
-    };
 
-    const [fileName, setFileName] = useState(" انتخاب فایل...")
-    
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files;
-        if (file && file.length > 0) {
-            setFileName(file[0].name);
-        } else {
-            setFileName("انتخاب فایل ...");
-        }
+const onError: SubmitErrorHandler<FormData> = (formErrors) => {
+  Object.values(formErrors).forEach((error) => {
+    if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
+      toast.error(error.message);
     }
+  });
+};
+    const profileImage = watch("profileImage");
+  const [fileName, setFileName] = useState("انتخاب فایل...");
+
+  useEffect(() => {
+    if (profileImage && profileImage.length > 0) {
+      setFileName(profileImage[0].name);
+    } else {
+      setFileName("انتخاب فایل...");
+    }
+  }, [profileImage]);
 
     return (
         <>
@@ -129,7 +149,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
             
                         <div className={`accordion  ${accordion? " mb-10 show": "h-0 hidden"}`}>
                 <div className="">
-                    <form onSubmit={handleSubmit(onSubmit , onError)} className="grid md:grid-cols-6 gap-5  h-full">
+                    <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit , onError)} className="grid md:grid-cols-6 gap-5  h-full">
                         <div className="col-span-4 shadow-md bg-bgBack">
                             <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13">
                                 <h2>ثبت جدید کارمند</h2>
@@ -344,9 +364,9 @@ const Form = ({ accordion, setAccordion }: Props) => {
                                     </label>
                                         <input
                                         type="file"
-                                        accept=".jpg,.jpeg,.png"
+                                        accept="image/*"
                                         {...register("profileImage")}
-                                        id="fileInput" className="hidden " onChange={handleFileChange}
+                                        id="fileInput" className="hidden "
                                     />
                                     {errors.profileImage && (<><p className="text-red-500 text-sm">{ errors.profileImage.message }</p></>)}
                                 </div>

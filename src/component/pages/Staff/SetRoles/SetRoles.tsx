@@ -11,6 +11,7 @@ const SetRoles = () => {
 
     const [accordion, setAccordion] = useState(false);
 
+    console.log("salam")
     return (
         <>
             <Form accordion={accordion} setAccordion={ setAccordion }  />
