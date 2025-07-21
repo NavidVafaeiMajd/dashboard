@@ -2,13 +2,13 @@ import { Input } from "@/components/ui/input";
 import { FiSearch } from "react-icons/fi";
 import { useEffect, useMemo, useState } from "react";
 
-type SearchInputProps<T extends Record<string, any>> = {
+type SearchInputProps<T extends Record<string, unknown>> = {
    data: T[];
    onFilter: (filtered: T[]) => void;
    searchableKeys?: (keyof T)[];
 };
 
-export function SearchInput<T extends Record<string, any>>({
+export function SearchInput<T extends Record<string, unknown>>({
    data,
    onFilter,
    searchableKeys,

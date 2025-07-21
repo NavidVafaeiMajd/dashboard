@@ -30,7 +30,7 @@ interface DataTableProps<TData, TValue> {
    searchableKeys?: (keyof TData)[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends Record<string, unknown>, TValue>({
    columns,
    data,
    searchableKeys,
