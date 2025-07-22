@@ -1,3 +1,4 @@
+
 import Header from './Header';
 import Navbar from './Navbar/Navbar';
 import Desk from './pages/Desk';
@@ -10,8 +11,9 @@ import OfficeShifts from './pages/Staff/OfficeShifts/OfficeShifts';
 import EmployExit from './pages/Staff/EmployExit/EmployExit';
 import { ToastContainer } from 'react-toastify';
 
+
 const Layout = () => {
-    const [headerMenu, setheaderMenu] = useState<boolean>(false);
+   const [headerMenu, setheaderMenu] = useState<boolean>(false);
 
     const handleDataFromChild = () => {
         setheaderMenu(prev => !prev);
@@ -39,13 +41,4 @@ const Layout = () => {
                                     <Route path='office-shifts' element={<OfficeShifts/>} />
                                     <Route path='employ-exit' element={<EmployExit/>} />
 
-                                </Route>
-                        </Routes>
-                        </div>
-                    </div>
-                    </Router>
-                </main>
-    </>);
-}
- 
 export default Layout;
