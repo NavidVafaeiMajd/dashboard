@@ -117,6 +117,12 @@ const Form = ({ accordion, setAccordion }: Props) => {
     setActivePicker(null);
   };
 
+  const clearTime = (day: DayKey, type: TimeType) => {
+    setWeekTimes((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], [type]: "" },
+    }));
+  };
   return (
     <>
       <div className={`accordion  ${accordion ? " mb-10 show" : "h-0 hidden"}`}>
@@ -128,7 +134,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
           >
             <div className="shadow-md bg-bgBack">
               <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13">
-                <h2>ثبت جدید کارمند</h2>
+                <h2> ثبت جدید شیفت اداره </h2>
                 <button
                   onClick={(e) => {
                     setAccordion(!accordion);
@@ -142,13 +148,13 @@ const Form = ({ accordion, setAccordion }: Props) => {
               </div>
               <div className="p-5 flex flex-col gap-5">
                 <label htmlFor="">
-                  نام
+                  نام شیفت
                   <span className="text-red-500">*</span>
                   <div className="flex my-2 justify-stretch">
                     <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
-                    <div className="w-full!">
+                    <div>
                       <input
-                        placeholder="نام"
+                        placeholder="نام شیفت"
                         className={`$${
                           errors.firstName ? "border-red-500!" : ""
                         } w-full`}
@@ -165,7 +171,9 @@ const Form = ({ accordion, setAccordion }: Props) => {
 
                 {Object.entries(weekTimes).map(([day, times]) => (
                   <div key={day}>
-                    <h3 className="font-bold mb-1">{dayLabels[day as DayKey]}</h3>
+                    <h3 className="font-bold mb-1">
+                      {dayLabels[day as DayKey]}
+                    </h3>
                     <div className="flex gap-4 mb-2">
                       {(["entry", "exit"] as TimeType[]).map((type) => (
                         <div key={type} className="flex flex-col gap-1">
@@ -178,6 +186,15 @@ const Form = ({ accordion, setAccordion }: Props) => {
                             }
                             className="border px-3 py-1 rounded cursor-pointer"
                           />
+                          {times[type] && (
+                            <button
+                              type="button"
+                              onClick={() => clearTime(day as DayKey, type)}
+                              className=" left-2 top-8 text-red-500 text-xs bg-red-100 px-2 py-0.5 rounded hover:bg-red-200"
+                            >
+                              حذف
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>
