@@ -1,19 +1,18 @@
 import { FaMinus } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
-import { toast, } from "react-toastify";
+import { toast } from "react-toastify";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TimeKeeper from "react-timekeeper";
 
-
-//shema
+// Schema
 const schema = z.object({
   firstName: z
     .string()
     .min(1, "نام الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
+    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -23,13 +22,49 @@ interface Props {
   setAccordion: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+type DayKey =
+  | "saturday"
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday";
+
+type TimeType = "entry" | "exit";
+
+type ActivePicker = {
+  day: DayKey;
+  type: TimeType;
+  top: number;
+  left: number;
+} | null;
+
+const dayLabels: Record<DayKey, string> = {
+  saturday: "شنبه",
+  sunday: "یک‌شنبه",
+  monday: "دوشنبه",
+  tuesday: "سه‌شنبه",
+  wednesday: "چهارشنبه",
+  thursday: "پنج‌شنبه",
+  friday: "جمعه",
+};
+
 const Form = ({ accordion, setAccordion }: Props) => {
-const [time, setTime] = useState(() => {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  return `${hours}:${minutes}`; // e.g. "14:05"
-});
+  const [weekTimes, setWeekTimes] = useState<
+    Record<DayKey, { entry: string; exit: string }>
+  >({
+    saturday: { entry: "", exit: "" },
+    sunday: { entry: "", exit: "" },
+    monday: { entry: "", exit: "" },
+    tuesday: { entry: "", exit: "" },
+    wednesday: { entry: "", exit: "" },
+    thursday: { entry: "", exit: "" },
+    friday: { entry: "", exit: "" },
+  });
+
+  const [activePicker, setActivePicker] = useState<ActivePicker>(null);
+  const [tempTime, setTempTime] = useState<string>("12:00");
 
   const {
     register,
@@ -40,7 +75,8 @@ const [time, setTime] = useState(() => {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log("📦 Submitted Data:", data);
+    const finalData = { ...data, weekTimes };
+    console.log("📦 Submitted Data:", finalData);
   };
 
   const onError: SubmitErrorHandler<FormData> = (formErrors) => {
@@ -56,9 +92,33 @@ const [time, setTime] = useState(() => {
     });
   };
 
+  const handleInputClick = (
+    e: React.MouseEvent<HTMLInputElement>,
+    day: DayKey,
+    type: TimeType
+  ) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTempTime(weekTimes[day][type] || "12:00");
+    setActivePicker({
+      day,
+      type,
+      top: rect.top + window.scrollY,
+      left: rect.left + rect.width / 2,
+    });
+  };
+
+  const handleTimeSelect = () => {
+    if (!activePicker) return;
+    const { day, type } = activePicker;
+    setWeekTimes((prev) => ({
+      ...prev,
+      [day]: { ...prev[day], [type]: tempTime },
+    }));
+    setActivePicker(null);
+  };
+
   return (
     <>
-
       <div className={`accordion  ${accordion ? " mb-10 show" : "h-0 hidden"}`}>
         <div className="">
           <form
@@ -89,25 +149,73 @@ const [time, setTime] = useState(() => {
                     <div className="w-full!">
                       <input
                         placeholder="نام"
-                        className={`${
-                          errors.firstName && "border-red-500!"
+                        className={`$${
+                          errors.firstName ? "border-red-500!" : ""
                         } w-full`}
                         {...register("firstName")}
                       />
                       {errors.firstName && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.firstName.message}
-                          </p>
-                        </>
+                        <p className="text-red-500 text-sm">
+                          {errors.firstName.message}
+                        </p>
                       )}
                     </div>
                   </div>
                 </label>
-                <TimeKeeper
-                  time={time}
-                  onChange={(data) => setTime(data.formatted12)}
-                />
+
+                {Object.entries(weekTimes).map(([day, times]) => (
+                  <div key={day}>
+                    <h3 className="font-bold mb-1">{dayLabels[day as DayKey]}</h3>
+                    <div className="flex gap-4 mb-2">
+                      {(["entry", "exit"] as TimeType[]).map((type) => (
+                        <div key={type} className="flex flex-col gap-1">
+                          <label>{type === "entry" ? "ورود" : "خروج"}</label>
+                          <input
+                            readOnly
+                            value={times[type]}
+                            onClick={(e) =>
+                              handleInputClick(e, day as DayKey, type)
+                            }
+                            className="border px-3 py-1 rounded cursor-pointer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                {activePicker && (
+                  <div
+                    className="absolute z-50 bg-white border border-gray-300 rounded shadow-xl"
+                    style={{
+                      top: `${activePicker.top}px`,
+                      left: `${activePicker.left}px`,
+                      transform: "translate(-50%, -100%)",
+                    }}
+                  >
+                    <TimeKeeper
+                      time={tempTime}
+                      onChange={(data) => setTempTime(data.formatted24)}
+                      switchToMinuteOnHourSelect
+                    />
+                    <div className="flex justify-end p-2 gap-2">
+                      <button
+                        className="bg-blue-600 text-white px-3 py-1 rounded"
+                        onClick={handleTimeSelect}
+                        type="button"
+                      >
+                        تأیید
+                      </button>
+                      <button
+                        className="bg-gray-400 text-white px-3 py-1 rounded"
+                        onClick={() => setActivePicker(null)}
+                        type="button"
+                      >
+                        بستن
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="border-t-1 border-border bg-white p-5 flex gap-3">
                 <button type="reset">بازنشانی</button>
