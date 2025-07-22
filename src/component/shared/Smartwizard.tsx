@@ -9,8 +9,8 @@ const Smartwizard = ({data} :dataProps) => {
 
             <div id="smartwizard" className="flex flex-wrap gap-5 mt-10 mb-5 justify-around border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md" >
                 {data.map((item , index) => (
-                    <div>
-                        <NavLink key={index} to={item[1]} className={({isActive})=>` flex items-center gap-5 ${isActive && "text-cupurple"} hover:text-cupurple`} end>
+                    <div  key={index} >
+                        <NavLink to={item[1]} className={({isActive})=>` flex items-center gap-5 ${isActive && "text-cupurple"} hover:text-cupurple`} end>
                             <div className="flex flex-col gap-2">
                                 <span>{ item[2]}</span>
                                 <span className="text-sm text-black/50">{ item[3]}</span>
