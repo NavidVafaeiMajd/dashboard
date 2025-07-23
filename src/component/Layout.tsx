@@ -9,6 +9,9 @@ import SetRoles from './pages/Staff/SetRoles/SetRoles';
 import OfficeShifts from './pages/Staff/OfficeShifts/OfficeShifts';
 import EmployExit from './pages/Staff/EmployExit/EmployExit';
 import { ToastContainer } from 'react-toastify';
+import LayoutHumanResource from './pages/HumanResourceManagement/LayoutHumanResource';
+import OrganizationalUnit from './pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit';
+import OrganizationalPosition from './pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -38,7 +41,12 @@ const Layout = () => {
                                     <Route path='set-roles' element={<SetRoles />} />
                                     <Route path='office-shifts' element={<OfficeShifts/>} />
                                     <Route path='employ-exit' element={<EmployExit/>} />
-
+                                </Route>
+                                <Route path="hr" element={<LayoutHumanResource />} >
+                                    <Route index element={<OrganizationalUnit />} />
+                                    <Route path='designation-list' element={<OrganizationalPosition />} />
+                                    <Route path='office-shifts' element={<OfficeShifts/>} />
+                                    <Route path='employ-exit' element={<EmployExit/>} />
                                 </Route>
                         </Routes>
                         </div>

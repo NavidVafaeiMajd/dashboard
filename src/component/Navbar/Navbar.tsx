@@ -23,7 +23,7 @@ const Navbar = () => {
                 <ul>
                     <NavbarItems DropMenu={false} itemInfo={[<> <CiHome className='w-7 h-7'/> پیشخـوان</>, "/"]} dropInfo={[]} />
                     <NavbarItems DropMenu={false} itemInfo={[<> <FiUsers className='w-7 h-7'/> پرسنل</>, "/staff"]} dropInfo={[]} />
-                    <NavbarItems DropMenu={true} itemInfo={[<> <TfiTarget className='w-7 h-7'/> مدیریت منابع انسانی</> , "managment"]} dropInfo={[["واحد سازمانی " , "managment/vahed"] , ["سمت سازمانی" , "managment/semat"] , ["خط مشی ها" , "managment/khat"] ,["ابلاغیه" , "managment/eblaghie"] , ["چارت سازمانی " , "managment/chart"]]}/>
+                    <NavbarItems DropMenu={true} itemInfo={[<> <TfiTarget className='w-7 h-7'/> مدیریت منابع انسانی</> , "hr"]} dropInfo={[["واحد سازمانی " , "hr"] , ["سمت سازمانی" , "hr/designation-list"] , ["خط مشی ها" , "managment/khat"] ,["ابلاغیه" , "managment/eblaghie"] , ["چارت سازمانی " , "managment/chart"]]}/>
                     <NavbarItems DropMenu={true} itemInfo={[<> <GoClock className='w-7 h-7'/> حضور و غیاب</>, "/hozoor"]} dropInfo={[[" حضور و غیاب " , "hozoor"]]} />
                     <NavbarItems DropMenu={false} itemInfo={[<> <MdPayment className='w-7 h-7'/>حساب بانکی </>, "/hesab"]} dropInfo={[]} />
                     <NavbarItems DropMenu={false} itemInfo={[<> <SiNordicsemiconductor className='w-7 h-7'/> گواهی اشتغال به کار</>, "/govahi"]} dropInfo={[]} />
