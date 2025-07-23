@@ -24,16 +24,16 @@ import { useState } from "react";
 import { SearchInput } from "./SearchInput";
 import { PageSizeSelector } from "./PageSizeSelector";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends Record<string, unknown>, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchableKeys?: (keyof TData)[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends Record<string, unknown>, TValue>({
   columns,
-  data,
-  searchableKeys,
+   data,
+  searchableKeys
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -55,8 +55,10 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex;
   return (
-    <div dir="rtl" className="rounded-md border pt-4">
+    <div dir="rtl" className="rounded-md border pt-4 m-5 outline-5 outline-blue-100">
       <div className="flex items-center justify-between gap-2 px-4 pb-2">
         <PageSizeSelector
           value={table.getState().pagination.pageSize}
@@ -125,23 +127,40 @@ export function DataTable<TData, TValue>({
       </Table>
 
       <div className="flex items-center justify-between gap-2 py-4 px-2 rtl:space-x-reverse">
-        <Button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          قبلی
-        </Button>
+        <div>
+          <span className="text-sm text-muted-foreground">
+            صفحه {table.getState().pagination.pageIndex + 1} از{" "}
+            {table.getPageCount()}
+          </span>
+        </div>
+        <div>
+          <Button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+            variant="outline"
+          >
+            قبلی
+          </Button>
 
-        <span className="text-sm text-muted-foreground">
-          صفحه {table.getState().pagination.pageIndex + 1} از{" "}
-          {table.getPageCount()}
-        </span>
-        <Button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          بعدی
-        </Button>
+          {Array.from({ length: pageCount }).map((_, index) => (
+            <Button
+              key={index}
+              variant={index === currentPage ? "paginationNumber" : "paginationNumberDis"}
+              size="sm"
+              onClick={() => table.setPageIndex(index)}
+            >
+              {index + 1}
+            </Button>
+          ))}
+              
+          <Button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+            variant="outline"
+          >
+            بعدی
+          </Button>
+        </div>
       </div>
     </div>
   );
