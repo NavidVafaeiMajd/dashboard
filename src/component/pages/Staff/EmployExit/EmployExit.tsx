@@ -5,7 +5,7 @@ import Form from "./Form";
 
     
 const EmployExit: React.FC = () => {
-    const title = "شیفت و برنامه ریزی";
+    const title = "انفصال از خدمت";
     useEffect(() => {
     document.title = title;
     }, []);

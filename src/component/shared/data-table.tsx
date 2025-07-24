@@ -58,7 +58,7 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex;
   return (
-    <div dir="rtl" className="rounded-md border pt-4 m-5 outline-5 outline-blue-100">
+    <div dir="rtl" className="my-4">
       <div className="flex items-center justify-between gap-2 px-4 pb-2">
         <PageSizeSelector
           value={table.getState().pagination.pageSize}
@@ -74,7 +74,7 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
         />
       </div>
 
-      <Table className="min-w-full">
+      <Table className="min-w-full rounded-md border pt-4 m-5 outline-5 outline-blue-100">
         <TableHeader className="bg-[#F9FBE4]">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

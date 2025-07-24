@@ -1,8 +1,6 @@
 import { FaMinus } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
-import { MdEmail } from "react-icons/md";
-import { FaEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
@@ -21,62 +19,30 @@ const ACCEPTED_IMAGE_TYPES = [
 
 //shema
 const schema = z.object({
-  firstName: z
+  employee: z
     .string()
-    .min(1, "نام الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-    .describe("مثلاً: نوید"),
+    .min(1, "کارمند الزامی است")
+    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  lastName: z
+  date: z
     .string()
-    .min(1, "نام خانوادگی الزامی است")
+    .min(1, "تاریخ الزامی است")
     .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
     .describe("مثلاً: محمدی"),
 
-  personnelCode: z
+  textLetter: z
     .string()
-    .regex(/^\d+$/, "فقط عدد مجاز است")
-    .min(1, "کد پرسنلی الزامی است")
-    .describe("مثلاً: 12345"),
+    .min(1, "متن الزامی است")
+    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  phone: z
-    .string()
-    .regex(/^09\d{9}$/, "شماره تماس معتبر نیست")
-    .describe("مثلاً: 09121234567"),
-
-  gender: z.string().refine((val) => val !== "", {
+  exitType: z.string().refine((val) => val !== "", {
     message: "لطفاً یک گزینه انتخاب کنید",
   }),
 
-  email: z.email("ایمیل معتبر وارد کنید").describe("مثلاً: example@gmail.com"),
-
-  username: z.string().min(3, "نام کاربری حداقل باید ۳ حرف باشد"),
-
-  password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر"),
-
-  shift: z.string().refine((val) => val !== "", {
+  meeting: z.string().refine((val) => val !== "", {
     message: "لطفاً یک گزینه انتخاب کنید",
   }),
-
-  role: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
-
-  department: z.string().min(1, "واحد سازمانی الزامی است"),
-
-  position: z.string().min(1, "سمت سازمانی الزامی است"),
-
-  monthlySalary: z
-    .string()
-    .regex(/^\d+$/, "فقط عدد مجاز است")
-    .describe("مثلاً: 5000000"),
-
-  dailySalary: z
-    .string()
-    .regex(/^\d+$/, "فقط عدد مجاز است")
-    .describe("مثلاً: 200000"),
-
-  salaryType: z.string().refine((val) => val !== "", {
+  accountDis: z.string().refine((val) => val !== "", {
     message: "لطفاً یک گزینه انتخاب کنید",
   }),
 
@@ -162,7 +128,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
           >
             <div className="col-span-4 shadow-md bg-bgBack">
               <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13">
-                <h2>ثبت جدید کارمند</h2>
+                <h2>ثبت جدید انفصال از خدمت </h2>
                 <button
                   onClick={(e) => {
                     setAccordion(!accordion);
@@ -178,22 +144,22 @@ const Form = ({ accordion, setAccordion }: Props) => {
                 <div className="grid md:grid-cols-2 gap-10">
                   <div>
                     <label htmlFor="">
-                      نام
+                      کارمند برای انفصال
                       <span className="text-red-500">*</span>
                       <div className="flex my-2 justify-stretch">
                         <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
                         <div className="w-full!">
                           <input
-                            placeholder="نام"
+                            placeholder="کارمند برای انفصال "
                             className={`${
-                              errors.firstName && "border-red-500!"
+                              errors.employee && "border-red-500!"
                             } w-full`}
-                            {...register("firstName")}
+                            {...register("employee")}
                           />
-                          {errors.firstName && (
+                          {errors.employee && (
                             <>
                               <p className="text-red-500 text-sm">
-                                {errors.firstName.message}
+                                {errors.employee.message}
                               </p>
                             </>
                           )}
@@ -203,22 +169,22 @@ const Form = ({ accordion, setAccordion }: Props) => {
                   </div>
                   <div>
                     <label htmlFor="">
-                      نام خانوداگی
+                      تاریخ انفصال کارمند
                       <span className="text-red-500">*</span>
                       <div className="flex  my-2">
                         <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
                         <div className="w-full">
                           <input
-                            placeholder="نام خانوادگی"
+                            placeholder="تاریخ انفصال کارمند"
                             className={`${
-                              errors.lastName && "border-red-500!"
+                              errors.date && "border-red-500!"
                             } w-full`}
-                            {...register("lastName")}
+                            {...register("date")}
                           />
-                          {errors.lastName && (
+                          {errors.date && (
                             <>
                               <p className="text-red-500 text-sm">
-                                {errors.lastName.message}
+                                {errors.date.message}
                               </p>
                             </>
                           )}
@@ -230,285 +196,75 @@ const Form = ({ accordion, setAccordion }: Props) => {
                 <div className="grid md:grid-cols-3 gap-10">
                   <div>
                     <label htmlFor="">
-                      کد پرسنلی
+                      نوع انفصال
                       <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <div className="w-full">
-                          <input
-                            placeholder="کد پرسنلی"
-                            className={`${
-                              errors.personnelCode && "border-red-500!"
-                            } w-full`}
-                            {...register("personnelCode")}
-                          />
-                          {errors.personnelCode && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.personnelCode.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      شماره تماس
-                      <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
-                        <div className="w-full">
-                          <input
-                            placeholder="شماره تماس"
-                            className={`w-full ${
-                              errors.phone && "border-red-500!"
-                            }`}
-                            {...register("phone")}
-                          />
-                          {errors.phone && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.phone.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      جنسیت
-                      <select {...register("gender")}>
+                      <select {...register("exitType")}>
                         <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
+                        <option value="male">تست</option>
                       </select>
-                      {errors.gender && (
+                      {errors.exitType && (
                         <>
                           <p className="text-red-500 text-sm">
-                            {errors.gender.message}
+                            {errors.exitType.message}
+                          </p>
+                        </>
+                      )}
+                    </label>
+                  </div>
+                  <div>
+                    <label htmlFor="">
+                      تشکیل جلسه کمیته انضباطی
+                      <span className="text-red-500">*</span>
+                      <select {...register("meeting")}>
+                        <option value="">انتخاب کنید</option>
+                        <option value="male">بله</option>
+                        <option value="female">خیر</option>
+                      </select>
+                      {errors.meeting && (
+                        <>
+                          <p className="text-red-500 text-sm">
+                            {errors.meeting.message}
+                          </p>
+                        </>
+                      )}
+                    </label>
+                  </div>
+                  <div>
+                    <label htmlFor="">
+                      غیرفعال کردن اکانت
+                      <span className="text-red-500">*</span>
+                      <select {...register("accountDis")}>
+                        <option value="">انتخاب کنید</option>
+                        <option value="male">بله</option>
+                        <option value="female">خیر</option>
+                      </select>
+                      {errors.accountDis && (
+                        <>
+                          <p className="text-red-500 text-sm">
+                            {errors.accountDis.message}
                           </p>
                         </>
                       )}
                     </label>
                   </div>
                 </div>
-                <div className="grid md:grid-cols-2 gap-10">
+                <div className=" gap-10">
                   <div>
-                    <label htmlFor="">
-                      ایمیل
+                    <label htmlFor="textLetter">
+                      متن نامه
                       <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <MdEmail className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
-                        <div className="w-full">
-                          <input
-                            placeholder="ایمیل"
-                            className={`${
-                              errors.email && "border-red-500!"
-                            } w-full`}
-                            {...register("email")}
-                          />
-                          {errors.email && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.email.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
                     </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      نام کاربری
-                      <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
-                        <div className="w-full">
-                          <input
-                            placeholder="نام کاربری"
-                            className={`${
-                              errors.username && "border-red-500!"
-                            } w-full`}
-                            {...register("username")}
-                          />
-                          {errors.username && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.username.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-3 gap-10">
-                  <div>
-                    <label htmlFor="">
-                      رمز عبور
-                      <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <FaEyeSlash className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
-                        <div className="w-full">
-                          <input
-                            placeholder="رمز عبور"
-                            className={`${
-                              errors.password && "border-red-500!"
-                            } w-full`}
-                            {...register("password")}
-                          />
-                          {errors.password && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.password.message}
-                              </p>
-                            </>
-                          )}
-                        </div>{" "}
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      شیفت اداره
-                      <select {...register("shift")}>
-                        <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
-                      </select>
-                      {errors.shift && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.shift.message}
-                          </p>
-                        </>
-                      )}
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      سطح دسترسی
-                      <select {...register("role")}>
-                        <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
-                      </select>
-                      {errors.role && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.role.message}
-                          </p>
-                        </>
-                      )}
-                    </label>
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-2 gap-10">
-                  <div>
-                    <label htmlFor="">
-                      واحد سازمانی
-                      <select {...register("department")}>
-                        <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
-                      </select>
-                      {errors.department && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.department.message}
-                          </p>
-                        </>
-                      )}
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      سمت سازمانی
-                      <select {...register("position")}>
-                        <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
-                      </select>
-                      {errors.position && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.position.message}
-                          </p>
-                        </>
-                      )}
-                    </label>
-                  </div>
-                </div>
-                <div className="grid md:grid-cols-3 gap-10">
-                  <div>
-                    <label htmlFor="">
-                      دستمزد ماهیانه
-                      <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <div className="w-full">
-                          <input
-                            placeholder="دستمزد ماهیانه "
-                            className={`${
-                              errors.monthlySalary && "border-red-500!"
-                            } w-full`}
-                            {...register("monthlySalary")}
-                          />
-                          {errors.monthlySalary && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.monthlySalary.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      دستمزد روزانه
-                      <span className="text-red-500">*</span>
-                      <div className="flex my-2">
-                        <div className="w-full">
-                          <input
-                            placeholder="دستمزد روزانه "
-                            className={`${
-                              errors.dailySalary && "border-red-500!"
-                            } w-full`}
-                            {...register("dailySalary")}
-                          />
-                          {errors.dailySalary && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.dailySalary.message}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="">
-                      نوع فیش حقوقی
-                      <select {...register("salaryType")}>
-                        <option value="">انتخاب کنید</option>
-                        <option value="male">آقا</option>
-                        <option value="female">خانم</option>
-                      </select>
-                      {errors.salaryType && (
-                        <>
-                          <p className="text-red-500 text-sm">
-                            {errors.salaryType.message}
-                          </p>
-                        </>
-                      )}
-                    </label>
+                    <textarea
+                      id="textLetter"
+                      {...register("textLetter")}
+                    ></textarea>
+                    {errors.textLetter && (
+                      <>
+                        <p className="text-red-500 text-sm">
+                          {errors.textLetter.message}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -519,13 +275,13 @@ const Form = ({ accordion, setAccordion }: Props) => {
             </div>
             <div className="col-span-2 max-h-max shadow-md bg-bgBack">
               <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13!">
-                <h2>تصویر پروفایل</h2>
+                <h2>قرارداد انفصال </h2>
               </div>
               <div className="py-2 px-5 ">
                 <div className="">
                   <div>
                     <label htmlFor="fileInput">
-                      تصویر پروفایل
+                      پیوست
                       <span className="text-red-500">*</span>
                     </label>
                   </div>
