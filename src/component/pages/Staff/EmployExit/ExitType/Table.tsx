@@ -17,7 +17,7 @@ const Table: React.FC = () => {
       const response: User[] = [
         {
           id: 1,
-          exitType: "test",
+          exitType: "تست",
           exitTime: "	1404/04/17",
         },
 

@@ -27,7 +27,7 @@ export const userColumns: ColumnDef<User>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           <LuArrowUpDown className="ml-2 h-4 w-4" />
-          تاریخ انفصال کارمند
+          تاریخ ایجاد 
         </Button>
       );
     },
