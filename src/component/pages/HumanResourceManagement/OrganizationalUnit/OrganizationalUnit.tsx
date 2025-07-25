@@ -38,7 +38,7 @@ const OrganizationalUnit = () => {
 
    return (
       <div className="flex flex-col md:flex-row gap-x-20 justify-between gap-y-10">
-         <div className="flex flex-col w-full md:w-1/3 rounded-md shadow-md ">
+         <div className="flex flex-col w-full md:w-1/3 rounded-md overflow-hidden shadow-md h-full">
             <div className="flex bg-bgBack justify-between p-2 px-5 border-b-2 border-red-500 items-center">
                <h2> ثبت جدید واحد سازمانی</h2>
             </div>
@@ -108,7 +108,7 @@ const OrganizationalUnit = () => {
             </Form>
          </div>
 
-         <div className="flex flex-col w-full md:w-2/3 bg-bgBack">
+         <div className="flex flex-col w-full md:w-2/3 bg-bgBack rounded-md overflow-hidden shadow-md h-full mb-1">
             <div className="flex bg-bgBack w-full p-2 px-5 border-b-2 border-red-500 items-center">
                <h2> لیست همه واحدها</h2>
             </div>
