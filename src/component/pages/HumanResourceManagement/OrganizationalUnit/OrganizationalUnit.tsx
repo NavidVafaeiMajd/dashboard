@@ -22,8 +22,12 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/component/shared/data-table";
 import { columns } from "./columns";
 import { ORGANIZATIONAL_UNIT_DATA } from "./const";
+import { useEffect } from "react";
 
 const OrganizationalUnit = () => {
+   useEffect(() => {
+      document.title = "واحد سازمانی";
+   }, []);
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
       defaultValues: {

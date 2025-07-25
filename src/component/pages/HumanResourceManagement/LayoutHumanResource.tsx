@@ -27,7 +27,7 @@ const LayoutHumanResource = () => {
                            <>
                               <FaUserFriends className="w-7 h-7" />
                            </>,
-                           "",
+                           "departments-list",
                            "واحد سازمانی",
                            "تنظیمات واحد ها",
                         ],
