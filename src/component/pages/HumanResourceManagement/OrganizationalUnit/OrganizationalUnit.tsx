@@ -19,6 +19,9 @@ import {
    SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/component/shared/data-table";
+import { columns } from "./columns";
+import { ORGANIZATIONAL_UNIT_DATA } from "./const";
 
 const OrganizationalUnit = () => {
    const form = useForm<z.infer<typeof validation>>({
@@ -105,10 +108,16 @@ const OrganizationalUnit = () => {
             </Form>
          </div>
 
-         <div className="flex flex-col w-full md:w-2/3">
+         <div className="flex flex-col w-full md:w-2/3 bg-bgBack">
             <div className="flex bg-bgBack w-full p-2 px-5 border-b-2 border-red-500 items-center">
                <h2> لیست همه واحدها</h2>
             </div>
+
+            <DataTable
+               columns={columns}
+               data={ORGANIZATIONAL_UNIT_DATA}
+               searchableKeys={["name", "unitBoss"]}
+            />
          </div>
       </div>
    );
