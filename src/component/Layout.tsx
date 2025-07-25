@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import LayoutHumanResource from './pages/HumanResourceManagement/LayoutHumanResource';
 import OrganizationalUnit from './pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit';
 import OrganizationalPosition from './pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition';
+import ExitType from './pages/Staff/EmployExit/ExitType/ExitType';
 
 const Layout = () => {
     const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -23,11 +24,11 @@ const Layout = () => {
     <>
     
             <main className='w-full! min-h-screen flex flex-col'>
-                      <ToastContainer toastClassName="custom-toast-font" position="top-right" />
                     <div className='fixed z-100 w-full'>
                     <Header headerMenu={handleDataFromChild} />
                     </div>
-                    <Router>
+                <Router>
+                    <ToastContainer toastClassName="custom-toast-font" position="top-right" />
                     <div className=' flex flex-1 py-5 lg:mt-[75px] mt-[50px] max-lg:flex-col'>
                         <div className={`w-[25%] overflow-auto ${headerMenu?"show":"max-lg:hidden"}`}>
                         <Navbar />
@@ -48,6 +49,7 @@ const Layout = () => {
                                     <Route path='office-shifts' element={<OfficeShifts/>} />
                                     <Route path='employ-exit' element={<EmployExit/>} />
                                 </Route>
+                                <Route path='exit-type' element={<ExitType/>} />
                         </Routes>
                         </div>
                     </div>
