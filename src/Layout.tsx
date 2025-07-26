@@ -13,6 +13,7 @@ import LayoutHumanResource from "./component/pages/HumanResourceManagement/Layou
 import OrganizationalUnit from "./component/pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit";
 import OrganizationalPosition from "./component/pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition";
 import ExitType from "./component/pages/Staff/EmployExit/ExitType/ExitType";
+import Policies from "./component/pages/HumanResourceManagement/Policies/Policies";
 
 const Layout = () => {
    const [headerMenu, setheaderMenu] = useState<boolean>(false);
@@ -84,8 +85,8 @@ const Layout = () => {
                               element={<OfficeShifts />}
                            />
                            <Route
-                              path="employ-exit"
-                              element={<EmployExit />}
+                              path="policies-list"
+                              element={<Policies />}
                            />
                         </Route>
                         <Route

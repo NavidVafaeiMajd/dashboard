@@ -9,6 +9,7 @@ import {
    FormField,
    FormItem,
    FormLabel,
+   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -89,6 +90,7 @@ const OrganizationalPosition = () => {
                                     </SelectContent>
                                  </Select>
                               </FormControl>
+                              <FormMessage />
                            </FormItem>
                         )}
                      />
@@ -109,6 +111,7 @@ const OrganizationalPosition = () => {
                                     {...field}
                                  />
                               </FormControl>
+                              <FormMessage />
                            </FormItem>
                         )}
                      />
@@ -126,6 +129,7 @@ const OrganizationalPosition = () => {
                                     className="placeholder:text-lg min-h-20!"
                                  />
                               </FormControl>
+                              <FormMessage />
                            </FormItem>
                         )}
                      />
