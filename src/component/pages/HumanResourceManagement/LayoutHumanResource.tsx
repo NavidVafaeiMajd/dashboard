@@ -27,7 +27,7 @@ const LayoutHumanResource = () => {
                            <>
                               <FaUserFriends className="w-7 h-7" />
                            </>,
-                           "",
+                           "departments-list",
                            "واحد سازمانی",
                            "تنظیمات واحد ها",
                         ],
@@ -43,17 +43,17 @@ const LayoutHumanResource = () => {
                            <>
                               <FaRegClock className="w-7 h-7" />
                            </>,
-                           "office-shifts",
-                           "شیفت و برنامه ریزی",
-                           " شیفت ها",
+                           "news-list",
+                           "ابلاغیه ها",
+                           "تنظیمات ابلاغیه ها",
                         ],
                         [
                            <>
                               <IoMdExit className="w-7 h-7" />
                            </>,
-                           "employ-exit",
-                           "انفصال از خدمت",
-                           "تنظیمات انفصال از خدمت",
+                           "policies-list",
+                           "خط مشی ها",
+                           "تنظیمات خط مشی ها",
                         ],
                      ]}
                   />
