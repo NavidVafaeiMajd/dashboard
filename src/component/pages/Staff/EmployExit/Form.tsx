@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import React from "react";
 import DatePicker from "react-multi-date-picker";
 import { Controller } from "react-hook-form";
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 // فرمت‌های مجاز عکس
@@ -28,9 +28,7 @@ const schema = z.object({
     .min(1, "کارمند الزامی است")
     .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  date: z
-    .string()
-    .min(1, "تاریخ الزامی است"),
+  date: z.string().min(1, "تاریخ الزامی است"),
 
   textLetter: z
     .string()
@@ -191,12 +189,18 @@ const Form = ({ accordion, setAccordion }: Props) => {
                                 }}
                                 format="YYYY/MM/DD"
                                 calendar={persian}
-                                  locale={persian_fa}
+                                locale={persian_fa}
                                 calendarPosition="bottom-right"
                               />
                             )}
                           />
-                          {errors.date && <span>{errors.date.message}</span>}
+                          {errors.date && (
+                            <>
+                              <p className="text-red-500 text-sm">
+                                {errors.date.message}
+                              </p>
+                            </>
+                          )}
                         </div>
                       </div>
                     </label>

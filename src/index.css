@@ -337,7 +337,16 @@ input[type="checkbox"]:checked::after {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* date picker */
+input.rmdp-input {
+    width: 100% !important;
+    height: 100% !important;
+}
 
+.rmdp-container {
+    width: 100% !important;
+    height: 100% !important;
+}
 
 @layer base {
   * {
