@@ -14,8 +14,12 @@ import { CiCircleQuestion } from "react-icons/ci";
 import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineRadar } from "react-icons/md";
 import { BsExclamationCircle } from "react-icons/bs";
+import {  useNavbar } from "@/Context/NavbarContext";
 
 const Navbar = () => {
+   const navb = useNavbar()
+   console.log(navb);
+   
    return (
       <>
          {/* nav height */}
@@ -59,7 +63,7 @@ const Navbar = () => {
                   dropInfo={[
                      ["واحد سازمانی ", "hr/departments-list"],
                      ["سمت سازمانی", "hr/designation-list"],
-                     ["خط مشی ها", "managment/khat"],
+                     ["خط مشی ها", "hr/policies-list"],
                      ["ابلاغیه", "managment/eblaghie"],
                      ["چارت سازمانی ", "managment/chart"],
                   ]}

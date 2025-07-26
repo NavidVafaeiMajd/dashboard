@@ -1,42 +1,65 @@
 import { useState } from "react";
-import { IoIosArrowUp , IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowBack } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
+import { useNavbar } from "@/Context/NavbarContext";
 
 interface NavbarItemsProps {
-    DropMenu: boolean,
-    itemInfo : [React.ReactNode, string],
-    dropInfo : Array<Array<string>>
+  DropMenu: boolean;
+  itemInfo: [React.ReactNode, string];
+  dropInfo: Array<Array<string>>;
 }
 
-const NavbarItems = ({DropMenu , itemInfo , dropInfo} : NavbarItemsProps) => {
-    const [openMenus, setOpenMenus] = useState(false);
+const NavbarItems = ({ DropMenu, itemInfo, dropInfo }: NavbarItemsProps) => {
+  const [openMenus, setOpenMenus] = useState(false);
+  const { toggleNavbar } = useNavbar();
 
-    return (<>
-                <li><NavLink className={({ isActive }) => ` ${isActive ? "bg-[#ebebeb]! text-blue-600" : ""}`} to={itemInfo[1]} onClick={(e) => { setOpenMenus(!openMenus); if(DropMenu){e.preventDefault();} }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
-                {DropMenu? openMenus ? <IoIosArrowUp/> : <IoIosArrowBack/> :"" }
-                </NavLink>
-            {openMenus && DropMenu && (
+  return (
+    <>
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            ` ${isActive ? "bg-[#ebebeb]! text-blue-600" : ""}`
+          }
+          to={itemInfo[1]}
+          onClick={(e) => {
+              setOpenMenus(prev => !prev);
+            if (DropMenu) {
+                e.preventDefault();
                 
-                <ul className="bg-white">
-                    {
-                        dropInfo.map((info, index) => (
-                            <li key={index}>
-                                <NavLink className={({isActive})=> ` py-3! px-6! ${isActive?  " text-blue-600":""}`} to={info[1]}>
-                                    {info[0]}
-                                    <GoDotFill/>
-                                </NavLink>
-                            </li>
-                        ))
-                    }
-                    <li>
+              }else if(!DropMenu){
+              toggleNavbar()
+                
+            }
+          }}
+        >
 
-                    </li>
-                </ul>
-                    )}
-            </li>
+          <span className="flex flex-row-reverse items-center gap-1">
+            {itemInfo[0]}
+          </span>
+          {DropMenu ? openMenus ? <IoIosArrowUp /> : <IoIosArrowBack /> : ""}
+        </NavLink>
+        {openMenus && DropMenu && (
+          <ul className="bg-white">
+            {dropInfo.map((info, index) => (
+              <li key={index} onClick={toggleNavbar}>
+                <NavLink
+                  className={({ isActive }) =>
+                    ` py-3! px-6! ${isActive ? " text-blue-600" : ""}`
+                  }
+                  to={info[1]}
+                >
+                  {info[0]}
+                  <GoDotFill />
+                </NavLink>
+              </li>
+            ))}
+            <li></li>
+          </ul>
+        )}
+      </li>
 
-        {/* <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
+      {/* <li><NavLink className={({isActive})=> ` ${isActive?"bg-[#ebebeb]! text-blue-600":""}`} to={itemInfo[1]} onClick={() => { setOpenMenus(!openMenus) }}> <span className="flex flex-row-reverse items-center gap-1">{ itemInfo[0]}</span>
                 {DropMenu? openMenus ? <IoIosArrowUp/> : <IoIosArrowBack/> :"" }
                 </NavLink>
             {openMenus && DropMenu && (
@@ -58,7 +81,8 @@ const NavbarItems = ({DropMenu , itemInfo , dropInfo} : NavbarItemsProps) => {
                 </ul>
                     )}
             </li> */}
-    </>);
-}
- 
+    </>
+  );
+};
+
 export default NavbarItems;
