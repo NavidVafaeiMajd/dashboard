@@ -43,7 +43,7 @@ const OrganizationalPosition = () => {
    };
 
    return (
-      <div className="flex flex-col md:flex-row justify-between gap-x-20 gap-y-10">
+      <div className="flex flex-col md:flex-row justify-between gap-x-10 gap-y-10">
          <div className="flex flex-col w-full md:w-1/3 rounded-md overflow-hidden shadow-md h-full">
             <div className="flex bg-bgBack justify-between p-2 px-5 border-b-2 border-red-500 items-center">
                <h2> ثبت جدید سمت سازمانی</h2>
