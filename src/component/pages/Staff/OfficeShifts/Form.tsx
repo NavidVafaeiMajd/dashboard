@@ -168,7 +168,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                     <h3 className="font-bold mb-1">
                       {dayLabels[day as DayKey]}
                     </h3>
-                    <div className="flex gap-4 mb-2">
+                    <div className="flex max-md:flex-col gap-4 mb-2">
                       {(["entry", "exit"] as TimeType[]).map((type) => (
                         <div key={type} className="flex flex-col gap-1">
                           <label>{type === "entry" ? "ورود" : "خروج"}</label>

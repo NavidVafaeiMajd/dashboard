@@ -2,7 +2,6 @@ import Header from "./component/Header";
 import Navbar from "./component/Navbar/Navbar";
 import Desk from "./component/pages/Desk";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {  useState } from "react";
 import LayoutStaffList from "./component/pages/Staff/LayoutStaffList";
 import StaffList from "./component/pages/Staff/StaffList/StaffList";
 import SetRoles from "./component/pages/Staff/SetRoles/SetRoles";
@@ -34,14 +33,14 @@ const Layout = () => {
               toastClassName="custom-toast-font"
               position="top-right"
             />
-            <div className=" flex flex-1 py-5 lg:mt-[75px] mt-[50px] max-lg:flex-col">
+            <div className=" flex flex-1 py-5 lg:mt-[75px] mt-[60px] max-lg:flex-col">
               <div
                 className={`w-[25%] overflow-auto ${
                   isNavbarOpen ? "show" : "max-lg:hidden"
                 }`}
               >
                 <Navbar />
-                <div className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"></div>
+                <div onClick={toggleNavbar} className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"/>
               </div>
               <div className="lg:w-[85%] overflow-auto  px-5 md:px-10">
                 <Routes>

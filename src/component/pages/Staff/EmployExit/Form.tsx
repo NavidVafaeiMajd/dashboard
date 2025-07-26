@@ -68,7 +68,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
           <form
             encType="multipart/form-data"
             onSubmit={handleSubmit(onSubmit, onError)}
-            className="grid md:grid-cols-6 gap-5  h-full"
+            className="md:grid md:grid-cols-6 gap-5  h-full"
           >
             <div className="col-span-4 shadow-md bg-bgBack">
               <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13">
@@ -229,7 +229,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                 <button type="submit">ذخیره</button>
               </div>
             </div>
-            <div className="col-span-2 max-h-max shadow-md bg-bgBack">
+            <div className="col-span-2 mt-5 max-h-max shadow-md bg-bgBack">
               <div className="flex justify-between items-center py-2 px-5 border-b-2 border-red-500 min-h-13!">
                 <h2>قرارداد انفصال </h2>
               </div>

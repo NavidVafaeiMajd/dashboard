@@ -63,7 +63,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                   مخفی
                 </button>
               </div>
-              <div className="p-5 grid grid-cols-6 gap-10">
+              <div className="p-5 md:grid md:grid-cols-6 gap-10">
                 <div className="col-span-2">
                   <div>
                     <label htmlFor="">
@@ -101,7 +101,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                     )}
                   </div>
                 </div>
-                <div className="col-span-4 grid grid-cols-2 gap-4">
+                <div className="col-span-4 sm:grid grid-cols-2 gap-4 mt-5">
                   <div className="text-lg!">
                     <label htmlFor="" className="">
                       <h2 className="text-greenDark bg-greenLight w-full py-4 px-2">
@@ -120,8 +120,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                   <div className="text-lg!">
                     <label htmlFor="" className="">
                       <h2 className="text-greenDark bg-greenLight w-full py-4 px-2">
-                        {" "}
-                        سطح دسترسی مدیر{" "}
+                        سطح دسترسی مدیر
                       </h2>
                       <div className="bg-white border-4 border-border">
                         <PermissionsTree
