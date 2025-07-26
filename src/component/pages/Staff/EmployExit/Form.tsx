@@ -6,7 +6,11 @@ import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-
+import React from "react";
+import DatePicker from "react-multi-date-picker";
+import { Controller } from "react-hook-form";
+import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 // فرمت‌های مجاز عکس
@@ -26,9 +30,7 @@ const schema = z.object({
 
   date: z
     .string()
-    .min(1, "تاریخ الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-    .describe("مثلاً: محمدی"),
+    .min(1, "تاریخ الزامی است"),
 
   textLetter: z
     .string()
@@ -82,6 +84,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
     watch,
   } = useForm<FormData>({
@@ -174,20 +177,26 @@ const Form = ({ accordion, setAccordion }: Props) => {
                       <div className="flex  my-2">
                         <FaUser className="bg-[#F0F2F8] text-[#495057] p-4 h-13 w-13" />
                         <div className="w-full">
-                          <input
-                            placeholder="تاریخ انفصال کارمند"
-                            className={`${
-                              errors.date && "border-red-500!"
-                            } w-full`}
-                            {...register("date")}
+                          <Controller
+                            control={control}
+                            name="date"
+                            render={({ field: { onChange, value } }) => (
+                              <DatePicker
+                                value={value || ""}
+                                onChange={(date) => {
+                                  const formatted = date?.isValid
+                                    ? date.format("YYYY/MM/DD")
+                                    : "";
+                                  onChange(formatted);
+                                }}
+                                format="YYYY/MM/DD"
+                                calendar={persian}
+                                  locale={persian_fa}
+                                calendarPosition="bottom-right"
+                              />
+                            )}
                           />
-                          {errors.date && (
-                            <>
-                              <p className="text-red-500 text-sm">
-                                {errors.date.message}
-                              </p>
-                            </>
-                          )}
+                          {errors.date && <span>{errors.date.message}</span>}
                         </div>
                       </div>
                     </label>

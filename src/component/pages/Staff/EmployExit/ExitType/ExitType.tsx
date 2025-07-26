@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { FaUserFriends } from "react-icons/fa";
-import { FaUserLock } from "react-icons/fa";
+import { FaSquarePlus } from "react-icons/fa6";
 import Breadcrumb from "@/component/shared/breadcrumb";
 import Smartwizard from "@/component/shared/Smartwizard";
 import Table from "./Table";
 import Form from "./Form";
+import { IoMdExit } from "react-icons/io";
 
 const ExitType = () => {
     const title = " نوع انفصال ";
@@ -23,7 +23,7 @@ const ExitType = () => {
                                  data={[
                                     [
                                        <>
-                                          <FaUserFriends className="w-7 h-7" />
+                                          <IoMdExit className="w-7 h-7" />
                                        </>,
                                        "/staff/employ-exit",
                                        "انفصال از خدمت",
@@ -31,7 +31,7 @@ const ExitType = () => {
                                     ],
                                     [
                                        <>
-                                          <FaUserLock className="w-7 h-7" />
+                                          <FaSquarePlus className="w-7 h-7" />
                                        </>,
                                        "/exit-type",
                                        " نوع انفصال",

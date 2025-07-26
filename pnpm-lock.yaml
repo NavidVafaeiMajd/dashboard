@@ -41,6 +41,9 @@ importers:
       react-apexcharts:
         specifier: ^1.7.0
         version: 1.7.0(apexcharts@5.3.1)(react@19.1.0)
+      react-date-object:
+        specifier: ^2.1.9
+        version: 2.1.9
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
@@ -50,6 +53,9 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.0)
+      react-multi-date-picker:
+        specifier: ^4.5.2
+        version: 4.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-router-dom:
         specifier: ^7.6.3
         version: 7.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -2478,6 +2484,9 @@ packages:
       apexcharts: '>=4.0.0'
       react: '>=0.13'
 
+  react-date-object@2.1.9:
+    resolution: {integrity: sha512-BHxD/quWOTo9fLKV/cfL/M31ePoj4a1JaJ/CnOf8Ndg3mrkh4x9wEMMkCfTrzduxDOgU8ZgR8uarhqI5G71sTg==}
+
   react-devtools-core@6.1.5:
     resolution: {integrity: sha512-ePrwPfxAnB+7hgnEr8vpKxL9cmnp7F322t8oqcPshbIQQhDKgFDW4tjhF2wjVbdXF9O/nyuy3sQWd9JGpiLPvA==}
 
@@ -2490,6 +2499,12 @@ packages:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
       react: ^19.1.0
+
+  react-element-popper@2.1.7:
+    resolution: {integrity: sha512-tuM2OxKlW32h+6uFSK6EENHPeZ2OGgOipHfOAl+VLWEv9/j3QkSGbD+ADX3A9uJlmq24i37n28RjJmAbGTfpEg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react-hook-form@7.60.0:
     resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
@@ -2514,6 +2529,12 @@ packages:
       konva: ^8.0.1 || ^7.2.5 || ^9.0.0
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
+
+  react-multi-date-picker@4.5.2:
+    resolution: {integrity: sha512-FgWjZB3Z6IA6XpcWiLPk85PwcRUhOiYhKK42o5k672gD/n2I6rzPfQ8bUrldOIiF/Z7FfOCdH7a6FeubzqteLg==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react-native@0.80.1:
     resolution: {integrity: sha512-cIiJiPItdC2+Z9n30FmE2ef1y4522kgmOjMIoDtlD16jrOMNTUdB2u+CylLTy3REkWkWTS6w8Ub7skUthkeo5w==}
@@ -5532,6 +5553,8 @@ snapshots:
       prop-types: 15.8.1
       react: 19.1.0
 
+  react-date-object@2.1.9: {}
+
   react-devtools-core@6.1.5:
     dependencies:
       shell-quote: 1.8.3
@@ -5550,6 +5573,11 @@ snapshots:
     dependencies:
       react: 19.1.0
       scheduler: 0.26.0
+
+  react-element-popper@2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-hook-form@7.60.0(react@19.1.0):
     dependencies:
@@ -5574,6 +5602,13 @@ snapshots:
       scheduler: 0.23.2
     transitivePeerDependencies:
       - '@types/react'
+
+  react-multi-date-picker@4.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-date-object: 2.1.9
+      react-dom: 19.1.0(react@19.1.0)
+      react-element-popper: 2.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
   react-native@0.80.1(@babel/core@7.28.0)(@types/react@19.1.8)(react@19.1.0):
     dependencies:
