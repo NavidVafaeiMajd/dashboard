@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import type { ControllerRenderProps } from "react-hook-form";
 import type z from "zod";
 import type { validation } from "../pages/HumanResourceManagement/Policies/validation";
+import { Input } from "@/components/ui/input";
 
 interface ImageUploadInputProps {
    field: ControllerRenderProps<z.infer<typeof validation>, "image">;
@@ -44,7 +45,7 @@ export function ImageUploadInput({ field }: ImageUploadInputProps) {
                   <ImagePlus className="w-4 h-4" />
                   انتخاب تصویر
                </label>
-               <input
+               <Input
                   id="image-upload"
                   type="file"
                   accept="image/*"
