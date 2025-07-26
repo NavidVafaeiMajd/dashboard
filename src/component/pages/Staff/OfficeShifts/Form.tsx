@@ -6,16 +6,10 @@ import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TimeKeeper from "react-timekeeper";
+import { officeShift } from "@/component/shared/validtion";
 
-// Schema
-const schema = z.object({
-  firstName: z
-    .string()
-    .min(1, "نام الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-});
 
-type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof officeShift>;
 
 interface Props {
   accordion: boolean;
@@ -71,7 +65,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(officeShift),
   });
 
   const onSubmit = (data: FormData) => {

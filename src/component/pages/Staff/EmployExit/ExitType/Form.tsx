@@ -3,18 +3,9 @@ import { toast } from "react-toastify";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { exitType } from "@/component/shared/validtion";
 
-//shema
-const schema = z.object({
-  exitType: z
-    .string()
-    .min(1, "نوع انفصال الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-
-
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof exitType>;
 
 
 const Form = () => {
@@ -23,7 +14,7 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(exitType),
   });
 
   const onSubmit = (data: FormData) => {

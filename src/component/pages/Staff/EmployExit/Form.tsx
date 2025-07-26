@@ -11,67 +11,10 @@ import DatePicker from "react-multi-date-picker";
 import { Controller } from "react-hook-form";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-const MAX_FILE_SIZE = 2 * 1024 * 1024;
+import { employExite } from "@/component/shared/validtion";
 
-// فرمت‌های مجاز عکس
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
 
-//shema
-const schema = z.object({
-  employee: z
-    .string()
-    .min(1, "کارمند الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-
-  date: z.string().min(1, "تاریخ الزامی است"),
-
-  textLetter: z
-    .string()
-    .min(1, "متن الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-
-  exitType: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
-
-  meeting: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
-  accountDis: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
-
-  profileImage: z
-    .any()
-    .refine((files) => files instanceof FileList && files.length > 0, {
-      message: "فایل انتخاب نشده",
-    })
-    .refine(
-      (files) => {
-        const file = files[0];
-        return file && file.size <= MAX_FILE_SIZE;
-      },
-      {
-        message: "حجم فایل باید کمتر از ۲ مگابایت باشد",
-      }
-    )
-    .refine(
-      (files) => {
-        const file = files[0];
-        return file && ACCEPTED_IMAGE_TYPES.includes(file.type);
-      },
-      {
-        message: "فرمت فایل باید jpeg، jpg، png یا webp باشد",
-      }
-    ),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof employExite>;
 
 interface Props {
   accordion: boolean;
@@ -86,7 +29,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
     formState: { errors },
     watch,
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(employExite),
   });
 
   const onSubmit = (data: FormData) => {

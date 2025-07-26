@@ -8,104 +8,9 @@ import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { staffList } from "@/component/shared/validtion";
 
-const MAX_FILE_SIZE = 2 * 1024 * 1024;
-
-// فرمت‌های مجاز عکس
-const ACCEPTED_IMAGE_TYPES = [
-   "image/jpeg",
-   "image/jpg",
-   "image/png",
-   "image/webp",
-];
-
-//shema
-const schema = z.object({
-   firstName: z
-      .string()
-      .min(1, "نام الزامی است")
-      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-      .describe("مثلاً: نوید"),
-
-   lastName: z
-      .string()
-      .min(1, "نام خانوادگی الزامی است")
-      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-      .describe("مثلاً: محمدی"),
-
-   personnelCode: z
-      .string()
-      .regex(/^\d+$/, "فقط عدد مجاز است")
-      .min(1, "کد پرسنلی الزامی است")
-      .describe("مثلاً: 12345"),
-
-   phone: z
-      .string()
-      .regex(/^09\d{9}$/, "شماره تماس معتبر نیست")
-      .describe("مثلاً: 09121234567"),
-
-   gender: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-   }),
-
-   email: z.email("ایمیل معتبر وارد کنید").describe("مثلاً: example@gmail.com"),
-
-   username: z.string().min(3, "نام کاربری حداقل باید ۳ حرف باشد"),
-
-   password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر"),
-
-   shift: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-   }),
-
-   role: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-   }),
-
-   department: z.string().min(1, "واحد سازمانی الزامی است"),
-
-   position: z.string().min(1, "سمت سازمانی الزامی است"),
-
-   monthlySalary: z
-      .string()
-      .regex(/^\d+$/, "فقط عدد مجاز است")
-      .describe("مثلاً: 5000000"),
-
-   dailySalary: z
-      .string()
-      .regex(/^\d+$/, "فقط عدد مجاز است")
-      .describe("مثلاً: 200000"),
-
-   salaryType: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-   }),
-
-   profileImage: z
-      .any()
-      .refine((files) => files instanceof FileList && files.length > 0, {
-         message: "فایل انتخاب نشده",
-      })
-      .refine(
-         (files) => {
-            const file = files[0];
-            return file && file.size <= MAX_FILE_SIZE;
-         },
-         {
-            message: "حجم فایل باید کمتر از ۲ مگابایت باشد",
-         }
-      )
-      .refine(
-         (files) => {
-            const file = files[0];
-            return file && ACCEPTED_IMAGE_TYPES.includes(file.type);
-         },
-         {
-            message: "فرمت فایل باید jpeg، jpg، png یا webp باشد",
-         }
-      ),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof staffList>;
 
 interface Props {
    accordion: boolean;
@@ -119,7 +24,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
       formState: { errors },
       watch,
    } = useForm<FormData>({
-      resolver: zodResolver(schema),
+      resolver: zodResolver(staffList),
    });
 
    const onSubmit = (data: FormData) => {
@@ -554,7 +459,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                               id="fileInput"
                               className="hidden "
                            />
-                           {errors.profileImage && (
+                           {typeof errors.profileImage?.message === 'string' && (
                               <>
                                  <p className="text-red-500 text-sm">
                                     {errors.profileImage.message}
