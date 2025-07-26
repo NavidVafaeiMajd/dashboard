@@ -59,7 +59,7 @@ const OrganizationalUnit = () => {
                         name="name"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">
+                              <FormLabel className="text-base">
                                  نام <span className="text-red-500">*</span>
                               </FormLabel>
                               <FormControl>
@@ -79,8 +79,9 @@ const OrganizationalUnit = () => {
                         name="unitBoss"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">
+                              <FormLabel className="text-base">
                                  رئیس واحد
+                                 <span className="text-red-500">*</span>
                               </FormLabel>
                               <FormControl>
                                  <Select

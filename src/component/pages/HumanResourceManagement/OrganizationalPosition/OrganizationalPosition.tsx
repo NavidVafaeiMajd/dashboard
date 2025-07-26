@@ -59,7 +59,7 @@ const OrganizationalPosition = () => {
                         name="organizationUnit"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">
+                              <FormLabel className="text-base">
                                  واحد سازمانی{" "}
                                  <span className="text-red-500">*</span>
                               </FormLabel>
@@ -100,7 +100,7 @@ const OrganizationalPosition = () => {
                         name="name"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">
+                              <FormLabel className="text-base">
                                  نام سمت سازمان{" "}
                                  <span className="text-red-500">*</span>
                               </FormLabel>
@@ -121,7 +121,7 @@ const OrganizationalPosition = () => {
                         name="description"
                         render={({ field }) => (
                            <FormItem>
-                              <FormLabel className="text-xl">شرح</FormLabel>
+                              <FormLabel className="text-base">شرح</FormLabel>
                               <FormControl>
                                  <Textarea
                                     {...field}
