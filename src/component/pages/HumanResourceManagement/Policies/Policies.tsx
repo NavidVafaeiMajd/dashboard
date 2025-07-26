@@ -54,7 +54,9 @@ const Policies = () => {
                         name="name"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">عنوان</FormLabel>
+                              <FormLabel className="text-xl">
+                                 عنوان <span className="text-red-500">*</span>
+                              </FormLabel>
                               <FormControl>
                                  <Input
                                     placeholder="عنوان"

@@ -29,6 +29,7 @@ const OrganizationalUnit = () => {
    useEffect(() => {
       document.title = "واحد سازمانی";
    }, []);
+
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
       defaultValues: {
@@ -58,7 +59,9 @@ const OrganizationalUnit = () => {
                         name="name"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">نام</FormLabel>
+                              <FormLabel className="text-xl">
+                                 نام <span className="text-red-500">*</span>
+                              </FormLabel>
                               <FormControl>
                                  <Input
                                     placeholder="نام"
