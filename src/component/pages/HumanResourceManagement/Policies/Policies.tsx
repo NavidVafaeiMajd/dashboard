@@ -54,7 +54,7 @@ const Policies = () => {
                         name="name"
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-xl">
+                              <FormLabel className="text-base">
                                  عنوان <span className="text-red-500">*</span>
                               </FormLabel>
                               <FormControl>
@@ -74,7 +74,9 @@ const Policies = () => {
                         name="description"
                         render={({ field }) => (
                            <FormItem>
-                              <FormLabel className="text-xl">شرح</FormLabel>
+                              <FormLabel className="text-base">
+                                 شرح <span className="text-red-500">*</span>
+                              </FormLabel>
                               <FormControl>
                                  <Textarea
                                     {...field}

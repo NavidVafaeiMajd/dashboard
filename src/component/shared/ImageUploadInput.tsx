@@ -31,8 +31,9 @@ export function ImageUploadInput({ field }: ImageUploadInputProps) {
 
    return (
       <FormItem>
-         <FormLabel className="text-right block mb-2 text-sm font-medium text-gray-700">
+         <FormLabel className="text-right block mb-2 text-base ">
             تصویر محصول
+            <span className="text-red-500">*</span>
          </FormLabel>
          <FormControl>
             <div className="flex flex-col items-start gap-3">
