@@ -7,6 +7,23 @@
   /* outline: 1px solid red; */
 }
 
+.ql-picker.ql-header .ql-picker-label::before,
+.ql-picker.ql-header .ql-picker-item::before {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  content: 'Heading 1';
+}
+.ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  content: 'Heading 2';
+}
+.ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  content: 'Heading 3';
+}
+
+
 @font-face {
   font-family: myFirstFont;
   src: url(./assets/fonts/_Woff2/KalamehWeb-Regular.woff2);
