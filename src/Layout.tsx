@@ -17,6 +17,7 @@ import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
 import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
 import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
+import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -106,6 +107,10 @@ const Layout = () => {
                            <Route
                               path="manual-attendance"
                               element={<ManualAttendance />}
+                           />
+                           <Route
+                              path="monthly-attendance"
+                              element={<MonthlyAttendance />}
                            />
                         </Route>
                         <Route
