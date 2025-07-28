@@ -10,7 +10,6 @@ import {
    FormLabel,
    FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import {
    Select,
    SelectContent,
@@ -57,7 +56,7 @@ const ManualAttendance = () => {
                      <FormField
                         control={form.control}
                         name="date"
-                        render={({}) => (
+                        render={() => (
                            <FormItem className="w-full space-y-2">
                               <FormLabel className="text-base">تاریخ</FormLabel>
                               <FormControl>
