@@ -134,6 +134,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                                 calendar={persian}
                                 locale={persian_fa}
                                 calendarPosition="bottom-right"
+                                editable={false}
                               />
                             )}
                           />
@@ -253,6 +254,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                     {...register("profileImage")}
                     id="fileInput"
                     className="hidden "
+              
                   />
                   {typeof errors.profileImage?.message === "string" && (
                     <p className="text-red-500 text-sm">
