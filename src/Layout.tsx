@@ -14,6 +14,8 @@ import OrganizationalPosition from "./components/pages/HumanResourceManagement/O
 import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
 import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
 import { useNavbar } from "./Context/NavbarContext";
+import LayoutRollCall from "./components/pages/RollCall/Layout";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/page";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -90,6 +92,15 @@ const Layout = () => {
                            <Route
                               path="policies-list"
                               element={<Policies />}
+                           />
+                        </Route>
+                        <Route
+                           path="rollcall"
+                           element={<LayoutRollCall />}
+                        >
+                           <Route
+                              path="attendance-list"
+                              element={<AttendanceList />}
                            />
                         </Route>
                         <Route

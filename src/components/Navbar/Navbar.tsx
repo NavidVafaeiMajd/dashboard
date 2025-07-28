@@ -14,12 +14,12 @@ import { CiCircleQuestion } from "react-icons/ci";
 import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineRadar } from "react-icons/md";
 import { BsExclamationCircle } from "react-icons/bs";
-import {  useNavbar } from "@/Context/NavbarContext";
+import { useNavbar } from "@/Context/NavbarContext";
 
 const Navbar = () => {
-   const navb = useNavbar()
+   const navb = useNavbar();
    console.log(navb);
-   
+
    return (
       <>
          {/* nav height */}
@@ -75,9 +75,14 @@ const Navbar = () => {
                         {" "}
                         <GoClock className="w-7 h-7" /> حضور و غیاب
                      </>,
-                     "/hozoor",
+                     "rollcall",
                   ]}
-                  dropInfo={[[" حضور و غیاب ", "hozoor"]]}
+                  dropInfo={[
+                     [" حضور و غیاب ", "rollcall/attendance-list"],
+                     ["ثبت تردد دستی پرسنل", "rollcall/manual-attendance"],
+                     ["گزارش کارکرد ماهانه", "rollcall/monthly-attendance"],
+                     ["درخواست اضافه کاری", "rollcall/overtime-request"],
+                  ]}
                />
                <NavbarItems
                   DropMenu={false}
