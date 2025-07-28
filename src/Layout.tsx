@@ -18,6 +18,7 @@ import LayoutRollCall from "./components/pages/RollCall/Layout";
 import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
 import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
 import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
+import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -111,6 +112,10 @@ const Layout = () => {
                            <Route
                               path="monthly-attendance"
                               element={<MonthlyAttendance />}
+                           />
+                           <Route
+                              path="overtime-request"
+                              element={<OverTimeRequest />}
                            />
                         </Route>
                         <Route
