@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { DataTable } from "@/components/shared/data-table";
-import { userColumns } from "./columns";
+import { columns } from "./columns";
+import { POLICY_CONST } from "./const";
 
 export interface User {
    id: number;
@@ -13,33 +13,11 @@ export interface User {
 }
 
 const Table: React.FC = () => {
-   const [data, setData] = useState<User[]>([]);
-
-   useEffect(() => {
-      const fetchData = async () => {
-         const response: User[] = [
-            {
-               id: 1,
-               user: {
-                  img: "https://trust.jaferi.ir/public/uploads/users/thumb/20240801_221626.jpg",
-                  name: "اکبر محمدی",
-                  email: "a@g.com",
-               },
-               exitType: "test",
-               exitTime: "	1404/04/17",
-               meeting: true,
-               acouuntdis: true,
-            },
-         ];
-         setData(response);
-      };
-      fetchData();
-   }, []);
 
    return (
-      <DataTable<User, unknown>
-         columns={userColumns}
-         data={data}
+      <DataTable
+         columns={columns}
+         data={POLICY_CONST}
          searchableKeys={["name", "position", "phone", "accessLevel"]}
       />
    );
