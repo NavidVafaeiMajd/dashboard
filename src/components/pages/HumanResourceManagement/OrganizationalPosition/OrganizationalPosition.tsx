@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { DataTable } from "@/component/shared/data-table";
+import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
 import { DESIGNATION_CONSTANTS } from "./const";
 

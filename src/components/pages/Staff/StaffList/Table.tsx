@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DataTable } from "@/component/shared/data-table";
+import { DataTable } from "@/components/shared/data-table";
 import { userColumns } from "./columns";
 
 export interface User {
