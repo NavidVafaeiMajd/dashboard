@@ -15,7 +15,7 @@ import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
 import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
-import AttendanceList from "./components/pages/RollCall/AttendanceList/page";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/Page";
 import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
 
 const Layout = () => {
@@ -27,7 +27,7 @@ const Layout = () => {
    return (
       <>
          <main className="w-full! min-h-screen flex flex-col">
-            <div className="fixed z-100 w-full">
+            <div className="fixed z-1000! w-full bg-green-500">
                <Header headerMenu={handleDataFromChild} />
             </div>
             <Router>

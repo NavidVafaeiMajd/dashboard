@@ -21,6 +21,12 @@
 .custom-toast-font{
   font-family: myFirstFont;
 }
+html {
+  scrollbar-gutter: stable;
+}
+body{
+    padding-right: 6px;
+}
 
 :root {
   font-family: myFirstFont , system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -139,11 +145,13 @@
 button{
   cursor: pointer;
 }
-input , textarea{
+input , textarea , input.rmdp-input{
   border: 1px dashed var(--color-border);
   transition: all .1s ease-in-out;
   padding: 10px 15px;
   background-color: white;
+  border-radius: 0;
+  margin: 0 !important;
 }
 textarea{
   display: block;
@@ -360,3 +368,4 @@ input.rmdp-input {
 .react-timekeeper.css-1opryko-timepicker {
     direction: ltr;
 }
+
