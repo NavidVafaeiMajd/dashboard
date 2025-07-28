@@ -136,7 +136,7 @@ const Form = ({ accordion, setAccordion }: Props) => {
                             )}
                           />
 
-                         { typeof errors.date?.message == 'string' && (
+                          {errors.date && (
                             <>
                               <p className="text-red-500 text-sm">
                                 {errors.date.message}

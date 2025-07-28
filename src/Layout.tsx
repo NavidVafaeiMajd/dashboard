@@ -16,6 +16,7 @@ import Policies from "./components/pages/HumanResourceManagement/Policies/Polici
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
 import AttendanceList from "./components/pages/RollCall/AttendanceList/page";
+import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -86,8 +87,8 @@ const Layout = () => {
                               element={<OrganizationalPosition />}
                            />
                            <Route
-                              path="office-shifts"
-                              element={<OfficeShifts />}
+                              path="news-list"
+                              element={<NewsList/>}
                            />
                            <Route
                               path="policies-list"

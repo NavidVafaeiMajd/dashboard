@@ -64,8 +64,7 @@ const Navbar = () => {
                      ["واحد سازمانی ", "hr/departments-list"],
                      ["سمت سازمانی", "hr/designation-list"],
                      ["خط مشی ها", "hr/policies-list"],
-                     ["ابلاغیه", "managment/eblaghie"],
-                     ["چارت سازمانی ", "managment/chart"],
+                     ["ابلاغیه", "hr/news-list"],
                   ]}
                />
                <NavbarItems
