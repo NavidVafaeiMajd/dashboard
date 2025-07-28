@@ -20,7 +20,7 @@ import {
    SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/component/shared/data-table";
+import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
 import { ORGANIZATIONAL_UNIT_DATA } from "./const";
 import { useEffect } from "react";

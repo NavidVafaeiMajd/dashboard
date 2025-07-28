@@ -1,4 +1,4 @@
-import { DataTable } from "@/component/shared/data-table";
+import { DataTable } from "@/components/shared/data-table";
 import { useEffect, useState } from "react";
 import { userColumns } from "./columns";
 

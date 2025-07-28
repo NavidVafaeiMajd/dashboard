@@ -8,7 +8,7 @@ import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { staffList } from "@/component/shared/validtion";
+import { staffList } from "@/components/shared/validtion";
 
 type FormData = z.infer<typeof staffList>;
 
@@ -459,7 +459,8 @@ const Form = ({ accordion, setAccordion }: Props) => {
                               id="fileInput"
                               className="hidden "
                            />
-                           {typeof errors.profileImage?.message === 'string' && (
+                           {typeof errors.profileImage?.message ===
+                              "string" && (
                               <>
                                  <p className="text-red-500 text-sm">
                                     {errors.profileImage.message}

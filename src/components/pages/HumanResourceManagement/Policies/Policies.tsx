@@ -14,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageUploadInput } from "@/component/shared/ImageUploadInput";
-import { DataTable } from "@/component/shared/data-table";
+import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
 import { POLICY_CONST } from "./const";
 
