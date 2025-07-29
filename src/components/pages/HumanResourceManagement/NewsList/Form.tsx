@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import type z from "zod";
 import { validation } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +17,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+import DatePicker from "react-multi-date-picker";
 
 interface Props {
   accordion: boolean;
@@ -42,7 +45,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
   };
 
   return (
-    <div  className={`accordion  ${accordion ? " mb-10 show" : "h-0 hidden"}`}>
+    <div className={`accordion  ${accordion ? " mb-10 show" : "h-0 hidden"}`}>
       <div className="flex flex-col w-full rounded-md overflow-hidden shadow-md h-full">
         <div className="flex bg-bgBack justify-between p-2 px-5 border-b-2 border-red-500 items-center">
           <h2>ثبت جدید خط مشی</h2>
@@ -63,51 +66,131 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
             className="flex flex-col"
           >
             <div className="bg-bgBack space-y-4 p-5">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="w-full space-y-2">
-                    <FormLabel className="text-base">
-                      عنوان <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="عنوان"
-                        className="min-h-12"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-base">
-                      شرح <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        {...field}
-                        placeholder="شرح"
-                        className="placeholder:text-lg min-h-20!"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => <ImageUploadInput field={field} />}
-              />
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          موضوع ابلاغیه <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="موضوع ابلاغیه"
+                            className="min-h-12"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex gap-5">
+                  <FormField
+                    control={form.control}
+                    name="finishDate"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          تاریخ شروع
+                          <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <DatePicker
+                            value={field.value ? new Date(field.value) : ""}
+                            onChange={(date) =>
+                              field.onChange(
+                                date?.isValid ? date.toDate() : null
+                              )
+                            }
+                            format="YYYY/MM/DD"
+                            calendar={persian}
+                            locale={persian_fa}
+                            calendarPosition="bottom-right"
+                            placeholder="تاریخ شروع"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="startDate"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          تاریخ پایان
+                          <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <DatePicker
+                            value={field.value ? new Date(field.value) : ""}
+                            onChange={(date) =>
+                              field.onChange(
+                                date?.isValid ? date.toDate() : null
+                              )
+                            }
+                            format="YYYY/MM/DD"
+                            calendar={persian}
+                            locale={persian_fa}
+                            calendarPosition="bottom-right"
+                            placeholder="تاریخ پایان "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          واحد سازمانی  <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="واحد سازمانی "
+                            className="min-h-12"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          اختصاری <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="اختصاری"
+                            className="min-h-12"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
             <div className="w-full bg-white p-5">
               <Button className="min-h-12 w-30 text-lg">ذخیره</Button>

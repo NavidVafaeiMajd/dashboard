@@ -22,4 +22,14 @@ export const validation = z.object({
       .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
          message: "فرمت تصویر مجاز نیست (فقط jpeg, jpg, png, webp)",
       }),
+     finishDate: z
+       .any()
+       .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
+         message: "تاریخ الزامی و معتبر نیست",
+       }),
+      startDate: z
+       .any()
+       .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
+         message: "تاریخ الزامی و معتبر نیست",
+       }),
 });
