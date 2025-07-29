@@ -1,35 +1,17 @@
 import z from "zod";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_IMAGE_TYPES = [
-   "image/jpeg",
-   "image/jpg",
-   "image/png",
-   "image/webp",
-];
-
 export const validation = z.object({
-   name: z.string().min(1, "عنوان واحد سازمانی الزامی است"),
-   description: z.string(),
-   image: z
+   newsTitle: z.string().min(1, "عنوان موضوع ابلاغیه الزامی است"),
+   organizationalUnit: z.string().min(1, "عنوان واحد سازمانی الزامی است"),
+   summary: z.string().min(1, " اختصاری الزامی است"),
+   finishDate: z
       .any()
-      .refine((file) => file instanceof File, {
-         message: "یک فایل انتخاب کنید",
-      })
-      .refine((file) => file?.size <= MAX_FILE_SIZE, {
-         message: "حجم تصویر باید کمتر از ۵ مگابایت باشد",
-      })
-      .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-         message: "فرمت تصویر مجاز نیست (فقط jpeg, jpg, png, webp)",
+      .refine((d: unknown) => d instanceof Date && !isNaN(d.getTime()), {
+         message: "تاریخ الزامی و معتبر نیست",
       }),
-     finishDate: z
-       .any()
-       .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
+   startDate: z
+      .any()
+      .refine((d: unknown) => d instanceof Date && !isNaN(d.getTime()), {
          message: "تاریخ الزامی و معتبر نیست",
-       }),
-      startDate: z
-       .any()
-       .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
-         message: "تاریخ الزامی و معتبر نیست",
-       }),
+      }),
 });

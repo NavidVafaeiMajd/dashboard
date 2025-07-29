@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import type z from "zod";
 import { validation } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
@@ -32,12 +30,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
   }, []);
 
   const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation),
-    defaultValues: {
-      name: "",
-      description: "",
-      image: null,
-    },
+    resolver: zodResolver(validation)
   });
 
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -70,7 +63,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                 <div>
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="newsTitle"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
@@ -151,7 +144,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                 <div>
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="organizationalUnit"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
@@ -172,7 +165,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                 <div>
                   <FormField
                     control={form.control}
-                    name="name"
+                    name="summary"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
