@@ -15,8 +15,11 @@ import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
 import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
-import AttendanceList from "./components/pages/RollCall/AttendanceList/Page";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
 import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
+import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
+import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
+import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
