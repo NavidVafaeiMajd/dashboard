@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
@@ -20,14 +20,22 @@ export const exitType = z.object({
 });
 
 
+
+
+
+
 export const employExite = z.object({
   employee: z
     .string()
     .min(1, "کارمند الزامی است")
     .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  date: z.string().min(1, "تاریخ الزامی است"),
-
+  date: z
+    .any()
+    .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
+      message: "تاریخ الزامی و معتبر نیست",
+    }),
+  
   textLetter: z
     .string()
     .min(1, "متن الزامی است")

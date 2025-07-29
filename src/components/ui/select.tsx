@@ -70,7 +70,7 @@ function SelectContent({
    ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
    return (
-      <SelectPrimitive.Portal>
+      <SelectPrimitive.Portal container={document.getElementById("radix-portal-root")!}>
          <SelectPrimitive.Content
             data-slot="select-content"
             className={cn(

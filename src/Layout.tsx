@@ -15,10 +15,8 @@ import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
 import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
-import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
-import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
-import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
-import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/Page";
+import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -29,7 +27,7 @@ const Layout = () => {
    return (
       <>
          <main className="w-full! min-h-screen flex flex-col">
-            <div className="fixed z-100 w-full">
+            <div className="fixed z-1000! w-full bg-green-500">
                <Header headerMenu={handleDataFromChild} />
             </div>
             <Router>
@@ -89,8 +87,8 @@ const Layout = () => {
                               element={<OrganizationalPosition />}
                            />
                            <Route
-                              path="office-shifts"
-                              element={<OfficeShifts />}
+                              path="news-list"
+                              element={<NewsList/>}
                            />
                            <Route
                               path="policies-list"
