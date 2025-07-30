@@ -200,7 +200,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   render={({ field }) => (
                     <FormItem className="w-full space-y-2">
                       <FormLabel className="text-base">
-                        واحد سازمانی <span className="text-red-500">*</span>
+                        متن ابلاغیه <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
                         <RichTextEditor

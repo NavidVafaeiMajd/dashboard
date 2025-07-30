@@ -101,6 +101,11 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
                >
                   حذف
                </Button>
+                              <Button
+                  size="sm"
+               >
+                  جزییات
+               </Button>
             </div>
          );
       },
