@@ -4,14 +4,15 @@ import { LuArrowUpDown } from "react-icons/lu";
 
 export interface PolicyColumnProps extends Record<string, unknown> {
    id: string;
-   name: string;
-   createdAt: string;
-   createdBy: string;
+   title: string;
+   startDate: string;
+   finishDate: string;
+   organizationalUnit: string;
 }
 
 export const columns: ColumnDef<PolicyColumnProps>[] = [
    {
-      accessorKey: "name",
+      accessorKey: "title",
       header: ({ column }) => {
          return (
             <Button
@@ -26,8 +27,8 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
          );
       },
    },
-   {
-      accessorKey: "createdAt",
+      {
+      accessorKey: "organizationalUnit",
       header: ({ column }) => {
          return (
             <Button
@@ -37,17 +38,33 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
                }
             >
                <LuArrowUpDown className="ml-2 h-4 w-4" />
-               تاریخ ایجاد
+               واحد سازمانی
+            </Button>
+         );
+      },
+   },
+   {
+      accessorKey: "startDate",
+      header: ({ column }) => {
+         return (
+            <Button
+               variant="ghost"
+               onClick={() =>
+                  column.toggleSorting(column.getIsSorted() === "asc")
+               }
+            >
+               <LuArrowUpDown className="ml-2 h-4 w-4" />
+               تاریخ شروع
             </Button>
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("createdAt"));
+         const date = new Date(row.getValue("startDate"));
          return date.toLocaleDateString("fa-IR");
       },
    },
    {
-      accessorKey: "createdBy",
+      accessorKey: "finishDate",
       header: ({ column }) => {
          return (
             <Button
@@ -57,9 +74,13 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
                }
             >
                <LuArrowUpDown className="ml-2 h-4 w-4" />
-               ایجاد کننده
+               تاریخ پایان
             </Button>
          );
+      },
+            cell: ({ row }) => {
+         const date = new Date(row.getValue("finishDate"));
+         return date.toLocaleDateString("fa-IR");
       },
    },
    {
