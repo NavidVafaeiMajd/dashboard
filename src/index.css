@@ -386,3 +386,9 @@ input.rmdp-input {
     direction: ltr;
 }
 
+/* for text editor */
+.ql-editor {
+  min-height: 300px; 
+  max-height: 500px;  
+  overflow-y: auto;  
+}

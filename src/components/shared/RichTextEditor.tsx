@@ -50,12 +50,13 @@ function RichTextEditor({ value, onChange }: Props) {
    }, [quill]);
 
    return (
-      <FormControl dir="rtl">
+      <FormControl >
          <div
-            className="border rounded-md overflow-hidden text-right"
+            className="border rounded-md overflow-hidden text-right editor-wrapper"
             dir="rtl"
+            
          >
-            <div ref={quillRef} />
+            <div ref={quillRef}/>
          </div>
       </FormControl>
    );

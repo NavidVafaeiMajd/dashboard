@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import type z from "zod";
 import { validation } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
+import RichTextEditor from "@/components/shared/RichTextEditor";
 
 interface Props {
   accordion: boolean;
@@ -30,7 +31,15 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
   }, []);
 
   const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation)
+    resolver: zodResolver(validation),
+    defaultValues: {
+      newsTitle: "",
+      startDate: null,
+      finishDate: null,
+      organizationalUnit: "",
+      summary: "",
+      newsText: "",
+    },
   });
 
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -148,7 +157,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
-                          واحد سازمانی  <span className="text-red-500">*</span>
+                          واحد سازمانی <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -183,6 +192,26 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                     )}
                   />
                 </div>
+              </div>
+              <div>
+                <FormField
+                  control={form.control}
+                  name="newsText"
+                  render={({ field }) => (
+                    <FormItem className="w-full space-y-2">
+                      <FormLabel className="text-base">
+                        واحد سازمانی <span className="text-red-500">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <RichTextEditor
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
             <div className="w-full bg-white p-5">
