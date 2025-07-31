@@ -22,6 +22,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { useEffect } from "react";
 import { validation } from "./validation";
 import { columns } from "./column";
+import CuDatePicker from "@/components/shared/DatePicker";
 import { MANUAL_ATTENDANCE } from "./const";
 
 const ManualAttendance = () => {
@@ -53,19 +54,22 @@ const ManualAttendance = () => {
                   className="flex flex-col"
                >
                   <div className="bg-bgBack space-y-4 p-5">
-                     <FormField
-                        control={form.control}
-                        name="date"
-                        render={() => (
-                           <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-base">تاریخ</FormLabel>
-                              <FormControl>
-                                 <h2>با کامپوننت دیت جایگزین شود</h2>
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
+                  <FormField
+                    control={form.control}
+                    name="date"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          تاریخ 
+                          <span className="text-red-500">*</span>
+                        </FormLabel>
+                          <FormControl>
+                             <CuDatePicker value={field.value} onChange={field.onChange} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
                      <FormField
                         control={form.control}
