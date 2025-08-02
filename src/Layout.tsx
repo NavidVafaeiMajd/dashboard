@@ -22,6 +22,7 @@ import ManualAttendance from "./components/pages/RollCall/ManualAttendance/Manua
 import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
 import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
 import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
+import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -133,6 +134,10 @@ const Layout = () => {
                            <Route
                               element={<AssetsList />}
                               path="assets-list"
+                           />
+                           <Route
+                              element={<AssetsCategory />}
+                              path="assets-category"
                            />
                         </Route>
                      </Routes>
