@@ -20,6 +20,8 @@ import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsLi
 import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
 import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
 import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
+import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
+import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -91,7 +93,7 @@ const Layout = () => {
                            />
                            <Route
                               path="news-list"
-                              element={<NewsList/>}
+                              element={<NewsList />}
                            />
                            <Route
                               path="policies-list"
@@ -123,6 +125,16 @@ const Layout = () => {
                            path="exit-type"
                            element={<ExitType />}
                         />
+
+                        <Route
+                           path="employeeCert"
+                           element={<LayoutEmploymentCertificate />}
+                        >
+                           <Route
+                              element={<AssetsList />}
+                              path="assets-list"
+                           />
+                        </Route>
                      </Routes>
                   </div>
                </div>

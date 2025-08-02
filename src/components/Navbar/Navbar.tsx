@@ -103,7 +103,7 @@ const Navbar = () => {
                         <SiNordicsemiconductor className="w-7 h-7" /> گواهی
                         اشتغال به کار
                      </>,
-                     "/govahi",
+                     "employeeCert/assets-list",
                   ]}
                   dropInfo={[]}
                />
