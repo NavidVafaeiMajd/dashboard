@@ -19,7 +19,7 @@ function RichTextEditor({ value, onChange }: Props) {
             [{ indent: "-1" }, { indent: "+1" }],
             [{ list: "ordered" }, { list: "bullet" }],
             ["bold", "italic", "underline"],
-            ["link", "image"],
+            ["link"],
             ["clean"],
          ],
       },

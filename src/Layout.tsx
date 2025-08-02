@@ -30,7 +30,7 @@ const Layout = () => {
    return (
       <>
          <main className="w-full! min-h-screen flex flex-col">
-            <div className="fixed z-1000! w-full bg-green-500">
+            <div className="fixed z-10! w-full bg-green-500">
                <Header headerMenu={handleDataFromChild} />
             </div>
             <Router>
