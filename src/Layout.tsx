@@ -27,7 +27,6 @@ import LayoutPayroll from "./components/pages/Payroll/Layout";
 import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
 import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
 import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
-import LoanRequest from "./components/pages/Payroll/LoanRequest/LoanRequest";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -161,10 +160,6 @@ const Layout = () => {
                            <Route
                               path="advance-salary"
                               element={<AdvanceSalary />}
-                           />
-                           <Route
-                              path="loan-request"
-                              element={<LoanRequest />}
                            />
                         </Route>
                      </Routes>
