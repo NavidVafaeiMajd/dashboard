@@ -4,8 +4,10 @@ import Breadcrumb from "../../shared/breadcrumb";
 import Smartwizard from "../../shared/Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa6";
+import { IoMdExit } from "react-icons/io";
 import { Outlet } from "react-router-dom";
-const LayoutEmploymentCertificate = () => {
+const LayoutPayroll = () => {
    const location = useLocation();
    const [title, setTitle] = useState(document.title);
 
@@ -25,17 +27,33 @@ const LayoutEmploymentCertificate = () => {
                            <>
                               <FaUserFriends className="w-7 h-7" />
                            </>,
-                           "assets-list",
-                           "گواهی اشتغال به کار",
-                           "تنظیمات گواهی اشتغال به کار",
+                           "payroll-list",
+                           "عملیات حقوق",
+                           "تنظیم حقوق و دستمزد",
                         ],
                         [
                            <>
                               <FaUserLock className="w-7 h-7" />
                            </>,
-                           "assets-category",
-                           "بانک",
-                           "افزودن بانک",
+                           "payslip-history",
+                           "تاریخچه فیش حقوقی",
+                           "مشاهده سوابق فیش حقوقی",
+                        ],
+                        [
+                           <>
+                              <FaRegClock className="w-7 h-7" />
+                           </>,
+                           "advance-salary",
+                           "مساعده حقوق",
+                           "درخواست پیش پرداخت",
+                        ],
+                        [
+                           <>
+                              <IoMdExit className="w-7 h-7" />
+                           </>,
+                           "loan-request",
+                           "وام",
+                           "درخواست وام",
                         ],
                      ]}
                   />
@@ -49,4 +67,4 @@ const LayoutEmploymentCertificate = () => {
    );
 };
 
-export default LayoutEmploymentCertificate;
+export default LayoutPayroll;

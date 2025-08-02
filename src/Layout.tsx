@@ -23,6 +23,8 @@ import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTim
 import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
 import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
 import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
+import LayoutPayroll from "./components/pages/Payroll/Layout";
+import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -139,6 +141,28 @@ const Layout = () => {
                               element={<AssetsCategory />}
                               path="assets-category"
                            />
+                        </Route>
+
+                        <Route
+                           path="payroll"
+                           element={<LayoutPayroll />}
+                        >
+                           <Route
+                              path="payroll-list"
+                              element={<PayrollList />}
+                           />
+                           {/* <Route
+                              path="payslip-history"
+                              element={<PayslipHistory />}
+                           />
+                           <Route
+                              path="advance-salary"
+                              element={<AdvanceSalary />}
+                           />
+                           <Route
+                              path="loan-request"
+                              element={<LoanRequest />}
+                           /> */}
                         </Route>
                      </Routes>
                   </div>

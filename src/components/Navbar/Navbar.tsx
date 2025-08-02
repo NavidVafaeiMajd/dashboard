@@ -114,7 +114,7 @@ const Navbar = () => {
                         {" "}
                         <AiOutlineMobile className="w-7 h-7" /> عملیات حقوق
                      </>,
-                     "/hoghoogh",
+                     "/payroll/payroll-list",
                   ]}
                   dropInfo={[]}
                />
