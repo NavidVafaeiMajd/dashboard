@@ -1,8 +1,12 @@
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
 import { PAYSLIP_HISTORY } from "./const";
+import { useEffect } from "react";
 
 const PayslipHistory = () => {
+   useEffect(() => {
+      document.title = "تاریخچه فیش حقوقی";
+   }, []);
    return (
       <div className="flex flex-col w-full bg-bgBack rounded-md overflow-hidden shadow-md h-full mb-1">
          <div className="flex bg-bgBack w-full p-2 px-5 border-b-2 border-red-500 items-center">

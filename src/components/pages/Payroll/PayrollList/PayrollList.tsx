@@ -27,7 +27,7 @@ import { PAYROLL_LIST } from "./const";
 
 const PayrollList = () => {
    useEffect(() => {
-      document.title = "سمت سازمانی";
+      document.title = "عملیات حقوق";
    }, []);
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
