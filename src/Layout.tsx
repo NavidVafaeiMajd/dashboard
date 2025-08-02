@@ -25,6 +25,7 @@ import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/Asse
 import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
 import LayoutPayroll from "./components/pages/Payroll/Layout";
 import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
+import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -151,11 +152,11 @@ const Layout = () => {
                               path="payroll-list"
                               element={<PayrollList />}
                            />
-                           {/* <Route
+                           <Route
                               path="payslip-history"
                               element={<PayslipHistory />}
                            />
-                           <Route
+                           {/* <Route
                               path="advance-salary"
                               element={<AdvanceSalary />}
                            />
