@@ -27,8 +27,8 @@ const AdvanceSalary = () => {
    //    };
 
    return (
-      <div className="flex flex-col justify-between gap-y-10">
-         <div className="flex bg-bgBack justify-between p-2 px-5 border-b-2 border-red-500 items-center">
+      <div className="flex bg-bgBack flex-col justify-between gap-y-10">
+         <div className="flex  justify-between p-2 px-5 border-b-2 border-red-500 items-center">
             <h2>لیست همه مساعده حقوق</h2>
             <Button
                onClick={() => setAccordion(!accordion)}
