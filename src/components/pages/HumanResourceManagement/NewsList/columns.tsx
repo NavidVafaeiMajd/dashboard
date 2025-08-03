@@ -27,7 +27,7 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
          );
       },
    },
-      {
+   {
       accessorKey: "organizationalUnit",
       header: ({ column }) => {
          return (
@@ -78,7 +78,7 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
             </Button>
          );
       },
-            cell: ({ row }) => {
+      cell: ({ row }) => {
          const date = new Date(row.getValue("finishDate"));
          return date.toLocaleDateString("fa-IR");
       },
@@ -101,11 +101,7 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
                >
                   حذف
                </Button>
-                              <Button
-                  size="sm"
-               >
-                  جزییات
-               </Button>
+               <Button size="sm">جزییات</Button>
             </div>
          );
       },

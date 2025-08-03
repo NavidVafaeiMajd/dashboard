@@ -20,6 +20,13 @@ import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsLi
 import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
 import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
 import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
+import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
+import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
+import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
+import LayoutPayroll from "./components/pages/Payroll/Layout";
+import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
+import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
+import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -91,7 +98,7 @@ const Layout = () => {
                            />
                            <Route
                               path="news-list"
-                              element={<NewsList/>}
+                              element={<NewsList />}
                            />
                            <Route
                               path="policies-list"
@@ -123,6 +130,38 @@ const Layout = () => {
                            path="exit-type"
                            element={<ExitType />}
                         />
+
+                        <Route
+                           path="employeeCert"
+                           element={<LayoutEmploymentCertificate />}
+                        >
+                           <Route
+                              element={<AssetsList />}
+                              path="assets-list"
+                           />
+                           <Route
+                              element={<AssetsCategory />}
+                              path="assets-category"
+                           />
+                        </Route>
+
+                        <Route
+                           path="payroll"
+                           element={<LayoutPayroll />}
+                        >
+                           <Route
+                              path="payroll-list"
+                              element={<PayrollList />}
+                           />
+                           <Route
+                              path="payslip-history"
+                              element={<PayslipHistory />}
+                           />
+                           <Route
+                              path="advance-salary"
+                              element={<AdvanceSalary />}
+                           />
+                        </Route>
                      </Routes>
                   </div>
                </div>

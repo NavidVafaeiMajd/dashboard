@@ -7,6 +7,10 @@
   /* outline: 1px solid red; */
 }
 
+.ql-picker.ql-header {
+  text-align: end;
+}
+
 .ql-picker.ql-header .ql-picker-label::before,
 .ql-picker.ql-header .ql-picker-item::before {
   font-weight: bold;
