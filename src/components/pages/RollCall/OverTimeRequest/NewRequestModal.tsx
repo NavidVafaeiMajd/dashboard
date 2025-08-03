@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
-import { Clock, X } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,6 +27,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import type z from "zod";
 import { modalValidation } from "./modalValidation";
+import CuDatePicker from "@/components/shared/DatePicker";
 
 interface NewRequestModalProps {
   open: boolean;
@@ -118,25 +119,25 @@ const NewRequestModal = ({ open, setOpen }: NewRequestModalProps) => {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="date"
-                  render={({ field }) => (
-                    <FormItem className="w-full space-y-2">
-                      <FormLabel className="text-lg">
-                        تاریخ<span className="text-red-500">*</span>
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled
-                          value={field.value.toLocaleDateString("fa-IR")}
-                          className="w-full min-h-12 border rounded p-2"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem className="w-full space-y-2">
+                    <FormLabel className="text-base">
+                      تاریخ
+                      <span className="text-red-500">*</span>
+                    </FormLabel>
+                    <FormControl>
+                      <CuDatePicker
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
                 <div className="flex flex-col md:flex-row gap-4">
                   {/* زمان ورود */}
