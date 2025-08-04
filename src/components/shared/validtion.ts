@@ -1,20 +1,20 @@
-import { string, z } from "zod";
+import { z } from "zod";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
+   "image/jpeg",
+   "image/jpg",
+   "image/png",
+   "image/webp",
 ];
 
 
 export const exitType = z.object({
-    exitType: z
-        .string()
-        .min(1, "نوع انفصال الزامی است")
-        .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+   exitType: z
+      .string()
+      .min(1, "نوع انفصال الزامی است")
+      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
 
 });
@@ -25,72 +25,72 @@ export const exitType = z.object({
 
 
 export const employExite = z.object({
-  employee: z
-    .string()
-    .min(1, "کارمند الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+   employee: z
+      .string()
+      .min(1, "کارمند الزامی است")
+      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  date: z
-    .any()
-    .refine((d:unknown) => d instanceof Date && !isNaN(d.getTime()), {
-      message: "تاریخ الزامی و معتبر نیست",
-    }),
-  
-  textLetter: z
-    .string()
-    .min(1, "متن الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+   date: z
+      .any()
+      .refine((d: unknown) => d instanceof Date && !isNaN(d.getTime()), {
+         message: "تاریخ الزامی است و یا معتبر نیست",
+      }),
 
-  exitType: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
+   textLetter: z
+      .string()
+      .min(1, "متن الزامی است")
+      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 
-  meeting: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
-  accountDis: z.string().refine((val) => val !== "", {
-    message: "لطفاً یک گزینه انتخاب کنید",
-  }),
+   exitType: z.string().refine((val) => val !== "", {
+      message: "لطفاً یک گزینه انتخاب کنید",
+   }),
 
-  profileImage: z
-    .any()
-    .refine((files) => files instanceof FileList && files.length > 0, {
-      message: "فایل انتخاب نشده",
-    })
-    .refine(
-      (files) => {
-        const file = files[0];
-        return file && file.size <= MAX_FILE_SIZE;
-      },
-      {
-        message: "حجم فایل باید کمتر از ۲ مگابایت باشد",
-      }
-    )
-    .refine(
-      (files) => {
-        const file = files[0];
-        return file && ACCEPTED_IMAGE_TYPES.includes(file.type);
-      },
-      {
-        message: "فرمت فایل باید jpeg، jpg، png یا webp باشد",
-      }
-    ),
+   meeting: z.string().refine((val) => val !== "", {
+      message: "لطفاً یک گزینه انتخاب کنید",
+   }),
+   accountDis: z.string().refine((val) => val !== "", {
+      message: "لطفاً یک گزینه انتخاب کنید",
+   }),
+
+   profileImage: z
+      .any()
+      .refine((files) => files instanceof FileList && files.length > 0, {
+         message: "فایل انتخاب نشده",
+      })
+      .refine(
+         (files) => {
+            const file = files[0];
+            return file && file.size <= MAX_FILE_SIZE;
+         },
+         {
+            message: "حجم فایل باید کمتر از ۲ مگابایت باشد",
+         }
+      )
+      .refine(
+         (files) => {
+            const file = files[0];
+            return file && ACCEPTED_IMAGE_TYPES.includes(file.type);
+         },
+         {
+            message: "فرمت فایل باید jpeg، jpg، png یا webp باشد",
+         }
+      ),
 });
 
 export const officeShift = z.object({
-  firstName: z
-    .string()
-    .min(1, "نام الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+   firstName: z
+      .string()
+      .min(1, "نام الزامی است")
+      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
 });
 
 export const setRoles = z.object({
-  permissionName: z
-    .string()
-    .min(1, "نام الزامی است")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-  
-     choosePremition: z.string().refine((val) => val !== "", {
+   permissionName: z
+      .string()
+      .min(1, "نام الزامی است")
+      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+
+   choosePremition: z.string().refine((val) => val !== "", {
       message: "لطفاً یک گزینه انتخاب کنید",
    }),
 });

@@ -8,7 +8,7 @@ const Smartwizard = ({ data }: dataProps) => {
       <>
          <div
             id="smartwizard"
-            className="flex flex-col items-center sm:flex-row flex-wrap gap-5 mt-10 mb-5 justify-between px-10 border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md p-2"
+            className="flex flex-col items-center sm:flex-row flex-wrap gap-5 mt-10 mb-5 justify-evenly px-10 border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md p-2"
          >
             {data.map((item, index) => (
                <div key={index}>
