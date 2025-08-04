@@ -1,5 +1,14 @@
 import z from "zod";
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_IMAGE_TYPES = [
+   "image/jpeg",
+   "image/jpg",
+   "image/png",
+   "image/webp",
+];
+
+
 export const validation = z.object({
    newsTitle: z
       .string()
@@ -29,4 +38,15 @@ export const validation = z.object({
       .refine((d: unknown) => d instanceof Date && !isNaN(d.getTime()), {
          message: "تاریخ الزامی و معتبر نیست",
       }),
+      image: z
+         .any()
+         .refine((file) => file instanceof File, {
+            message: "یک فایل انتخاب کنید",
+         })
+         .refine((file) => file?.size <= MAX_FILE_SIZE, {
+            message: "حجم تصویر باید کمتر از ۵ مگابایت باشد",
+         })
+         .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
+            message: "فرمت تصویر مجاز نیست (فقط jpeg, jpg, png, webp)",
+         }),
 });
