@@ -25,7 +25,7 @@ const Navbar = () => {
          {/* nav height */}
          <div
             id="navbar-content"
-            className="lg:h-[calc(100vh-110px)]! h-full z-10 fixed w-[70%] mt-1 lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow-xl"
+            className="lg:h-[calc(100vh-110px)]! h-full z-10 fixed  w-[70%] mt-1 lg:w-[300px] lg:right-10 overflow-auto bg-navbar shadow-xl"
             style={{ direction: "ltr", textAlign: "right" }}
          >
             <ul>
@@ -92,7 +92,7 @@ const Navbar = () => {
                         <MdPayment className="w-7 h-7" />
                         حساب بانکی{" "}
                      </>,
-                     "/hesab",
+                     "/bank",
                   ]}
                   dropInfo={[]}
                />

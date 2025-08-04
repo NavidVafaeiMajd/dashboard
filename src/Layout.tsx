@@ -16,7 +16,12 @@ import Policies from "./components/pages/HumanResourceManagement/Policies/Polici
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
 import AttendanceList from "./components/pages/RollCall/AttendanceList/page";
-
+import LayoutBankaccount from "./components/pages/bank/layoutBank";
+import MainBank from "./components/pages/bank/AccountBank/mainBank";
+import MainList from "./components/pages/bank/deposit-list/mainList";
+import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
+import ExpenseList from "./components/pages/bank/expenseList/expenseList";
+import MainclientsList from "./components/pages/ClientsList/MainclientsList";
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -36,9 +41,8 @@ const Layout = () => {
                />
                <div className=" flex flex-1 py-5 lg:mt-[75px] mt-[60px] max-lg:flex-col">
                   <div
-                     className={`w-[25%] overflow-auto ${
-                        isNavbarOpen ? "show" : "max-lg:hidden"
-                     }`}
+                     className={`w-[25%] overflow-auto ${isNavbarOpen ? "show" : "max-lg:hidden"
+                        }`}
                   >
                      <Navbar />
                      <div
@@ -46,7 +50,7 @@ const Layout = () => {
                         className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"
                      />
                   </div>
-                  <div className="lg:w-[85%] overflow-auto  px-5 md:px-10">
+                  <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
                      <Routes>
                         <Route
                            path="/"
@@ -107,6 +111,15 @@ const Layout = () => {
                            path="exit-type"
                            element={<ExitType />}
                         />
+                        <Route path="bank" element={<LayoutBankaccount />}>
+                           <Route index element={<MainBank />} />
+                           <Route path="deposit-list" element={<MainList />} />
+                           <Route path="transactions-list" element={<MaintransactionsList />} />
+                           <Route path="expense-list" element={<ExpenseList />} />
+                        </Route>
+                        <Route path="moshtarian" element={<MainclientsList/>}>
+                        
+                        </Route>
                      </Routes>
                   </div>
                </div>

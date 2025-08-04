@@ -29,6 +29,7 @@ const OrganizationalPosition = () => {
    useEffect(() => {
       document.title = "سمت سازمانی";
    }, []);
+   
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
       defaultValues: {
