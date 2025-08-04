@@ -173,6 +173,7 @@ const NewRequestModal = ({ open, setOpen }: NewRequestModalProps) => {
                                   onChange={(data) => {
                                     field.onChange(data.formatted24);
                                   }}
+                                  // @ts-expect-error beacuse this section not support tsx
                                   onDoneClick={() => setShowEntryTime(false)}
                                   switchToMinuteOnHourSelect
                                 />
@@ -217,6 +218,7 @@ const NewRequestModal = ({ open, setOpen }: NewRequestModalProps) => {
                                   onChange={(data) => {
                                     field.onChange(data.formatted24);
                                   }}
+                                  // @ts-expect-error beacuse this section not support tsx
                                   onDoneClick={() => setShowExitTime(false)}
                                   switchToMinuteOnHourSelect
                                 />
