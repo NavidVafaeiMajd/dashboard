@@ -16,13 +16,19 @@ import Policies from "./components/pages/HumanResourceManagement/Policies/Polici
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
 import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
-import LayoutBankaccount from "./components/pages/bank/layoutBank";
-import MainBank from "./components/pages/bank/AccountBank/mainBank";
-import MainList from "./components/pages/bank/deposit-list/mainList";
-import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-import ExpenseList from "./components/pages/bank/expenseList/expenseList";
-import MainclientsList from "./components/pages/ClientsList/MainclientsList";
-import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
+import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
+import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
+import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
+import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
+import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
+import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
+import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
+import LayoutPayroll from "./components/pages/Payroll/Layout";
+import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
+import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
+import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
+import Leads from "./components/pages/Leads/Leads";
+
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -112,15 +118,42 @@ const Layout = () => {
                            path="exit-type"
                            element={<ExitType />}
                         />
-                        <Route path="bank" element={<LayoutBankaccount />}>
-                           <Route index element={<MainBank />} />
-                           <Route path="deposit-list" element={<MainList />} />
-                           <Route path="transactions-list" element={<MaintransactionsList />} />
-                           <Route path="expense-list" element={<AmmountMain />} />
+
+                        <Route
+                           path="employeeCert"
+                           element={<LayoutEmploymentCertificate />}
+                        >
+                           <Route
+                              element={<AssetsList />}
+                              path="assets-list"
+                           />
+                           <Route
+                              element={<AssetsCategory />}
+                              path="assets-category"
+                           />
                         </Route>
-                        <Route path="clients-list" element={<MainclientsList/>}>
-                        
+
+                        <Route
+                           path="payroll"
+                           element={<LayoutPayroll />}
+                        >
+                           <Route
+                              path="payroll-list"
+                              element={<PayrollList />}
+                           />
+                           <Route
+                              path="payslip-history"
+                              element={<PayslipHistory />}
+                           />
+                           <Route
+                              path="advance-salary"
+                              element={<AdvanceSalary />}
+                           />
                         </Route>
+                        <Route
+                           path="leads"
+                           element={<Leads />}
+                        />
                      </Routes>
                   </div>
                </div>

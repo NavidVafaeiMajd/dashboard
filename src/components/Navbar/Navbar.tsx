@@ -136,7 +136,7 @@ const Navbar = () => {
                         {" "}
                         <FiUserPlus className="w-7 h-7" /> رهبران{" "}
                      </>,
-                     "/rahbaran",
+                     "/leads",
                   ]}
                   dropInfo={[]}
                />
