@@ -13,7 +13,7 @@ const Header: React.FC<ChildProps>  = ({headerMenu})  => {
     const [secoundMenu, setSecoundMenu] = useState(false);
     return (
     <>
-            <div className="bg-primary max-md:bg-[#161C25] text-white h-[75px] px-10 w-full!">
+            <div className="bg-primary max-md:bg-[#161C25] text-white h-[75px] px-10 w-full! ">
                 <div className=" flex justify-between items-center h-full!">
                     <div id="right-header " className="flex gap-3">
                         <HiOutlineDotsVertical onClick={() => { setFisrtMenu(!fisrtMenu) }} className="w-8 h-8 md:hidden" />

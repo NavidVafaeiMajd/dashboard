@@ -44,9 +44,9 @@ export default function MainBank() {
   };
 
   return (
-    <div className="flex justify-between">
+    <div className="flex flex-wrap justify-between">
       {/* فرم ثبت جدید حساب */}
-      <div className="shadow-2xl w-[495px] rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
+      <div className="shadow-2xl w-[100%] xl:w-[495px] rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
         <div className="w-full h-[45px] p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">ثبت جدید حساب</span>
         </div>

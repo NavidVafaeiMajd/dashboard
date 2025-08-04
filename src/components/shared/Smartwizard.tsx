@@ -1,27 +1,37 @@
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface dataProps {
-    data : [React.ReactNode , string , string, string ][]
+   data: [React.ReactNode, string, string, string][];
 }
-const Smartwizard = ({data} :dataProps) => {
-    return (
-        <>
+const Smartwizard = ({ data }: dataProps) => {
+   return (
+      <>
+         <div
+            id="smartwizard"
+            className="flex flex-col items-center sm:flex-row flex-wrap gap-5 mt-10 mb-5 justify-evenly px-10 border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md p-2"
+         >
+            {data.map((item, index) => (
+               <div key={index}>
+                  <NavLink
+                     to={item[1]}
+                     className={({ isActive }) =>
+                        ` flex items-center gap-5 ${
+                           isActive && "text-cupurple"
+                        } hover:text-cupurple`
+                     }
+                     end
+                  >
+                     <div className="flex flex-col gap-2">
+                        <span>{item[2]}</span>
+                        <span className="text-sm text-black/50">{item[3]}</span>
+                     </div>
+                     <div>{item[0]}</div>
+                  </NavLink>
+               </div>
+            ))}
+         </div>
+      </>
+   );
+};
 
-            <div id="smartwizard" className="flex flex-wrap gap-5 mt-10 mb-5 justify-around border border-[#24C96F] bg-[#DFF5E2] py-3 rounded-md p-2" >
-                {data.map((item , index) => (
-                    <div  key={index} >
-                        <NavLink to={item[1]} className={({isActive})=>` flex items-center gap-5 ${isActive && "text-cupurple"} hover:text-cupurple`} end>
-                            <div className="flex flex-col gap-2">
-                                <span>{ item[2]}</span>
-                                <span className="text-sm text-black/50">{ item[3]}</span>
-                            </div>
-                            <div>{item[0]}</div>
-                        </NavLink>
-                    </div>
-                ))}
-            </div>
-        </>
-    );
-}
- 
 export default Smartwizard;

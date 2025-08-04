@@ -7,6 +7,27 @@
   /* outline: 1px solid red; */
 }
 
+.ql-picker.ql-header {
+  text-align: end;
+}
+
+.ql-picker.ql-header .ql-picker-label::before,
+.ql-picker.ql-header .ql-picker-item::before {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+  content: 'Heading 1';
+}
+.ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+  content: 'Heading 2';
+}
+.ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+  content: 'Heading 3';
+}
+
+
 @font-face {
   font-family: myFirstFont;
   src: url(./assets/fonts/_Woff2/KalamehWeb-Regular.woff2);
@@ -20,6 +41,12 @@
 
 .custom-toast-font{
   font-family: myFirstFont;
+}
+html {
+  scrollbar-gutter: stable;
+}
+body{
+    padding-right: 6px;
 }
 
 :root {
@@ -139,11 +166,13 @@
 button{
   cursor: pointer;
 }
-input , textarea{
+input , textarea , input.rmdp-input{
   border: 1px dashed var(--color-border);
   transition: all .1s ease-in-out;
   padding: 10px 15px;
   background-color: white;
+  border-radius: 0;
+  margin: 0 !important;
 }
 textarea{
   display: block;
@@ -359,4 +388,11 @@ input.rmdp-input {
 
 .react-timekeeper.css-1opryko-timepicker {
     direction: ltr;
+}
+
+/* for text editor */
+.ql-editor {
+  min-height: 300px; 
+  max-height: 500px;  
+  overflow-y: auto;  
 }

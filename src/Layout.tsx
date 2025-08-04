@@ -15,13 +15,14 @@ import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
 import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
 import { useNavbar } from "./Context/NavbarContext";
 import LayoutRollCall from "./components/pages/RollCall/Layout";
-import AttendanceList from "./components/pages/RollCall/AttendanceList/page";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
 import LayoutBankaccount from "./components/pages/bank/layoutBank";
 import MainBank from "./components/pages/bank/AccountBank/mainBank";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
 import ExpenseList from "./components/pages/bank/expenseList/expenseList";
 import MainclientsList from "./components/pages/ClientsList/MainclientsList";
+import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -39,7 +40,7 @@ const Layout = () => {
                   toastClassName="custom-toast-font"
                   position="top-right"
                />
-               <div className=" flex flex-1 py-5 lg:mt-[75px] mt-[60px] max-lg:flex-col">
+               <div className=" flex flex-1 gap-[3.5rem] py-5 lg:mt-[75px] mt-[60px] max-lg:flex-col">
                   <div
                      className={`w-[25%] overflow-auto ${isNavbarOpen ? "show" : "max-lg:hidden"
                         }`}
@@ -115,9 +116,9 @@ const Layout = () => {
                            <Route index element={<MainBank />} />
                            <Route path="deposit-list" element={<MainList />} />
                            <Route path="transactions-list" element={<MaintransactionsList />} />
-                           <Route path="expense-list" element={<ExpenseList />} />
+                           <Route path="expense-list" element={<AmmountMain />} />
                         </Route>
-                        <Route path="moshtarian" element={<MainclientsList/>}>
+                        <Route path="clients-list" element={<MainclientsList/>}>
                         
                         </Route>
                      </Routes>

@@ -25,7 +25,7 @@ const Navbar = () => {
          {/* nav height */}
          <div
             id="navbar-content"
-            className="lg:h-[calc(100vh-110px)]! h-full z-10 fixed  w-[70%] mt-1 lg:w-[300px] lg:right-10 overflow-auto bg-navbar shadow-xl"
+            className="lg:h-[calc(100vh-110px)]! h-full z-50 fixed w-[70%] mt-1 lg:w-[20%] lg:right-10 overflow-auto bg-navbar shadow-xl"
             style={{ direction: "ltr", textAlign: "right" }}
          >
             <ul>
@@ -64,8 +64,7 @@ const Navbar = () => {
                      ["واحد سازمانی ", "hr/departments-list"],
                      ["سمت سازمانی", "hr/designation-list"],
                      ["خط مشی ها", "hr/policies-list"],
-                     ["ابلاغیه", "managment/eblaghie"],
-                     ["چارت سازمانی ", "managment/chart"],
+                     ["ابلاغیه", "hr/news-list"],
                   ]}
                />
                <NavbarItems
@@ -104,7 +103,7 @@ const Navbar = () => {
                         <SiNordicsemiconductor className="w-7 h-7" /> گواهی
                         اشتغال به کار
                      </>,
-                     "/govahi",
+                     "employeeCert/assets-list",
                   ]}
                   dropInfo={[]}
                />
@@ -115,7 +114,7 @@ const Navbar = () => {
                         {" "}
                         <AiOutlineMobile className="w-7 h-7" /> عملیات حقوق
                      </>,
-                     "/hoghoogh",
+                     "/payroll/payroll-list",
                   ]}
                   dropInfo={[]}
                />
@@ -126,7 +125,7 @@ const Navbar = () => {
                         {" "}
                         <FiUserCheck className="w-7 h-7" /> مدیریت مشتریان
                      </>,
-                     "/moshtarian",
+                     "/clients-list",
                   ]}
                   dropInfo={[]}
                />
