@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { ASSETS_LIST } from "./const";
 import { GoPlus } from "react-icons/go";
+import FormCM from "./Form";
 
 const AssetsList = () => {
    useEffect(() => {
@@ -13,6 +14,7 @@ const AssetsList = () => {
 
    return (
       <div className="flex flex-col w-full bg-bgBack rounded-md overflow-hidden shadow-md h-full mb-1">
+         <FormCM accordion={ accordion} setAccordion={setAccordion} />
          <div className="flex justify-between p-2 px-5 border-b-2 border-red-500 items-center">
             <h2>لیست همه گواهی اشتغال به کار</h2>
 
