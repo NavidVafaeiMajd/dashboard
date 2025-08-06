@@ -41,12 +41,17 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      newsTitle: "",
-      startDate: null,
-      finishDate: null,
-      organizationalUnit: "",
-      summary: "",
-      newsText: "",
+  title: "",
+  bank: "",
+  branch: "",
+  name: "",
+  nationalCode: "",
+  employStatus: "",
+  from: "",
+  reqDate: null,
+  birthDate: null,
+  newsText: "",
+  image: null
     },
   });
 
@@ -56,11 +61,11 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
 
   return (
     <div className={`accordion  ${accordion ? " mb-10 show" : "h-0 hidden"}`}>
-      <div className="flex flex-col w-full rounded-md overflow-hidden shadow-md h-full">
+      <div className="flex flex-col w-full rounded-md overflow-hidden  h-full">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-6 gap-5"
+            className="grid grid-cols-6 gap-5 shadow-md"
           >
             <div className="col-span-4">
               <div className="flex bg-bgBack justify-between p-2 px-5 border-b-2 border-red-500 items-center">
@@ -81,7 +86,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="title"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -102,7 +107,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="bank"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -123,7 +128,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="branch"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -145,7 +150,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                 <div className="gap-5">
                   <FormField
                     control={form.control}
-                    name="unitBoss"
+                    name="name"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
@@ -180,7 +185,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="personnelNumber"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -201,7 +206,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="birthCertificateNumber"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -225,7 +230,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="nationalCode"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -246,7 +251,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="unitBoss"
+                      name="employStatus"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -285,7 +290,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="newsTitle"
+                      name="from"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -305,7 +310,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   </div>
                   <FormField
                     control={form.control}
-                    name="finishDate"
+                    name="reqDate"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
@@ -333,7 +338,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   />
                   <FormField
                     control={form.control}
-                    name="startDate"
+                    name="birthDate"
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
@@ -360,17 +365,42 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                     )}
                   />
                 </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name="newsText"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          متن ابلاغیه <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <RichTextEditor
+                            value={field.value}
+                            onChange={field.onChange}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
               <div className="w-full bg-white p-5">
                 <Button className="min-h-12 w-30 text-lg">ذخیره</Button>
               </div>
             </div>
-            <div className="col-span-2">
-              <FormField
-                control={form.control}
-                name="image"
-                render={({ field }) => <ImageUploadInput field={field} />}
-              />
+            <div className="col-span-2 bg-bgBack">
+              <div className="flex bg-bgBack justify-between p-3 px-5 border-b-2 border-red-500 items-center">
+                <h2> تصویر </h2>
+              </div>
+              <div className="p-5">
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => <ImageUploadInput field={field} />}
+                />
+              </div>
             </div>
           </form>
         </Form>
