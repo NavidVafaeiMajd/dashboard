@@ -327,157 +327,159 @@ export default function AmmountMain() {
       {/* Top Section */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Form Section */}
-        <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
-          <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-            <span>ثبت جدید سپرده</span>
-            <button
-              onClick={() => setOpen(!open)}
-              className="w-[90px] h-[32px] rounded bg-green-300"
-            >
-              {open ? "مخفی" : "نمایش"}
-            </button>
-          </div>
-
-          {open && (
-            <div className="p-4">
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="flex flex-col gap-6"
+        {open &&
+          <>
+            <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
+              <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
+                <span>ثبت جدید سپرده</span>
+                <button
+                  onClick={() => setOpen(!open)}
+                  className="w-[90px] h-[32px] rounded bg-green-300"
                 >
-                  {/* Row 1 */}
-                  <FormField
-                    control={form.control}
-                    name="accountNumber"
-                    render={({ field }) => (
-                      <FormItem className="space-y-2">
-                        <FormLabel>شماره حساب *</FormLabel>
-                        <FormControl>
-                          <div className="flex">
-                            <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-                              IRR
-                            </div>
-                            <Input
-                              {...field}
-                              className="w-full h-[45px] rounded-l-none"
-                            />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Row 2 */}
-                  <FormField
-                    control={form.control}
-                    name="accountType"
-                    render={({ field }) => (
-                      <FormItem className="space-y-2">
-                        <FormLabel>نوع حساب بانکی *</FormLabel>
-                        <FormControl>
-                          <Input {...field} className="w-full h-[45px]" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="initialBalance"
-                    render={({ field }) => (
-                      <FormItem className="space-y-2">
-                        <FormLabel>تراز اولیه *</FormLabel>
-                        <FormControl>
-                          <div className="flex w-full">
-                            <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-                              IRR
-                            </div>
-                            <Input
-                              {...field}
-                              className="w-full rounded-l-none h-[45px]"
-                            />
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="branchCode"
-                    render={({ field }) => (
-                      <FormItem className="space-y-2">
-                        <FormLabel>کد شعبه *</FormLabel>
-                        <FormControl>
-                          <Input {...field} className="w-full h-[45px]" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="branchName"
-                    render={({ field }) => (
-                      <FormItem className="space-y-2">
-                        <FormLabel>شعبه بانک *</FormLabel>
-                        <FormControl>
-                          <Textarea {...field} className="w-full min-h-[90px]" />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="flex gap-4">
-                    <button
-                      type="reset"
-                      className="w-[90px] h-[32px] rounded bg-gray-300"
-                    >
-                      بازنشانی
-                    </button>
-                    <button
-                      type="submit"
-                      className="w-[90px] h-[32px] rounded bg-green-500 text-white"
-                    >
-                      ذخیره
-                    </button>
-                  </div>
-                </form>
-              </Form>
-            </div>
-          )}
-        </div>
-
-        {/* Attachment Section */}
-        <div className="w-full lg:w-1/3 bg-[#F9F9FB] rounded-md">
-          <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-            <span>پیوست فایل</span>
-          </div>
-          <div className="p-6 flex flex-col gap-4">
-            <span>پیوست *</span>
-            <div className="flex items-center gap-4">
-              <div className="w-[74px] h-[42px] rounded-[9px] bg-zinc-600 flex items-center justify-center">
-                <span className="text-white">Browse</span>
+                  {open ? "مخفی" : "نمایش"}
+                </button>
               </div>
-              <input type="file" accept="image/*" />
+
+              <div className="p-4">
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="flex flex-col gap-6"
+                  >
+                    {/* Row 1 */}
+                    <FormField
+                      control={form.control}
+                      name="accountNumber"
+                      render={({ field }) => (
+                        <FormItem className="space-y-2">
+                          <FormLabel>شماره حساب *</FormLabel>
+                          <FormControl>
+                            <div className="flex">
+                              <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
+                                IRR
+                              </div>
+                              <Input
+                                {...field}
+                                className="w-full h-[45px] rounded-l-none"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* Row 2 */}
+                    <FormField
+                      control={form.control}
+                      name="accountType"
+                      render={({ field }) => (
+                        <FormItem className="space-y-2">
+                          <FormLabel>نوع حساب بانکی *</FormLabel>
+                          <FormControl>
+                            <Input {...field} className="w-full h-[45px]" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="initialBalance"
+                      render={({ field }) => (
+                        <FormItem className="space-y-2">
+                          <FormLabel>تراز اولیه *</FormLabel>
+                          <FormControl>
+                            <div className="flex w-full">
+                              <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
+                                IRR
+                              </div>
+                              <Input
+                                {...field}
+                                className="w-full rounded-l-none h-[45px]"
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="branchCode"
+                      render={({ field }) => (
+                        <FormItem className="space-y-2">
+                          <FormLabel>کد شعبه *</FormLabel>
+                          <FormControl>
+                            <Input {...field} className="w-full h-[45px]" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="branchName"
+                      render={({ field }) => (
+                        <FormItem className="space-y-2">
+                          <FormLabel>شعبه بانک *</FormLabel>
+                          <FormControl>
+                            <Textarea {...field} className="w-full min-h-[90px]" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <div className="flex gap-4">
+                      <button
+                        type="reset"
+                        className="w-[90px] h-[32px] rounded bg-gray-300"
+                      >
+                        بازنشانی
+                      </button>
+                      <button
+                        type="submit"
+                        className="w-[90px] h-[32px] rounded bg-green-500 text-white"
+                      >
+                        ذخیره
+                      </button>
+                    </div>
+                  </form>
+                </Form>
+              </div>
+
             </div>
-            <span className="text-sm text-gray-500">
-              فقط فایل‌های تصویر قابل بارگذاری هستند
-            </span>
-          </div>
-        </div>
+
+
+            <div className="w-full lg:w-1/3 bg-[#F9F9FB] rounded-md">
+              <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
+                <span>پیوست فایل</span>
+              </div>
+              <div className="p-6 flex flex-col gap-4">
+                <span>پیوست *</span>
+                <div className="flex items-center gap-4">
+                  <div className="w-[74px] h-[42px] rounded-[9px] bg-zinc-600 flex items-center justify-center">
+                    <span className="text-white">Browse</span>
+                  </div>
+                  <input className="w-[100%]" type="file" accept="image/*" />
+                </div>
+                <span className="text-sm text-gray-500">
+                  فقط فایل‌های تصویر قابل بارگذاری هستند
+                </span>
+              </div>
+            </div>
+          </>
+        }
       </div>
 
       {/* DataTable Section */}
       <div className="bg-white rounded shadow mt-4">
         <div className="flex flex-wrap gap-4 p-4">
-          <button className="w-[90px] h-[32px] rounded bg-green-300">مخفی</button>
-          <button className="w-[90px] h-[32px] rounded bg-green-300">مخفی</button>
+          <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded bg-green-300">  {open ? "مخفی" : "نمایش"}</button>
         </div>
 
         <DataTable

@@ -232,7 +232,7 @@ export default function MainclientsList() {
                 <label className="w-[74px] h-[42px] bg-zinc-600 text-white flex items-center justify-center rounded-[9px] cursor-pointer">
                   Browse
                 </label>
-                <input type="file" accept="image/*" className="text-sm" />
+                <input  type="file" accept="image/*" className="w-[100%] text-sm" />
               </div>
               <span className="text-sm text-gray-600">فقط فایل‌های تصویر قابل بارگذاری هستند</span>
             </div>
