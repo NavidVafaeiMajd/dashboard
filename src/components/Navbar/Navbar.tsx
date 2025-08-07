@@ -91,7 +91,7 @@ const Navbar = () => {
                         <MdPayment className="w-7 h-7" />
                         حساب بانکی{" "}
                      </>,
-                     "/bank",
+                     "/accounts-list",
                   ]}
                   dropInfo={[]}
                />
