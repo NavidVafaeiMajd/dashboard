@@ -21,7 +21,7 @@ export default function MainList() {
                     <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                         <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
                             <span>ثبت جدید سپرده</span>
-                            <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-[#1E824C]">مخفی</button>
+                            <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-greenDark">مخفی</button>
                         </div>
 
                         <div className="p-4">
@@ -130,8 +130,8 @@ export default function MainList() {
                 <div className="w-[100%]  bg-[#F9F9FB]  rounded-md overflow-hidden">
                     <div className="flex items-center justify-between p-[0.5rem] w-[100%] bg-[#FFF7FA] border-b-2 border-red-700">
                         <span>لیست همه هزینه ها</span>
-                        <div className="flex flex-wrap gap-4 p-4">
-                            <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">{open ? "مخفی" : "نمایش"}</button>
+                        <div className="flex flex-wrap gap-4 ">
+                            <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded text-[#ffff] bg-greenDark">{open ? "مخفی" : "ثبت جدید"}</button>
                         </div>
                     </div>
                 </div>
