@@ -323,7 +323,7 @@ export default function AmmountMain() {
   };
 
   return (
-    <div className="flex flex-col gap-6 px-4">
+    <div className="flex flex-col  px-4">
       {/* Top Section */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Form Section */}
