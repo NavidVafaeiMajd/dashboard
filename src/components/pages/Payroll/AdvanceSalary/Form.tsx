@@ -15,9 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import DatePicker from "react-multi-date-picker";
 import RichTextEditor from "@/components/shared/RichTextEditor";
 import {
   Select,
@@ -26,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
 
 interface Props {
   accordion: boolean;
@@ -81,27 +77,38 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
               <div className="bg-bgBack space-y-4 p-5">
                 <div className="grid grid-cols-3 gap-5">
                   <div>
-                    <FormField
-                      control={form.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem className="w-full space-y-2">
-                          <FormLabel className="text-base">
-                            عنوان <span className="text-red-500">*</span>
-                          </FormLabel>
-                          <FormControl>
-                            <div className="flex w-full items-stretch">
-                              <Input
-                                placeholder="عنوان"
-                                className="min-h-12"
-                                {...field}
-                              />
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="w-full space-y-2">
+                        <FormLabel className="text-base">
+                          نام کارمند
+                          <span className="text-red-500">*</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Select
+                            value={field.value}
+                            onValueChange={field.onChange}
+                            dir="rtl"
+                          >
+                            <SelectTrigger className="w-full min-h-12">
+                              <SelectValue placeholder="نام کارمند " />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                              {/* Options would be dynamically generated here */}
+                              <SelectItem value="boss1">اکبر محمدی</SelectItem>
+                              <SelectItem value="boss2">
+                                حسین علی زاده
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   </div>
                   <div>
                     <FormField
@@ -131,7 +138,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
-                            شعبه <span className="text-red-500">*</span>
+                            مقدار <span className="text-red-500">*</span>
                           </FormLabel>
                           <FormControl>
                             <div className="flex w-full items-stretch">
@@ -139,7 +146,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                                 IRR
                               </div>
                               <Input
-                                placeholder="عنوان"
+                                placeholder="مقدار"
                                 className="min-h-12"
                                 {...field}
                               />
@@ -151,7 +158,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-3 gap-5">
                   <div>
                     <FormField
                       control={form.control}
@@ -159,7 +166,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
-                            نام کارمند
+                            یک بار کسر
                             <span className="text-red-500">*</span>
                           </FormLabel>
                           <FormControl>
@@ -175,10 +182,10 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                               <SelectContent>
                                 {/* Options would be dynamically generated here */}
                                 <SelectItem value="boss1">
-                                  اکبر محمدی
+                                  بله
                                 </SelectItem>
                                 <SelectItem value="boss2">
-                                  حسین علی زاده
+                                  خیر
                                 </SelectItem>
                               </SelectContent>
                             </Select>
@@ -195,7 +202,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
-                            شماره پرسنلی <span className="text-red-500">*</span>
+                            مبلغ اقساط ماهیانه <span className="text-red-500">*</span>
                           </FormLabel>
                           <FormControl>
                             <div className="flex w-full items-stretch">
@@ -203,7 +210,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                                 IRR
                               </div>
                               <Input
-                                placeholder="عنوان"
+                                placeholder="0"
                                 className="min-h-12"
                                 {...field}
                               />
@@ -222,7 +229,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                     render={({ field }) => (
                       <FormItem className="w-full space-y-2">
                         <FormLabel className="text-base">
-                          متن ابلاغیه <span className="text-red-500">*</span>
+                          علت درخواست <span className="text-red-500">*</span>
                         </FormLabel>
                         <FormControl>
                           <RichTextEditor
