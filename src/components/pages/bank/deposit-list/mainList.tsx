@@ -155,7 +155,7 @@ export default function MainList() {
     return (
         <div className="flex flex-col gap-6 px-4">
             {/* Top Section */}
-            { open &&
+            {open &&
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* Form Section */}
                     <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
@@ -194,10 +194,10 @@ export default function MainList() {
                                                 <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
                                                     <HiCalendarDateRange className="w-[19px] h-[19px]" />
                                                 </div>
-                                                <CuDatePicker 
-                                                  value={date}
-                                                  onChange={setDate}
-                                                  placeholder="تاریخ افتتاح   "
+                                                <CuDatePicker
+                                                    value={date}
+                                                    onChange={setDate}
+                                                    placeholder="تاریخ افتتاح   "
                                                 />
                                                 {/* <input className="h-[45px] w-full border rounded-l-none" /> */}
                                             </div>
@@ -266,10 +266,15 @@ export default function MainList() {
             }
 
             <div className="bg-white rounded shadow mt-4">
-                <div className="flex flex-wrap gap-4 p-4">
-                    <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">{open ? "مخفی" :  "نمایش"}</button>
-                </div>
 
+                <div className="w-[100%]  bg-[#F9F9FB]  rounded-md overflow-hidden">
+                    <div className="flex items-center justify-between p-[0.5rem] w-[100%] bg-[#FFF7FA] border-b-2 border-red-700">
+                        <span>لیست همه هزینه ها</span>
+                        <div className="flex flex-wrap gap-4 p-4">
+                            <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">{open ? "مخفی" : "نمایش"}</button>
+                        </div>
+                    </div>
+                </div>
                 <DataTable
                     columns={columns}
                     data={BANK_ACCOUNTS}

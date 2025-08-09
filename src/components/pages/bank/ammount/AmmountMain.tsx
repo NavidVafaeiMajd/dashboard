@@ -478,9 +478,15 @@ export default function AmmountMain() {
 
       {/* DataTable Section */}
       <div className="bg-white rounded shadow mt-4">
-        <div className="flex flex-wrap gap-4 p-4">
-          <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">  {open ? "مخفی" : "نمایش"}</button>
+        <div className="w-[100%]  bg-[#F9F9FB]  rounded-md overflow-hidden">
+          <div className="flex items-center justify-between p-[0.5rem] w-[100%] bg-[#FFF7FA] border-b-2 border-red-700">
+            <span>لیست همه سپرده ها</span>
+            <div className="flex flex-wrap gap-4 p-4">
+              <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">  {open ? "مخفی" : "نمایش"}</button>
+            </div>
+          </div>
         </div>
+
 
         <DataTable
           columns={columns}
