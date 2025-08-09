@@ -27,7 +27,6 @@ const validation = z.object({
 });
 
 export default function MainBank() {
-
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
@@ -39,11 +38,11 @@ export default function MainBank() {
     },
   });
 
-  const fechForSubmit = () =>{
-    console.log(form)
-  }
+  const fechForSubmit = () => {
+    console.log(form);
+  };
 
-  const { columns, modal } = useBankColumns(); 
+  const { columns, modal } = useBankColumns();
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log("✅ Form Data:", data);
@@ -62,101 +61,103 @@ export default function MainBank() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full p-6 space-y-6"
           >
-                 <FormField
-                            control={form.control}
-                            name="accountType"
-                            render={({ field }) => (
-                                <FormItem className="w-full space-y-2">
-                                    <FormLabel className="text-base">
-                                        نوع حساب بانکی <span className="text-red-500">*</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="w-full  h-[45px]" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+            <FormField
+              control={form.control}
+              name="accountType"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="text-base">
+                    نوع حساب بانکی <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} className="w-full  h-[45px]" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        <FormField
-                            control={form.control}
-                            name="initialBalance"
-                            render={({ field }) => (
-                                <FormItem className="w-full space-y-2">
-                                    <FormLabel className="text-base">
-                                        تراز اولیه <span className="text-red-500">*</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <div className="flex w-full">
-                                            <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-                                                IRR
-                                            </div>
-                                            <Input {...field} className="w-full rounded-l-none h-[45px]" />
-                                        </div>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+            <FormField
+              control={form.control}
+              name="initialBalance"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="text-base">
+                    تراز اولیه <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div className="flex w-full">
+                      <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
+                        IRR
+                      </div>
+                      <Input
+                        {...field}
+                        className="w-full rounded-l-none h-[45px]"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        <FormField
-                            control={form.control}
-                            name="accountNumber"
-                            render={({ field }) => (
-                                <FormItem className="w-full space-y-2">
-                                    <FormLabel className="text-base">
-                                        شماره حساب بانکی <span className="text-red-500">*</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="w-full h-[45px]" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+            <FormField
+              control={form.control}
+              name="accountNumber"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="text-base">
+                    شماره حساب بانکی <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} className="w-full h-[45px]" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        <FormField
-                            control={form.control}
-                            name="branchCode"
-                            render={({ field }) => (
-                                <FormItem className="w-full space-y-2">
-                                    <FormLabel className="text-base">
-                                        کد شعبه <span className="text-red-500">*</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input {...field} className="w-full h-[45px]" />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+            <FormField
+              control={form.control}
+              name="branchCode"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="text-base">
+                    کد شعبه <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} className="w-full h-[45px]" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                        <FormField
-                            control={form.control}
-                            name="branchName"
-                            render={({ field }) => (
-                                <FormItem className="w-full space-y-2">
-                                    <FormLabel className="text-base">
-                                        شعبه بانک <span className="text-red-500">*</span>
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Textarea {...field} className="w-full min-h-30!" />
+            <FormField
+              control={form.control}
+              name="branchName"
+              render={({ field }) => (
+                <FormItem className="w-full space-y-2">
+                  <FormLabel className="text-base">
+                    شعبه بانک <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea {...field} className="w-full min-h-30!" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <div >
-                            <button onClick={fechForSubmit}
-                                // type="submit"
-                                className="w-[80px] h-[50px] rounded-[8px] text-[#ffff] rounded bg-[#1E824C]"
-                            >
-                                ذخیره
-                            </button>
-                        </div>
-           
+            <div>
+              <button
+                onClick={fechForSubmit}
+                // type="submit"
+                className="w-[80px] h-[50px] rounded-[8px] text-[#ffff] rounded bg-[#1E824C]"
+              >
+                ذخیره
+              </button>
+            </div>
           </form>
         </Form>
       </div>
