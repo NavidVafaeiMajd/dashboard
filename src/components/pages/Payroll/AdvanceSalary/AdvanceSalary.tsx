@@ -14,18 +14,6 @@ const AdvanceSalary = () => {
 
    const [accordion, setAccordion] = useState(false);
 
-   //    const form = useForm<z.infer<typeof validation>>({
-   //       resolver: zodResolver(validation),
-   //       defaultValues: {
-   //          name: "",
-   //          unitBoss: "",
-   //       },
-   //    });
-
-   //    const onSubmit = (data: z.infer<typeof validation>) => {
-   //       console.log(data);
-   //    };
-
    return (
       <div className="flex bg-bgBack flex-col justify-between gap-y-10">
          <div className="flex  justify-between p-2 px-5 border-b-2 border-red-500 items-center">

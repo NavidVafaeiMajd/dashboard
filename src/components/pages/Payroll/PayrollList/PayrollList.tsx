@@ -42,12 +42,12 @@ const PayrollList = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between gap-x-10 gap-y-10">
+    <div className="flex flex-col justify-between gap-5">
       <div className="flex flex-col w-full rounded-md overflow-hidden shadow-md h-full">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col md:flex-row bg-white px-6 py-4 justify-between gap-x-10 gap-y-10 items-end"
+            className="flex flex-col md:flex-row bg-bgBack px-6 py-4 justify-between gap-x-10 gap-y-10 items-end"
           >
             <FormField
               control={form.control}

@@ -83,9 +83,14 @@ const Layout = () => {
                   />
                   <Route path="office-shifts" element={<OfficeShifts />} />
                   <Route path="policies-list" element={<Policies />} />
+                  <Route path="news-list" element={<NewsList />} />
                 </Route>
                 <Route path="rollcall" element={<LayoutRollCall />}>
                   <Route path="attendance-list" element={<AttendanceList />} />
+                  <Route path="monthly-attendance" element={<MonthlyAttendance />} />
+                  <Route path="manual-attendance" element={<ManualAttendance />} />
+                  <Route path="overtime-request" element={<OverTimeRequest />} />
+                  
                 </Route>
                 <Route path="exit-type" element={<ExitType />} />
 
