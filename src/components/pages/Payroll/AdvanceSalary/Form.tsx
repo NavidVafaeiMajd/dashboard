@@ -23,6 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import DatePicker from "react-multi-date-picker";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
 interface Props {
   accordion: boolean;
@@ -37,17 +40,12 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      title: "",
-      bank: "",
-      branch: "",
-      name: "",
-      nationalCode: "",
-      employStatus: "",
-      from: "",
-      reqDate: null,
-      birthDate: null,
+      employName: "",
+      amount: "",
+      less: "",
+      price: "",
+      date: null,
       newsText: "",
-      image: null,
     },
   });
 
@@ -77,53 +75,58 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
               <div className="bg-bgBack space-y-4 p-5">
                 <div className="grid grid-cols-3 gap-5">
                   <div>
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem className="w-full space-y-2">
-                        <FormLabel className="text-base">
-                          نام کارمند
-                          <span className="text-red-500">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Select
-                            value={field.value}
-                            onValueChange={field.onChange}
-                            dir="rtl"
-                          >
-                            <SelectTrigger className="w-full min-h-12">
-                              <SelectValue placeholder="نام کارمند " />
-                            </SelectTrigger>
+                    <FormField
+                      control={form.control}
+                      name="employName"
+                      render={({ field }) => (
+                        <FormItem className="w-full space-y-2">
+                          <FormLabel className="text-base">
+                            نام کارمند
+                            <span className="text-red-500">*</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Select
+                              value={field.value}
+                              onValueChange={field.onChange}
+                              dir="rtl"
+                            >
+                              <SelectTrigger className="w-full min-h-12">
+                                <SelectValue placeholder="نام کارمند " />
+                              </SelectTrigger>
 
-                            <SelectContent>
-                              {/* Options would be dynamically generated here */}
-                              <SelectItem value="boss1">اکبر محمدی</SelectItem>
-                              <SelectItem value="boss2">
-                                حسین علی زاده
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                              <SelectContent>
+                                {/* Options would be dynamically generated here */}
+                                <SelectItem value="boss1">
+                                  اکبر محمدی
+                                </SelectItem>
+                                <SelectItem value="boss2">
+                                  حسین علی زاده
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                   <div>
                     <FormField
                       control={form.control}
-                      name="bank"
+                      name="date"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
-                            بانک <span className="text-red-500">*</span>
+                            ماه شروع تقسیط 
+                            <span className="text-red-500">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input
-                              placeholder="بانک"
-                              className="min-h-12"
-                              {...field}
+                            <DatePicker
+                              value={field.value}
+                              onChange={field.onChange}
+                              calendar={persian}
+                              locale={persian_fa}
+                              onlyMonthPicker
                             />
                           </FormControl>
                           <FormMessage />
@@ -134,7 +137,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="branch"
+                      name="amount"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -162,7 +165,7 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="name"
+                      name="less"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
@@ -181,12 +184,8 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
 
                               <SelectContent>
                                 {/* Options would be dynamically generated here */}
-                                <SelectItem value="boss1">
-                                  بله
-                                </SelectItem>
-                                <SelectItem value="boss2">
-                                  خیر
-                                </SelectItem>
+                                <SelectItem value="boss1">بله</SelectItem>
+                                <SelectItem value="boss2">خیر</SelectItem>
                               </SelectContent>
                             </Select>
                           </FormControl>
@@ -198,11 +197,12 @@ const FormCM = ({ accordion, setAccordion }: Props) => {
                   <div>
                     <FormField
                       control={form.control}
-                      name="personnelNumber"
+                      name="price"
                       render={({ field }) => (
                         <FormItem className="w-full space-y-2">
                           <FormLabel className="text-base">
-                            مبلغ اقساط ماهیانه <span className="text-red-500">*</span>
+                            مبلغ اقساط ماهیانه{" "}
+                            <span className="text-red-500">*</span>
                           </FormLabel>
                           <FormControl>
                             <div className="flex w-full items-stretch">
