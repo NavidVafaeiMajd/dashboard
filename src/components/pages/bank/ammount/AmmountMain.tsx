@@ -334,7 +334,7 @@ export default function AmmountMain() {
                 <span>ثبت جدید سپرده</span>
                 <button
                   onClick={() => setOpen(!open)}
-                  className="w-[90px] h-[32px] rounded bg-green-300"
+                  className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
                 >
                   {open ? "مخفی" : "نمایش"}
                 </button>
@@ -436,14 +436,14 @@ export default function AmmountMain() {
 
                     <div className="flex gap-4">
                       <button
-                        type="reset"
-                        className="w-[90px] h-[32px] rounded bg-gray-300"
+                        // type="reset"
+                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
                       >
                         بازنشانی
                       </button>
                       <button
-                        type="submit"
-                        className="w-[90px] h-[32px] rounded bg-green-500 text-white"
+                        // type="submit"
+                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
                       >
                         ذخیره
                       </button>
@@ -479,7 +479,7 @@ export default function AmmountMain() {
       {/* DataTable Section */}
       <div className="bg-white rounded shadow mt-4">
         <div className="flex flex-wrap gap-4 p-4">
-          <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded bg-green-300">  {open ? "مخفی" : "نمایش"}</button>
+          <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">  {open ? "مخفی" : "نمایش"}</button>
         </div>
 
         <DataTable

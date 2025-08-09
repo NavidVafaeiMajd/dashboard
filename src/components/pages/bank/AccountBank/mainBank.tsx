@@ -6,6 +6,7 @@ import { BANK_ACCOUNTS } from "./const";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Form,
   FormField,
@@ -26,6 +27,7 @@ const validation = z.object({
 });
 
 export default function MainBank() {
+
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
@@ -36,6 +38,10 @@ export default function MainBank() {
       branchName: "",
     },
   });
+
+  const fechForSubmit = () =>{
+    console.log(form)
+  }
 
   const { columns, modal } = useBankColumns(); 
 
@@ -143,9 +149,9 @@ export default function MainBank() {
                         />
 
                         <div >
-                            <button
-                                type="submit"
-                                className="w-[80px] h-[50px] rounded-[8px] bg-[#0EC497] text-white"
+                            <button onClick={fechForSubmit}
+                                // type="submit"
+                                className="w-[80px] h-[50px] rounded-[8px] text-[#ffff] rounded bg-[#1E824C]"
                             >
                                 ذخیره
                             </button>

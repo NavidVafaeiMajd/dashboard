@@ -144,9 +144,10 @@ import { DataTable } from "@/components/shared/data-table";
 import { BANK_ACCOUNTS } from "../AccountBank/const";
 import { Form } from "@/components/ui/form";
 import { useState } from "react";
-
+import CuDatePicker from "@/components/shared/DatePicker";
 export default function MainList() {
     const [open, setOpen] = useState(false);
+    const [date, setDate] = useState<Date | null>(null);
     const { columns, modal } = useBankColumns();
     let changeVisibility = () => {
         setOpen(prev => !prev)
@@ -160,7 +161,7 @@ export default function MainList() {
                     <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                         <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
                             <span>ثبت جدید سپرده</span>
-                            <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded bg-green-300">مخفی</button>
+                            <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-[#1E824C]">مخفی</button>
                         </div>
 
                         <div className="p-4">
@@ -193,7 +194,12 @@ export default function MainList() {
                                                 <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
                                                     <HiCalendarDateRange className="w-[19px] h-[19px]" />
                                                 </div>
-                                                <input className="h-[45px] w-full border rounded-l-none" />
+                                                <CuDatePicker 
+                                                  value={date}
+                                                  onChange={setDate}
+                                                  placeholder="تاریخ افتتاح   "
+                                                />
+                                                {/* <input className="h-[45px] w-full border rounded-l-none" /> */}
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-2 w-full md:w-1/2">
@@ -232,8 +238,8 @@ export default function MainList() {
 
                                     {/* Buttons */}
                                     <div className="flex gap-4">
-                                        <button className="w-[90px] h-[32px] rounded bg-green-300">بازنشانی</button>
-                                        <button className="w-[90px] h-[32px] rounded bg-green-300">ذخیره</button>
+                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">بازنشانی</button>
+                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">ذخیره</button>
                                     </div>
                                 </div>
                             </Form>
@@ -261,7 +267,7 @@ export default function MainList() {
 
             <div className="bg-white rounded shadow mt-4">
                 <div className="flex flex-wrap gap-4 p-4">
-                    <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded bg-green-300">{open ? "مخفی" :  "نمایش"}</button>
+                    <button onClick={changeVisibility} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">{open ? "مخفی" :  "نمایش"}</button>
                 </div>
 
                 <DataTable

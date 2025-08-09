@@ -32,7 +32,7 @@ import LayoutBankaccount from "./components/pages/bank/layoutBank";
 import MainBank from "./components/pages/bank/AccountBank/mainBank";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-import ExpenseList from "./components/pages/bank/expenseList/expenseList";
+// import ExpenseList from "./components/pages/bank/expenseList/expenseList";
 import MainclientsList from "./components/pages/ClientsList/MainclientsList";
 import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 const Layout = () => {
