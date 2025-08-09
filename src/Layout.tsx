@@ -28,13 +28,7 @@ import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
 import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
 import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
 import Leads from "./components/pages/Leads/Leads";
-import LayoutBankaccount from "./components/pages/bank/layoutBank";
-import MainBank from "./components/pages/bank/AccountBank/mainBank";
-import MainList from "./components/pages/bank/deposit-list/mainList";
-import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-// import ExpenseList from "./components/pages/bank/expenseList/expenseList";
-import MainclientsList from "./components/pages/ClientsList/MainclientsList";
-import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
+
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -160,15 +154,6 @@ const Layout = () => {
                            path="leads"
                            element={<Leads />}
                         />
-                           <Route path="bank" element={<LayoutBankaccount />}>
-                           <Route index element={<MainBank />} />
-                           <Route path="deposit-list" element={<MainList />} />
-                           <Route path="transactions-list" element={<MaintransactionsList />} />
-                           <Route path="expense-list" element={<AmmountMain />} />
-                        </Route>
-                        <Route path="clients-list" element={<MainclientsList/>}>
-                        
-                        </Route>
                      </Routes>
                   </div>
                </div>

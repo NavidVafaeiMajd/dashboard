@@ -39,7 +39,7 @@ const MonthlyAttendance = () => {
   return (
     <Form {...form}>
       <form
-        className="bg-bgBack w-full min-h-300"
+        className="bg-bgBack w-full"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex gap-x-10 w-4/5 justify-between items-end p-5">
