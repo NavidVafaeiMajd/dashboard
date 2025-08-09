@@ -50,9 +50,9 @@ export default function MainBank() {
   };
 
   return (
-    <div className="flex flex-wrap justify-between">
+    <div className="grid grid-cols-6 gap-10">
       {/* فرم ثبت جدید حساب */}
-      <div className="shadow-2xl   w-[30%] rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
+      <div className="shadow-md col-span-2 rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
         <div className="w-full h-[45px] p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">ثبت جدید حساب</span>
         </div>
@@ -162,7 +162,7 @@ export default function MainBank() {
       </div>
 
       {/* جدول نمایش حساب‌ها */}
-      <div className="shadow-2xl w-[60%] rounded-[5px] h-fit bg-[#F9F9FB]">
+      <div className="shadow-md col-span-4 rounded-[5px] h-fit bg-[#F9F9FB]">
         <div className="w-full h-[45px] p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">لیست حساب‌ها</span>
         </div>
