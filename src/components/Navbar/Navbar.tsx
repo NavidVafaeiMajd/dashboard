@@ -141,16 +141,22 @@ const Navbar = () => {
                   dropInfo={[]}
                />
                <NavbarItems
-                  DropMenu={false}
+                  DropMenu={true}
                   itemInfo={[
                      <>
                         {" "}
                         <RiCameraLensLine className="w-7 h-7" /> ارزیابی عملکرد
                         کارکنان{" "}
                      </>,
-                     "/arzyabi",
+                     "performance",
                   ]}
-                  dropInfo={[]}
+                  dropInfo={[
+                     ["رتبه بندی شاخص ها", "performance/indicator-rating"],
+                     ["ارزیابی کارکنان", "performance/employee-rating"],
+                     ["تنظیم اندیکاتور", "performance/setup-indicators"],
+                     ["پیگیری اهداف (OKR)", "performance/purse-goals"],
+                     ["انواع اهداف", "performance/goals-type"],
+                  ]}
                />
                <NavbarItems
                   DropMenu={false}
