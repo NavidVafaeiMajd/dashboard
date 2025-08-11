@@ -66,7 +66,7 @@ const Layout = () => {
             </div>
             <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
               <Routes>
-                <Route path="users/:id/edit" element={<EmployeDetailse/>}></Route>
+                <Route path="users/:id" element={<EmployeDetailse/>}></Route>
                 <Route path="/" element={<Desk />} />
                 <Route path="staff" element={<LayoutStaffList />}>
                   <Route index element={<StaffList />} />
