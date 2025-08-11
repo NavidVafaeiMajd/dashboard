@@ -33,6 +33,7 @@ import MainBank from "./components/pages/bank/AccountBank/mainBank";
 import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
+import EmployeDetailse from "./components/pages/employeDetailse/employeDetailse";
 
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -65,6 +66,7 @@ const Layout = () => {
             </div>
             <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
               <Routes>
+                <Route path="users/:id/edit" element={<EmployeDetailse/>}></Route>
                 <Route path="/" element={<Desk />} />
                 <Route path="staff" element={<LayoutStaffList />}>
                   <Route index element={<StaffList />} />

@@ -3,6 +3,7 @@ import type { User } from "./Table";
 import { Button } from "@/components/ui/button";
 import { LuArrowUpDown } from "react-icons/lu";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export const userColumns: ColumnDef<User>[] = [
    {
@@ -73,22 +74,6 @@ export const userColumns: ColumnDef<User>[] = [
       },
    },
    {
-      accessorKey: "country",
-      header: ({ column }) => {
-         return (
-            <Button
-               variant="ghost"
-               onClick={() =>
-                  column.toggleSorting(column.getIsSorted() === "asc")
-               }
-            >
-               <LuArrowUpDown className="ml-2 h-4 w-4" />
-               کشور
-            </Button>
-         );
-      },
-   },
-   {
       accessorKey: "accessLevel",
       header: ({ column }) => {
          return (
@@ -146,12 +131,16 @@ export const userColumns: ColumnDef<User>[] = [
    {
       id: "actions",
       accessorKey: "id",
-      cell: () => {
+      cell: ({ row }) => {
+           const navigate = useNavigate();
+  const user = row.original;
          return (
             <div className="flex items-center gap-2">
                <Button
                   variant="outline"
                   size="sm"
+                          onClick={() => navigate(`/users/${user.id}/edit`)}
+
                >
                   ویرایش
                </Button>
