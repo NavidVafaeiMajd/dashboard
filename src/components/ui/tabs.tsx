@@ -11,7 +11,7 @@ function Tabs({
     <TabsPrimitive.Root
       dir="rtl"
       data-slot="tabs"
-      className={cn("flex flex-row gap-2 justify-end w-full text-md", className)}
+      className={cn("flex flex-row max-md:flex-col gap-2 justify-end w-full text-md", className)}
       {...props}
     />
   )
@@ -25,7 +25,7 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        " w-[30%] bg-bgBack ",
+        "w-full md:w-[30%] bg-bgBack ",
         className
       )}
       {...props}
