@@ -16,7 +16,7 @@ const EmployeDetailse = () => {
 
   return (
     <>
-      <Tabs defaultValue="user">
+      <Tabs defaultValue="Contract">
         <TabsList className="flex flex-col">
           <div>
             <div className="flex justify-between p-5 items-center">
@@ -66,7 +66,7 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="user">
+          <TabsTrigger value="basicInfo">
             <span className="flex gap-2 justify-center items-center">
               <IoDocumentTextOutline className="w-7! h-7!" />
               اطلاعات اولیه
@@ -75,7 +75,7 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="user">
+          <TabsTrigger value="personalInfo">
             <span className="flex gap-2 justify-center items-center">
               <IoPersonAddSharp className="w-7! h-7!" />
               اطلاعات شخصی
@@ -84,7 +84,7 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="user">
+          <TabsTrigger value="profImg">
             <span className="flex gap-2 justify-center items-center">
               <CiImageOn className="w-7! h-7!" />
               تصویر پروفایل
@@ -93,7 +93,7 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="user">
+          <TabsTrigger value="accountInfo">
             <span className="flex gap-2 justify-center items-center">
               <IoMdInformationCircleOutline className="w-7! h-7!" />
               اطلاعات حساب
@@ -102,7 +102,7 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="user">
+          <TabsTrigger value="changePass">
             <span className="flex gap-2 justify-center items-center">
               <MdOutlinePassword className="w-7! h-7!" />
               تغییر رمز عبور
@@ -115,7 +115,19 @@ const EmployeDetailse = () => {
         <TabsContent value="Contract">
           <p>User content goes here</p>
         </TabsContent>
-        <TabsContent value="settings">
+        <TabsContent value="basicInfo">
+          <p>Settings content goes here</p>
+        </TabsContent>
+        <TabsContent value="personalInfo">
+          <p>Settings content goes here</p>
+        </TabsContent>
+        <TabsContent value="profImg">
+          <p>Settings content goes here</p>
+        </TabsContent>
+        <TabsContent value="accountInfo">
+          <p>Settings content goes here</p>
+        </TabsContent>
+        <TabsContent value="changePass">
           <p>Settings content goes here</p>
         </TabsContent>
       </Tabs>
