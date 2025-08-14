@@ -4,7 +4,6 @@ import { FiUsers } from "react-icons/fi";
 import { TfiTarget } from "react-icons/tfi";
 import { GoClock } from "react-icons/go";
 import { MdPayment } from "react-icons/md";
-import { SiNordicsemiconductor } from "react-icons/si";
 import { AiOutlineMobile } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
@@ -90,18 +89,6 @@ const Navbar = () => {
                         حساب بانکی{" "}
                      </>,
                      "/accounts-list",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
-                        <SiNordicsemiconductor className="w-7 h-7" /> گواهی
-                        اشتغال به کار
-                     </>,
-                     "employeeCert/assets-list",
                   ]}
                   dropInfo={[]}
                />
