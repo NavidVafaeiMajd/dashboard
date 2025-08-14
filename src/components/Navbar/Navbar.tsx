@@ -63,7 +63,6 @@ const Navbar = () => {
                   dropInfo={[
                      ["واحد سازمانی ", "hr/departments-list"],
                      ["سمت سازمانی", "hr/designation-list"],
-                     ["خط مشی ها", "hr/policies-list"],
                      ["ابلاغیه", "hr/news-list"],
                   ]}
                />
@@ -80,7 +79,6 @@ const Navbar = () => {
                      [" حضور و غیاب ", "rollcall/attendance-list"],
                      ["ثبت تردد دستی پرسنل", "rollcall/manual-attendance"],
                      ["گزارش کارکرد ماهانه", "rollcall/monthly-attendance"],
-                     ["درخواست اضافه کاری", "rollcall/overtime-request"],
                   ]}
                />
                <NavbarItems

@@ -5,7 +5,6 @@ import Smartwizard from "../../shared/Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
-import { IoMdExit } from "react-icons/io";
 import { Outlet } from "react-router-dom";
 const LayoutHumanResource = () => {
    const location = useLocation();
@@ -46,15 +45,7 @@ const LayoutHumanResource = () => {
                            "news-list",
                            "ابلاغیه ها",
                            "تنظیمات ابلاغیه ها",
-                        ],
-                        [
-                           <>
-                              <IoMdExit className="w-7 h-7" />
-                           </>,
-                           "policies-list",
-                           "خط مشی ها",
-                           "تنظیمات خط مشی ها",
-                        ],
+                        ]
                      ]}
                   />
                </div>
