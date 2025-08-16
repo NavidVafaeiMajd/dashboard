@@ -191,7 +191,7 @@ export default function MainclientsList() {
                   <input type="text" className="h-[45px] w-full border border-gray-300" />
                 </div>
                 <div>
-                  <label>دسته‌بندی *</label>
+                  <label>جنسیت *</label>
                   <select className="h-[45px] w-full border border-gray-300">
                     <option>آقا</option>
                     <option>خانم</option>
@@ -202,14 +202,15 @@ export default function MainclientsList() {
               {/* تکراری ولی نگه‌داشتم برای تطابق با کد شما */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label>نام *</label>
+                  <label>ایمیل  *</label>
                   <div className="flex">
                     <div className="w-[56px] h-[46px] flex items-center justify-center bg-[#F0F2F8] text-sm">IRR</div>
                     <input className="h-[45px] w-full rounded-l-none border border-gray-300" />
                   </div>
                 </div>
                 <div>
-                  <label>نام خانوادگی *</label>
+                  <label>
+                    نام کاربری  *</label>
                   <div className="flex">
                     <div className="w-[56px] h-[46px] flex items-center justify-center bg-[#F0F2F8] text-sm">IRR</div>
                     <input className="h-[45px] w-full rounded-l-none border border-gray-300" />
