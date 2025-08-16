@@ -44,7 +44,7 @@ const LayoutPerformance = () => {
                            <>
                               <FaRegClock className="w-7 h-7" />
                            </>,
-                           "setup-indicators",
+                           "track-goals",
                            "پیگیری اهداف (OKR)",
                            "تنظیم اهداف سازمان",
                         ],
