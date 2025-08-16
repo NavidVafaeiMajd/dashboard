@@ -143,11 +143,11 @@ import React, { useState } from 'react'
 import { DataTable } from '@/components/shared/data-table'
 import { BANK_ACCOUNTS } from './const'
 import { useBankColumns } from './columns'
-
+import { Button } from '@/components/ui/button'
 export default function MainclientsList() {
   const { columns } = useBankColumns()
   const [isOpen, setOpen] = useState(false)
-
+  let namesaved = "زخیره"
   const toggleForm = () => setOpen(!isOpen)
 
   return (
@@ -158,7 +158,10 @@ export default function MainclientsList() {
           <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
               <span>ثبت جدید سپرده</span>
-              <button onClick={toggleForm} className="w-[90px] h-[32px] bg-green-300 rounded-md">مخفی</button>
+              {/* <button className="w-[90px] h-[32px] bg-primary text-[#ffff] rounded-md"></button> */}
+              <Button onClick={toggleForm} >
+                مخفی
+              </Button>
             </div>
             <div className="p-4 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -215,8 +218,15 @@ export default function MainclientsList() {
               </div>
 
               <div className="flex gap-4">
-                <button className="w-[90px] h-[40px] rounded-md bg-green-300">بازنشانی</button>
-                <button className="w-[90px] h-[40px] rounded-md bg-green-300">ذخیره</button>
+                {/* <button className="w-[90px] h-[40px] rounded-md bg-green-300"></button> */}
+                <Button>
+                  بازنشانی
+                </Button>
+                {/* <button className="w-[90px] h-[40px] rounded-md bg-green-300">ذخیره</button> */}
+                {/* <Button {...namesaved} /> */}
+                <Button>
+                  دخیره
+                </Button>
               </div>
             </div>
           </div>
@@ -232,7 +242,7 @@ export default function MainclientsList() {
                 <label className="w-[74px] h-[42px] bg-zinc-600 text-white flex items-center justify-center rounded-[9px] cursor-pointer">
                   Browse
                 </label>
-                <input  type="file" accept="image/*" className="w-[100%] text-sm" />
+                <input type="file" accept="image/*" className="w-[100%] text-sm" />
               </div>
               <span className="text-sm text-gray-600">فقط فایل‌های تصویر قابل بارگذاری هستند</span>
             </div>
@@ -244,7 +254,10 @@ export default function MainclientsList() {
       <div className="w-full bg-[#F9F9FB] shadow-2xl rounded-md">
         <div className="flex justify-between items-center p-4 bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">لیست معامله‌ها</span>
-          <button onClick={toggleForm} className="w-[90px] h-[32px] bg-green-300 rounded-md hover:bg-blue-700 transition">جدید</button>
+          {/* <button className="w-[90px] h-[32px] bg-green-300 rounded-md hover:bg-blue-700 transition"></button> */}
+          <Button onClick={toggleForm}>
+            جدید
+          </Button>
         </div>
         <div className="overflow-x-auto">
           <DataTable

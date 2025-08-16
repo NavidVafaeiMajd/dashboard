@@ -283,6 +283,7 @@ import { useBankColumns } from "../AccountBank/columns";
 import { DataTable } from "@/components/shared/data-table";
 import { BANK_ACCOUNTS } from "../AccountBank/const";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -332,12 +333,10 @@ export default function AmmountMain() {
             <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
               <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
                 <span>ثبت جدید سپرده</span>
-                <button
-                  onClick={() => setOpen(!open)}
-                  className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
-                >
+
+                <Button onClick={() => setOpen(!open)}>
                   {open ? "مخفی" : "نمایش"}
-                </button>
+                </Button>
               </div>
 
               <div className="p-4">
@@ -435,18 +434,13 @@ export default function AmmountMain() {
                     />
 
                     <div className="flex gap-4">
-                      <button
-                        // type="reset"
-                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
-                      >
+
+                      <Button>
                         بازنشانی
-                      </button>
-                      <button
-                        // type="submit"
-                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
-                      >
+                      </Button>
+                      <Button>
                         ذخیره
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </Form>
@@ -482,7 +476,10 @@ export default function AmmountMain() {
           <div className="flex items-center justify-between p-[0.5rem] w-[100%] bg-[#FFF7FA] border-b-2 border-red-700">
             <span>لیست همه سپرده ها</span>
             <div className="flex flex-wrap gap-4 p-4">
-              <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]">  {open ? "مخفی" : "نمایش"}</button>
+              {/* <button className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"> </button> */}
+              <Button onClick={() => setOpen(!open)} >
+                {open ? "مخفی" : "نمایش"}
+              </Button>
             </div>
           </div>
         </div>
