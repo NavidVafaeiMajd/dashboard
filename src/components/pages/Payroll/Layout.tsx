@@ -4,7 +4,6 @@ import Breadcrumb from "../../shared/breadcrumb";
 import Smartwizard from "../../shared/Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa6";
 import { Outlet } from "react-router-dom";
 const LayoutPayroll = () => {
    const location = useLocation();
@@ -37,14 +36,6 @@ const LayoutPayroll = () => {
                            "payslip-history",
                            "تاریخچه فیش حقوقی",
                            "مشاهده سوابق فیش حقوقی",
-                        ],
-                        [
-                           <>
-                              <FaRegClock className="w-7 h-7" />
-                           </>,
-                           "advance-salary",
-                           "مساعده حقوق",
-                           "درخواست پیش پرداخت",
                         ],
                      ]}
                   />

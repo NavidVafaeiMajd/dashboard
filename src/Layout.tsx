@@ -34,6 +34,10 @@ import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
 import MainclientsList from "./components/pages/ClientsList/MainclientsList";
+import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
+import LayoutPerformance from "./components/pages/Performance/Layout";
+import EmployeDetailse from "./components/pages/UserPage/UserPage";
+import NotFound from "./NotFound";
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -65,6 +69,8 @@ const Layout = () => {
             </div>
             <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
               <Routes>
+                <Route path="users/:id" element={<EmployeDetailse />}></Route>
+
                 <Route path="/" element={<Desk />} />
                 <Route path="staff" element={<LayoutStaffList />}>
                   <Route index element={<StaffList />} />
@@ -83,9 +89,22 @@ const Layout = () => {
                   />
                   <Route path="office-shifts" element={<OfficeShifts />} />
                   <Route path="policies-list" element={<Policies />} />
+                  <Route path="news-list" element={<NewsList />} />
                 </Route>
                 <Route path="rollcall" element={<LayoutRollCall />}>
                   <Route path="attendance-list" element={<AttendanceList />} />
+                  <Route
+                    path="monthly-attendance"
+                    element={<MonthlyAttendance />}
+                  />
+                  <Route
+                    path="manual-attendance"
+                    element={<ManualAttendance />}
+                  />
+                  <Route
+                    path="overtime-request"
+                    element={<OverTimeRequest />}
+                  />
                 </Route>
                 <Route path="exit-type" element={<ExitType />} />
 
@@ -104,15 +123,24 @@ const Layout = () => {
                 </Route>
                 <Route path="leads" element={<Leads />} />
                 <Route path="accounts-list" element={<LayoutBankaccount />}>
-                  <Route index element={<MainBank/>} />
-                  <Route path="deposit-list" element={<AmmountMain/>} />
-                  <Route path="expense-list" element={<MainList/>} />
-                  <Route path="transactions-list" element={<MaintransactionsList/>} />
+                  <Route index element={<MainBank />} />
+                  <Route path="deposit-list" element={<AmmountMain />} />
+                  <Route path="expense-list" element={<MainList />} />
+                  <Route
+                    path="transactions-list"
+                    element={<MaintransactionsList />}
+                  />
                 </Route>
-                <Route path="clients-list" >
-                  <Route index element={<MainclientsList/>} />
+                <Route path="clients-list">
+                  <Route index element={<MainclientsList />} />
                 </Route>
-             
+                <Route path="performance" element={<LayoutPerformance />}>
+                  <Route
+                    element={<PerformanceRating />}
+                    path="indicator-rating"
+                  />
+                </Route>
+                  <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>

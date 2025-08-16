@@ -27,7 +27,6 @@ const validation = z.object({
 });
 
 export default function MainBank() {
-
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
@@ -40,8 +39,8 @@ export default function MainBank() {
   });
 
   const fechForSubmit = () => {
-    console.log(form)
-  }
+    console.log(form);
+  };
 
   const { columns, modal } = useBankColumns();
 
@@ -50,9 +49,9 @@ export default function MainBank() {
   };
 
   return (
-    <div className="flex flex-wrap justify-between">
+    <div className="grid grid-cols-6 gap-10">
       {/* فرم ثبت جدید حساب */}
-      <div className="shadow-2xl   w-[30%] rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
+      <div className="shadow-md col-span-2 rounded-[5px] gap-[1.5rem] bg-[#F9F9FB]">
         <div className="w-full h-[45px] p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">ثبت جدید حساب</span>
         </div>
@@ -91,7 +90,10 @@ export default function MainBank() {
                       <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
                         IRR
                       </div>
-                      <Input {...field} className="w-full rounded-l-none h-[45px]" />
+                      <Input
+                        {...field}
+                        className="w-full rounded-l-none h-[45px]"
+                      />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -141,26 +143,27 @@ export default function MainBank() {
                   </FormLabel>
                   <FormControl>
                     <Textarea {...field} className="w-full min-h-30!" />
-
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div >
-
-              <Button onClick={fechForSubmit}>
+            <div>
+              <button
+                onClick={fechForSubmit}
+                // type="submit"
+                className="w-[80px] h-[50px] rounded-[8px] text-[#ffff] rounded bg-[#1E824C]"
+              >
                 ذخیره
-              </Button>
+              </button>
             </div>
-
           </form>
         </Form>
       </div>
 
       {/* جدول نمایش حساب‌ها */}
-      <div className="shadow-2xl w-[60%] rounded-[5px] h-fit bg-[#F9F9FB]">
+      <div className="shadow-md col-span-4 rounded-[5px] h-fit bg-[#F9F9FB]">
         <div className="w-full h-[45px] p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
           <span className="text-[17px]">لیست حساب‌ها</span>
         </div>

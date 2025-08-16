@@ -5,7 +5,6 @@ import Smartwizard from "../../shared/Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
 import { FaUserLock } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
-import { IoMdExit } from "react-icons/io";
 import { Outlet } from "react-router-dom";
 const LayoutRollCall = () => {
    const location = useLocation();
@@ -46,14 +45,6 @@ const LayoutRollCall = () => {
                            "monthly-attendance",
                            "گزارش کارکرد ماهانه",
                            "نمایش گزارش کارکرد ماهانه",
-                        ],
-                        [
-                           <>
-                              <IoMdExit className="w-7 h-7" />
-                           </>,
-                           "overtime-request",
-                           "درخواست اضافه کاری",
-                           "تنظیمات درخواست اضافه کاری  ",
                         ],
                      ]}
                   />
