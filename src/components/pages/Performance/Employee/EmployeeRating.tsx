@@ -6,10 +6,10 @@ import { useForm } from "react-hook-form";
 import StarRating from "@/components/shared/StarRating";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
-import { performanceData } from "./const";
+import { employeeData } from "./const";
 import { Button } from "@/components/ui/button";
 
-const PerformanceRating = () => {
+const EmployeeRating = () => {
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
       defaultValues: {},
@@ -32,13 +32,17 @@ const PerformanceRating = () => {
                required
             />
             <Form.Select
-               label="سمت سازمانی"
-               name="position"
+               label="کارمند"
+               name="employee"
                required
             >
                <Form.SelectItem value="1">item 1</Form.SelectItem>
                <Form.SelectItem value="2">item 2</Form.SelectItem>
             </Form.Select>
+
+            <div className="border text-2xl my-5 p-4 underline">
+               <h1>انتخاب ماه اضاف شود</h1>
+            </div>
 
             <div className="flex gap-x-5 flex-col md:flex-row md:justify-between">
                <div className="w-full">
@@ -79,7 +83,7 @@ const PerformanceRating = () => {
 
          <DataTable
             columns={columns}
-            data={performanceData}
+            data={employeeData}
             searchableKeys={[
                "title",
                "position",
@@ -91,4 +95,4 @@ const PerformanceRating = () => {
       </div>
    );
 };
-export default PerformanceRating;
+export default EmployeeRating;

@@ -52,7 +52,7 @@ const LayoutPerformance = () => {
                            <>
                               <IoMdExit className="w-7 h-7" />
                            </>,
-                           "setup-indicator ",
+                           "setup-indicator",
                            "تنظیم اندیکاتور",
                            "افزودن تنظیم اندیکاتور",
                         ],
