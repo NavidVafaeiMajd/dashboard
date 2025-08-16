@@ -38,6 +38,7 @@ import PerformanceRating from "./components/pages/Performance/Rating/Performance
 import EmployeDetailse from "./components/pages/employeDetailse/employeDetailse";
 import NotFound from "./NotFound";
 import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
+import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -215,6 +216,10 @@ const Layout = () => {
                            <Route
                               element={<EmployeeRating />}
                               path="employee-rating"
+                           />
+                           <Route
+                              element={<TrackGoals />}
+                              path="track-goals"
                            />
                         </Route>
                      </Routes>

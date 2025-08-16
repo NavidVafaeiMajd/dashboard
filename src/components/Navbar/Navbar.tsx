@@ -138,7 +138,7 @@ const Navbar = () => {
                   dropInfo={[
                      ["رتبه بندی شاخص ها", "performance/indicator-rating"],
                      ["ارزیابی کارکنان", "performance/employee-rating"],
-                     ["تنظیم اندیکاتور", "performance/setup-indicators"],
+                     ["تنظیم اندیکاتور", "performance/track-goals"],
                      ["پیگیری اهداف (OKR)", "performance/purse-goals"],
                      ["انواع اهداف", "performance/goals-type"],
                   ]}
