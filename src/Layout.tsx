@@ -34,6 +34,7 @@ import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
 import EmployeDetailse from "./components/pages/employeDetailse/employeDetailse";
+import NotFound from "./NotFound";
 
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -116,6 +117,7 @@ const Layout = () => {
                   <Route path="expense-list" element={<MainList/>} />
                   <Route path="transactions-list" element={<MaintransactionsList/>} />
                 </Route>
+                  <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>
