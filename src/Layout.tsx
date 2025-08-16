@@ -33,11 +33,7 @@ import MainBank from "./components/pages/bank/AccountBank/mainBank";
 import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-import LayoutPerformance from "./components/pages/Performance/Layout";
-import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
-import EmployeDetailse from "./components/pages/employeDetailse/employeDetailse";
-import NotFound from "./NotFound";
-
+import MainclientsList from "./components/pages/ClientsList/MainclientsList";
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -159,65 +155,29 @@ const Layout = () => {
                            />
                         </Route>
 
-                        <Route
-                           path="payroll"
-                           element={<LayoutPayroll />}
-                        >
-                           <Route
-                              path="payroll-list"
-                              element={<PayrollList />}
-                           />
-                           <Route
-                              path="payslip-history"
-                              element={<PayslipHistory />}
-                           />
-                           <Route
-                              path="advance-salary"
-                              element={<AdvanceSalary />}
-                           />
-                        </Route>
-                        <Route
-                           path="leads"
-                           element={<Leads />}
-                        />
-                        <Route
-                           path="accounts-list"
-                           element={<LayoutBankaccount />}
-                        >
-                           <Route
-                              index
-                              element={<MainBank />}
-                           />
-                           <Route
-                              path="deposit-list"
-                              element={<AmmountMain />}
-                           />
-                           <Route
-                              path="expense-list"
-                              element={<MainList />}
-                           />
-                           <Route
-                              path="transactions-list"
-                              element={<MaintransactionsList />}
-                           />
-                        </Route>
-
-                        <Route
-                           element={<LayoutPerformance />}
-                           path="performance"
-                        >
-                           <Route
-                              element={<PerformanceRating />}
-                              path="indicator-rating"
-                           />
-                        </Route>
-                     </Routes>
-                  </div>
-               </div>
-            </Router>
-         </main>
-      </>
-   );
+                <Route path="payroll" element={<LayoutPayroll />}>
+                  <Route path="payroll-list" element={<PayrollList />} />
+                  <Route path="payslip-history" element={<PayslipHistory />} />
+                  <Route path="advance-salary" element={<AdvanceSalary />} />
+                </Route>
+                <Route path="leads" element={<Leads />} />
+                <Route path="accounts-list" element={<LayoutBankaccount />}>
+                  <Route index element={<MainBank/>} />
+                  <Route path="deposit-list" element={<AmmountMain/>} />
+                  <Route path="expense-list" element={<MainList/>} />
+                  <Route path="transactions-list" element={<MaintransactionsList/>} />
+                </Route>
+                <Route path="clients-list" >
+                  <Route index element={<MainclientsList/>} />
+                </Route>
+             
+              </Routes>
+            </div>
+          </div>
+        </Router>
+      </main>
+    </>
+  );
 };
 
 export default Layout;
