@@ -29,6 +29,7 @@ import type {
 } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import CuDatePicker from "./DatePicker";
+import RichTextEditor from "./RichTextEditor";
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -141,14 +142,12 @@ function FormInput<T extends FieldValues>({
 interface FormDateProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
-  required?: boolean;
   className?: string;
 }
 
 function FormDate<T extends FieldValues>({
   name,
   label,
-  required,
   className,
 }: FormDateProps<T>) {
   const { control } = useFormContextSafe<T>();
@@ -160,11 +159,47 @@ function FormDate<T extends FieldValues>({
       render={({ field }) => (
         <FormItem className={`w-full space-y-2  ${className ?? ""}`}>
           <FormLabel className="text-base">
-            {label} {required && <span className="text-red-500">*</span>}
+            {label}
             <span className="text-red-500">*</span>
           </FormLabel>
           <FormControl>
             <CuDatePicker value={field.value} onChange={field.onChange} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+// ---------- RichText ----------
+interface FormRichTextProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  required?: boolean;
+
+  className?: string;
+}
+
+function FormRichText<T extends FieldValues>({
+  name,
+  label,
+  required,
+  className,
+}: FormRichTextProps<T>) {
+  const { control } = useFormContextSafe<T>();
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={`w-full space-y-2 ${className ?? ""}`}>
+          <FormLabel className="text-base">
+            {label} {required && <span className="text-red-500">*</span>}
+          </FormLabel>
+          <FormControl>
+            <RichTextEditor value={field.value} onChange={field.onChange} />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -226,5 +261,6 @@ export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   Select: FormSelect,
   Date: FormDate,
+  RichText: FormRichText,
   SelectItem,
 });
