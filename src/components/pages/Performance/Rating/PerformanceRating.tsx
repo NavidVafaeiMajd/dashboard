@@ -7,6 +7,7 @@ import StarRating from "@/components/shared/StarRating";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
 import { performanceData } from "./const";
+import { Button } from "@/components/ui/button";
 
 const PerformanceRating = () => {
    const form = useForm<z.infer<typeof validation>>({
@@ -39,7 +40,7 @@ const PerformanceRating = () => {
                <Form.SelectItem value="2">item 2</Form.SelectItem>
             </Form.Select>
 
-            <div className="flex flex-col md:flex-row md:justify-between">
+            <div className="flex gap-x-5 flex-col md:flex-row md:justify-between">
                <div className="w-full">
                   <div className="bg-gray-300 font-medium w-full px-2 py-4">
                      <span className="text-lg">شایستگی های فنی</span>
@@ -68,6 +69,11 @@ const PerformanceRating = () => {
                      <StarRating star={1} />
                   </div>
                </div>
+            </div>
+
+            <div className="flex gap-x-2 mt-5">
+               <Button>ثبت</Button>
+               <Button variant={"destructive"}>بازنشانی</Button>
             </div>
          </Form>
 

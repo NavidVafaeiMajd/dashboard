@@ -201,6 +201,16 @@ const Layout = () => {
                               element={<MaintransactionsList />}
                            />
                         </Route>
+
+                        <Route
+                           element={<LayoutPerformance />}
+                           path="performance"
+                        >
+                           <Route
+                              element={<PerformanceRating />}
+                              path="indicator-rating"
+                           />
+                        </Route>
                      </Routes>
                   </div>
                </div>
