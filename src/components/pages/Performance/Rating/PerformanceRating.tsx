@@ -31,6 +31,11 @@ const PerformanceRating = () => {
                name="name"
                required
             />
+            <Form.Date
+               label="تاریخ"
+               name="date"
+               required
+            />
             <Form.Select
                label="سمت سازمانی"
                name="position"
