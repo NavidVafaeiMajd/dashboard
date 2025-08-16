@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
+import ActionsCell from "@/components/shared/ActionsCell";
 
 export interface BankAccount {
   id: string;
@@ -40,11 +41,13 @@ export const useBankColumns = () => {
       id: "actions",
       header: "مرجع",
       cell: ({ row }) => {
-        const rowData = row.original;
+      const user = row.original;
         return (
-          <div className="flex items-center gap-2">
-            <Button variant="default" size="sm">نمایش</Button>
-          </div>
+        <ActionsCell
+          actions={[
+            { label: "نمایش جزییات", path: `/client/${user.id}` },
+          ]}
+        />
         );
       },
     },

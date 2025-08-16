@@ -38,6 +38,7 @@ import PerformanceRating from "./components/pages/Performance/Rating/Performance
 import LayoutPerformance from "./components/pages/Performance/Layout";
 import EmployeDetailse from "./components/pages/UserPage/UserPage";
 import NotFound from "./NotFound";
+import ClientInfo from "./components/pages/ClientsList/ClientInfo/ClientInfo";
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -70,7 +71,7 @@ const Layout = () => {
             <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
               <Routes>
                 <Route path="users/:id" element={<EmployeDetailse />}></Route>
-
+                <Route path="client/:id" element={<ClientInfo />}></Route>
                 <Route path="/" element={<Desk />} />
                 <Route path="staff" element={<LayoutStaffList />}>
                   <Route index element={<StaffList />} />
