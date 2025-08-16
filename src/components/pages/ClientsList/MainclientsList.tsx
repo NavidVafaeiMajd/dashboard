@@ -16,7 +16,7 @@ export default function MainclientsList() {
           {/* فرم اطلاعات */}
           <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-              <span>ثبت جدید سپرده</span>
+              <span>ثبت جدید معامله</span>
               {/* <button className="w-[90px] h-[32px] bg-primary text-[#ffff] rounded-md"></button> */}
               <Button onClick={toggleForm} >
                 مخفی
