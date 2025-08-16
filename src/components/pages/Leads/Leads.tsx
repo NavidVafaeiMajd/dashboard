@@ -197,7 +197,7 @@ const Leads = () => {
             <div className="flex justify-between">
                <div className="w-[65%] bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                   <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-                     <span>ثبت جدید سپرده</span>
+                     <span>ثبت جدید رهبری  </span>
 
                      <Button onClick={changeVisibility} >
                         مخفی
