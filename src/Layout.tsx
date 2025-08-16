@@ -37,6 +37,7 @@ import MainclientsList from "./components/pages/ClientsList/MainclientsList";
 import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
 import LayoutPerformance from "./components/pages/Performance/Layout";
 import EmployeDetailse from "./components/pages/UserPage/UserPage";
+import NotFound from "./NotFound";
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -139,6 +140,7 @@ const Layout = () => {
                     path="indicator-rating"
                   />
                 </Route>
+                  <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>
