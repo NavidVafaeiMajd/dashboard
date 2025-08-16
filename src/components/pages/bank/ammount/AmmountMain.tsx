@@ -2,6 +2,7 @@ import { useBankColumns } from "../AccountBank/columns";
 import { DataTable } from "@/components/shared/data-table";
 import { BANK_ACCOUNTS } from "../AccountBank/const";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -154,18 +155,13 @@ export default function AmmountMain() {
                     />
 
                     <div className="flex gap-4">
-                      <button
-                        // type="reset"
-                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
-                      >
+
+                      <Button>
                         بازنشانی
-                      </button>
-                      <button
-                        // type="submit"
-                        className="w-[90px] h-[32px] rounded text-[#ffff] rounded bg-[#1E824C]"
-                      >
+                      </Button>
+                      <Button>
                         ذخیره
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </Form>

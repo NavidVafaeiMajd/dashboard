@@ -4,6 +4,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { BANK_ACCOUNTS } from "../AccountBank/const";
 import { Form } from "@/components/ui/form";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import CuDatePicker from "@/components/shared/DatePicker";
 export default function MainList() {
     const [open, setOpen] = useState(false);
@@ -21,7 +22,9 @@ export default function MainList() {
                     <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                         <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
                             <span>ثبت جدید سپرده</span>
-                            <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-greenDark">مخفی</button>
+                            <Button onClick={changeVisibility}>
+                                مخفی
+                            </Button>
                         </div>
 
                         <div className="p-4">
@@ -98,8 +101,12 @@ export default function MainList() {
 
                                     {/* Buttons */}
                                     <div className="flex gap-4">
-                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">بازنشانی</button>
-                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">ذخیره</button>
+                                        <Button>
+                                            بازنشانی
+                                        </Button>
+                                        <Button>
+                                            ذخیره
+                                        </Button>
                                     </div>
                                 </div>
                             </Form>
