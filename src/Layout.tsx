@@ -33,9 +33,10 @@ import MainBank from "./components/pages/bank/AccountBank/mainBank";
 import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
 import MainList from "./components/pages/bank/deposit-list/mainList";
 import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-import LayoutPerformance from "./components/pages/Performance/Layout";
+import MainclientsList from "./components/pages/ClientsList/MainclientsList";
 import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
-import EmployeDetailse from "./components/pages/employeDetailse/employeDetailse";
+import LayoutPerformance from "./components/pages/Performance/Layout";
+import EmployeDetailse from "./components/pages/UserPage/UserPage";
 import NotFound from "./NotFound";
 import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
 import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
@@ -72,6 +73,11 @@ const Layout = () => {
                   </div>
                   <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
                      <Routes>
+                        <Route
+                           path="users/:id"
+                           element={<EmployeDetailse />}
+                        ></Route>
+
                         <Route
                            path="/"
                            element={<Desk />}
