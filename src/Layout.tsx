@@ -42,6 +42,8 @@ import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRati
 import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
 import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupIndicator";
 import GoalType from "./components/pages/Performance/GoalType/GoalType";
+import LayoutLeave from "./components/pages/Leave/Layout";
+import LeaveList from "./components/pages/Leave/List/LeaveList";
 
 const Layout = () => {
    const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -237,6 +239,16 @@ const Layout = () => {
                            <Route
                               element={<GoalType />}
                               path="goals-type"
+                           />
+                        </Route>
+
+                        <Route
+                           path="leave"
+                           element={<LayoutLeave />}
+                        >
+                           <Route
+                              element={<LeaveList />}
+                              path="list"
                            />
                         </Route>
                      </Routes>
