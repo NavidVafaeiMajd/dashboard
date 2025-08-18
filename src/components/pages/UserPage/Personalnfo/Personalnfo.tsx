@@ -3,6 +3,7 @@ import { FiUser } from "react-icons/fi";
 import Biography from "./Biography/Biography";
 import SochialMedia from "./SochialMedia/SochialMedia";
 import BankAccountForm from "./Bank/Bank";
+import EmergencyCall from "./EmergencyCall/EmergencyCall";
 
 const PersonalInfo = () => {
   return (
@@ -38,8 +39,8 @@ const PersonalInfo = () => {
         <TabsContent value="bankAccount" className="p-5 w-full!">
           <BankAccountForm/>
         </TabsContent>
-        <TabsContent value="emergencyContact" className="p-5">
-          {/* محتوا برای تماس اضطراری */}----
+        <TabsContent value="emergencyContact" className="p-5 w-full!">
+          <EmergencyCall/>
         </TabsContent>
       </Tabs>
     </div>
