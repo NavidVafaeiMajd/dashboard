@@ -15,7 +15,7 @@ const myStyles = {
 
 const StarRating = ({ star, readonly = false }: Props) => {
    return (
-      <div className="flex max-w-50 min-h-20 justify-between items-center gap-x-2">
+      <div className="flex max-w-40 min-h-20 justify-between items-center gap-x-2">
          <h4 className="text-2xl font-bold text-yellow-300">{star}</h4>
          <Rating
             value={star}
