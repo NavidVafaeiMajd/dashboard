@@ -9,6 +9,7 @@ import { MdOutlinePassword } from "react-icons/md";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import { IoPersonAddSharp } from "react-icons/io5";
+import BasicInfo from "./BasicInfo/BasicInfo";
 
 const EmployeDetailse = () => {
   const { id } = useParams();
@@ -116,7 +117,7 @@ const EmployeDetailse = () => {
           <p>User content goes here</p>
         </TabsContent>
         <TabsContent value="basicInfo">
-          <p>Settings content goes here</p>
+          <BasicInfo/>
         </TabsContent>
         <TabsContent value="personalInfo">
           <p>Settings content goes here</p>
