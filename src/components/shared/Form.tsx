@@ -256,11 +256,55 @@ function FormSelect<T extends FieldValues>({
   );
 }
 
-// ---------- Compound export ----------
+// ---------- Textarea ----------
+interface FormTextareaProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  className?: string;
+  textareaClassName?: string;
+}
+
+function FormTextarea<T extends FieldValues>({
+  name,
+  label,
+  placeholder,
+  required,
+  className,
+  textareaClassName,
+}: FormTextareaProps<T>) {
+  const { control } = useFormContextSafe<T>();
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={`w-full space-y-2 ${className ?? ""}`}>
+          <FormLabel className="text-base">
+            {label} {required && <span className="text-red-500">*</span>}
+          </FormLabel>
+          <FormControl>
+            <textarea
+              placeholder={placeholder}
+              className={`w-full min-h-24 p-2 border rounded-md ${textareaClassName ?? ""}`}
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+// ---------- Compound export (اضافه کردن Textarea) ----------
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   Select: FormSelect,
   Date: FormDate,
   RichText: FormRichText,
+  Textarea: FormTextarea, 
   SelectItem,
 });

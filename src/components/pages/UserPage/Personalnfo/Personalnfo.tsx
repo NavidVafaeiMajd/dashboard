@@ -1,24 +1,47 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { FiUser } from "react-icons/fi";
+import Biography from "./Biography/Biography";
 
-const Personalnfo = () => {
+const PersonalInfo = () => {
   return (
-    <>
-      <div>
-        <Tabs className="flex-col! gap-0">
-          <TabsList className=" flex! flex-row! w-full!">
-            <TabsTrigger value="basicInfo" className="justify-center"> بیوگرافی </TabsTrigger>
-            <TabsTrigger value="basicInfo1" className="justify-center">پروفایل اجتماعی </TabsTrigger>
-            <TabsTrigger value="basicInfo2" className="justify-center">حساب بانکی </TabsTrigger>
-            <TabsTrigger value="basicInfo3" className="justify-center">تماس اضطراری </TabsTrigger>
-          </TabsList>
-          <TabsContent value="basicInfo">--</TabsContent>
-          <TabsContent value="basicInfo1">---</TabsContent>
-          <TabsContent value="basicInfo2">----</TabsContent>
-          <TabsContent value="basicInfo3">-----</TabsContent>
-        </Tabs>
+    <div>
+      <div className="flex gap-2 border-b-red-500 border-b-2 p-3 w-full!">
+        <span>
+          <FiUser className="w-7 h-7" />
+        </span>
+        <span> اطلاعات اولیه</span>
       </div>
-    </>
+      <Tabs className="flex-col! gap-0" defaultValue="biography">
+        <TabsList className="flex! flex-row! w-full!">
+          <TabsTrigger value="biography" className="justify-center">
+            بیوگرافی
+          </TabsTrigger>
+          <TabsTrigger value="socialProfile" className="justify-center">
+            پروفایل اجتماعی
+          </TabsTrigger>
+          <TabsTrigger value="bankAccount" className="justify-center">
+            حساب بانکی
+          </TabsTrigger>
+          <TabsTrigger value="emergencyContact" className="justify-center">
+            تماس اضطراری
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="biography" className="p-5 w-full!">
+          <Biography />
+        </TabsContent>
+        <TabsContent value="socialProfile" className="p-5">
+          {/* محتوا برای پروفایل اجتماعی */}--
+        </TabsContent>
+        <TabsContent value="bankAccount" className="p-5">
+          {/* محتوا برای حساب بانکی */}---
+        </TabsContent>
+        <TabsContent value="emergencyContact" className="p-5">
+          {/* محتوا برای تماس اضطراری */}----
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 
-export default Personalnfo;
+export default PersonalInfo;
