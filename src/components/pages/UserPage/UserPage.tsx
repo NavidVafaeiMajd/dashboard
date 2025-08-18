@@ -10,6 +10,7 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import { IoPersonAddSharp } from "react-icons/io5";
 import BasicInfo from "./BasicInfo/BasicInfo";
+import ChangePass from "./ChangePass/ChangePass";
 
 const EmployeDetailse = () => {
   const { id } = useParams();
@@ -129,7 +130,7 @@ const EmployeDetailse = () => {
           <p>Settings content goes here</p>
         </TabsContent>
         <TabsContent value="changePass">
-          <p>Settings content goes here</p>
+          <ChangePass/>
         </TabsContent>
       </Tabs>
     </>

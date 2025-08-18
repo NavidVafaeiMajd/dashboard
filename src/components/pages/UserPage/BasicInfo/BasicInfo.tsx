@@ -7,12 +7,32 @@ import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
 const BasicInfo = () => {
-  const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation),
-    defaultValues: {},
-  });
+const form = useForm<z.infer<typeof validation>>({
+  resolver: zodResolver(validation),
+  defaultValues: {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    gender: "",     
+    personeliCode: "",
+    birthDate: new Date(),    
+    position: "",
+    maritalStatus: "",
+    accessLevel: "",
+    province: "",
+    city: "",
+    postalCode: "",
+    religion: "",
+    bloodGroup: "",
+    nationality: "",
+    citizenship: "",
+    address1: "",
+    address2: "",
+  },
+});
 
-  const onSubmit = (data) => {
+
+  const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
   return (
