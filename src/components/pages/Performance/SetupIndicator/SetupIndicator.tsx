@@ -33,7 +33,7 @@ const SetupIndicator = () => {
          </div>
 
          <div className="flex w-full gap-y-4 gap-x-5 justify-between flex-col md:flex-row">
-            <div className="flex h-fit flex-col w-full gap-y-5 bg-white shadow-xs py-4">
+            <div className="flex h-fit flex-col w-full md:w-150 gap-y-5 bg-white shadow-xs py-4">
                <div className="border-b border-b-red-500 p-4">
                   <h2 className="text-xl">ثبت جدید دسته بندی سازمانی</h2>
                </div>
