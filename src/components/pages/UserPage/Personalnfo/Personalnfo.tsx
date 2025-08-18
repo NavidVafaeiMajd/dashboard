@@ -2,6 +2,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FiUser } from "react-icons/fi";
 import Biography from "./Biography/Biography";
 import SochialMedia from "./SochialMedia/SochialMedia";
+import BankAccountForm from "./Bank/Bank";
 
 const PersonalInfo = () => {
   return (
@@ -34,8 +35,8 @@ const PersonalInfo = () => {
         <TabsContent value="socialProfile" className="p-5 w-full!">
           <SochialMedia/>
         </TabsContent>
-        <TabsContent value="bankAccount" className="p-5">
-          {/* محتوا برای حساب بانکی */}---
+        <TabsContent value="bankAccount" className="p-5 w-full!">
+          <BankAccountForm/>
         </TabsContent>
         <TabsContent value="emergencyContact" className="p-5">
           {/* محتوا برای تماس اضطراری */}----
