@@ -4,7 +4,6 @@ import { FiUsers } from "react-icons/fi";
 import { TfiTarget } from "react-icons/tfi";
 import { GoClock } from "react-icons/go";
 import { MdPayment } from "react-icons/md";
-import { SiNordicsemiconductor } from "react-icons/si";
 import { AiOutlineMobile } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
@@ -63,7 +62,6 @@ const Navbar = () => {
                   dropInfo={[
                      ["واحد سازمانی ", "hr/departments-list"],
                      ["سمت سازمانی", "hr/designation-list"],
-                     ["خط مشی ها", "hr/policies-list"],
                      ["ابلاغیه", "hr/news-list"],
                   ]}
                />
@@ -80,7 +78,6 @@ const Navbar = () => {
                      [" حضور و غیاب ", "rollcall/attendance-list"],
                      ["ثبت تردد دستی پرسنل", "rollcall/manual-attendance"],
                      ["گزارش کارکرد ماهانه", "rollcall/monthly-attendance"],
-                     ["درخواست اضافه کاری", "rollcall/overtime-request"],
                   ]}
                />
                <NavbarItems
@@ -92,18 +89,6 @@ const Navbar = () => {
                         حساب بانکی{" "}
                      </>,
                      "/accounts-list",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
-                        <SiNordicsemiconductor className="w-7 h-7" /> گواهی
-                        اشتغال به کار
-                     </>,
-                     "employeeCert/assets-list",
                   ]}
                   dropInfo={[]}
                />
@@ -153,8 +138,8 @@ const Navbar = () => {
                   dropInfo={[
                      ["رتبه بندی شاخص ها", "performance/indicator-rating"],
                      ["ارزیابی کارکنان", "performance/employee-rating"],
-                     ["تنظیم اندیکاتور", "performance/setup-indicators"],
-                     ["پیگیری اهداف (OKR)", "performance/purse-goals"],
+                     ["پیگیری اهداف (OKR)", "performance/track-goals"],
+                     ["تنظیم اندیکاتور", "performance/setup-indicator"],
                      ["انواع اهداف", "performance/goals-type"],
                   ]}
                />
