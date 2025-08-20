@@ -10,6 +10,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import AccountInfo from "./AccountInfo/AccountInfo";
 import Personalnfo from "./Personalnfo/Personalnfo";
+import ProfileImg from "./ProfileImg/ProfileImg";
 
 const EmployeDetailse = () => {
   const { id } = useParams();
@@ -101,7 +102,7 @@ const EmployeDetailse = () => {
           <Personalnfo/>
         </TabsContent>
         <TabsContent value="profImg">
-          <p>Settings content goes here</p>
+          <ProfileImg/>
         </TabsContent>
         <TabsContent value="accountInfo">
           <AccountInfo/>
