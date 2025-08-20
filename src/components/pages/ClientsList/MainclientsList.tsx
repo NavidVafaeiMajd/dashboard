@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { DataTable } from '@/components/shared/data-table'
 import { BANK_ACCOUNTS } from './const'
-import { useBankColumns } from './columns'
+import { columns } from './columns'
 import { Button } from '@/components/ui/button'
 import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Form, FormField } from "@/components/ui/form";
+
+
 export default function MainclientsList() {
-  const { columns } = useBankColumns()
+
   const [isOpen, setOpen] = useState(false)
-  let namesaved = "زخیره"
   const toggleForm = () => setOpen(!isOpen)
   const formSchema = z.object({
     image: z.string().min(1, "لطفا یک عکس آپلود کنید"),
