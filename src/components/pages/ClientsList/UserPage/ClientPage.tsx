@@ -6,7 +6,8 @@ import { MdOutlineMail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import ProjectsList from "./Projects/ProjectsList";
-import BasicInfo from "../../UserPage/BasicInfo/BasicInfo";
+import BasicInfo from "./BasicInfo/BasicInfo";
+
 const ClientPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
