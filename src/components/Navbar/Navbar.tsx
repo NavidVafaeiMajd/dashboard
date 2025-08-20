@@ -8,8 +8,7 @@ import { AiOutlineMobile } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 import { RiCameraLensLine } from "react-icons/ri";
-import { TbArrowsExchange2 } from "react-icons/tb";
-import { CiCircleQuestion } from "react-icons/ci";
+
 import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineRadar } from "react-icons/md";
 import { BsExclamationCircle } from "react-icons/bs";
@@ -142,29 +141,6 @@ const Navbar = () => {
                      ["تنظیم اندیکاتور", "performance/setup-indicator"],
                      ["انواع اهداف", "performance/goals-type"],
                   ]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
-                        <TbArrowsExchange2 className="w-7 h-7" /> ترفیعات و
-                        تبدیل وضعیت{" "}
-                     </>,
-                     "/tarfiyat",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
-                        <CiCircleQuestion className="w-7 h-7" /> پشتیبـانی{" "}
-                     </>,
-                     "/support",
-                  ]}
-                  dropInfo={[]}
                />
                <NavbarItems
                   DropMenu={false}
