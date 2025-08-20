@@ -7,6 +7,8 @@ export interface ClientsList {
   accountDate: string;
   typemoney: string;
   count: number;
+
+  [key: string]: string | number;
 }
 
 export const columns: ColumnDef<ClientsList>[] = [
