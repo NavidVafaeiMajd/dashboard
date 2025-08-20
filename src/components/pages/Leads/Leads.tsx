@@ -6,6 +6,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
 import { z } from "zod"
 type FormValues = {
@@ -49,7 +50,7 @@ const Leads = () => {
       console.log("Form data:", data);
    };
 
-   
+
 
    return (
       <div>
@@ -59,15 +60,16 @@ const Leads = () => {
             <div className="flex justify-between">
                <div className="w-[65%] bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                   <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-                     <span>ثبت جدید سپرده</span>
-                     <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-[#1E824C]">
+                     <span>ثبت جدید رهبری  </span>
+
+                     <Button onClick={changeVisibility} >
                         مخفی
-                     </button>
+                     </Button>
                   </div>
 
                   <div className="p-4">
                      <Form {...form} onSubmit={form.handleSubmit(onSubmit)}>
-                        <form  className="flex flex-col gap-10">
+                        <form className="flex flex-col gap-10">
                            {/* Row 1 */}
                            <div className="flex flex-col justify-between gap-[1.5rem]">
                               <div className="flex justify-between gap-[1.5rem]">
@@ -173,18 +175,14 @@ const Leads = () => {
 
                            {/* Buttons */}
                            <div className="flex gap-4">
-                              <button
-                                 type="button"
-                                 onClick={() => form.reset()}
-                                 className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]"
-                              >
+
+                              <Button type="button"
+                                 onClick={() => form.reset()}>
                                  بازنشانی
-                              </button>
-                              <button
-                                 className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]"
-                              >
+                              </Button>
+                              <Button >
                                  ذخیره
-                              </button>
+                              </Button>
                            </div>
                         </form>
                      </Form>
@@ -198,11 +196,15 @@ const Leads = () => {
                   </div>
                   <div className="p-6 flex flex-col gap-4">
                      <Form {...form}>
-                        <FormField
-                           control={form.control}
-                           name="image"
-                           render={({ field }) => <ImageUploadInput field={field} />}
-                        />
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                           <FormField
+                              control={form.control}
+                              name="image"
+                              render={({ field }) => <ImageUploadInput field={field} />}
+                           />
+
+                           <Button type="submit">ذخیره</Button>
+                        </form>
                      </Form>
 
                   </div>

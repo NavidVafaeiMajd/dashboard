@@ -1,155 +1,32 @@
-// import React, { useState } from 'react'
-// import { DataTable } from '@/components/shared/data-table'
-// import { BANK_ACCOUNTS } from './const'
-// import { useBankColumns } from './columns'
-// import { HiCalendarDateRange } from 'react-icons/hi2'
-// import { iso } from 'zod'
-// export default function MainclientsList() {
-//     const { columns, modal } = useBankColumns();
-//     const [isopen , Setopen] = useState(false)
-
-//     let changeVisibiliti = () => {
-//         Setopen(!isopen)
-//     }
-//     return (
-//         <>
-//             <div className='flex tra flex-wrap flex-col  gap-[2.5rem]'>
-//                 {isopen &&
-//                 <div className="flex flex-wrap justify-between">
-//                     <div className="lg:w-[1016px] w-[100%] gap-[2.5rem]  bg-[#F9F9FB] shadow-2xl">
-//                         <div className="w-[100%] flex items-center p-[0.5rem] bg-[#FFF7FA] justify-between border-b-2 border-red-700">
-//                             <span>ثبت جدید سپرده</span>
-//                             <button className="w-[90px] rounded-[5px] h-[32px] bg-green-300">
-//                                 مخفی
-//                             </button>
-//                         </div>
-//                         <div className="p-[0.5rem] ">
-//                             <div className="flex flex-col gap-[2.5rem] flex-wrap">
-//                                 <div className="flex justify-between ">
-//                                     <div className="flex flex-col gap-[0.75rem]">
-//                                         <span>نام *</span>
-//                                         <div className="flex  w-full">
-//                                             <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-//                                                 IRR
-//                                             </div>
-//                                             <input className="h-[45px] w-[400px] rounded-l-none " />
-//                                         </div>
-//                                     </div>
-//                                     <div className="flex flex-col gap-[0.75rem]">
-//                                         <span>نام خانوادگی  *</span>
-//                                         <div className="flex  w-full">
-//                                             <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-//                                                 IRR
-//                                             </div>
-//                                             <input className="h-[45px] w-[400px] rounded-l-none " />
-//                                         </div>
-//                                     </div>
-
-//                                 </div>
-
-
-
-//                                 <div className="flex justify-between items-center">
-//                                     <div className="flex h-[35px] flex-col gap-[0.5rem]">
-//                                         <span>رمز عبور  *</span>
-//                                         <input type="text" className="w-[300px] " />
-//                                     </div>
-//                                     <div className="flex h-[35px] flex-col gap-[0.5rem]">
-//                                         <span>شماره تماس *</span>
-//                                         <input type="text" className="w-[300px] " />
-//                                     </div>
-//                                     <div className="h-[45px] flex flex-col w-[300px] gap-[0.5rem]">
-//                                         <span>دسته بندی *</span>
-//                                         <select name="" id="">
-//                                             <option value="">اقا</option>
-//                                             <option value="">خانم</option>
-//                                         </select>
-//                                     </div>
-
-//                                 </div>
-//                                 <div className="flex justify-between ">
-//                                     <div className="flex flex-col gap-[0.75rem]">
-//                                         <span>نام *</span>
-//                                         <div className="flex  w-full">
-//                                             <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-//                                                 IRR
-//                                             </div>
-//                                             <input className="h-[45px] w-[400px] rounded-l-none " />
-//                                         </div>
-//                                     </div>
-//                                     <div className="flex flex-col gap-[0.75rem]">
-//                                         <span>نام خانوادگی  *</span>
-//                                         <div className="flex  w-full">
-//                                             <div className="w-[56px] h-[46px] flex justify-center items-center bg-[#F0F2F8] text-sm">
-//                                                 IRR
-//                                             </div>
-//                                             <input className="h-[45px] w-[400px] rounded-l-none " />
-//                                         </div>
-//                                     </div>
-
-//                                 </div>
-
-//                                 <div>
-//                                     <div className="flex gap-[1.5rem]">
-//                                         <button className="w-[90px] rounded-[5px] h-[32px] bg-green-300" >باز نشانی</button>
-//                                         <button className="w-[90px] rounded-[5px] h-[32px] bg-green-300" >دخیره</button>
-//                                     </div>
-//                                 </div>
-
-
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div className="w-[440px] h-fit bg-[#F9F9FB]">
-//                         <div className="w-[100%] flex items-center p-[0.5rem] bg-[#FFF7FA] justify-between border-b-2 border-red-700">
-//                             <span>ثبت جدید سپرده</span>
-
-//                         </div>
-//                         <div className="p-[1.5rem] flex flex-col gap-[1.5rem]">
-//                             <span>پیوست *</span>
-//                             <div className="flex">
-//                                 <div className="w-[74px] h-[42px]  rounded-[9px] bg-zinc-600 flex items-center justify-center">
-//                                     <span className="text-amber-50 flex items-center justify-center">
-//                                         Browse
-//                                     </span>
-//                                 </div>
-//                                 <input type="file" name="" id="" />
-//                             </div>
-//                             <span>فقط فایل های تصویر قابل بارگزاری هستن</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//                 }
-
-//                 <div className="shadow-2xl w-[100%] rounded-[5px] h-fit bg-[#F9F9FB]">
-//                     <div className="w-full h-[45px] flex justify-between p-2 items-center rounded-t-[9px] bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
-//                         <span className="text-[17px]">لیست معامله ها</span>
-//                         <button className="w-[90px] hover:bg-blue-700 transition duration-300 ease-in-out rounded-[5px] h-[32px] bg-green-300" onClick={changeVisibiliti} >جدید</button>
-//                     </div>
-//                     <div>
-//                         <DataTable
-//                             columns={columns}
-//                             data={BANK_ACCOUNTS}
-//                             searchableKeys={["accountNumber", "accountType"]}
-//                         />
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-//     )
-// }
-
 import React, { useState } from 'react'
 import { DataTable } from '@/components/shared/data-table'
 import { BANK_ACCOUNTS } from './const'
 import { useBankColumns } from './columns'
-
+import { Button } from '@/components/ui/button'
+import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 export default function MainclientsList() {
   const { columns } = useBankColumns()
   const [isOpen, setOpen] = useState(false)
-
+  let namesaved = "زخیره"
   const toggleForm = () => setOpen(!isOpen)
+  const formSchema = z.object({
+    image: z.string().min(1, "لطفا یک عکس آپلود کنید"),
+  });
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      image: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
   return (
     <div className="flex flex-col gap-10 px-4 py-6">
       {isOpen && (
@@ -157,8 +34,11 @@ export default function MainclientsList() {
           {/* فرم اطلاعات */}
           <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-              <span>ثبت جدید سپرده</span>
-              <button onClick={toggleForm} className="w-[90px] h-[32px] bg-green-300 rounded-md">مخفی</button>
+              <span>ثبت جدید مشتری</span>
+              {/* <button className="w-[90px] h-[32px] bg-primary text-[#ffff] rounded-md"></button> */}
+              <Button onClick={toggleForm} >
+                مخفی
+              </Button>
             </div>
             <div className="p-4 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -188,7 +68,7 @@ export default function MainclientsList() {
                   <input type="text" className="h-[45px] w-full border border-gray-300" />
                 </div>
                 <div>
-                  <label>دسته‌بندی *</label>
+                  <label>جنسیت *</label>
                   <select className="h-[45px] w-full border border-gray-300">
                     <option>آقا</option>
                     <option>خانم</option>
@@ -199,14 +79,15 @@ export default function MainclientsList() {
               {/* تکراری ولی نگه‌داشتم برای تطابق با کد شما */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label>نام *</label>
+                  <label>ایمیل  *</label>
                   <div className="flex">
                     <div className="w-[56px] h-[46px] flex items-center justify-center bg-[#F0F2F8] text-sm">IRR</div>
                     <input className="h-[45px] w-full rounded-l-none border border-gray-300" />
                   </div>
                 </div>
                 <div>
-                  <label>نام خانوادگی *</label>
+                  <label>
+                    نام کاربری  *</label>
                   <div className="flex">
                     <div className="w-[56px] h-[46px] flex items-center justify-center bg-[#F0F2F8] text-sm">IRR</div>
                     <input className="h-[45px] w-full rounded-l-none border border-gray-300" />
@@ -215,26 +96,37 @@ export default function MainclientsList() {
               </div>
 
               <div className="flex gap-4">
-                <button className="w-[90px] h-[40px] rounded-md bg-green-300">بازنشانی</button>
-                <button className="w-[90px] h-[40px] rounded-md bg-green-300">ذخیره</button>
+                {/* <button className="w-[90px] h-[40px] rounded-md bg-green-300"></button> */}
+                <Button>
+                  بازنشانی
+                </Button>
+                {/* <button className="w-[90px] h-[40px] rounded-md bg-green-300">ذخیره</button> */}
+                {/* <Button {...namesaved} /> */}
+                <Button>
+                  دخیره
+                </Button>
               </div>
             </div>
           </div>
 
           {/* بخش پیوست */}
-          <div className="w-full lg:w-1/3 bg-[#F9F9FB] shadow-2xl rounded-md">
+          <div className="w-[29%] bg-[#F9F9FB] rounded-md overflow-hidden">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
               <span>پیوست فایل</span>
             </div>
-            <div className="p-6 space-y-4">
-              <span>پیوست *</span>
-              <div className="flex items-center gap-2">
-                <label className="w-[74px] h-[42px] bg-zinc-600 text-white flex items-center justify-center rounded-[9px] cursor-pointer">
-                  Browse
-                </label>
-                <input  type="file" accept="image/*" className="w-[100%] text-sm" />
-              </div>
-              <span className="text-sm text-gray-600">فقط فایل‌های تصویر قابل بارگذاری هستند</span>
+            <div className="p-6 flex flex-col gap-4">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="image"
+                    render={({ field }) => <ImageUploadInput field={field} />}
+                  />
+
+                  <Button type="submit">ذخیره</Button>
+                </form>
+              </Form>
+
             </div>
           </div>
         </div>
@@ -243,8 +135,11 @@ export default function MainclientsList() {
       {/* لیست معامله‌ها */}
       <div className="w-full bg-[#F9F9FB] shadow-2xl rounded-md">
         <div className="flex justify-between items-center p-4 bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
-          <span className="text-[17px]">لیست معامله‌ها</span>
-          <button onClick={toggleForm} className="w-[90px] h-[32px] bg-green-300 rounded-md hover:bg-blue-700 transition">جدید</button>
+          <span className="text-[17px]">لیست همه ارباب رجوع </span>
+          {/* <button className="w-[90px] h-[32px] bg-green-300 rounded-md hover:bg-blue-700 transition"></button> */}
+          <Button onClick={toggleForm}>
+            جدید
+          </Button>
         </div>
         <div className="overflow-x-auto">
           <DataTable

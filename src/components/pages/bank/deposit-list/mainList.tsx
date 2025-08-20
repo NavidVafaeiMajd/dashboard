@@ -2,17 +2,41 @@ import { HiCalendarDateRange } from "react-icons/hi2";
 import { useBankColumns } from "../AccountBank/columns";
 import { DataTable } from "@/components/shared/data-table";
 import { BANK_ACCOUNTS } from "../AccountBank/const";
-import { Form } from "@/components/ui/form";
+// import { Form } from "@/components/ui/form";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import CuDatePicker from "@/components/shared/DatePicker";
+import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+// import { Button } from "@/components/ui/button";
+
 export default function MainList() {
+    const formSchema = z.object({
+        image: z.string().min(1, "لطفا یک عکس آپلود کنید"),
+    });
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState<Date | null>(null);
     const { columns, modal } = useBankColumns();
     let changeVisibility = () => {
         setOpen(prev => !prev)
     }
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            image: "",
+        },
+    });
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log(values);
+    }
     return (
+
         <div className="flex flex-col gap-6 px-4">
             {/* Top Section */}
             {open &&
@@ -20,8 +44,10 @@ export default function MainList() {
                     {/* Form Section */}
                     <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md overflow-hidden">
                         <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-                            <span>ثبت جدید سپرده</span>
-                            <button onClick={changeVisibility} className="w-[90px] h-[32px] text-[#ffff] rounded bg-greenDark">مخفی</button>
+                            <span>ثبت جدید هزینه ها</span>
+                            <Button onClick={changeVisibility}>
+                                مخفی
+                            </Button>
                         </div>
 
                         <div className="p-4">
@@ -41,7 +67,7 @@ export default function MainList() {
                                         <div className="flex flex-col gap-2 w-full md:w-1/2">
                                             <span>نوع حساب بانکی *</span>
                                             <select className="h-[45px] border rounded">
-                                                <option value="">Hi</option>
+                                                <option value="">231</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,7 +91,7 @@ export default function MainList() {
                                         <div className="flex flex-col gap-2 w-full md:w-1/2">
                                             <span>دسته‌بندی *</span>
                                             <select className="h-[45px] border rounded">
-                                                <option value="">Hi</option>
+                                                <option value="">IT</option>
                                             </select>
                                         </div>
                                     </div>
@@ -73,19 +99,24 @@ export default function MainList() {
                                     {/* Row 3 */}
                                     <div className="flex flex-col lg:flex-row justify-between gap-4">
                                         <div className="w-full lg:w-1/3 flex flex-col gap-2">
-                                            <span>دسته‌بندی *</span>
+                                            <span>دریافت کننده وجه *</span>
                                             <select className="h-[45px] border rounded">
-                                                <option value="">Hi</option>
+                                                <option value="">Akbar</option>
+                                                <option value="">Amir</option>
                                             </select>
                                         </div>
                                         <div className="w-full lg:w-1/3 flex flex-col gap-2">
-                                            <span>دسته‌بندی *</span>
+                                            <span>  روش پرداخت *</span>
                                             <select className="h-[45px] border rounded">
-                                                <option value="">Hi</option>
+                                                <option value="">PayPal</option>
+                                                <option value="">Cash</option>
+                                                <option value="">Bank</option>
+                                                <option value="">Strip</option>
+                                                <option value="">Paystack</option>
                                             </select>
                                         </div>
                                         <div className="w-full lg:w-1/3 flex flex-col gap-2">
-                                            <span>دسته‌بندی *</span>
+                                            <span>مرجع *</span>
                                             <input type="text" className="h-[45px] border rounded" />
                                         </div>
                                     </div>
@@ -98,8 +129,12 @@ export default function MainList() {
 
                                     {/* Buttons */}
                                     <div className="flex gap-4">
-                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">بازنشانی</button>
-                                        <button className="w-[90px] h-[32px] rounded text-[#ffff] bg-[#1E824C]">ذخیره</button>
+                                        <Button>
+                                            بازنشانی
+                                        </Button>
+                                        <Button>
+                                            ذخیره
+                                        </Button>
                                     </div>
                                 </div>
                             </Form>
@@ -107,7 +142,7 @@ export default function MainList() {
                     </div>
 
                     {/* Attachment Section */}
-                    <div className="w-full lg:w-1/3 bg-[#F9F9FB]  rounded-md overflow-hidden">
+                    {/* <div className="w-full lg:w-1/3 bg-[#F9F9FB]  rounded-md overflow-hidden">
                         <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
                             <span>پیوست فایل</span>
                         </div>
@@ -120,6 +155,25 @@ export default function MainList() {
                                 <input className="w-[100%]" type="file" />
                             </div>
                             <span className="text-sm text-gray-500">فقط فایل‌های تصویر قابل بارگذاری هستند</span>
+                        </div>
+                    </div> */}
+                    <div className="w-[29%] bg-[#F9F9FB] rounded-md overflow-hidden">
+                        <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
+                            <span>پیوست فایل</span>
+                        </div>
+                        <div className="p-6 flex flex-col gap-4">
+                            <Form {...form}>
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                                    <FormField
+                                        control={form.control}
+                                        name="image"
+                                        render={({ field }) => <ImageUploadInput field={field} />}
+                                    />
+
+                                    <Button type="submit">ذخیره</Button>
+                                </form>
+                            </Form>
+
                         </div>
                     </div>
                 </div>
