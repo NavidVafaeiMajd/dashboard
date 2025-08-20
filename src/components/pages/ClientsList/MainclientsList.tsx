@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import { DataTable } from '@/components/shared/data-table'
-import { BANK_ACCOUNTS } from './const'
+import {  Clients_List } from './const'
 import { columns } from './columns'
 import { Button } from '@/components/ui/button'
 import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
@@ -145,7 +145,7 @@ export default function MainclientsList() {
         <div className="overflow-x-auto">
           <DataTable
             columns={columns}
-            data={BANK_ACCOUNTS}
+            data={ Clients_List}
             searchableKeys={["accountNumber", "accountType"]}
           />
         </div>
