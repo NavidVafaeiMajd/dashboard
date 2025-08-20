@@ -251,6 +251,7 @@ const Layout = () => {
                               path="list"
                            />
                         </Route>
+                        <Route element={<MainclientsList/>} path="clients-list" />
                      </Routes>
                   </div>
                </div>
