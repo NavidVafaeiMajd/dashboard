@@ -38,7 +38,14 @@ import PerformanceRating from "./components/pages/Performance/Rating/Performance
 import LayoutPerformance from "./components/pages/Performance/Layout";
 import EmployeDetailse from "./components/pages/UserPage/UserPage";
 import NotFound from "./NotFound";
-import ClientInfo from "./components/pages/ClientsList/ClientInfo/ClientInfo";
+import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
+import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
+import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupIndicator";
+import GoalType from "./components/pages/Performance/GoalType/GoalType";
+import LayoutLeave from "./components/pages/Leave/Layout";
+import LeaveList from "./components/pages/Leave/List/LeaveList";
+import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
+
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -71,7 +78,8 @@ const Layout = () => {
             <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
               <Routes>
                 <Route path="users/:id" element={<EmployeDetailse />}></Route>
-                <Route path="client/:id" element={<ClientInfo />}></Route>
+                <Route path="clients/:id" element={<ClientPage />}></Route>
+
                 <Route path="/" element={<Desk />} />
                 <Route path="staff" element={<LayoutStaffList />}>
                   <Route index element={<StaffList />} />
@@ -132,16 +140,24 @@ const Layout = () => {
                     element={<MaintransactionsList />}
                   />
                 </Route>
-                <Route path="clients-list">
-                  <Route index element={<MainclientsList />} />
-                </Route>
-                <Route path="performance" element={<LayoutPerformance />}>
+
+                <Route element={<LayoutPerformance />} path="performance">
                   <Route
                     element={<PerformanceRating />}
                     path="indicator-rating"
                   />
+
+                  <Route element={<EmployeeRating />} path="employee-rating" />
+                  <Route element={<TrackGoals />} path="track-goals" />
+
+                  <Route element={<SetupIndicator />} path="setup-indicator" />
+                  <Route element={<GoalType />} path="goals-type" />
                 </Route>
-                  <Route path="*" element={<NotFound />} />
+
+                <Route path="leave" element={<LayoutLeave />}>
+                  <Route element={<LeaveList />} path="list" />
+                </Route>
+                <Route element={<MainclientsList />} path="clients-list" />
               </Routes>
             </div>
           </div>

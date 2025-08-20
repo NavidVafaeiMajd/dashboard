@@ -1,14 +1,33 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { DataTable } from '@/components/shared/data-table'
 import { BANK_ACCOUNTS } from './const'
-import { useBankColumns } from './columns'
+import { columns } from './columns'
 import { Button } from '@/components/ui/button'
-export default function MainclientsList() {
-  const { columns } = useBankColumns()
-  const [isOpen, setOpen] = useState(false)
-  let namesaved = "زخیره"
-  const toggleForm = () => setOpen(!isOpen)
+import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField } from "@/components/ui/form";
 
+
+export default function MainclientsList() {
+
+  const [isOpen, setOpen] = useState(false)
+  const toggleForm = () => setOpen(!isOpen)
+  const formSchema = z.object({
+    image: z.string().min(1, "لطفا یک عکس آپلود کنید"),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      image: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
   return (
     <div className="flex flex-col gap-10 px-4 py-6">
       {isOpen && (
@@ -16,7 +35,7 @@ export default function MainclientsList() {
           {/* فرم اطلاعات */}
           <div className="w-full lg:w-2/3 bg-[#F9F9FB] shadow-2xl rounded-md">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-              <span>ثبت جدید سپرده</span>
+              <span>ثبت جدید مشتری</span>
               {/* <button className="w-[90px] h-[32px] bg-primary text-[#ffff] rounded-md"></button> */}
               <Button onClick={toggleForm} >
                 مخفی
@@ -92,19 +111,23 @@ export default function MainclientsList() {
           </div>
 
           {/* بخش پیوست */}
-          <div className="w-full lg:w-1/3 bg-[#F9F9FB] shadow-2xl rounded-md">
+          <div className="w-[29%] bg-[#F9F9FB] rounded-md overflow-hidden">
             <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
               <span>پیوست فایل</span>
             </div>
-            <div className="p-6 space-y-4">
-              <span>پیوست *</span>
-              <div className="flex items-center gap-2">
-                <label className="w-[74px] h-[42px] bg-zinc-600 text-white flex items-center justify-center rounded-[9px] cursor-pointer">
-                  Browse
-                </label>
-                <input type="file" accept="image/*" className="w-[100%] text-sm" />
-              </div>
-              <span className="text-sm text-gray-600">فقط فایل‌های تصویر قابل بارگذاری هستند</span>
+            <div className="p-6 flex flex-col gap-4">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="image"
+                    render={({ field }) => <ImageUploadInput field={field} />}
+                  />
+
+                  <Button type="submit">ذخیره</Button>
+                </form>
+              </Form>
+
             </div>
           </div>
         </div>
@@ -113,7 +136,7 @@ export default function MainclientsList() {
       {/* لیست معامله‌ها */}
       <div className="w-full bg-[#F9F9FB] shadow-2xl rounded-md">
         <div className="flex justify-between items-center p-4 bg-[#FFF7FA] border-b-2 border-[#FF3A86]">
-          <span className="text-[17px]">لیست معامله‌ها</span>
+          <span className="text-[17px]">لیست همه ارباب رجوع </span>
           {/* <button className="w-[90px] h-[32px] bg-green-300 rounded-md hover:bg-blue-700 transition"></button> */}
           <Button onClick={toggleForm}>
             جدید

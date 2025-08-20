@@ -1,10 +1,7 @@
-
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import ActionsCell from "@/components/shared/ActionsCell";
 
-export interface BankAccount {
+export interface ClientsList {
   id: string;
   accountType: string;
   accountDate: string;
@@ -12,58 +9,55 @@ export interface BankAccount {
   count: number;
 }
 
-export const useBankColumns = () => {
-  const [selectedAccount, setSelectedAccount ] = useState<BankAccount | null>(null);
-  const columns: ColumnDef<BankAccount>[] = [
-    {
-      accessorKey: "accountType",
-      header: "نوع حساب بانکی",
-      cell: ({ row }) => <div className="text-right">{row.getValue("accountType")}</div>,
-    },
-    {
-      accessorKey: "accountDate",
-      header: "تاریخ",
-      cell: ({ row }) => <div className="text-center">{row.getValue("accountDate")}</div>,
-    },
-    {
-      accessorKey: "typemoney",
-      header: "نوع ",
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue("typemoney")} </div>
-      ),
-    },
-    {
-      accessorKey: "count",
-      header: "مقدار",
-      cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
-    },
-    {
-      id: "actions",
-      header: "مرجع",
-      cell: ({ row }) => {
+export const columns: ColumnDef<ClientsList>[] = [
+  {
+    accessorKey: "accountType",
+    header: "نوع حساب بانکی",
+    cell: ({ row }) => (
+      <div className="text-right">{row.getValue("accountType")}</div>
+    ),
+  },
+  {
+    accessorKey: "accountDate",
+    header: "تاریخ",
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("accountDate")}</div>
+    ),
+  },
+  {
+    accessorKey: "typemoney",
+    header: "نوع ",
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("typemoney")} </div>
+    ),
+  },
+  {
+    accessorKey: "count",
+    header: "مقدار",
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("count")}</div>
+    ),
+  },
+  {
+    id: "actions",
+    accessorKey: "id",
+    cell: ({ row }) => {
       const user = row.original;
-        return (
+      return (
         <ActionsCell
           actions={[
-            { label: "نمایش جزییات", path: `/client/${user.id}` },
+            { label: "نمایش جزییات", path: `/clients/${user.id}` },
+            {
+              label: "حذف",
+              onclick: () => alert("حذف کاربر!"),
+              type: "destructive",
+            },
           ]}
         />
-        );
-      },
+      );
     },
-  ];
-
-  // خروجی: ستون‌ها + مودال
-  return {
-    columns,
-    modal: selectedAccount && (
-  
-        <div className="space-y-2 text-sm leading-relaxed">
-          <p><strong>نوع حساب:</strong> {selectedAccount.accountType}</p>
-          <p><strong>شماره حساب:</strong> {selectedAccount.accountNumber}</p>
-          <p><strong>ما به التفاوت:</strong> {selectedAccount.typemoney.toLocaleString()} ریال</p>
-          <p><strong>شعبه بانک:</strong> {selectedAccount.count}</p>
-        </div>
-    ),
-  };
-};
+    header: () => {
+      return <span className="font-normal">عملیات</span>;
+    },
+  },
+];

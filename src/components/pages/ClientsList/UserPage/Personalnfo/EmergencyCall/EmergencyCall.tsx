@@ -1,0 +1,59 @@
+// PersonalInfoForm.tsx
+import { Form } from "@/components/shared/Form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { validation } from "./validation";
+
+const EmergencyCall = () => {
+  const form = useForm<z.infer<typeof validation>>({
+    resolver: zodResolver(validation),
+    defaultValues: {
+      fullName: "",
+      phoneNumber: "",
+      email: "",
+      address: "",
+    },
+  });
+
+  const onSubmit = (data: z.infer<typeof validation>) => {
+    console.log(data);
+  };
+
+  return (
+    <Form formProp={form} onSubmit={onSubmit} className="flex flex-col gap-5 w-full">
+      <Form.Input
+        label="نام کامل"
+        name="fullName"
+        placeholder="نام کامل"
+        required
+      />
+      <Form.Input
+        label="شماره تماس"
+        name="phoneNumber"
+        placeholder="شماره تماس"
+        required
+      />
+      <Form.Input
+        label="ایمیل"
+        name="email"
+        placeholder="ایمیل"
+        required
+      />
+      <Form.Textarea
+        label="نشانی"
+        name="address"
+        placeholder="نشانی"
+        required
+      />
+      <div>
+        <Button type="submit" className="mt-4">
+          ذخیره
+        </Button>
+      </div>
+    </Form>
+  );
+};
+
+export default EmergencyCall;

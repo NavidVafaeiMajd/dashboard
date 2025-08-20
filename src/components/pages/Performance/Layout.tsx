@@ -39,11 +39,12 @@ const LayoutPerformance = () => {
                            "ارزیابی کارکنان",
                            "تنظیمات ارزیابی",
                         ],
+
                         [
                            <>
                               <FaRegClock className="w-7 h-7" />
                            </>,
-                           "setup-indicators",
+                           "track-goals",
                            "پیگیری اهداف (OKR)",
                            "تنظیم اهداف سازمان",
                         ],
@@ -51,7 +52,7 @@ const LayoutPerformance = () => {
                            <>
                               <IoMdExit className="w-7 h-7" />
                            </>,
-                           "purse-goals",
+                           "setup-indicator",
                            "تنظیم اندیکاتور",
                            "افزودن تنظیم اندیکاتور",
                         ],

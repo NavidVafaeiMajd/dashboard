@@ -4,11 +4,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineMail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
-import { CiLock } from "react-icons/ci";
-import { MdOutlinePassword } from "react-icons/md";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import { IoPersonAddSharp } from "react-icons/io5";
+import BasicInfo from "./BasicInfo/BasicInfo";
+import AccountInfo from "./AccountInfo/AccountInfo";
+import Personalnfo from "./Personalnfo/Personalnfo";
+import ProfileImg from "./ProfileImg/ProfileImg";
 
 const EmployeDetailse = () => {
   const { id } = useParams();
@@ -16,7 +18,7 @@ const EmployeDetailse = () => {
 
   return (
     <>
-      <Tabs defaultValue="Contract">
+      <Tabs defaultValue="basicInfo">
         <TabsList className="flex flex-col">
           <div>
             <div className="flex justify-between p-5 items-center">
@@ -56,16 +58,6 @@ const EmployeDetailse = () => {
               </div>
             </div>
           </div>
-
-          <TabsTrigger value="Contract">
-            <span className="flex gap-2 justify-center items-center">
-              <CiLock className="w-7! h-7!" />
-              قرارداد
-            </span>
-            <span>
-              <IoIosArrowBack className="w-7! h-7!" />
-            </span>
-          </TabsTrigger>
           <TabsTrigger value="basicInfo">
             <span className="flex gap-2 justify-center items-center">
               <IoDocumentTextOutline className="w-7! h-7!" />
@@ -102,34 +94,20 @@ const EmployeDetailse = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="changePass">
-            <span className="flex gap-2 justify-center items-center">
-              <MdOutlinePassword className="w-7! h-7!" />
-              تغییر رمز عبور
-            </span>
-            <span>
-              <IoIosArrowBack className="w-7! h-7!" />
-            </span>
-          </TabsTrigger>
         </TabsList>
-        <TabsContent value="Contract">
-          <p>User content goes here</p>
-        </TabsContent>
         <TabsContent value="basicInfo">
-          <p>Settings content goes here</p>
+          <BasicInfo/>
         </TabsContent>
         <TabsContent value="personalInfo">
-          <p>Settings content goes here</p>
+          <Personalnfo/>
         </TabsContent>
         <TabsContent value="profImg">
-          <p>Settings content goes here</p>
+          <ProfileImg/>
         </TabsContent>
         <TabsContent value="accountInfo">
-          <p>Settings content goes here</p>
+          <AccountInfo/>
         </TabsContent>
-        <TabsContent value="changePass">
-          <p>Settings content goes here</p>
-        </TabsContent>
+
       </Tabs>
     </>
   );

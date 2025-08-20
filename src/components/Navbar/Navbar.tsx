@@ -8,8 +8,7 @@ import { AiOutlineMobile } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
 import { RiCameraLensLine } from "react-icons/ri";
-import { TbArrowsExchange2 } from "react-icons/tb";
-import { CiCircleQuestion } from "react-icons/ci";
+
 import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineRadar } from "react-icons/md";
 import { BsExclamationCircle } from "react-icons/bs";
@@ -138,8 +137,8 @@ const Navbar = () => {
                   dropInfo={[
                      ["رتبه بندی شاخص ها", "performance/indicator-rating"],
                      ["ارزیابی کارکنان", "performance/employee-rating"],
-                     ["تنظیم اندیکاتور", "performance/setup-indicators"],
-                     ["پیگیری اهداف (OKR)", "performance/purse-goals"],
+                     ["پیگیری اهداف (OKR)", "performance/track-goals"],
+                     ["تنظیم اندیکاتور", "performance/setup-indicator"],
                      ["انواع اهداف", "performance/goals-type"],
                   ]}
                />
@@ -148,32 +147,9 @@ const Navbar = () => {
                   itemInfo={[
                      <>
                         {" "}
-                        <TbArrowsExchange2 className="w-7 h-7" /> ترفیعات و
-                        تبدیل وضعیت{" "}
-                     </>,
-                     "/tarfiyat",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
-                        <CiCircleQuestion className="w-7 h-7" /> پشتیبـانی{" "}
-                     </>,
-                     "/support",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
                         <CiSquarePlus className="w-7 h-7" /> درخواست مرخصی{" "}
                      </>,
-                     "/morkhasi",
+                     "/leave/list",
                   ]}
                   dropInfo={[]}
                />
