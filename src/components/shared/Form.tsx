@@ -30,6 +30,7 @@ import type {
 import { cn } from "@/lib/utils";
 import CuDatePicker from "./DatePicker";
 import RichTextEditor from "./RichTextEditor";
+import { ImageUploadInput } from "./ImageUploadInput";
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -299,12 +300,50 @@ function FormTextarea<T extends FieldValues>({
   );
 }
 
-// ---------- Compound export (اضافه کردن Textarea) ----------
+// ---------- Image Upload ----------
+interface FormImageProps<T extends FieldValues> {
+  name: Path<T>;
+  label?: string;
+  required?: boolean;
+  className?: string;
+}
+
+function FormImage<T extends FieldValues>({
+  name,
+  label,
+  required,
+  className,
+}: FormImageProps<T>) {
+  const { control } = useFormContextSafe<T>();
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={`w-full space-y-2 ${className ?? ""}`}>
+          {label && (
+            <FormLabel className="text-base">
+              {label} {required && <span className="text-red-500">*</span>}
+            </FormLabel>
+          )}
+          <FormControl>
+            <ImageUploadInput field={field} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+}
+
+// ---------- Export اضافه کردن ----------
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   Select: FormSelect,
   Date: FormDate,
   RichText: FormRichText,
-  Textarea: FormTextarea, 
+  Textarea: FormTextarea,
+  Image: FormImage, // اضافه شد
   SelectItem,
 });
