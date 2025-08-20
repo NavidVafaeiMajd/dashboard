@@ -3,10 +3,10 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineMail } from "react-icons/md";
-import { FaRegUser } from "react-icons/fa6";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import ProjectsList from "./Projects/ProjectsList";
+import ProjectsListTable from "./Projects/ProjectsList";
 import BasicInfo from "./BasicInfo/BasicInfo";
+import { FaPhone } from "react-icons/fa";
 
 const ClientPage = () => {
   const { id } = useParams();
@@ -38,11 +38,12 @@ const ClientPage = () => {
               </div>
             </div>
             <div className="p-5 bg-white">
-              <div>
+              <div className="flex justify-between">
                 <span className="flex gap-3">
-                  <FaRegUser className="w-7! h-7!" />
-                  مدیر
+                  <FaPhone className="w-7! h-7!" />
+                 شماره
                 </span>
+                <span>0912345678</span>
               </div>
               <div className="h-[1px] bg-gray-200 my-5"></div>
               <div className="flex justify-between">
@@ -77,7 +78,7 @@ const ClientPage = () => {
           <BasicInfo/>
         </TabsContent>
         <TabsContent value="accountInfo">
-          <ProjectsList/>
+          <ProjectsListTable/>
         </TabsContent>
 
       </Tabs>
