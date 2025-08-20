@@ -5,11 +5,6 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import i18nIsoCountries from "i18n-iso-countries";
-import fa from "i18n-iso-countries/langs/fa.json";
-
-i18nIsoCountries.registerLocale(fa);
-const countries = i18nIsoCountries.getNames("fa");
 
 const BasicInfo = () => {
   const form = useForm<z.infer<typeof validation>>({
@@ -17,20 +12,15 @@ const BasicInfo = () => {
     defaultValues: {
       firstName: "",
       lastName: "",
+      email: "",
+      username: "",
       phoneNumber: "",
-      gender: "",
-      personeliCode: "",
-      birthDate: new Date(),
-      position: "",
-      maritalStatus: "",
-      accessLevel: "",
+      gender: "1",     // دیفالت: مرد
+      status: "2",     // دیفالت: فعال
+      country: "IR",   // دیفالت: ایران
       province: "",
       city: "",
       postalCode: "",
-      religion: "",
-      bloodGroup: "",
-      nationality: "",
-      citizenship: "",
       address1: "",
       address2: "",
     },
@@ -109,18 +99,7 @@ const BasicInfo = () => {
                 <Form.SelectItem value="1">مرد</Form.SelectItem>
                 <Form.SelectItem value="2">زن</Form.SelectItem>
               </Form.Select>
-              <Form.Select
-                label="کشور"
-                name="country"
-                placeholder="انتخاب کشور"
-                required
-              >
-                {Object.entries(countries).map(([code, name]) => (
-                  <Form.SelectItem key={code} value={code}>
-                    {name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+
             </div>
             <div className="flex gap-5">
               <Form.Input
