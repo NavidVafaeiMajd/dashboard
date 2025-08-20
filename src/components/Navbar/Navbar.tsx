@@ -173,7 +173,7 @@ const Navbar = () => {
                         {" "}
                         <CiSquarePlus className="w-7 h-7" /> درخواست مرخصی{" "}
                      </>,
-                     "/morkhasi",
+                     "/leave/list",
                   ]}
                   dropInfo={[]}
                />

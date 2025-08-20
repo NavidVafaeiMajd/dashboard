@@ -12,36 +12,48 @@ import { Button } from "@/components/ui/button";
 const EmployeeRating = () => {
    const form = useForm<z.infer<typeof validation>>({
       resolver: zodResolver(validation),
-      defaultValues: {},
+      defaultValues: {
+         date: new Date(),
+         employee: "",
+         name: "",
+         ratings: "",
+      },
    });
 
    const onSubmit = (data) => {
       console.log(data);
    };
    return (
-      <div>
+      <div className="space-y-5">
          <Form
             formProp={form}
             accordion
             accordionTitle="تنظیم جدید شاخص عملکرد"
             onSubmit={onSubmit}
+            className="space-y-5"
          >
-            <Form.Input
-               label="عنوان"
-               name="name"
-               required
-            />
-            <Form.Select
-               label="کارمند"
-               name="employee"
-               required
-            >
-               <Form.SelectItem value="1">item 1</Form.SelectItem>
-               <Form.SelectItem value="2">item 2</Form.SelectItem>
-            </Form.Select>
+            <div className="flex items-center justify-between gap-x-5">
+               <Form.Input
+                  label="عنوان"
+                  name="name"
+                  className="w-100"
+                  required
+               />
+               <Form.Select
+                  label="کارمند"
+                  name="employee"
+                  required
+                  className="w-100"
+               >
+                  <Form.SelectItem value="1">item 1</Form.SelectItem>
+                  <Form.SelectItem value="2">item 2</Form.SelectItem>
+               </Form.Select>
 
-            <div className="border text-2xl my-5 p-4 underline">
-               <h1>انتخاب ماه اضاف شود</h1>
+               <Form.Date
+                  label="انتخاب ماه"
+                  name="date"
+                  className="w-100"
+               />
             </div>
 
             <div className="flex gap-x-5 flex-col md:flex-row md:justify-between">
