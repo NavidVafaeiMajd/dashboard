@@ -39,7 +39,7 @@ const LeaveList = () => {
   return (
     <div>
       <StatBox data={stats} />
-      <div className="bg-white">
+      <div className="bg-white my-5 rounded-sm">
         <div>
           <Form
             formProp={form}

@@ -65,7 +65,7 @@ function FormRoot<T extends FieldValues>({
   children,
   accordion = false,
   accordionTitle = "Form",
-  defaultAccordionOpen = true,
+  defaultAccordionOpen = false,
 }: FormRootProps<T>) {
   const content = (
     <form onSubmit={formProp.handleSubmit(onSubmit)} className={cn(className)}>
@@ -81,10 +81,10 @@ function FormRoot<T extends FieldValues>({
             type="single"
             collapsible
             defaultValue={defaultAccordionOpen ? "item-1" : undefined}
-            className="w-full"
+            className="w-full border-b-red-500 border-b-2! px-5"
           >
             <AccordionItem value="item-1">
-              <AccordionTrigger>{accordionTitle}</AccordionTrigger>
+              <AccordionTrigger className="text-lg!">{accordionTitle}</AccordionTrigger>
               <AccordionContent>{content}</AccordionContent>
             </AccordionItem>
           </Accordion>
