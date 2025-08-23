@@ -27,7 +27,10 @@ export default function MainclientsList() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    
   }
+  
+  
   return (
     <div className="flex flex-col gap-10 px-4 py-6">
       {isOpen && (

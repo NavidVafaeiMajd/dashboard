@@ -14,13 +14,13 @@ interface Props {
 
 const StatBox = ({ data }: Props) => {
    return (
-      <div>
+      <div className="flex">
          {data.map((data) => {
             const Icon = data.icon;
             return (
                <div
                   key={data.id}
-                  className={`flex items-center gap-x-10 px-5 h-40 bg-bgBack max-w-80 border-2 rounded-md shadow-sm border-dotted`}
+                  className={`flex items-center gap-x-10 px-5 h-40 bg-bgBack max-w-80 border-2 rounded-md shadow-sm border-dotted min`}
                   style={{
                      borderColor: data.color,
                   }}
