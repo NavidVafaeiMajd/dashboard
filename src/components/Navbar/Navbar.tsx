@@ -172,7 +172,7 @@ const Navbar = () => {
                         <BsExclamationCircle className="w-7 h-7" /> پرونده های
                         انضباطی{" "}
                      </>,
-                     "/enzebati",
+                     "/disciplinary/list",
                   ]}
                   dropInfo={[]}
                />

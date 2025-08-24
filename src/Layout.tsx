@@ -45,6 +45,9 @@ import GoalType from "./components/pages/Performance/GoalType/GoalType";
 import LayoutLeave from "./components/pages/Leave/Layout";
 import LeaveList from "./components/pages/Leave/List/LeaveList";
 import LeaveType from "./components/pages/Leave/LeaveType";
+import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
+import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
+import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
 import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
 
 const Layout = () => {
@@ -158,6 +161,10 @@ const Layout = () => {
                 <Route path="leave" element={<LayoutLeave />}>
                   <Route element={<LeaveList />} path="list" />
                   <Route element={<LeaveType />} path="type" />
+                </Route>
+                <Route path="disciplinary" element={<LayoutDisciplinaryCases />}>
+                  <Route element={<DisciplinaryList />} path="list" />
+                  <Route element={<ViolationType />} path="type" />
                 </Route>
                 <Route element={<MainclientsList />} path="clients-list" />
               </Routes>
