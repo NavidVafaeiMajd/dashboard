@@ -5,11 +5,10 @@ import { LuArrowUpDown } from "react-icons/lu";
 export interface DisciplinaryFile {
    id: number;
    employee: string;
-   violationType: string;
-   violationDate: Date;
-   severity: string;
-   action: string;
-   status: string;
+   caseType: string;
+   caseDate: Date;
+   subject: string;
+   filedBy: string;
 }
 
 export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
@@ -26,82 +25,56 @@ export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
       ),
    },
    {
-      accessorKey: "violationType",
+      accessorKey: "caseType",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            نوع تخلف
+            نوع پرونده
          </Button>
       ),
    },
    {
-      accessorKey: "violationDate",
+      accessorKey: "caseDate",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            تاریخ تخلف
+            تاریخ پرونده
          </Button>
       ),
       cell: ({ row }) => {
-         const date = row.getValue("violationDate") as Date;
+         const date = row.getValue("caseDate") as Date;
          return date.toLocaleDateString("fa-IR");
       },
    },
    {
-      accessorKey: "severity",
+      accessorKey: "subject",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            شدت تخلف
+            موضوع
          </Button>
       ),
    },
    {
-      accessorKey: "action",
+      accessorKey: "filedBy",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            اقدام انضباطی
+            پرونده توسط
          </Button>
       ),
-   },
-   {
-      accessorKey: "status",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            وضعیت
-         </Button>
-      ),
-      cell: ({ row }) => {
-         const status = row.getValue("status") as string;
-         return (
-            <span
-               className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  status === "باز"
-                     ? "bg-yellow-100 text-yellow-800"
-                     : "bg-green-100 text-green-800"
-               }`}
-            >
-               {status}
-            </span>
-         );
-      },
    },
    {
       accessorKey: "id",

@@ -7,62 +7,56 @@ const DisciplinaryTable: React.FC = () => {
 
    useEffect(() => {
       const fetchData = async () => {
-         const response: DisciplinaryFile[] = [
-            {
-               id: 1,
-               employee: "اکبر محمدی",
-               violationType: "تاخیر در ورود",
-               violationDate: new Date("2024-01-15"),
-               severity: "خفیف",
-               action: "تذکر شفاهی",
-               status: "بسته",
-            },
-            {
-               id: 2,
-               employee: "سارا احمدی",
-               violationType: "غیبت غیرمجاز",
-               violationDate: new Date("2024-01-20"),
-               severity: "متوسط",
-               action: "تذکر کتبی",
-               status: "باز",
-            },
-            {
-               id: 3,
-               employee: "علی رضایی",
-               violationType: "عدم رعایت قوانین",
-               violationDate: new Date("2024-01-18"),
-               severity: "شدید",
-               action: "کسر حقوق",
-               status: "بسته",
-            },
-            {
-               id: 4,
-               employee: "فاطمه محمدی",
-               violationType: "تاخیر در ورود",
-               violationDate: new Date("2024-01-10"),
-               severity: "خفیف",
-               action: "تذکر شفاهی",
-               status: "بسته",
-            },
-            {
-               id: 5,
-               employee: "محمد کریمی",
-               violationType: "غیبت غیرمجاز",
-               violationDate: new Date("2024-01-25"),
-               severity: "متوسط",
-               action: "تذکر کتبی",
-               status: "باز",
-            },
-            {
-               id: 6,
-               employee: "زهرا جعفری",
-               violationType: "عدم رعایت قوانین",
-               violationDate: new Date("2024-01-22"),
-               severity: "شدید",
-               action: "تعلیق",
-               status: "باز",
-            },
-         ];
+                  const response: DisciplinaryFile[] = [
+             {
+                id: 1,
+                employee: "اکبر محمدی",
+                caseType: "تخلف انضباطی",
+                caseDate: new Date("2024-01-15"),
+                subject: "تاخیر در ورود به محل کار",
+                filedBy: "مدیر بخش",
+             },
+             {
+                id: 2,
+                employee: "سارا احمدی",
+                caseType: "تخلف اخلاقی",
+                caseDate: new Date("2024-01-20"),
+                subject: "عدم رعایت قوانین پوشش",
+                filedBy: "سرپرست",
+             },
+             {
+                id: 3,
+                employee: "علی رضایی",
+                caseType: "تخلف کاری",
+                caseDate: new Date("2024-01-18"),
+                subject: "استفاده نادرست از امکانات شرکت",
+                filedBy: "مدیر منابع انسانی",
+             },
+             {
+                id: 4,
+                employee: "فاطمه محمدی",
+                caseType: "تخلف انضباطی",
+                caseDate: new Date("2024-01-10"),
+                subject: "غیبت غیرمجاز",
+                filedBy: "سرپرست",
+             },
+             {
+                id: 5,
+                employee: "محمد کریمی",
+                caseType: "تخلف امنیتی",
+                caseDate: new Date("2024-01-25"),
+                subject: "عدم رعایت نکات ایمنی",
+                filedBy: "مسئول ایمنی",
+             },
+             {
+                id: 6,
+                employee: "زهرا جعفری",
+                caseType: "تخلف کاری",
+                caseDate: new Date("2024-01-22"),
+                subject: "عدم رعایت ساعات کاری",
+                filedBy: "مدیر بخش",
+             },
+          ];
          setData(response);
       };
 
@@ -74,7 +68,7 @@ const DisciplinaryTable: React.FC = () => {
          <DataTable
             columns={disciplinaryColumns}
             data={data}
-            searchableKeys={["employee", "violationType", "severity"]}
+                         searchableKeys={["employee", "caseType", "subject"]}
          />
       </div>
    );

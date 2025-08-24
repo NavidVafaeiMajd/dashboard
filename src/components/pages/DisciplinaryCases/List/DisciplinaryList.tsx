@@ -5,13 +5,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { Button } from "@/components/ui/button";
 
+import {
+  FormField,
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { ImageUploadInput } from "@/components/shared/ImageUploadInput";
+
 const validation = z.object({
   employee: z.string().min(1, "انتخاب کارمند الزامی است"),
-  violationType: z.string().min(1, "انتخاب نوع تخلف الزامی است"),
-  violationDate: z.date({ error: "تاریخ تخلف الزامی است" }),
-  description: z.string().min(1, "توضیحات تخلف الزامی است"),
-  severity: z.string().min(1, "انتخاب شدت تخلف الزامی است"),
-  action: z.string().min(1, "انتخاب اقدام انضباطی الزامی است"),
+  caseType: z.string().min(1, "انتخاب نوع پرونده الزامی است"),
+  subject: z.string().min(1, "موضوع الزامی است"),
+  caseDate: z.date({ error: "تاریخ پرونده الزامی است" }),
+  description: z.string().min(1, "شرح الزامی است"),
+  files: z.array(z.any()).optional(),
 });
 
 const DisciplinaryList = () => {
@@ -19,11 +29,11 @@ const DisciplinaryList = () => {
     resolver: zodResolver(validation),
     defaultValues: {
       employee: "",
-      violationType: "",
-      violationDate: new Date(),
+      caseType: "",
+      subject: "",
+      caseDate: new Date(),
       description: "",
-      severity: "",
-      action: "",
+      files: [],
     },
   });
 
@@ -40,70 +50,61 @@ const DisciplinaryList = () => {
             accordion
             accordionTitle="ثبت پرونده انضباطی جدید"
             onSubmit={onSubmit}
-            className="flex flex-col gap-5"
+            className="flex flex gap-5"
           >
-            {/* کارمند */}
-            <Form.Select
-              label="کارمند"
-              name="employee"
-              placeholder="انتخاب کارمند"
-              required
-            >
-              <Form.SelectItem value="1">کارمند ۱</Form.SelectItem>
-              <Form.SelectItem value="2">کارمند ۲</Form.SelectItem>
-            </Form.Select>
+            <div className="w-[70%]">
+              <div className="flex gap-5">
+                {/* کارمند */}
+                <Form.Select
+                  label="کارمند"
+                  name="employee"
+                  placeholder="انتخاب کارمند"
+                  required
+                >
+                  <Form.SelectItem value="1">کارمند ۱</Form.SelectItem>
+                  <Form.SelectItem value="2">کارمند ۲</Form.SelectItem>
+                </Form.Select>
 
-            {/* نوع تخلف */}
-            <Form.Select
-              label="نوع تخلف"
-              name="violationType"
-              placeholder="انتخاب نوع تخلف"
-              required
-            >
-              <Form.SelectItem value="1">تاخیر در ورود</Form.SelectItem>
-              <Form.SelectItem value="2">غیبت غیرمجاز</Form.SelectItem>
-              <Form.SelectItem value="3">عدم رعایت قوانین</Form.SelectItem>
-              <Form.SelectItem value="4">سایر</Form.SelectItem>
-            </Form.Select>
+                {/* نوع پرونده */}
+                <Form.Select
+                  label="نوع پرونده"
+                  name="caseType"
+                  placeholder="انتخاب نوع پرونده"
+                  required
+                >
+                  <Form.SelectItem value="1">تخلف انضباطی</Form.SelectItem>
+                  <Form.SelectItem value="2">تخلف اخلاقی</Form.SelectItem>
+                  <Form.SelectItem value="3">تخلف کاری</Form.SelectItem>
+                  <Form.SelectItem value="4">تخلف امنیتی</Form.SelectItem>
+                  <Form.SelectItem value="5">سایر</Form.SelectItem>
+                </Form.Select>
+              </div>
+              <div className="flex gap-5">
+                {/* موضوع */}
+                <Form.Input
+                  label="موضوع"
+                  name="subject"
+                  placeholder="موضوع پرونده را وارد کنید"
+                  required
+                />
 
-            {/* تاریخ تخلف */}
-            <Form.Date label="تاریخ تخلف" name="violationDate" required />
+                {/* تاریخ پرونده */}
+                <Form.Date label="تاریخ پرونده" name="caseDate" />
+              </div>
 
-            {/* شدت تخلف */}
-            <Form.Select
-              label="شدت تخلف"
-              name="severity"
-              placeholder="انتخاب شدت تخلف"
-              required
-            >
-              <Form.SelectItem value="1">خفیف</Form.SelectItem>
-              <Form.SelectItem value="2">متوسط</Form.SelectItem>
-              <Form.SelectItem value="3">شدید</Form.SelectItem>
-            </Form.Select>
-
-            {/* اقدام انضباطی */}
-            <Form.Select
-              label="اقدام انضباطی"
-              name="action"
-              placeholder="انتخاب اقدام انضباطی"
-              required
-            >
-              <Form.SelectItem value="1">تذکر شفاهی</Form.SelectItem>
-              <Form.SelectItem value="2">تذکر کتبی</Form.SelectItem>
-              <Form.SelectItem value="3">کسر حقوق</Form.SelectItem>
-              <Form.SelectItem value="4">تعلیق</Form.SelectItem>
-            </Form.Select>
-
-            {/* توضیحات */}
-            <Form.Textarea 
-              label="توضیحات تخلف" 
-              name="description" 
-              placeholder="توضیحات کامل تخلف را وارد کنید" 
-              required 
-            />
-
-            <div className="flex gap-x-2 mt-5">
-              <Button type="submit">ثبت پرونده</Button>
+              {/* شرح */}
+              <Form.Textarea
+                label="شرح"
+                name="description"
+                placeholder="شرح کامل پرونده را وارد کنید"
+                required
+              />
+              <Button type="submit" className="my-5">
+                ثبت پرونده
+              </Button>
+            </div>
+            <div className="w-[30%]">
+              <Form.Image name="file" label="پیوست" required />
             </div>
           </Form>
         </div>
