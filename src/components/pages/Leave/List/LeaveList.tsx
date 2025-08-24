@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import  z from "zod";
 import { Button } from "@/components/ui/button";
+import LeaveStatus from "../charts/LeaveStatus";
+import LeaveTypeStatus from "../charts/LeaveTypeStatus";
 
 // ✅ تعریف اسکیمای ولیدیشن با zod
 const validation = z.object({
@@ -100,6 +102,14 @@ const LeaveList = () => {
 
         {/* جدول لیست مرخصی‌ها */}
         <LeaveTable />
+      </div>
+      <div className="grid md:grid-cols-2 gap-10 ">
+        <div>
+          <LeaveStatus/>
+        </div>
+        <div>
+          <LeaveTypeStatus/>
+        </div>
       </div>
     </div>
   );
