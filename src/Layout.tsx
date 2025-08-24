@@ -44,6 +44,7 @@ import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupI
 import GoalType from "./components/pages/Performance/GoalType/GoalType";
 import LayoutLeave from "./components/pages/Leave/Layout";
 import LeaveList from "./components/pages/Leave/List/LeaveList";
+import LeaveType from "./components/pages/Leave/LeaveType";
 import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
 
 const Layout = () => {
@@ -156,6 +157,7 @@ const Layout = () => {
 
                 <Route path="leave" element={<LayoutLeave />}>
                   <Route element={<LeaveList />} path="list" />
+                  <Route element={<LeaveType />} path="type" />
                 </Route>
                 <Route element={<MainclientsList />} path="clients-list" />
               </Routes>
