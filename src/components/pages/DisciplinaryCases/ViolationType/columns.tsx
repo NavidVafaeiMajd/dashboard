@@ -5,9 +5,6 @@ import { LuArrowUpDown } from "react-icons/lu";
 export interface violationTypeColumnProps extends Record<string, unknown> {
    id: string;
    name: string;
-   severity: string;
-   defaultAction: string;
-   description?: string;
 }
 
 export const columns: ColumnDef<violationTypeColumnProps>[] = [
@@ -19,37 +16,21 @@ export const columns: ColumnDef<violationTypeColumnProps>[] = [
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            نام نوع تخلف
+            نوع پرونده
          </Button>
       ),
    },
    {
-      accessorKey: "severity",
+      accessorKey: "date",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            شدت تخلف
+            تاریخ ایجاد
          </Button>
       ),
-   },
-   {
-      accessorKey: "defaultAction",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            اقدام پیش‌فرض
-         </Button>
-      ),
-   },
-   {
-      accessorKey: "description",
-      header: "توضیحات",
    },
    {
       accessorKey: "id",

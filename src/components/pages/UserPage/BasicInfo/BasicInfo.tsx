@@ -47,8 +47,7 @@ const form = useForm<z.infer<typeof validation>>({
         <div className="p-3">
           <Form
             formProp={form}
-            accordion
-            accordionTitle="تنظیم جدید شاخص عملکرد"
+
             onSubmit={onSubmit}
             className="flex flex-col gap-5"
           >

@@ -33,9 +33,6 @@ const ViolationType = () => {
       resolver: zodResolver(validation),
       defaultValues: {
          name: "",
-         description: "",
-         severity: "",
-         defaultAction: "",
       },
    });
 
@@ -61,115 +58,14 @@ const ViolationType = () => {
                         render={({ field }) => (
                            <FormItem className="w-full space-y-2">
                               <FormLabel className="text-base">
-                                 نام نوع تخلف{" "}
+                                 نوع پرونده{" "}
                                  <span className="text-red-500">*</span>
                               </FormLabel>
                               <FormControl>
                                  <Input
-                                    placeholder="نام نوع تخلف"
+                                    placeholder="نوع پرونده را وارد کنید"
                                     className="min-h-12 placeholder:text-lg"
                                     {...field}
-                                 />
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
-
-                     <FormField
-                        control={form.control}
-                        name="severity"
-                        render={({ field }) => (
-                           <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-base">
-                                 شدت تخلف{" "}
-                                 <span className="text-red-500">*</span>
-                              </FormLabel>
-                              <FormControl>
-                                 <Select
-                                    value={field.value}
-                                    onValueChange={field.onChange}
-                                    dir="rtl"
-                                 >
-                                    <SelectTrigger className="w-full min-h-12">
-                                       <SelectValue
-                                          className="placeholder:text-lg"
-                                          placeholder="انتخاب شدت تخلف"
-                                       />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                       <SelectItem value="خفیف">
-                                          خفیف
-                                       </SelectItem>
-                                       <SelectItem value="متوسط">
-                                          متوسط
-                                       </SelectItem>
-                                       <SelectItem value="شدید">
-                                          شدید
-                                       </SelectItem>
-                                    </SelectContent>
-                                 </Select>
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
-
-                     <FormField
-                        control={form.control}
-                        name="defaultAction"
-                        render={({ field }) => (
-                           <FormItem className="w-full space-y-2">
-                              <FormLabel className="text-base">
-                                 اقدام پیش‌فرض{" "}
-                                 <span className="text-red-500">*</span>
-                              </FormLabel>
-                              <FormControl>
-                                 <Select
-                                    value={field.value}
-                                    onValueChange={field.onChange}
-                                    dir="rtl"
-                                 >
-                                    <SelectTrigger className="w-full min-h-12">
-                                       <SelectValue
-                                          className="placeholder:text-lg"
-                                          placeholder="انتخاب اقدام پیش‌فرض"
-                                       />
-                                    </SelectTrigger>
-
-                                    <SelectContent>
-                                       <SelectItem value="تذکر شفاهی">
-                                          تذکر شفاهی
-                                       </SelectItem>
-                                       <SelectItem value="تذکر کتبی">
-                                          تذکر کتبی
-                                       </SelectItem>
-                                       <SelectItem value="کسر حقوق">
-                                          کسر حقوق
-                                       </SelectItem>
-                                       <SelectItem value="تعلیق">
-                                          تعلیق
-                                       </SelectItem>
-                                    </SelectContent>
-                                 </Select>
-                              </FormControl>
-                              <FormMessage />
-                           </FormItem>
-                        )}
-                     />
-
-                     <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                           <FormItem>
-                              <FormLabel className="text-base">توضیحات</FormLabel>
-                              <FormControl>
-                                 <Input
-                                    {...field}
-                                    placeholder="توضیحات نوع تخلف"
-                                    className="placeholder:text-lg min-h-12"
                                  />
                               </FormControl>
                               <FormMessage />
@@ -191,7 +87,7 @@ const ViolationType = () => {
             <DataTable
                columns={columns}
                data={VIOLATION_TYPE_CONSTANTS}
-               searchableKeys={["name", "severity"]}
+               searchableKeys={["name"]}
             />
          </div>
       </div>
