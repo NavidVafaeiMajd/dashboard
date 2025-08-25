@@ -41,8 +41,6 @@ const BasicInfo = () => {
         <div className="p-3">
           <Form
             formProp={form}
-            accordion
-            accordionTitle=""
             onSubmit={onSubmit}
             className="flex flex-col gap-5"
           >
