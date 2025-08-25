@@ -47,6 +47,7 @@ import LeaveList from "./components/pages/Leave/List/LeaveList";
 import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
 import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
 import LearningPage from "./components/pages/Teachings/Learning/mainLearing.js"
+import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo.js";
 const Layout = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
 
@@ -144,6 +145,7 @@ const Layout = () => {
 
                 <Route path="teching" element={<LayoutTeching />}>
                   <Route path="learn" element={<LearningPage />}  />
+                  <Route path="techerinfo" element={<TecherInfo />}  />
                 </Route>
 
                 <Route element={<LayoutPerformance />} path="performance">

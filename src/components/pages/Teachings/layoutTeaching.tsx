@@ -37,7 +37,7 @@ const LayoutTeching = () => {
                            <>
                               <FaUserPlus className="w-7 h-7" />
                            </>,
-                           "expense-list",
+                           "techerinfo",
                            "مشخصات مدرس",
                            "افزودن مشخصات مدرس",
                         ],
