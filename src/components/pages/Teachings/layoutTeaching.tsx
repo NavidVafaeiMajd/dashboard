@@ -45,7 +45,7 @@ const LayoutTeching = () => {
                            <>
                               <FcTodoList className="w-7 h-7" />
                            </>,
-                           "expense-list",
+                           "traningskills",
                            "مهارت های امورشی",
                            "افزودن مهارت های امورشی",
                         ],

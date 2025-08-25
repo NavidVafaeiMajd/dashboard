@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export default function LearningPage() {
+export default function TraningSkills() {
   const [open, setOpen] = useState(false);
   const { columns, modal } = useBankColumns();
 
@@ -31,16 +31,16 @@ export default function LearningPage() {
     console.log(data);
   };
   return (
-    <div className="flex flex-col  px-4">
+    <div className="flex justify-between  px-4">
       {/* Top Section */}
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="w-[30%] flex flex-col lg:flex-row gap-6">
         {/* Form Section */}
-        {open &&
-          <>
-            <div className="w-full  bg-[#F9F9FB] shadow-2xl rounded-md">
+    
+          < >
+            <div className="bg-[#F9F9FB] h-fit shadow-2xl rounded-md w-[100%]">
 
               <div className="flex items-center justify-between p-4 bg-[#FFF7FA] border-b-2 border-red-700">
-                <span>   ثبت جدید آموزش  </span>
+                <span>  ثبت جدید مهارت آموزشی</span>
                 <button
                   onClick={() => setOpen(!open)}
                   className="w-[90px] h-[32px] rounded text-[#ffff] bg-greenDark"
@@ -58,65 +58,16 @@ export default function LearningPage() {
                   className="flex flex-col gap-5"
                 >
                   <div className="flex gap-5">
-                    <Form.Select
-                      label="مشخصات مدرس "
-                      name="infoTecher"
-                      placeholder=" مشخصات مدرس "
-                      required
-                    >
-                      <Form.SelectItem value="1">تست 1</Form.SelectItem>
-                      <Form.SelectItem value="2">تست 2</Form.SelectItem>
-                    </Form.Select>
-
-                    <Form.Select
-                      label="مهارت آموزشی "
-                      name="skillslearn"
-                      placeholder="مهارت آموزشی "
-                      required
-                    >
-                      <Form.SelectItem value="1">fronten 1</Form.SelectItem>
-                      <Form.SelectItem value="2">backend 2</Form.SelectItem>
-                    </Form.Select>
-
                     <Form.Input
-                      label=" هزینه آموزش"
+                      label=" مهارت آموزشی "
                       name="priceLearn"
                       placeholder=" هزینه آموزش"
                       required
                     />
                   </div>
-                  <div className="flex gap-5">
-
-                    <Form.Select
-                      label="پرسنل"
-                      name="status"
-                      placeholder=" پرسنل"
-                      required
-                    >
-                      <Form.SelectItem value="1">اکبر</Form.SelectItem>
-                      <Form.SelectItem value="2">رضا</Form.SelectItem>
-                    </Form.Select>
-                    <Form.Date
-                      label="تاریخ شروع"
-                      name="entry-time"
-                    />
-                    <Form.Date
-                      label="تاریخ پایان"
-                      name="exit-time"
-                    />
-                  </div>
-                  <div className="flex gap-5">
-                    <Form.RichText
-                      label="شرح"
-                      name="text"
-                      required
-                    />
-
-                  </div>
 
                   <div className="flex gap-x-2 mt-5">
                     <Button>دخیره </Button>
-                    <Button>بازنشانی</Button>
                   </div>
                 </Form>
               </div>
@@ -125,17 +76,15 @@ export default function LearningPage() {
 
 
           </>
-        }
+        
       </div>
 
       {/* DataTable Section */}
-      <div className="bg-white rounded shadow mt-4">
+      <div className="bg-white rounded shadow w-[60%]">
         <div className="w-[100%]  bg-[#F9F9FB]  rounded-md overflow-hidden">
           <div className="flex items-center justify-between p-3 w-[100%] bg-[#FFF7FA] border-b-2 border-red-700">
             <span>   لیست همه آموزش</span>
-            <div className="flex flex-wrap gap-4 ">
-              <button onClick={() => setOpen(!open)} className="w-[90px] h-[32px] rounded text-[#ffff]  bg-greenDark">  {open ? "مخفی" : "ثیت جدید"}</button>
-            </div>
+            
           </div>
         </div>
 
