@@ -167,6 +167,7 @@ const Layout = () => {
                   <Route element={<ViolationType />} path="type" />
                 </Route>
                 <Route element={<MainclientsList />} path="clients-list" />
+                <Route element={<NotFound />} path="*" />
               </Routes>
             </div>
           </div>
