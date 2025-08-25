@@ -1,26 +1,60 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Desk from "./components/pages/Desk";
-import LoginPage from "./components/pages/login/LoginPage";
-import { ToastContainer } from "react-toastify";
-import { useNavbar } from "./Context/NavbarContext";
-import AuthProvider from "./Context/AuthContext";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import EmployeDetailse from "./components/pages/UserPage/UserPage";
-import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
 import StaffList from "./components/pages/Staff/StaffList/StaffList";
 import SetRoles from "./components/pages/Staff/SetRoles/SetRoles";
 import OfficeShifts from "./components/pages/Staff/OfficeShifts/OfficeShifts";
 import EmployExit from "./components/pages/Staff/EmployExit/EmployExit";
+import { ToastContainer } from "react-toastify";
 import LayoutHumanResource from "./components/pages/HumanResourceManagement/LayoutHumanResource";
+import OrganizationalUnit from "./components/pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit";
+import OrganizationalPosition from "./components/pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition";
+import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
+import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
+import { useNavbar } from "./Context/NavbarContext";
+import LayoutRollCall from "./components/pages/RollCall/Layout";
+import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
+import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
+import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
+import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
+import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
+import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
+import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
+import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
+import LayoutPayroll from "./components/pages/Payroll/Layout";
+import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
+import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
+import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
+import Leads from "./components/pages/Leads/Leads";
+import LayoutBankaccount from "./components/pages/bank/layoutBank";
+import MainBank from "./components/pages/bank/AccountBank/mainBank";
+import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
+import MainList from "./components/pages/bank/deposit-list/mainList";
+import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
+import MainclientsList from "./components/pages/ClientsList/MainclientsList";
+import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
+import LayoutPerformance from "./components/pages/Performance/Layout";
+import EmployeDetailse from "./components/pages/UserPage/UserPage";
+import NotFound from "./NotFound";
+import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
+import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
+import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupIndicator";
+import GoalType from "./components/pages/Performance/GoalType/GoalType";
+import LayoutLeave from "./components/pages/Leave/Layout";
+import LeaveList from "./components/pages/Leave/List/LeaveList";
+import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
+import LoginPage from "./components/pages/login/LoginPage";
+import LeaveType from "./components/pages/Leave/LeaveType";
+import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
+import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
+import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
+import AuthProvider from "./Context/AuthContext";
+
 // ... سایر ایمپورت‌ها
 
 const LayoutContent = () => {
@@ -75,8 +109,7 @@ const LayoutContent = () => {
               path="/"
               element={
                 <ProtectedRoute>
-                  {" "}
-                  <Desk />{" "}
+                  <Desk />
                 </ProtectedRoute>
               }
             />
@@ -98,7 +131,7 @@ const LayoutContent = () => {
               <Route path="office-shifts" element={<OfficeShifts />} />
               <Route path="employ-exit" element={<EmployExit />} />
             </Route>
-            {/* <Route path="hr" element={<LayoutHumanResource />}>
+            <Route path="hr" element={<LayoutHumanResource />}>
               <Route path="departments-list" element={<OrganizationalUnit />} />
               <Route
                 path="designation-list"
@@ -133,7 +166,7 @@ const LayoutContent = () => {
               <Route path="advance-salary" element={<AdvanceSalary />} />
             </Route>
             <Route path="leads" element={<Leads />} />
-            <Route path="accounts-list" element={<LayoutBankaccount />}>
+            <Route path="accounts-list" element={<LayoutBankaccount/>}>
               <Route index element={<MainBank />} />
               <Route path="deposit-list" element={<AmmountMain />} />
               <Route path="expense-list" element={<MainList />} />
@@ -162,7 +195,7 @@ const LayoutContent = () => {
               <Route element={<ViolationType />} path="type" />
             </Route>
             <Route element={<MainclientsList />} path="clients-list" />
-            <Route element={<NotFound />} path="*" /> */}
+            <Route element={<NotFound />} path="*" />
           </Routes>
         </div>
       </div>
