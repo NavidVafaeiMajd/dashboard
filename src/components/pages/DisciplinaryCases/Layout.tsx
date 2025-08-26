@@ -17,6 +17,7 @@ const LayoutDisciplinaryCases = () => {
    return (
       <>
          <Breadcrumb>{title}</Breadcrumb>
+         
          <div className="">
             <div className="">
                <div>

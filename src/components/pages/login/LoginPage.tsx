@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/Context/AuthContext";
+import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
 
 const LoginPage: React.FC = () => {
   const { login } = useAuthContext();
@@ -14,9 +16,24 @@ const LoginPage: React.FC = () => {
 
     if (username === "admin" && password === "1234") {
       login({ id: "1", name: "Admin" });
-      navigate("/");
+      Swal.fire({
+        title: "ورود موفقیت‌آمیز!",
+        text: "در حال انتقال به داشبورد...",
+        icon: "success",
+        timer: 2500, // چند ثانیه نمایش بمونه
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        timerProgressBar: true,
+      }
+      )
+      setTimeout(() => {
+        Swal.close(); // پاپ‌آپ بسته بشه
+        navigate("/"); // ریدایرکت
+      }, 2500);
+
     } else {
-      alert("نام کاربری یا رمز اشتباه است");
+      toast.error("نام کاربری یا رمز عبور اشتباه است.");
     }
   };
 

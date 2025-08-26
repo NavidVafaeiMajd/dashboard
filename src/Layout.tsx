@@ -1,8 +1,12 @@
-
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Desk from "./components/pages/Desk";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
 import StaffList from "./components/pages/Staff/StaffList/StaffList";
 import SetRoles from "./components/pages/Staff/SetRoles/SetRoles";
@@ -104,7 +108,17 @@ const LayoutContent = () => {
           }`}
         >
           <Routes>
-            <Route path="login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+            {/* Public Routes */}
+            <Route
+              path="login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+
+            {/* Protected Routes */}
             <Route
               path="/"
               element={
@@ -113,25 +127,45 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="users/:id" element={<EmployeDetailse />}></Route>
-            <Route path="clients/:id" element={<ClientPage />}></Route>
-            <Route path="login" element={<LoginPage />}></Route>
             <Route
-              path="/"
+              path="users/:id"
               element={
                 <ProtectedRoute>
-                  {" "}
-                  <Desk />{" "}
+                  <EmployeDetailse />
                 </ProtectedRoute>
               }
             />
-            <Route path="staff" element={<LayoutStaffList />}>
+            <Route
+              path="clients/:id"
+              element={
+                <ProtectedRoute>
+                  <ClientPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="staff"
+              element={
+                <ProtectedRoute>
+                  <LayoutStaffList />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<StaffList />} />
               <Route path="set-roles" element={<SetRoles />} />
               <Route path="office-shifts" element={<OfficeShifts />} />
               <Route path="employ-exit" element={<EmployExit />} />
             </Route>
-            <Route path="hr" element={<LayoutHumanResource />}>
+
+            <Route
+              path="hr"
+              element={
+                <ProtectedRoute>
+                  <LayoutHumanResource />
+                </ProtectedRoute>
+              }
+            >
               <Route path="departments-list" element={<OrganizationalUnit />} />
               <Route
                 path="designation-list"
@@ -141,7 +175,15 @@ const LayoutContent = () => {
               <Route path="policies-list" element={<Policies />} />
               <Route path="news-list" element={<NewsList />} />
             </Route>
-            <Route path="rollcall" element={<LayoutRollCall />}>
+
+            <Route
+              path="rollcall"
+              element={
+                <ProtectedRoute>
+                  <LayoutRollCall />
+                </ProtectedRoute>
+              }
+            >
               <Route path="attendance-list" element={<AttendanceList />} />
               <Route
                 path="monthly-attendance"
@@ -150,23 +192,58 @@ const LayoutContent = () => {
               <Route path="manual-attendance" element={<ManualAttendance />} />
               <Route path="overtime-request" element={<OverTimeRequest />} />
             </Route>
-            <Route path="exit-type" element={<ExitType />} />
+
+            <Route
+              path="exit-type"
+              element={
+                <ProtectedRoute>
+                  <ExitType />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="employeeCert"
-              element={<LayoutEmploymentCertificate />}
+              element={
+                <ProtectedRoute>
+                  <LayoutEmploymentCertificate />
+                </ProtectedRoute>
+              }
             >
-              <Route element={<AssetsList />} path="assets-list" />
-              <Route element={<AssetsCategory />} path="assets-category" />
+              <Route path="assets-list" element={<AssetsList />} />
+              <Route path="assets-category" element={<AssetsCategory />} />
             </Route>
 
-            <Route path="payroll" element={<LayoutPayroll />}>
+            <Route
+              path="payroll"
+              element={
+                <ProtectedRoute>
+                  <LayoutPayroll />
+                </ProtectedRoute>
+              }
+            >
               <Route path="payroll-list" element={<PayrollList />} />
               <Route path="payslip-history" element={<PayslipHistory />} />
               <Route path="advance-salary" element={<AdvanceSalary />} />
             </Route>
-            <Route path="leads" element={<Leads />} />
-            <Route path="accounts-list" element={<LayoutBankaccount/>}>
+
+            <Route
+              path="leads"
+              element={
+                <ProtectedRoute>
+                  <Leads />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="accounts-list"
+              element={
+                <ProtectedRoute>
+                  <LayoutBankaccount />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<MainBank />} />
               <Route path="deposit-list" element={<AmmountMain />} />
               <Route path="expense-list" element={<MainList />} />
@@ -176,26 +253,56 @@ const LayoutContent = () => {
               />
             </Route>
 
-            <Route element={<LayoutPerformance />} path="performance">
-              <Route element={<PerformanceRating />} path="indicator-rating" />
-
-              <Route element={<EmployeeRating />} path="employee-rating" />
-              <Route element={<TrackGoals />} path="track-goals" />
-
-              <Route element={<SetupIndicator />} path="setup-indicator" />
-              <Route element={<GoalType />} path="goals-type" />
+            <Route
+              path="performance"
+              element={
+                <ProtectedRoute>
+                  <LayoutPerformance />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="indicator-rating" element={<PerformanceRating />} />
+              <Route path="employee-rating" element={<EmployeeRating />} />
+              <Route path="track-goals" element={<TrackGoals />} />
+              <Route path="setup-indicator" element={<SetupIndicator />} />
+              <Route path="goals-type" element={<GoalType />} />
             </Route>
 
-            <Route path="leave" element={<LayoutLeave />}>
-              <Route element={<LeaveList />} path="list" />
-              <Route element={<LeaveType />} path="type" />
+            <Route
+              path="leave"
+              element={
+                <ProtectedRoute>
+                  <LayoutLeave />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="list" element={<LeaveList />} />
+              <Route path="type" element={<LeaveType />} />
             </Route>
-            <Route path="disciplinary" element={<LayoutDisciplinaryCases />}>
-              <Route element={<DisciplinaryList />} path="list" />
-              <Route element={<ViolationType />} path="type" />
+
+            <Route
+              path="disciplinary"
+              element={
+                <ProtectedRoute>
+                  <LayoutDisciplinaryCases />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="list" element={<DisciplinaryList />} />
+              <Route path="type" element={<ViolationType />} />
             </Route>
-            <Route element={<MainclientsList />} path="clients-list" />
-            <Route element={<NotFound />} path="*" />
+
+            <Route
+              path="clients-list"
+              element={
+                <ProtectedRoute>
+                  <MainclientsList />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Not Found */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
