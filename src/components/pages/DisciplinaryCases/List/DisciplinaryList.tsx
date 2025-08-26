@@ -2,7 +2,7 @@ import { Form } from "@/components/shared/Form";
 
 import z from "zod";
 
-import SectionAcc from "@/components/shared/section/SectionAcc";
+import SectionAccImg from "@/components/shared/section/SectionAccImg";
 import DisciplinaryTable from "./DisciplinaryTable";
 
 const validation = z.object({
@@ -30,7 +30,9 @@ const DisciplinaryList = () => {
 
   return (
     <div>
-      <SectionAcc
+      <SectionAccImg
+        file={<><Form.Image name="files " label="پیوست" required /></>}
+        FileTitle="پیوست پرونده"
         defaultValues={defaultValues}
         onSubmit={onSubmit}
         schema={validation}

@@ -39,14 +39,14 @@ const SectionAcc = <T extends z.ZodTypeAny<any, any, any>>({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="grid gap-5">
-      <div>
+    <div className="flex flex-col gap-5">
+      <div >
         <Form
           formProp={form}
           onSubmit={onSubmit}
-          className={` ${isOpen ? "shadow" : "hidden"}`}
+          className={`grid grid-cols-6 gap-5 ${isOpen ? "show" : "hidden"}`}
         >
-          <div className=" bg-bgBack rounded-sm shadow">
+          <div className=" bg-bgBack rounded-sm shadow col-span-4 ">
             <div className="border-b-red-500 border-b-2  px-5 py-3 flex justify-between items-center">
               <span>{FirstTitle}</span>
               <span>
@@ -56,17 +56,18 @@ const SectionAcc = <T extends z.ZodTypeAny<any, any, any>>({
                 </Button>
               </span>
             </div>
-            {formFields}
-
-            <div className="flex gap-x-2 mt-5">
-              <Button type="submit">ثبت </Button>
+            <div className="p-5">
+              {formFields}
+              <div className="flex gap-x-2 mt-5">
+                <Button type="submit">ثبت </Button>
+              </div>
             </div>
           </div>
-          <div className=" bg-bgBack rounded-sm shadow">
-            <div className="border-b-red-500 border-b-2  px-5 py-3 flex justify-between items-center">
+          <div className=" bg-bgBack rounded-sm shadow col-span-2 row-span-1">
+            <div className="border-b-red-500 border-b-2  px-5 py-4 flex justify-between items-center">
               <span>{FileTitle}</span>
             </div>
-            {file}
+            <div className=" p-5">{file}</div>
           </div>
         </Form>
       </div>
