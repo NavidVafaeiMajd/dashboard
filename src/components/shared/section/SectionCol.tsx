@@ -4,15 +4,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
 import z from "zod";
+import { useState } from "react";
 
 interface SectionColProps<T extends z.ZodTypeAny> {
   schema: T;
   defaultValues: z.infer<T>;
-  formFields: React.ReactNode;   
+  formFields: React.ReactNode;
   onSubmit: (data: z.infer<T>) => void;
-  table?: React.ReactNode;      
-  stats?: React.ReactNode;     
-  accordionTitle?: string;
+  table?: React.ReactNode;
+  FirstTitle?: string;
+  SecoundTitle?: string;
 }
 
 const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
@@ -21,36 +22,36 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
   formFields,
   onSubmit,
   table,
-  stats,
-  accordionTitle = "فرم",
+  FirstTitle = "فرم",
+  SecoundTitle = "فرم",
 }: SectionColProps<T>) => {
   const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver((schema as any)),
+    resolver: zodResolver(schema as any),
     defaultValues,
   });
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="bg-white my-5 rounded-sm p-5">
-      {/* کارت‌های آماری */}
-      {stats && <div className="mb-5">{stats}</div>}
+    <div className="grid grid-cols-6 gap-5">
+      <div className="col-span-2 bg-bgBack rounded-sm shadow">
+        <div className="border-b-red-500 border-b-2 p-5">{FirstTitle}</div>
+        <Form
+          formProp={form}
+          onSubmit={onSubmit}
+          className="flex flex-col gap-5 bg-[#F9F9FB] p-5"
+        >
+          {formFields}
 
-      {/* فرم */}
-      <Form
-        formProp={form}
-        accordion
-        accordionTitle={accordionTitle}
-        onSubmit={onSubmit}
-        className="flex flex-col gap-5"
-      >
-        {formFields}
-
-        <div className="flex gap-x-2 mt-5">
-          <Button type="submit">ثبت</Button>
-        </div>
-      </Form>
-
-      {/* جدول */}
-      {table && <div className="mt-5">{table}</div>}
+          <div className="flex gap-x-2 mt-5">
+            <Button type="submit">ثبت</Button>
+          </div>
+        </Form>
+      </div>
+      <div className="col-span-4  bg-bgBack rounded-sm shadow">
+        <div className="border-b-red-500 border-b-2 p-5">{SecoundTitle}</div>
+        {table && <div className="mt-5 bg-[#F9F9FB]">{table}</div>}
+      </div>
     </div>
   );
 };

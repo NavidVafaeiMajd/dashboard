@@ -59,7 +59,6 @@ import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
 import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
 import AuthProvider from "./Context/AuthContext";
 
-// ... سایر ایمپورت‌ها
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
