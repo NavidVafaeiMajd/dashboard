@@ -9,6 +9,8 @@ export interface DisciplinaryFile {
    caseDate: Date;
    subject: string;
    filedBy: string;
+
+   [key: string]: Date | number | string;
 }
 
 export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [

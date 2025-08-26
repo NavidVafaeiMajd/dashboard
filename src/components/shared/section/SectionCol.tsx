@@ -30,8 +30,6 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
     defaultValues,
   });
 
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="grid grid-cols-6 gap-5">
       <div className="col-span-2 bg-bgBack rounded-sm shadow">
