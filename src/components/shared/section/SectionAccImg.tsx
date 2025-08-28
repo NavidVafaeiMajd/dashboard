@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
-import z, { file } from "zod";
+import z from "zod";
 import { useState } from "react";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
