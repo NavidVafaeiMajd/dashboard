@@ -38,7 +38,7 @@ const LeaveList = () => {
       <div>
       <StatBox data={stats} />
       </div>
-      <div>
+      <div className="overflow-x-auto w-full!">
         <SectionAcc
           defaultValues={defaultValues}
           table={<LeaveTable />}
@@ -79,7 +79,7 @@ const LeaveList = () => {
               </div>
 
               {/* نصف روز */}
-              {/* <Form.Checkbox label="نصف روز" name="halfDay" /> */}
+              <Form.Checkbox label="نصف روز" name="halfDay" required />
 
               {/* ملاحظات */}
               <Form.Textarea label="ملاحظات" name="notes" placeholder="..." />

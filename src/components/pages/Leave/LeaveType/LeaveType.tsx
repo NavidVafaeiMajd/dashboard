@@ -30,7 +30,7 @@ const LeaveType = () => {
             data={LEAVE_TYPE_CONSTANTS}
             searchableKeys={["name"]}
          />}
-          onSubmit={onSubmit}
+          onSubmit={(onSubmit)}
           FirstTitle=" ثبت جدید نوع مرخصی "
           SecoundTitle="  لیست همه انواع مرخصی ها "
           schema={validation}

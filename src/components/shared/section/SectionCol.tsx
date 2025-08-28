@@ -31,8 +31,8 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
   });
 
   return (
-    <div className="grid grid-cols-6 gap-5 items-start">
-      <div className="col-span-2 bg-bgBack rounded-sm shadow">
+    <div className="grid grid-cols-1 md:grid-cols-6 gap-5 items-start">
+      <div className="md:col-span-2 bg-bgBack rounded-sm shadow">
         <div className="border-b-red-500 border-b-2 p-5">{FirstTitle}</div>
         <Form
           formProp={form}
@@ -46,7 +46,7 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
           </div>
         </Form>
       </div>
-      <div className="col-span-4  bg-bgBack rounded-sm shadow">
+      <div className="md:col-span-4  bg-bgBack rounded-sm shadow">
         <div className="border-b-red-500 border-b-2 p-5">{SecoundTitle}</div>
         {table && <div className="mt-5 bg-[#F9F9FB]">{table}</div>}
       </div>

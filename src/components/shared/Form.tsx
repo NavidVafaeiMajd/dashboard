@@ -31,6 +31,8 @@ import { cn } from "@/lib/utils";
 import CuDatePicker from "./DatePicker";
 import RichTextEditor from "./RichTextEditor";
 import { ImageUploadInput } from "./ImageUploadInput";
+import { Checkbox } from "@/components/ui/checkbox"
+
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -337,13 +339,57 @@ function FormImage<T extends FieldValues>({
   );
 }
 
-// ---------- Export اضافه کردن ----------
+// ---------- Checkbox ----------
+interface FormCheckboxProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  required?: boolean;
+  className?: string;
+}
+
+function FormCheckbox<T extends FieldValues>({
+  name,
+  label,
+  required,
+  className,
+}: FormCheckboxProps<T>) {
+  const { control } = useFormContextSafe<T>()
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem
+          className={`flex flex-row items-center space-x-2 space-y-0 ${className ?? ""}`}
+        >
+          <FormControl>
+            <Checkbox
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              className="size-6"
+            />
+          </FormControl>
+          <div className="space-y-1 leading-none">
+            <FormLabel className="text-md">
+              {label} {required && <span className="text-red-500">*</span>}
+            </FormLabel>
+            <FormMessage />
+          </div>
+        </FormItem>
+      )}
+    />
+  )
+}
+
+
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   Select: FormSelect,
   Date: FormDate,
   RichText: FormRichText,
   Textarea: FormTextarea,
-  Image: FormImage, // اضافه شد
+  Image: FormImage,
+  Checkbox: FormCheckbox,
   SelectItem,
 });
