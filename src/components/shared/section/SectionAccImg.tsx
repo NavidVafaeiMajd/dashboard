@@ -20,7 +20,7 @@ interface SectionAccProps<T extends z.ZodTypeAny> {
   FileTitle?: string;
 }
 
-const SectionAcc = <T extends z.ZodTypeAny<any, any, any>>({
+const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
   schema,
   defaultValues,
   formFields,
@@ -88,4 +88,4 @@ const SectionAcc = <T extends z.ZodTypeAny<any, any, any>>({
   );
 };
 
-export default SectionAcc;
+export default SectionAccImg;
