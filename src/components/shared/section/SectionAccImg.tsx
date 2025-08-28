@@ -44,7 +44,7 @@ const SectionAcc = <T extends z.ZodTypeAny<any, any, any>>({
         <Form
           formProp={form}
           onSubmit={onSubmit}
-          className={`grid grid-cols-6 gap-5 ${isOpen ? "show" : "hidden"}`}
+          className={`grid grid-cols-6 gap-5  items-start ${isOpen ? "show" : "hidden"}`}
         >
           <div className=" bg-bgBack rounded-sm shadow col-span-4 ">
             <div className="border-b-red-500 border-b-2  px-5 py-3 flex justify-between items-center">
