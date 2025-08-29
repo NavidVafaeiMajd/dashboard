@@ -12,7 +12,7 @@ const EmployeeRating = () => {
     date: new Date(),
     employee: "",
     name: "",
-    ratings: "",
+    ratings: {},
   };
 
   const onSubmit = (data: z.infer<typeof validation>) => {
