@@ -1,66 +1,113 @@
 
+// import { useState } from "react";
+// import { Button } from "@/components/ui/button";
+// import type { ColumnDef } from "@tanstack/react-table";
+
+// export interface BankAccount {
+//   id: string;
+//   accountType: string;
+//   accountDate: string;
+//   typemoney: string;
+//   count: number;
+// }
+
+// export const LearningRecord = () => {
+//   // const [selectedAccount, setSelectedAccount ] = useState<BankAccount | null>(null);
+//   const columns: ColumnDef<BankAccount>[] = [
+//     {
+//       accessorKey: "skillslearn",
+//       header: "مهارت آموزشی   ",
+//       cell: ({ row }) => <div className="text-right">{row.getValue("accountType")}</div>,
+//     },
+//     {
+//       accessorKey: "infoTecher",
+//       header: "	مشخصات مدرس	",
+//       cell: ({ row }) => <div className="text-center">{row.getValue("accountDate")}</div>,
+//     },
+//     {
+//       accessorKey: "entry-time",
+//       header: " تاریخ شروع	 ",
+//       cell: ({ row }) => (
+//         <div className="text-center">{row.getValue("typemoney")} </div>
+//       ),
+//     },
+//     {
+//       accessorKey: "exit-time",
+//       header: "تاریخ پایان	 ",
+//       cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
+//     },
+//     {
+//       accessorKey: "infoTecher",
+//       header: "  پرسنل ",
+//       cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
+//     },
+//     {
+//       accessorKey: "priceLearn",
+//       header: " آموزش	هزینه  	 ",
+//       cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
+//     },
+//     {
+//       accessorKey: "status",
+//       header: "		وضعیت  	 ",
+//       cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
+//     },
+  
+//   ];
+
+
+// };
+
+
+
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 
-export interface BankAccount {
+// تعریف نوع LearningRecordType
+export interface LearningRecordType {
   id: string;
-  accountType: string;
-  accountDate: string;
-  typemoney: string;
-  count: number;
+  infoTecher: string;
+  skillslearn: string;
+  priceLearn: string;
+  status: string;
+  "entry-time": string;
+  "exit-time": string;
+  text: string;
 }
 
-export const useBankColumns = () => {
-  const [selectedAccount, setSelectedAccount ] = useState<BankAccount | null>(null);
-  const columns: ColumnDef<BankAccount>[] = [
-    {
-      accessorKey: "accountType",
-      header: "نوع حساب بانکی",
-      cell: ({ row }) => <div className="text-right">{row.getValue("accountType")}</div>,
-    },
-    {
-      accessorKey: "accountDate",
-      header: "تاریخ",
-      cell: ({ row }) => <div className="text-center">{row.getValue("accountDate")}</div>,
-    },
-    {
-      accessorKey: "typemoney",
-      header: "نوع ",
-      cell: ({ row }) => (
-        <div className="text-center">{row.getValue("typemoney")} </div>
-      ),
-    },
-    {
-      accessorKey: "count",
-      header: "مقدار",
-      cell: ({ row }) => <div className="text-center">{row.getValue("count")}</div>,
-    },
-    {
-      id: "actions",
-      header: "مرجع",
-      cell: ({ row }) => {
-        const rowData = row.original;
-        return (
-          <div className="flex items-center gap-2">
-            <Button variant="default" size="sm">نمایش</Button>
-          </div>
-        );
-      },
-    },
-  ];
-
-  // خروجی: ستون‌ها + مودال
-  return {
-    columns,
-    modal: selectedAccount && (
-  
-        <div className="space-y-2 text-sm leading-relaxed">
-          <p><strong>نوع حساب:</strong> {selectedAccount.accountType}</p>
-          <p><strong>شماره حساب:</strong> {selectedAccount.accountNumber}</p>
-          <p><strong>ما به التفاوت:</strong> {selectedAccount.typemoney.toLocaleString()} ریال</p>
-          <p><strong>شعبه بانک:</strong> {selectedAccount.count}</p>
-        </div>
-    ),
-  };
-};
+export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
+  {
+    accessorKey: "infoTecher",
+    header: "مشخصات مدرس",
+    cell: ({ row }) => <div className="text-center">{row.getValue("infoTecher")}</div>,
+  },
+  {
+    accessorKey: "skillslearn",
+    header: "مهارت آموزشی",
+    cell: ({ row }) => <div className="text-center">{row.getValue("skillslearn")}</div>,
+  },
+  {
+    accessorKey: "priceLearn",
+    header: "هزینه آموزش",
+    cell: ({ row }) => <div className="text-center">{row.getValue("priceLearn")}</div>,
+  },
+  {
+    accessorKey: "status",
+    header: "پرسنل",
+    cell: ({ row }) => <div className="text-center">{row.getValue("status")}</div>,
+  },
+  {
+    accessorKey: "entry-time",
+    header: "تاریخ شروع",
+    cell: ({ row }) => <div className="text-center">{row.getValue("entry-time")}</div>,
+  },
+  {
+    accessorKey: "exit-time",
+    header: "تاریخ پایان",
+    cell: ({ row }) => <div className="text-center">{row.getValue("exit-time")}</div>,
+  },
+  {
+    accessorKey: "text",
+    header: "شرح",
+    cell: ({ row }) => <div className="text-center">{row.getValue("text")}</div>,
+  },
+];

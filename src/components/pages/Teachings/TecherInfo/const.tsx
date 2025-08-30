@@ -1,25 +1,21 @@
-import type { BankAccount } from "./columns"; // یا همان فایل columns
+export interface TecherInfoType {
+  name: string;
+  lname: string;
+  phone: string;
+  email: string;
+  skills: string;
+  mark: string;
+}
 
-export const BANK_ACCOUNTS: BankAccount[] = [
-  {
-    id: "1",
-    accountType: "Bank",
-    accountDate: "1404/9/01",
-    typemoney: "Bank" ,
-    count:786786786 ,
-  },
-  {
-    id: "2",
-    accountType: "Bank",
-    accountDate: "1404/9/01",
-    typemoney: "Bank" ,
-    count:8797687,
-  },
-  {
-    id: "3",
-    accountType: "Bank",
-    accountDate: "1404/9/01" ,
-    typemoney: "Bank",
-    count: 4587989,
+
+export const TecherInfo: TecherInfoType[] = [
+
+    {
+    name: "amir",
+    lname: "shraizi",
+    phone: "00000000000",
+    email: "gma;@example.com",
+    skills: "react",
+    mark: "144-05-02",
   },
 ];

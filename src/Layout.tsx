@@ -58,6 +58,10 @@ import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
 import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
 import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
 import AuthProvider from "./Context/AuthContext";
+import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
+import LearningPage from "./components/pages/Teachings/Learning/mainLearing"
+import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo";
+import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills";
 
 
 const LayoutContent = () => {
@@ -82,16 +86,14 @@ const LayoutContent = () => {
       <ToastContainer toastClassName="custom-toast-font" position="top-right" />
 
       <div
-        className={`flex flex-1 gap-[3.5rem] py-5 ${
-          !isLoginPage ? "lg:mt-[75px] mt-[60px]" : ""
-        } max-lg:flex-col`}
+        className={`flex flex-1 gap-[3.5rem] py-5 ${!isLoginPage ? "lg:mt-[75px] mt-[60px]" : ""
+          } max-lg:flex-col`}
       >
         {/* فقط وقتی صفحه login نیست، نوبار نمایش داده می‌شود */}
         {!isLoginPage && (
           <div
-            className={`w-[25%] overflow-auto ${
-              isNavbarOpen ? "show" : "max-lg:hidden"
-            }`}
+            className={`w-[25%] overflow-auto ${isNavbarOpen ? "show" : "max-lg:hidden"
+              }`}
           >
             <Navbar />
             <div
@@ -102,9 +104,8 @@ const LayoutContent = () => {
         )}
 
         <div
-          className={`${
-            !isLoginPage ? "lg:w-[100%] overflow-auto px-5 md:px-10" : "w-full"
-          }`}
+          className={`${!isLoginPage ? "lg:w-[100%] overflow-auto px-5 md:px-10" : "w-full"
+            }`}
         >
           <Routes>
             {/* Public Routes */}
@@ -289,6 +290,12 @@ const LayoutContent = () => {
             >
               <Route path="list" element={<DisciplinaryList />} />
               <Route path="type" element={<ViolationType />} />
+            </Route>
+
+            <Route path="teching" element={<LayoutTeching />}>
+              <Route path="learn" element={<LearningPage />} />
+              <Route path="techerinfo" element={<TecherInfo />} />
+              <Route path="traningskills" element={<TraningSkills />} />
             </Route>
 
             <Route

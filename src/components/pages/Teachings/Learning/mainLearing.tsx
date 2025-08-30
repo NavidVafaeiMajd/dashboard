@@ -1,9 +1,9 @@
-import { useBankColumns } from "./column";
+import { LearningRecordColumns } from "./column";
 import { DataTable } from "@/components/shared/data-table";
-import { BANK_ACCOUNTS } from "./const";
+import { LEARNING_RECORDS } from "./const";
 import { useState } from "react";
 import { Form } from "@/components/shared/Form";
-import type z from "zod";
+import z from "zod";
 import { validation } from "./validation";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
@@ -11,25 +11,29 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LearningPage() {
   const [open, setOpen] = useState(false);
-  const { columns, modal } = useBankColumns();
+
 
 
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      techerLearning: "",
-      skillsLearn: "",
-      priceLearning: "",
-      personel: "",
-      statrtEntry: "1",     
-      exitEntry: "2",    
-      text: "IR",   
-    },
-  });
+      infoTecher: "",
+      skillslearn: "",
+      priceLearn: "",
+      status: "",
+      "entry-time": "",
+      "exit-time": "",
+      text: "",
+    }
+
+  },
+
+  );
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
+
   return (
     <div className="flex flex-col  px-4">
       {/* Top Section */}
@@ -52,8 +56,8 @@ export default function LearningPage() {
               <div className="p-4">
                 <Form
                   formProp={form}
-                  accordion
-                  accordionTitle=""
+
+
                   onSubmit={onSubmit}
                   className="flex flex-col gap-5"
                 >
@@ -115,8 +119,8 @@ export default function LearningPage() {
                   </div>
 
                   <div className="flex gap-x-2 mt-5">
-                    <Button>دخیره </Button>
-                    <Button>بازنشانی</Button>
+                    <Button type="submit">دخیره </Button>
+                    <Button type="reset">بازنشانی</Button>
                   </div>
                 </Form>
               </div>
@@ -141,11 +145,10 @@ export default function LearningPage() {
 
 
         <DataTable
-          columns={columns}
-          data={BANK_ACCOUNTS}
-          searchableKeys={["accountNumber", "accountType"]}
+          columns={LearningRecordColumns}
+          data={LEARNING_RECORDS}
+          searchableKeys={["infoTecher", "skillslearn"]}
         />
-        {modal}
       </div>
     </div>
   );

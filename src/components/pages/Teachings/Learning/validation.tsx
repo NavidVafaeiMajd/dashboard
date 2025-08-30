@@ -1,30 +1,16 @@
 import { z } from "zod";
 
 export const validation = z.object({
-  techerLearning: z
-    .string()
-    .min(2, "نام باید حداقل 2 کاراکتر باشد")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-
-  skillsLearn: z
-    .string()
-    .min(2, "نام خانوادگی باید حداقل 2 کاراکتر باشد")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
-
-  priceLearning: z
-    .string()
-    .email("ایمیل معتبر نیست"),
-
-  personel: z
-    .string()
-    .min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
-
-  exitEntry: z.string().nonempty("انتخاب وضعیت الزامی است"),
-
-  statrtEntry: z
-    .string()
-    .regex(/^09\d{9}$/, "شماره موبایل باید با 09 شروع شود و 11 رقم باشد"),
-
-    text : z 
-    .string("لطفا این شرح را کامل کنید")
+  infoTecher: z.string().min(1, "انتخاب مدرس الزامی است"), // مشخصات مدرس
+    skillslearn: z.string().min(1, "انتخاب مهارت الزامی است"), // مهارت آموزشی
+    priceLearn: z
+      .string()
+      .min(1, "هزینه الزامی است")
+      .regex(/^\d+$/, "هزینه باید عدد باشد"), // هزینه آموزش
+    status: z.string().min(1, "انتخاب پرسنل الزامی است"), // پرسنل
+    "entry-time": z.string().min(1, "تاریخ شروع الزامی است"), // تاریخ شروع
+    "exit-time": z.string().min(1, "تاریخ پایان الزامی است"), // تاریخ پایان
+    text: z.string().min(1, "شرح الزامی است"), // متن توضیح
 });
+
+
