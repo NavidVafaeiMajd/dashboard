@@ -2,7 +2,6 @@ import { useEffect ,useState} from "react";
 import Form from "./Form";
 import Table from "./Table";
 import { GoPlus } from "react-icons/go";
-import AccessForm from "./PermissionsTree/Form2";
 
 const SetRoles = () => {
     const title = "نقش های کارکنان";
