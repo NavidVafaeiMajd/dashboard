@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
-import { GoPlus } from "react-icons/go";
+import { useEffect } from "react";
 import Table from "./Table";
-import FormCm from "./Form";
+import SectionAcc from "@/components/shared/section/SectionAcc";
+import { validation } from "./validation";
+import { Form } from "@/components/shared/Form";
+import type z from "zod";
 
 const NewsList: React.FC = () => {
   const title = " ابلاغیه ";
@@ -9,29 +11,63 @@ const NewsList: React.FC = () => {
     document.title = title;
   }, []);
 
-  const [accordion, setAccordion] = useState(false);
+  const defaultValues = {
+    newsTitle: "",
+    startDate: null,
+    finishDate: null,
+    organizationalUnit: "",
+    summary: "",
+    newsText: "",
+  };
+  const formFields = (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <Form.Input
+          name="newsTitle"
+          label="عنوان ابلاغیه"
+          required
+          placeholder="عنوان ابلاغیه"
+        />
+        <div className="flex flex-col md:flex-row gap-5">
+          <Form.Date name="startDate" label="تاریخ شروع" />
+          <Form.Date name="finishDate" label="تاریخ پایان" />
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row gap-5">
+
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-5">
+      <Form.Select
+        name="organizationalUnit"
+        label="واحد سازمانی"
+        required
+        placeholder="انتخاب واحد سازمانی"
+      >
+        <Form.SelectItem value="1">واحد سازمانی 1</Form.SelectItem>
+        <Form.SelectItem value="2">واحد سازمانی 2</Form.SelectItem>
+      </Form.Select>
+      <Form.Input name="summary" label="اختصاری" required placeholder="اختصاری" />
+      </div>
+      <Form.RichText name="newsText" label="متن ابلاغیه" required />
+    </>
+  );
+
+  const onSubmit = (data: z.infer<typeof validation>) => {
+    console.log(data);
+  };
 
   return (
     <>
-      <FormCm accordion={accordion} setAccordion={setAccordion} />
-      <div className="card bg-bgBack ">
-        <div className="flex justify-between p-2 px-5 border-b-2 border-red-500 items-center">
-          <h2> لیست همه ابلاغیه ها </h2>
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => setAccordion(!accordion)}
-              className="cart-header-btn flex bg-greenDark text-white items-center p-2 gap-2 rounded-sm cursor-pointer"
-            >
-              <GoPlus className="w-5 h-5" />
-              ثبت جدید
-            </button>
-          </div>
-        </div>
-        <div>
-          <Table />
-        </div>
-      </div>
+      <SectionAcc
+        defaultValues={defaultValues}
+        schema={validation}
+        formFields={formFields}
+        onSubmit={onSubmit}
+        table={<Table />}
+        FirstTitle="ثبت جدید ابلاغیه"
+        SecoundTitle="لیست همه ابلاغیه ها"
+      />
     </>
   );
 };
