@@ -1,7 +1,12 @@
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Desk from "./components/pages/Desk";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
 import StaffList from "./components/pages/Staff/StaffList/StaffList";
 import SetRoles from "./components/pages/Staff/SetRoles/SetRoles";
@@ -45,135 +50,272 @@ import GoalType from "./components/pages/Performance/GoalType/GoalType";
 import LayoutLeave from "./components/pages/Leave/Layout";
 import LeaveList from "./components/pages/Leave/List/LeaveList";
 import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
-import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
-import LearningPage from "./components/pages/Teachings/Learning/mainLearing.js"
-import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo.js";
-import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills.js";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import PublicRoute from "./PublicRoute/PublicRoute";
+import LoginPage from "./components/pages/login/LoginPage";
+import LeaveType from "./components/pages/Leave/LeaveType";
+import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
+import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
+import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
+import AuthProvider from "./Context/AuthContext";
 
-const Layout = () => {
+
+const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/login";
 
   const handleDataFromChild = () => {
     toggleNavbar();
   };
+
   return (
-    <>
-      <main className="w-full! min-h-screen flex flex-col">
+    <main className="w-full! min-h-screen flex flex-col">
+      {/* فقط وقتی صفحه login نیست، هدر نمایش داده می‌شود */}
+      {!isLoginPage && (
         <div className="fixed z-100 w-full">
           <Header headerMenu={handleDataFromChild} />
         </div>
-        <Router>
-          <ToastContainer
-            toastClassName="custom-toast-font"
-            position="top-right"
-          />
-          <div className=" flex flex-1 gap-[3.5rem] py-5 lg:mt-[75px] mt-[60px] max-lg:flex-col">
+      )}
+
+      <ToastContainer toastClassName="custom-toast-font" position="top-right" />
+
+      <div
+        className={`flex flex-1 gap-[3.5rem] py-5 ${
+          !isLoginPage ? "lg:mt-[75px] mt-[60px]" : ""
+        } max-lg:flex-col`}
+      >
+        {/* فقط وقتی صفحه login نیست، نوبار نمایش داده می‌شود */}
+        {!isLoginPage && (
+          <div
+            className={`w-[25%] overflow-auto ${
+              isNavbarOpen ? "show" : "max-lg:hidden"
+            }`}
+          >
+            <Navbar />
             <div
-              className={`w-[25%] overflow-auto ${
-                isNavbarOpen ? "show" : "max-lg:hidden"
-              }`}
-            >
-              <Navbar />
-              <div
-                onClick={toggleNavbar}
-                className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"
-              />
-            </div>
-            <div className="lg:w-[100%] overflow-auto  px-5 md:px-10">
-              <Routes>
-                <Route path="users/:id" element={<EmployeDetailse />}></Route>
-                <Route path="clients/:id" element={<ClientPage />}></Route>
-
-                <Route path="/" element={<Desk />} />
-                <Route path="staff" element={<LayoutStaffList />}>
-                  <Route index element={<StaffList />} />
-                  <Route path="set-roles" element={<SetRoles />} />
-                  <Route path="office-shifts" element={<OfficeShifts />} />
-                  <Route path="employ-exit" element={<EmployExit />} />
-                </Route>
-                <Route path="hr" element={<LayoutHumanResource />}>
-                  <Route
-                    path="departments-list"
-                    element={<OrganizationalUnit />}
-                  />
-                  <Route
-                    path="designation-list"
-                    element={<OrganizationalPosition />}
-                  />
-                  <Route path="office-shifts" element={<OfficeShifts />} />
-                  <Route path="policies-list" element={<Policies />} />
-                  <Route path="news-list" element={<NewsList />} />
-                </Route>
-                <Route path="rollcall" element={<LayoutRollCall />}>
-                  <Route path="attendance-list" element={<AttendanceList />} />
-                  <Route
-                    path="monthly-attendance"
-                    element={<MonthlyAttendance />}
-                  />
-                  <Route
-                    path="manual-attendance"
-                    element={<ManualAttendance />}
-                  />
-                  <Route
-                    path="overtime-request"
-                    element={<OverTimeRequest />}
-                  />
-                </Route>
-                <Route path="exit-type" element={<ExitType />} />
-
-                <Route
-                  path="employeeCert"
-                  element={<LayoutEmploymentCertificate />}
-                >
-                  <Route element={<AssetsList />} path="assets-list" />
-                  <Route element={<AssetsCategory />} path="assets-category" />
-                </Route>
-
-                <Route path="payroll" element={<LayoutPayroll />}>
-                  <Route path="payroll-list" element={<PayrollList />} />
-                  <Route path="payslip-history" element={<PayslipHistory />} />
-                  <Route path="advance-salary" element={<AdvanceSalary />} />
-                </Route>
-                <Route path="leads" element={<Leads />} />
-                <Route path="accounts-list" element={<LayoutBankaccount />}>
-                  <Route index element={<MainBank />} />
-                  <Route path="deposit-list" element={<AmmountMain />} />
-                  <Route path="expense-list" element={<MainList />} />
-                  <Route
-                    path="transactions-list"
-                    element={<MaintransactionsList />}
-                  />
-                </Route>
-
-                <Route path="teching" element={<LayoutTeching />}>
-                  <Route path="learn" element={<LearningPage />}  />
-                  <Route path="techerinfo" element={<TecherInfo />}  />
-                  <Route path="traningskills" element={<TraningSkills />}  />
-                </Route>
-
-                <Route element={<LayoutPerformance />} path="performance">
-                  <Route
-                    element={<PerformanceRating />}
-                    path="indicator-rating"
-                  />
-
-                  <Route element={<EmployeeRating />} path="employee-rating" />
-                  <Route element={<TrackGoals />} path="track-goals" />
-
-                  <Route element={<SetupIndicator />} path="setup-indicator" />
-                  <Route element={<GoalType />} path="goals-type" />
-                </Route>
-
-                <Route path="leave" element={<LayoutLeave />}>
-                  <Route element={<LeaveList />} path="list" />
-                </Route>
-                <Route element={<MainclientsList />} path="clients-list" />
-              </Routes>
-            </div>
+              onClick={toggleNavbar}
+              className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"
+            />
           </div>
-        </Router>
-      </main>
-    </>
+        )}
+
+        <div
+          className={`${
+            !isLoginPage ? "lg:w-[100%] overflow-auto px-5 md:px-10" : "w-full"
+          }`}
+        >
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path="login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+
+            {/* Protected Routes */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Desk />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="users/:id"
+              element={
+                <ProtectedRoute>
+                  <EmployeDetailse />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="clients/:id"
+              element={
+                <ProtectedRoute>
+                  <ClientPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="staff"
+              element={
+                <ProtectedRoute>
+                  <LayoutStaffList />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<StaffList />} />
+              <Route path="set-roles" element={<SetRoles />} />
+              <Route path="office-shifts" element={<OfficeShifts />} />
+              <Route path="employ-exit" element={<EmployExit />} />
+            </Route>
+
+            <Route
+              path="hr"
+              element={
+                <ProtectedRoute>
+                  <LayoutHumanResource />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="departments-list" element={<OrganizationalUnit />} />
+              <Route
+                path="designation-list"
+                element={<OrganizationalPosition />}
+              />
+              <Route path="office-shifts" element={<OfficeShifts />} />
+              <Route path="policies-list" element={<Policies />} />
+              <Route path="news-list" element={<NewsList />} />
+            </Route>
+
+            <Route
+              path="rollcall"
+              element={
+                <ProtectedRoute>
+                  <LayoutRollCall />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="attendance-list" element={<AttendanceList />} />
+              <Route
+                path="monthly-attendance"
+                element={<MonthlyAttendance />}
+              />
+              <Route path="manual-attendance" element={<ManualAttendance />} />
+              <Route path="overtime-request" element={<OverTimeRequest />} />
+            </Route>
+
+            <Route
+              path="exit-type"
+              element={
+                <ProtectedRoute>
+                  <ExitType />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="employeeCert"
+              element={
+                <ProtectedRoute>
+                  <LayoutEmploymentCertificate />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="assets-list" element={<AssetsList />} />
+              <Route path="assets-category" element={<AssetsCategory />} />
+            </Route>
+
+            <Route
+              path="payroll"
+              element={
+                <ProtectedRoute>
+                  <LayoutPayroll />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="payroll-list" element={<PayrollList />} />
+              <Route path="payslip-history" element={<PayslipHistory />} />
+              <Route path="advance-salary" element={<AdvanceSalary />} />
+            </Route>
+
+            <Route
+              path="leads"
+              element={
+                <ProtectedRoute>
+                  <Leads />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="accounts-list"
+              element={
+                <ProtectedRoute>
+                  <LayoutBankaccount />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<MainBank />} />
+              <Route path="deposit-list" element={<AmmountMain />} />
+              <Route path="expense-list" element={<MainList />} />
+              <Route
+                path="transactions-list"
+                element={<MaintransactionsList />}
+              />
+            </Route>
+
+            <Route
+              path="performance"
+              element={
+                <ProtectedRoute>
+                  <LayoutPerformance />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="indicator-rating" element={<PerformanceRating />} />
+              <Route path="employee-rating" element={<EmployeeRating />} />
+              <Route path="track-goals" element={<TrackGoals />} />
+              <Route path="setup-indicator" element={<SetupIndicator />} />
+              <Route path="goals-type" element={<GoalType />} />
+            </Route>
+
+            <Route
+              path="leave"
+              element={
+                <ProtectedRoute>
+                  <LayoutLeave />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="list" element={<LeaveList />} />
+              <Route path="type" element={<LeaveType />} />
+            </Route>
+
+            <Route
+              path="disciplinary"
+              element={
+                <ProtectedRoute>
+                  <LayoutDisciplinaryCases />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="list" element={<DisciplinaryList />} />
+              <Route path="type" element={<ViolationType />} />
+            </Route>
+
+            <Route
+              path="clients-list"
+              element={
+                <ProtectedRoute>
+                  <MainclientsList />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Not Found */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+const Layout = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        <LayoutContent />
+      </Router>
+    </AuthProvider>
   );
 };
 

@@ -1,6 +1,6 @@
-import type { BankAccount } from "./columns";
+import type { Leads } from "./columns";
 
-export const BANK_ACCOUNTS: BankAccount[] = [
+export const LEADS: Leads[] = [
   {
     id: "1",
     name: "Amr",

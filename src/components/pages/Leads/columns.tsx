@@ -1,18 +1,20 @@
 // import { ColumnDef } from "@tanstack/react-table";
 
+import type { ColumnDef } from "@tanstack/react-table";
+
 // تعریف تایپ BankAccount
-export type BankAccount = {
+export interface Leads  {
   id: string;
   name: string;
   phone: string;
   gender: string;
   country: string;
   status: string;
+
+  [key: string]: string | number | boolean | null;
 };
 
-// ستون‌ها برای DataTable
-export const useBankColumns = () => {
-  const columns= [
+export const columns: ColumnDef<Leads>[] = [
     {
       accessorKey: "id",
       header: "شناسه",
@@ -38,6 +40,3 @@ export const useBankColumns = () => {
       header: "وضعیت",
     },
   ];
-
-  return { columns };
-};
