@@ -1,5 +1,5 @@
 import type { ClientsList } from "./columns.tsx"; 
-export const Clients_List: ClientsList[] = [
+export const CLIENTS_LIST: ClientsList[] = [
   {
     id: "1",
     accountType: "Bank",
