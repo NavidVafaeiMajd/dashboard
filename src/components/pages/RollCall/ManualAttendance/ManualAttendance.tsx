@@ -21,7 +21,7 @@ const ManualAttendance = () => {
   const formFields = (
     <>
       <Form.Date name="date" label="تاریخ" />
-      <Form.Select name="employee" label="کارمند" >
+      <Form.Select name="employee" label="کارمند" required placeholder="انتخاب کارمند">
         <Form.SelectItem value="1">کارمند 1</Form.SelectItem>
         <Form.SelectItem value="2">کارمند 2</Form.SelectItem>
       </Form.Select>
