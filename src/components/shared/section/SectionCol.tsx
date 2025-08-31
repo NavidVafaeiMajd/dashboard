@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
 import z from "zod";
-import { useState } from "react";
 
 interface SectionColProps<T extends z.ZodTypeAny> {
   schema: T;
@@ -46,7 +45,7 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
           </div>
         </Form>
       </div>
-      <div className="md:col-span-4  bg-bgBack rounded-sm shadow">
+      <div className="md:col-span-4  bg-bgBack rounded-sm shadow overflow-x-auto!">
         <div className="border-b-red-500 border-b-2 p-5">{SecoundTitle}</div>
         {table && <div className="mt-5 bg-[#F9F9FB]">{table}</div>}
       </div>

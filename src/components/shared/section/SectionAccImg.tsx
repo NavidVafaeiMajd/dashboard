@@ -71,7 +71,7 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
           </div>
         </Form>
       </div>
-      <div className="  bg-bgBack rounded-sm shadow">
+      <div className="  bg-bgBack rounded-sm shadow overflow-x-auto!">
         <div className="border-b-red-500 border-b-2 px-5 py-3 flex justify-between items-center">
           <span>{SecoundTitle}</span>
 
