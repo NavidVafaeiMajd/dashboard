@@ -19,7 +19,9 @@ const OrganizationalUnit = () => {
   };
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+     console.log(data);
+     ORGANIZATIONAL_UNIT_DATA.push({ ...data, id: ORGANIZATIONAL_UNIT_DATA.length + 1, createdAt: new Date() });
+     console.log(ORGANIZATIONAL_UNIT_DATA);
   };
 
   return (

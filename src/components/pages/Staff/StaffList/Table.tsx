@@ -11,6 +11,8 @@ export interface User {
    country: string;
    accessLevel: "admin" | "user" | "guest";
    status: "active" | "inactive" | "pending";
+
+   [key: string]: string | number | boolean | null;
 }
 
 const Table: React.FC = () => {

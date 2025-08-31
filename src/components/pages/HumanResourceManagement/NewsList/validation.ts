@@ -6,9 +6,7 @@ export const validation = z.object({
       .min(3, "موضوع ابلاغیه باید حداقل ۳ حرف باشد")
       .max(200, "موضوع خیلی بلند است"),
    organizationalUnit: z
-      .string()
-      .min(2, "واحد سازمانی حداقل باید ۲ کاراکتر باشد")
-      .max(100),
+      .string(),
    summary: z
       .string()
       .min(1, "فیلد اختصاری نمی‌تواند خالی باشد")
