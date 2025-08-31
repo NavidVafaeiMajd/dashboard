@@ -1,25 +1,16 @@
 import { z } from "zod";
-
+import { emailSchema, nameSchema } from "@/components/shared/validation";
+import { phoneSchema } from "@/components/shared/validation";
+import { selectSchema } from "@/components/shared/validation";
 export const validation = z.object({
-  name: z
-    .string()
-    .min(2, "نام باید حداقل 2 کاراکتر باشد")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+  name: nameSchema,
+  lname: nameSchema,
 
-  lname: z
-    .string()
-    .min(2, "نام خانوادگی باید حداقل 2 کاراکتر باشد")
-    .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است"),
+  phone: phoneSchema,
 
-  phone: z
-    .string()
-    .regex(/^09\d{9}$/, "شماره موبایل باید با 09 شروع شود و 11 رقم باشد"),
+  email: emailSchema,
 
-  email: z
-    .string()
-    .email("ایمیل معتبر نیست"),
-
-  skills: z.string().nonempty("انتخاب مهارت الزامی است"),
+  skills: selectSchema,
 
   location: z
     .string()

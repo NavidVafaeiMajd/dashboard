@@ -5,6 +5,7 @@ export interface TecherInfoType {
   email: string;
   skills: string;
   mark: string;
+  [key: string]: string | number;
 }
 
 

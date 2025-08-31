@@ -20,8 +20,9 @@ export const imageSchema = z
   });
 
 export const nameSchema = z
-  .string({ error: "این فیلد الزامی است" })
-  .min(3, "حداقل ۳ کاراکتر وارد کنید");
+.string()
+.min(2, "نام باید حداقل 2 کاراکتر باشد")
+.regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
 
 export const selectSchema = z
   .string({ error: "انتخاب یک گزینه الزامی است" })

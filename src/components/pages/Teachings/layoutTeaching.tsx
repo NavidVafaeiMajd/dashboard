@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../shared/breadcrumb";
 import Smartwizard from "../../shared/Smartwizard";
-import { FaUserFriends } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa6";
 import { FaUserPlus } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
 import { FcTodoList } from "react-icons/fc";
