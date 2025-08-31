@@ -8,16 +8,19 @@ export const phoneSchema = z
   .string({ error: "شماره موبایل الزامی است" })
   .regex(/^09\d{9}$/, "شماره موبایل معتبر نیست");
 
-export const imageSchema = z
-  .custom<File>((file) => file instanceof File, {
+  export const imageSchema = z
+  .any()
+  .refine((file) => !file || file instanceof File, {
     message: "فایل معتبر نیست",
   })
-  .refine((file) => ["image/jpeg", "image/png", "image/jpg"].includes(file.type), {
-    message: "فقط فرمت jpg و png مجاز است",
-  })
-  .refine((file) => file.size <= 1024 * 1024, { // 1MB
+  .refine(
+    (file) => !file || ["image/jpeg", "image/png", "image/jpg"].includes(file.type),
+    { message: "فقط فرمت jpg و png مجاز است" }
+  )
+  .refine((file) => !file || file.size <= 1024 * 1024, {
     message: "حجم فایل نباید بیشتر از 1 مگابایت باشد",
-  });
+  })
+  .optional();
 
 export const nameSchema = z
 .string()

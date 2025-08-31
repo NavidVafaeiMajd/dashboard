@@ -3,6 +3,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 export interface SkillsRank {
   skillsType: string;
   creatDate: string;
+  [key: string]: string | number;
 }
 
 
