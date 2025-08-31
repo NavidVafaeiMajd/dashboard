@@ -5,3 +5,4 @@ export const validation = z.object({
    name: z.string().min(1,"نام سمت سازمانی را وارد کنید"),
    description: z.string().optional(),
 });
+

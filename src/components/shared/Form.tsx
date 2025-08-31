@@ -140,7 +140,6 @@ function FormInput<T extends FieldValues>({
     />
   );
 }
-
 // ---------- Date ----------
 interface FormDateProps<T extends FieldValues> {
   name: Path<T>;
@@ -269,6 +268,7 @@ interface FormTextareaProps<T extends FieldValues> {
   textareaClassName?: string;
 }
 
+
 function FormTextarea<T extends FieldValues>({
   name,
   label,
@@ -291,7 +291,7 @@ function FormTextarea<T extends FieldValues>({
           <FormControl>
             <textarea
               placeholder={placeholder}
-              className={`w-full min-h-24 p-2 border rounded-md ${textareaClassName ?? ""}`}
+              className={`w-full  p-2 border rounded-md ${textareaClassName ?? ""}`}
               {...field}
             />
           </FormControl>
