@@ -292,8 +292,8 @@ const LayoutContent = () => {
               <Route path="type" element={<ViolationType />} />
             </Route>
 
-            <Route path="teching" element={<LayoutTeching />}>
-              <Route path="learn" element={<LearningPage />} />
+            <Route path="teaching" element={<LayoutTeching />}>
+              <Route index element={<LearningPage />} />
               <Route path="techerinfo" element={<TecherInfo />} />
               <Route path="traningskills" element={<TraningSkills />} />
             </Route>

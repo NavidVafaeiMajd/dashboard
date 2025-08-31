@@ -160,7 +160,7 @@ const Navbar = () => {
                         {" "}
                         <MdOutlineRadar className="w-7 h-7" /> آموزش{" "}
                      </>,
-                     "/teching",
+                     "/teaching",
                   ]}
                   dropInfo={[]}
                />

@@ -29,7 +29,7 @@ const LayoutTeching = () => {
                            <>
                               <MdOutlineRadar className="w-7 h-7" />
                            </>,
-                           "learn",
+                           "",
                            "اموزش ها",
                            "تنظیمات اموزش ها",
                         ],
