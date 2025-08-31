@@ -44,9 +44,9 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
         <Form
           formProp={form}
           onSubmit={onSubmit}
-          className={`grid grid-cols-1 md:grid-cols-6 gap-5  md:items-start ${isOpen ? "show" : "hidden"}`}
+          className={`grid grid-cols-1 md:grid-cols-6 gap-5  mt-5! md:items-start ${isOpen ? "show" : "hidden"}`}
         >
-          <div className=" bg-bgBack rounded-sm shadow md:col-span-4 ">
+          <div className=" bg-bgBack rounded-sm shadow md:col-span-4">
             <div className="border-b-red-500 border-b-2  px-5 py-3 flex justify-between items-center">
               <span>{FirstTitle}</span>
               <span>

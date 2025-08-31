@@ -3,41 +3,64 @@ import ActionsCell from "@/components/shared/ActionsCell";
 
 export interface ClientsList {
   id: string;
-  accountType: string;
-  accountDate: string;
-  typemoney: string;
-  count: number;
+  fullName: string;
+  username: string;
+  email: string;
+  avatar: string;
+  phone: string;
+  gender: string;
+  status: string;
 
   [key: string]: string | number;
 }
 
 export const columns: ColumnDef<ClientsList>[] = [
   {
-    accessorKey: "accountType",
-    header: "نوع حساب بانکی",
+    accessorKey: "fullName",
+    header: "نام",
+    cell: ({ row }) => {
+      const user = row.original;
+      return (
+        <div className="flex items-center gap-3">
+          <img
+            src={user.avatar}
+            alt={user.fullName}
+            className="w-10 h-10 rounded-full object-cover"
+          />
+          <div className="flex flex-col justify-start">
+            <span className="font-medium text-start">{user.fullName}</span>
+            <span className="text-xs text-gray-500">{user.email}</span>
+          </div>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "username",
+    header: "نام کاربری",
     cell: ({ row }) => (
-      <div className="text-right">{row.getValue("accountType")}</div>
+      <div className="text-center">{row.getValue("username")}</div>
     ),
   },
   {
-    accessorKey: "accountDate",
-    header: "تاریخ",
+    accessorKey: "phone",
+    header: "شماره تماس",
     cell: ({ row }) => (
-      <div className="text-center">{row.getValue("accountDate")}</div>
+      <div className="text-center">{row.getValue("phone")}</div>
     ),
   },
   {
-    accessorKey: "typemoney",
-    header: "نوع ",
+    accessorKey: "gender",
+    header: "جنسیت",
     cell: ({ row }) => (
-      <div className="text-center">{row.getValue("typemoney")} </div>
+      <div className="text-center">{row.getValue("gender")}</div>
     ),
   },
   {
-    accessorKey: "count",
-    header: "مقدار",
+    accessorKey: "status",
+    header: "وضعیت",
     cell: ({ row }) => (
-      <div className="text-center">{row.getValue("count")}</div>
+      <div className="text-center">{row.getValue("status")}</div>
     ),
   },
   {
@@ -48,10 +71,10 @@ export const columns: ColumnDef<ClientsList>[] = [
       return (
         <ActionsCell
           actions={[
-            { label: "نمایش جزییات", path: `/clients/${user.id}` },
+            { label: "نمایش جزییات", path: `/users/${user.id}` },
             {
               label: "حذف",
-              onclick: () => alert("حذف کاربر!"),
+              onclick: () => alert(`کاربر ${user.fullName} حذف شد!`),
               type: "destructive",
             },
           ]}

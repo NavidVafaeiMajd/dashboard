@@ -332,7 +332,6 @@ function FormImage<T extends FieldValues>({
           <FormControl>
             <ImageUploadInput field={field} />
           </FormControl>
-          <FormMessage />
         </FormItem>
       )}
     />

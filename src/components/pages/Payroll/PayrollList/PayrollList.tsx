@@ -31,7 +31,7 @@ const PayrollList = () => {
       <div className="flex flex-col w-full rounded-md overflow-hidden shadow h-full bg-[#F9F9FB] p-5">
         <Form formProp={form} onSubmit={onSubmit} >
           <div className="flex flex-col md:flex-row gap-5 justify-center items-stretch mb-5">
-            <Form.Select name="employee" label="کارمند" required placeholder="انتخاب کارمند" >
+            <Form.Select name="employee" label="کارمند" required placeholder="انتخاب کارمند" className="mt-2!">
               <Form.SelectItem value="1">کارمند 1</Form.SelectItem>
               <Form.SelectItem value="2">کارمند 2</Form.SelectItem>
             </Form.Select>
