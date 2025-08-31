@@ -29,26 +29,35 @@ const PayrollList = () => {
   return (
     <div className="flex flex-col justify-between gap-5">
       <div className="flex flex-col w-full rounded-md overflow-hidden shadow h-full bg-[#F9F9FB] p-5">
-        <Form formProp={form} onSubmit={onSubmit} className="flex flex-col md:flex-row gap-5 justify-center items-stretch">
-          <Form.Select name="employee" label="کارمند" required>
-            <Form.SelectItem value="1">کارمند 1</Form.SelectItem>
-            <Form.SelectItem value="2">کارمند 2</Form.SelectItem>
-          </Form.Select>
-          <Form.Date name="date" label="تاریخ" />
+        <Form formProp={form} onSubmit={onSubmit} >
+          <div className="flex flex-col md:flex-row gap-5 justify-center items-stretch mb-5">
+            <Form.Select name="employee" label="کارمند" required placeholder="انتخاب کارمند" >
+              <Form.SelectItem value="1">کارمند 1</Form.SelectItem>
+              <Form.SelectItem value="2">کارمند 2</Form.SelectItem>
+            </Form.Select>
+            <Form.Date name="date" label="تاریخ" />
+          </div>
           <Button type="submit">جستجو</Button>
         </Form>
       </div>
 
       <Table
-          table={
-            <DataTable
-              columns={columns}
-              data={PAYROLL_LIST}
-              searchableKeys={["employee", "employeeId", "type", "monthlySalary", "salary", "status"]}
-            />
-          }
-          Title="لیست همه واحدها"
-        />
+        table={
+          <DataTable
+            columns={columns}
+            data={PAYROLL_LIST}
+            searchableKeys={[
+              "employee",
+              "employeeId",
+              "type",
+              "monthlySalary",
+              "salary",
+              "status",
+            ]}
+          />
+        }
+        Title="لیست همه واحدها"
+      />
     </div>
   );
 };
