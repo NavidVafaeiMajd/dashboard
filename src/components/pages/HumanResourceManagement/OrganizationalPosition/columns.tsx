@@ -1,12 +1,23 @@
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
-
+import { EditDialog } from "@/components/shared/EditDialog";
+import { Form } from "@/components/shared/Form";
+import { z } from "zod";
 export interface designationColumnProps extends Record<string, unknown> {
    id: string;
    designation: string;
    unit: string;
 }
+
+const defaultValues = {
+   unit: "",
+};
+
+const validation = z.object({
+
+   unit: z.string().min(1, "واحد سازمانی الزامی است"),
+});
 
 export const columns: ColumnDef<designationColumnProps>[] = [
    {
@@ -41,12 +52,21 @@ export const columns: ColumnDef<designationColumnProps>[] = [
       cell: () => {
          return (
             <div className="flex items-center gap-2">
-               <Button
-                  variant="outline"
-                  size="sm"
-               >
-                  ویرایش
-               </Button>
+
+               <EditDialog
+                  title="ویرایش  "
+                  triggerLabel="ویرایش"
+                  fields={
+                     <>
+                        <Form.Input name="unit" label="واحد سازمانی" required />
+                     </>
+                  }
+                  defaultValues={defaultValues}
+                  onSave={(data) => {
+                     console.log(data);
+                  }}
+                  schema={validation}
+               />
                <Button
                   variant="destructive"
                   size="sm"
