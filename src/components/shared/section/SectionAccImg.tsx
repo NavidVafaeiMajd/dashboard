@@ -56,7 +56,7 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
                 </Button>
               </span>
             </div>
-            <div className="p-5">
+            <div className="p-5 flex flex-col gap-5">
               {formFields}
               <div className="flex gap-x-2 mt-5">
                 <Button type="submit">ثبت </Button>

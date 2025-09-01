@@ -1,5 +1,6 @@
 import z from "zod";
-
+import { imageSchema } from "@/components/shared/validation";
+import { usernameSchema } from "@/components/shared/validation";
 
 export const staffListValidtion = z.object({
     firstName: z
@@ -31,7 +32,7 @@ export const staffListValidtion = z.object({
  
     email: z.email("ایمیل معتبر وارد کنید").describe("مثلاً: example@gmail.com"),
  
-    username: z.string().min(3, "نام کاربری حداقل باید ۳ حرف باشد"),
+    username: usernameSchema,
  
     password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر"),
  
@@ -61,10 +62,6 @@ export const staffListValidtion = z.object({
        message: "لطفاً یک گزینه انتخاب کنید",
     }),
  
-    image: z
-       .any()
-       .refine((files) => files instanceof FileList && files.length > 0, {
-          message: "فایل انتخاب نشده",
-       })
+    image: imageSchema,
 
  });

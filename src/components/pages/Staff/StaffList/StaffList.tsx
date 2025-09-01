@@ -33,48 +33,43 @@ const StaffList: React.FC = () => {
   const formFields = (
     <>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="firstName" label="نام" required />
-        <Form.Input name="lastName" label="نام خانوادگی" />
+        <Form.Input name="firstName" label="نام" required placeholder="نام"  />
+        <Form.Input name="lastName" label="نام خانوادگی" required placeholder="نام خانوادگی"   />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="personnelCode" label="کد پرسنلی" />
-        <Form.Input name="phone" label="شماره تماس" />
-        <Form.Select name="gender" label="جنسیت">
+        <Form.Input name="personnelCode" label="کد پرسنلی" placeholder="کد پرسنلی"  required />
+        <Form.Input name="phone" label="شماره تماس" placeholder="شماره تماس" />
+        <Form.Select name="gender" label="جنسیت" placeholder="جنسیت" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="email" label="ایمیل" />
-        <Form.Input name="username" label="نام کاربری" />
+        <Form.Input name="email" label="ایمیل" placeholder="ایمیل" required />
+        <Form.Input name="username" label="نام کاربری" placeholder="نام کاربری" required />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="password" label="رمز عبور" />
-        <Form.Select name="shift" label="شیفت اداره ای">
-          <Form.SelectItem value="male">آقا</Form.SelectItem>
-          <Form.SelectItem value="female">خانم</Form.SelectItem>
-        </Form.Select>
-        <Form.Select name="role" label="سطح دسترسی">
+        <Form.Select name="shift" label="شیفت اداره ای" placeholder="شیفت اداره ای" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
       </div>
 
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Select name="department" label="واحد سازمانی">
+        <Form.Select name="department" label="واحد سازمانی" placeholder="واحد سازمانی" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
-        <Form.Select name="position" label="سمت سازمانی">
+        <Form.Select name="position" label="سمت سازمانی" placeholder="سمت سازمانی" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
       </div>
 
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="monthlySalary" label="دستمزد ماهانه" />
-        <Form.Input name="dailySalary" label="دستمزد روزانه" />
-        <Form.Select name="salaryType" label="نوع  فیش حقوقی">
+        <Form.Input name="monthlySalary" label="دستمزد ماهانه" placeholder="دستمزد ماهانه" required/>
+        <Form.Input name="dailySalary" label="دستمزد روزانه" placeholder="دستمزد روزانه" required/>
+        <Form.Select name="salaryType" label="نوع  فیش حقوقی" placeholder="نوع  فیش حقوقی" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
