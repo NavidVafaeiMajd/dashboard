@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Breadcrumb from "../../shared/breadcrumb";
 import Smartwizard from "../../shared/Smartwizard";
 import { FaUserFriends } from "react-icons/fa";
-import { FaUserLock } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa6";
 import { Outlet } from "react-router-dom";
 const LayoutStaffList = () => {
@@ -29,14 +28,6 @@ const LayoutStaffList = () => {
                            "/staff",
                            "پرسنل",
                            "تنظیمات پرسنل",
-                        ],
-                        [
-                           <>
-                              <FaUserLock className="w-7 h-7" />
-                           </>,
-                           "set-roles",
-                           "سطح دسترسی ها",
-                           "سطح دسترسی  نقشها",
                         ],
                         [
                            <>
