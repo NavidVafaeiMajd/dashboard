@@ -1,4 +1,3 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
@@ -9,8 +8,8 @@ import BasicInfo from "./BasicInfo/BasicInfo";
 import { FaPhone } from "react-icons/fa";
 
 const ClientPage = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  // const { id } = useParams();
+  // const navigate = useNavigate();
 
   return (
     <>

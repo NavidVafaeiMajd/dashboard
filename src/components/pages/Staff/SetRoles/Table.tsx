@@ -7,6 +7,8 @@ export interface User {
    role: string;
    permission: string;
    date: string;
+
+   [key : string] : string |number
 }
 
 const Table: React.FC = () => {

@@ -1,4 +1,3 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
@@ -13,8 +12,8 @@ import Personalnfo from "./Personalnfo/Personalnfo";
 import ProfileImg from "./ProfileImg/ProfileImg";
 
 const EmployeDetailse = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  // const { id } = useParams();
+  // const navigate = useNavigate();
 
   return (
     <>

@@ -1,9 +1,7 @@
-import React from 'react'
 import { DataTable } from '@/components/shared/data-table'
 import { BANK_ACCOUNTS } from './const'
-import { useBankColumns } from './columns'
+import { columns } from './columns'
 export default function MaintransactionsList() {
-    const { columns, modal } = useBankColumns();
     return (
         <>
             <div className="shadow-2xl w-[100%] rounded-[5px] h-fit bg-[#F9F9FB]">

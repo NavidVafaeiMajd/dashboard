@@ -1,7 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { LuArrowUpDown } from "react-icons/lu";
-import ActionsCell from "@/components/shared/ActionsCell";
 
 export interface LeaveRequest {
   id: number;

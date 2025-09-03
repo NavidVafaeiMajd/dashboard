@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 
@@ -9,11 +8,11 @@ export interface BankAccount {
   accountDate: string;
   typemoney: string;
   count: number;
+
+  [key : string] : string | number
 }
 
-export const useBankColumns = () => {
-  const [selectedAccount, setSelectedAccount ] = useState<BankAccount | null>(null);
-  const columns: ColumnDef<BankAccount>[] = [
+export const columns: ColumnDef<BankAccount>[] = [
     {
       accessorKey: "accountType",
       header: "نوع حساب بانکی",
@@ -50,17 +49,3 @@ export const useBankColumns = () => {
     },
   ];
 
-  // خروجی: ستون‌ها + مودال
-  return {
-    columns,
-    modal: selectedAccount && (
-  
-        <div className="space-y-2 text-sm leading-relaxed">
-          <p><strong>نوع حساب:</strong> {selectedAccount.accountType}</p>
-          <p><strong>شماره حساب:</strong> {selectedAccount.accountNumber}</p>
-          <p><strong>ما به التفاوت:</strong> {selectedAccount.typemoney.toLocaleString()} ریال</p>
-          <p><strong>شعبه بانک:</strong> {selectedAccount.count}</p>
-        </div>
-    ),
-  };
-};

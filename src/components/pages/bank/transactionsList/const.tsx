@@ -1,4 +1,4 @@
-import type { BankAccount } from "./columns.tsx"; // یا همان فایل columns
+import type { BankAccount } from "./columns.tsx";
 
 export const BANK_ACCOUNTS: BankAccount[] = [
   {
