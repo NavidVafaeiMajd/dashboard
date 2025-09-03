@@ -31,8 +31,8 @@ import { cn } from "@/lib/utils";
 import CuDatePicker from "./DatePicker";
 import RichTextEditor from "./RichTextEditor";
 import { ImageUploadInput } from "./ImageUploadInput";
-import { Checkbox } from "@/components/ui/checkbox"
-
+import { Checkbox } from "@/components/ui/checkbox";
+import Select from "react-select";
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -86,7 +86,9 @@ function FormRoot<T extends FieldValues>({
             className="w-full border-b-red-500 border-b-2! px-5"
           >
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg!">{accordionTitle}</AccordionTrigger>
+              <AccordionTrigger className="text-lg!">
+                {accordionTitle}
+              </AccordionTrigger>
               <AccordionContent>{content}</AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -268,7 +270,6 @@ interface FormTextareaProps<T extends FieldValues> {
   textareaClassName?: string;
 }
 
-
 function FormTextarea<T extends FieldValues>({
   name,
   label,
@@ -291,7 +292,9 @@ function FormTextarea<T extends FieldValues>({
           <FormControl>
             <textarea
               placeholder={placeholder}
-              className={`w-full  p-2 border rounded-md ${textareaClassName ?? ""}`}
+              className={`w-full  p-2 border rounded-md ${
+                textareaClassName ?? ""
+              }`}
               {...field}
             />
           </FormControl>
@@ -338,6 +341,57 @@ function FormImage<T extends FieldValues>({
   );
 }
 
+//---------- MultiSelect ----------
+
+interface MultiSelectProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  options: { label: string; value: string }[];
+  required?: boolean;
+  className?: string;
+}
+
+export function MultiSelect<T extends FieldValues>({
+  name,
+  label,
+  options,
+  required,
+  className,
+}: MultiSelectProps<T>) {
+  const { control } = useFormContextSafe<T>();
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem
+          className={`flex flex-col w-full space-x-2 space-y-0 ${
+            className ?? ""
+          }`}
+        >
+          <FormLabel className="text-md">
+            {label} {required && <span className="text-red-500">*</span>}
+          </FormLabel>
+          <FormControl>
+            <Select
+              isMulti
+              options={options}
+              value={options.filter((opt) => field.value?.includes(opt.value))}
+              onChange={(vals) =>
+                field.onChange(vals.map((val: any) => val.value))
+              }
+              className="min-h-[44px]"
+            />
+          </FormControl>
+          <div className="space-y-1 leading-none">
+            <FormMessage />
+          </div>
+        </FormItem>
+      )}
+    />
+  );
+}
+
 // ---------- Checkbox ----------
 interface FormCheckboxProps<T extends FieldValues> {
   name: Path<T>;
@@ -352,7 +406,7 @@ function FormCheckbox<T extends FieldValues>({
   required,
   className,
 }: FormCheckboxProps<T>) {
-  const { control } = useFormContextSafe<T>()
+  const { control } = useFormContextSafe<T>();
 
   return (
     <FormField
@@ -360,7 +414,9 @@ function FormCheckbox<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`flex flex-row items-center space-x-2 space-y-0 ${className ?? ""}`}
+          className={`flex flex-row items-center space-x-2 space-y-0 ${
+            className ?? ""
+          }`}
         >
           <FormControl>
             <Checkbox
@@ -378,9 +434,8 @@ function FormCheckbox<T extends FieldValues>({
         </FormItem>
       )}
     />
-  )
+  );
 }
-
 
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
@@ -391,4 +446,5 @@ export const Form = Object.assign(FormRoot, {
   Image: FormImage,
   Checkbox: FormCheckbox,
   SelectItem,
+  MultiSelect: MultiSelect,
 });

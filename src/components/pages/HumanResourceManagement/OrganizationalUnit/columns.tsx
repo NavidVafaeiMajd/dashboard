@@ -79,7 +79,7 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
                   <Form.SelectItem value="2">استعلاجی</Form.SelectItem>
                   <Form.SelectItem value="3">بدون حقوق</Form.SelectItem>
                   <Form.SelectItem value="4">سایر</Form.SelectItem>
-                </Form.Select>
+                  </Form.Select>
               </>
             }
             defaultValues={defaultValues}
