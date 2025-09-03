@@ -12,6 +12,9 @@ const AccountInfo = () => {
     defaultValues: {
       username: "",
       email: "",
+      monthlySalary: "",
+      dailySalary: "",
+      salaryType: "",
     },
   });
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -22,7 +25,7 @@ const AccountInfo = () => {
     <div>
       <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
         <TbLockPassword className="w-7 h-7" />
-        <span>تغییر رمز عبور</span>
+        <span> اطلاعات حساب کاربری </span>
       </div>
       <div className="p-3">
         <Form
@@ -43,6 +46,29 @@ const AccountInfo = () => {
               placeholder="حساب ایمیل "
               required
             />
+          </div>
+          <div className="flex flex-col md:flex-row gap-5">
+            <Form.Input
+              name="monthlySalary"
+              label="دستمزد ماهانه"
+              placeholder="دستمزد ماهانه"
+              required
+            />
+            <Form.Input
+              name="dailySalary"
+              label="دستمزد روزانه"
+              placeholder="دستمزد روزانه"
+              required
+            />
+            <Form.Select
+              name="salaryType"
+              label="نوع  فیش حقوقی"
+              placeholder="نوع  فیش حقوقی"
+              required
+            >
+              <Form.SelectItem value="male">آقا</Form.SelectItem>
+              <Form.SelectItem value="female">خانم</Form.SelectItem>
+            </Form.Select>
           </div>
 
           <div>

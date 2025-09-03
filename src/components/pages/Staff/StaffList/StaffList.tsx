@@ -26,9 +26,7 @@ const StaffList: React.FC = () => {
     role: "",
     department: "",
     position: "",
-    monthlySalary: "",
-    dailySalary: "",
-    salaryType: "",
+    status: "",
   };
   const formFields = (
     <>
@@ -53,6 +51,10 @@ const StaffList: React.FC = () => {
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>
         </Form.Select>
+        <Form.Select name="status" label=" وضعیت" placeholder=" وضعیت" required>
+          <Form.SelectItem value="male">فعال</Form.SelectItem>
+          <Form.SelectItem value="female">ممنوع</Form.SelectItem>
+        </Form.Select>
       </div>
 
       <div className="flex flex-col md:flex-row gap-5">
@@ -66,14 +68,6 @@ const StaffList: React.FC = () => {
         </Form.Select>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="monthlySalary" label="دستمزد ماهانه" placeholder="دستمزد ماهانه" required/>
-        <Form.Input name="dailySalary" label="دستمزد روزانه" placeholder="دستمزد روزانه" required/>
-        <Form.Select name="salaryType" label="نوع  فیش حقوقی" placeholder="نوع  فیش حقوقی" required>
-          <Form.SelectItem value="male">آقا</Form.SelectItem>
-          <Form.SelectItem value="female">خانم</Form.SelectItem>
-        </Form.Select>
-      </div>
     </>
   );
   const onSubmit = (data: z.infer<typeof staffListValidtion>) => {

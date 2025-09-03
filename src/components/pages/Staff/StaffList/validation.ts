@@ -48,20 +48,10 @@ export const staffListValidtion = z.object({
  
     position: z.string().min(1, "سمت سازمانی الزامی است"),
  
-    monthlySalary: z
-       .string()
-       .regex(/^\d+$/, "فقط عدد مجاز است")
-       .describe("مثلاً: 5000000"),
- 
-    dailySalary: z
-       .string()
-       .regex(/^\d+$/, "فقط عدد مجاز است")
-       .describe("مثلاً: 200000"),
- 
-    salaryType: z.string().refine((val) => val !== "", {
+    image: imageSchema,
+
+    status: z.string().refine((val) => val !== "", {
        message: "لطفاً یک گزینه انتخاب کنید",
     }),
- 
-    image: imageSchema,
 
  });

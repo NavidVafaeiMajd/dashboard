@@ -9,4 +9,7 @@ export const validation = z.object({
   email: z
     .string()
     .email("ایمیل وارد شده معتبر نیست"),
+  monthlySalary: z.string().min(1, "دستمزد ماهانه الزامی است"),
+  dailySalary: z.string().min(1, "دستمزد روزانه الزامی است"),
+  salaryType: z.string().min(1, "نوع فیش حقوقی الزامی است"),
 });

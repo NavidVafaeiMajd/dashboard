@@ -22,7 +22,7 @@ const ProfileImg = () => {
     <div>
       <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
         <IoDocumentTextOutline className="w-7 h-7" />
-        <span>تغییر رمز عبور</span>
+        <span> تصویر پروفایل </span>
       </div>
       <div className="p-3">
         <Form
