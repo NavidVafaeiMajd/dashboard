@@ -44,7 +44,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} >
+    <Dialog open={open} onOpenChange={setOpen}  >
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -54,7 +54,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
           {triggerLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="z-100">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>

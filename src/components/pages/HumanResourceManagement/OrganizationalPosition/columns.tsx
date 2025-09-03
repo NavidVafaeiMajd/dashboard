@@ -4,6 +4,7 @@ import { LuArrowUpDown } from "react-icons/lu";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 export interface designationColumnProps extends Record<string, unknown> {
    id: string;
    designation: string;
@@ -12,11 +13,15 @@ export interface designationColumnProps extends Record<string, unknown> {
 
 const defaultValues = {
    unit: "",
+   designation: "",
+   description: "",
 };
 
 const validation = z.object({
 
    unit: z.string().min(1, "واحد سازمانی الزامی است"),
+   designation: z.string().min(1, "نام سمت سازمانی الزامی است"),
+   description: z.string().optional(),
 });
 
 export const columns: ColumnDef<designationColumnProps>[] = [
@@ -58,7 +63,14 @@ export const columns: ColumnDef<designationColumnProps>[] = [
                   triggerLabel="ویرایش"
                   fields={
                      <>
-                        <Form.Input name="unit" label="واحد سازمانی" required />
+                        <Form.Select name="unit" label="واحد سازمانی" required>
+                           <Form.SelectItem value="1">استحقاقی</Form.SelectItem>
+                           <Form.SelectItem value="2">استعلاجی</Form.SelectItem>
+                           <Form.SelectItem value="3">بدون حقوق</Form.SelectItem>
+                           <Form.SelectItem value="4">سایر</Form.SelectItem>
+                        </Form.Select>
+                        <Form.Input name="designation" label="نام سمت سازمانی" required />
+                        <Form.Textarea name="description" label="شرح" />
                      </>
                   }
                   defaultValues={defaultValues}
@@ -67,12 +79,7 @@ export const columns: ColumnDef<designationColumnProps>[] = [
                   }}
                   schema={validation}
                />
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <DeleteDialog onConfirm={()=>{}}/>
             </div>
          );
       },
