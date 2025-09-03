@@ -141,14 +141,14 @@ const BasicInfo = () => {
                 placeholder="استان"
                 label="استان"
                 name="province"
-                required
+                
               />
-              <Form.Input placeholder="شهر" label="شهر" name="city" required />
+              <Form.Input placeholder="شهر" label="شهر" name="city"  />
               <Form.Input
                 placeholder="کدپستی"
                 label="کدپستی"
                 name="postalCode"
-                required
+                
               />
             </div>
             <div className="flex gap-5">
@@ -156,7 +156,7 @@ const BasicInfo = () => {
                 label="مذهب"
                 name="religion"
                 placeholder="انتخاب مذهب"
-                required
+                
               >
                 <Form.SelectItem value="1">اسلام</Form.SelectItem>
                 <Form.SelectItem value="2">مسیحیت</Form.SelectItem>
@@ -168,7 +168,7 @@ const BasicInfo = () => {
                 label="گروه خونی"
                 name="bloodGroup"
                 placeholder="انتخاب گروه خونی"
-                required
+                
               >
                 <Form.SelectItem value="1">A+</Form.SelectItem>
                 <Form.SelectItem value="2">A-</Form.SelectItem>
@@ -185,7 +185,7 @@ const BasicInfo = () => {
                 label="ملیت"
                 name="nationality"
                 placeholder="انتخاب ملیت"
-                required
+                
               >
                 <Form.SelectItem value="1">ایرانی</Form.SelectItem>
                 <Form.SelectItem value="2">افغانستانی</Form.SelectItem>
@@ -198,7 +198,7 @@ const BasicInfo = () => {
                 label="تابعیت"
                 name="citizenship"
                 placeholder="انتخاب تابعیت"
-                required
+                
               >
                 <Form.SelectItem value="1">ایران</Form.SelectItem>
                 <Form.SelectItem value="2">افغانستان</Form.SelectItem>
@@ -213,13 +213,13 @@ const BasicInfo = () => {
                 label="نشانی 1"
                 name="address1"
                 placeholder="نشانی 1"
-                required
+                
               />
               <Form.Input
                 label="نشانی 2"
                 name="address2"
                 placeholder="نشانی 2"
-                required
+                
               />
             </div>
 
