@@ -1,7 +1,6 @@
 import { Form } from "@/components/shared/Form";
 import type z from "zod";
 import { validation } from "./validation";
-import StarRating from "@/components/shared/StarRating";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
 import { employeeData } from "./const";
@@ -12,7 +11,8 @@ const EmployeeRating = () => {
     date: new Date(),
     employee: "",
     name: "",
-    ratings: {},
+    tecnicalTest: 1,
+    organizationalTest: 1,
   };
 
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -57,7 +57,7 @@ const EmployeeRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست فنی 1</span>
-                  <StarRating star={1} />
+                  <Form.StarRate name="tecnicalTest"  />
                 </div>
               </div>
               <div className="w-full">
@@ -71,7 +71,7 @@ const EmployeeRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست سازمانی 1</span>
-                  <StarRating star={1} />
+                  <Form.StarRate name="organizationalTest"  />
                 </div>
               </div>
             </div>
