@@ -1,7 +1,6 @@
 import { Form } from "@/components/shared/Form";
 import type z from "zod";
 import { validation } from "./validation";
-import StarRating from "@/components/shared/StarRating";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
 import { performanceData } from "./const";
@@ -11,7 +10,8 @@ const PerformanceRating = () => {
   const defaultValues = {
     name: "",
     position: "",
-    ratings: {},
+    tecnicalTest: 1,
+    organizationalTest: 1,
   };
 
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -44,7 +44,7 @@ const PerformanceRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست فنی 1</span>
-                  <StarRating star={1} />
+                  <Form.StarRate name="tecnicalTest"  />
                 </div>
               </div>
               <div className="w-full">
@@ -58,7 +58,7 @@ const PerformanceRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست سازمانی 1</span>
-                  <StarRating star={1} />
+                  <Form.StarRate name="organizationalTest"  />
                 </div>
               </div>
             </div>

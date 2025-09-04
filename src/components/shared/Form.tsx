@@ -33,6 +33,7 @@ import RichTextEditor from "./RichTextEditor";
 import { ImageUploadInput } from "./ImageUploadInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import Select from "react-select";
+import StarRating from "./StarRating";
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -392,6 +393,40 @@ export function MultiSelect<T extends FieldValues>({
   );
 }
 
+//---------- MultiSelect ----------
+
+interface StarRateProps<T extends FieldValues> {
+  name: Path<T>;
+  className?: string;
+}
+
+export function StarRate<T extends FieldValues>({
+  name,
+  className,
+}: StarRateProps<T>) {
+  const { control } = useFormContextSafe<T>();
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem
+          className={`flex flex-col w-full space-x-2 space-y-0 ${
+            className ?? ""
+          }`}
+        >
+          <FormControl>
+            <StarRating star={field.value} onChange={field.onChange} />
+          </FormControl>
+          <div className="space-y-1 leading-none">
+            <FormMessage />
+          </div>
+        </FormItem>
+      )}
+    />
+  );
+}
+
 // ---------- Checkbox ----------
 interface FormCheckboxProps<T extends FieldValues> {
   name: Path<T>;
@@ -447,4 +482,5 @@ export const Form = Object.assign(FormRoot, {
   Checkbox: FormCheckbox,
   SelectItem,
   MultiSelect: MultiSelect,
+  StarRate: StarRate,
 });
