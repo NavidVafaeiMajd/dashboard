@@ -54,7 +54,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
           {triggerLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-100">
+      <DialogContent className="z-100 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
