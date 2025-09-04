@@ -255,9 +255,9 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<MainBank />} />
-              <Route path="deposit-list" element={<AmmountMain />} />
-              <Route path="expense-list" element={<MainList />} />
+              <Route index element={<ProtectedRoute><MainBank /></ProtectedRoute>} />
+              <Route path="deposit-list" element={<ProtectedRoute><AmmountMain /></ProtectedRoute>} />
+              <Route path="expense-list" element={<ProtectedRoute><MainList /></ProtectedRoute>} />
               <Route
                 path="transactions-list"
                 element={<MaintransactionsList />}

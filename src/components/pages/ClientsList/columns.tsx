@@ -71,7 +71,7 @@ export const columns: ColumnDef<ClientsList>[] = [
       return (
         <ActionsCell
           actions={[
-            { label: "نمایش جزییات", path: `/users/${user.id}` },
+            { label: "نمایش جزییات", path: `/clients/${user.id}` },
             {
               label: "حذف",
               onclick: () => alert(`کاربر ${user.fullName} حذف شد!`),

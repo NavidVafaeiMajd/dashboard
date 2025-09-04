@@ -3,9 +3,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineMail } from "react-icons/md";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import ProjectsListTable from "./Projects/ProjectsList";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import { FaPhone } from "react-icons/fa";
+import ProfileImg from "./ProfileImg/ProfileImg";
+import Tracking from "./Tracking/Tracking";
 
 const LeadPage = () => {
   // const { id } = useParams();
@@ -63,10 +64,20 @@ const LeadPage = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="accountInfo">
+
+          <TabsTrigger value="profileImage">
             <span className="flex gap-2 justify-center items-center">
               <IoMdInformationCircleOutline className="w-7! h-7!" />
-              پروژه ها
+              تصویر پروفایل
+            </span>
+            <span>
+              <IoIosArrowBack className="w-7! h-7!" />
+            </span>
+          </TabsTrigger>
+          <TabsTrigger value="tracking">
+            <span className="flex gap-2 justify-center items-center">
+              <IoMdInformationCircleOutline className="w-7! h-7!" />
+              پیگیری
             </span>
             <span>
               <IoIosArrowBack className="w-7! h-7!" />
@@ -76,10 +87,12 @@ const LeadPage = () => {
         <TabsContent value="basicInfo">
           <BasicInfo/>
         </TabsContent>
-        <TabsContent value="accountInfo">
-          <ProjectsListTable/>
+        <TabsContent value="tracking">
+          <Tracking/>
         </TabsContent>
-
+        <TabsContent value="profileImage">
+          <ProfileImg/>
+        </TabsContent>
       </Tabs>
     </>
   );
