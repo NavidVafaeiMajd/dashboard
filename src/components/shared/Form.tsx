@@ -34,6 +34,7 @@ import { ImageUploadInput } from "./ImageUploadInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import Select from "react-select";
 import StarRating from "./StarRating";
+import TimePickerInput from "../ui/TimePicker";
 
 // ---------- Context ----------
 interface FormContextType<T extends FieldValues> {
@@ -472,6 +473,46 @@ function FormCheckbox<T extends FieldValues>({
   );
 }
 
+// ---------- TimePicker ----------
+interface FormTimePickerProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  required?: boolean;
+  className?: string;
+}
+
+function FormTimePicker<T extends FieldValues>({
+  name,
+  label,
+  required,
+  className,
+}: FormTimePickerProps<T>) {
+  const { control } = useFormContextSafe<T>();
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem
+          className={`flex flex-col space-x-2 space-y-0 ${
+            className ?? ""
+          }`}
+        >
+          <FormLabel className="text-md">
+            {label} {required && <span className="text-red-500">*</span>}
+          </FormLabel>
+          <FormControl>
+            <TimePickerInput value={field.value} onChange={field.onChange} />
+          </FormControl>
+          <div className="space-y-1 leading-none">
+            <FormMessage />
+          </div>
+        </FormItem>
+      )}
+    />
+  );
+}
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   Select: FormSelect,
@@ -483,4 +524,5 @@ export const Form = Object.assign(FormRoot, {
   SelectItem,
   MultiSelect: MultiSelect,
   StarRate: StarRate,
+  TimePicker: FormTimePicker,
 });
