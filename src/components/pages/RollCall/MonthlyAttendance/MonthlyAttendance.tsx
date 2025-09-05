@@ -22,6 +22,10 @@ import { Search } from "lucide-react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import { DataTable } from "@/components/shared/data-table";
+import { useMemo } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import Table from "@/components/shared/section/Table";
 
 const MonthlyAttendance = () => {
   const form = useForm<z.infer<typeof validation>>({
@@ -35,11 +39,35 @@ const MonthlyAttendance = () => {
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
+  const columns: ColumnDef<any>[] = useMemo(() => [
+    {
+      accessorKey: "date",
+      header: "تاریخ",
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("date"));
+        return date.toLocaleDateString("fa-IR");
+      },
+    },
+    {
+      accessorKey: "status",
+      header: "وضعیت",
+    },
+    {
+      accessorKey: "description",
+      header: "توضیحات",
+    },
+  ], []);
+
+  const data = [
+    { date: new Date(), status: "حاضر", description: "توضیحات نمونه" },
+    { date: new Date(), status: "غایب", description: "توضیحات نمونه" },
+  ];
 
   return (
-    <Form {...form}>
+    <>
+        <Form {...form}>
       <form
-        className="bg-bgBack w-full"
+        className="bg-bgBack w-full mb-5"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex gap-x-10 w-4/5 justify-between items-end p-5">
@@ -100,7 +128,9 @@ const MonthlyAttendance = () => {
           </Button>
         </div>
       </form>
-    </Form>
+      </Form>
+      <Table table={<DataTable columns={columns} data={data} />}  Title="لیست گزارش"/>
+    </>
   );
 };
 export default MonthlyAttendance;
