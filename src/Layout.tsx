@@ -63,6 +63,7 @@ import LearningPage from "./components/pages/Teachings/Learning/mainLearing";
 import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo";
 import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills";
 import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
+import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes";
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -146,6 +147,14 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="news-list/:id"
+              element={
+                <ProtectedRoute>
+                  <NewsListDetailes />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="staff"
@@ -169,14 +178,47 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="departments-list" element={<OrganizationalUnit />} />
+              <Route
+                path="departments-list"
+                element={
+                  <ProtectedRoute>
+                    <OrganizationalUnit />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="designation-list"
-                element={<OrganizationalPosition />}
+                element={
+                  <ProtectedRoute>
+                    <OrganizationalPosition />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="office-shifts" element={<OfficeShifts />} />
-              <Route path="policies-list" element={<Policies />} />
-              <Route path="news-list" element={<NewsList />} />
+              <Route
+                path="office-shifts"
+                element={
+                  <ProtectedRoute>
+                    <OfficeShifts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="policies-list"
+                element={
+                  <ProtectedRoute>
+                    <Policies />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="news-list"
+                element={
+                  <ProtectedRoute>
+                    <NewsList />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route
@@ -187,20 +229,47 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="attendance-list" element={<AttendanceList />} />
+              <Route
+                path="attendance-list"
+                element={
+                  <ProtectedRoute>
+                    <AttendanceList />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="monthly-attendance"
-                element={<MonthlyAttendance />}
+                element={
+                  <ProtectedRoute>
+                    <MonthlyAttendance />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="manual-attendance" element={<ManualAttendance />} />
-              <Route path="overtime-request" element={<OverTimeRequest />} />
+              <Route
+                path="manual-attendance"
+                element={
+                  <ProtectedRoute>
+                    <ManualAttendance />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="overtime-request"
+                element={
+                  <ProtectedRoute>
+                    <OverTimeRequest />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route
               path="exit-type"
               element={
                 <ProtectedRoute>
-                  <ExitType />
+                  <ProtectedRoute>
+                    <ExitType />
+                  </ProtectedRoute>
                 </ProtectedRoute>
               }
             />
@@ -213,8 +282,22 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="assets-list" element={<AssetsList />} />
-              <Route path="assets-category" element={<AssetsCategory />} />
+              <Route
+                path="assets-list"
+                element={
+                  <ProtectedRoute>
+                    <AssetsList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="assets-category"
+                element={
+                  <ProtectedRoute>
+                    <AssetsCategory />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route
@@ -225,9 +308,30 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="payroll-list" element={<PayrollList />} />
-              <Route path="payslip-history" element={<PayslipHistory />} />
-              <Route path="advance-salary" element={<AdvanceSalary />} />
+              <Route
+                path="payroll-list"
+                element={
+                  <ProtectedRoute>
+                    <PayrollList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="payslip-history"
+                element={
+                  <ProtectedRoute>
+                    <PayslipHistory />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="advance-salary"
+                element={
+                  <ProtectedRoute>
+                    <AdvanceSalary />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route
@@ -255,12 +359,37 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<ProtectedRoute><MainBank /></ProtectedRoute>} />
-              <Route path="deposit-list" element={<ProtectedRoute><AmmountMain /></ProtectedRoute>} />
-              <Route path="expense-list" element={<ProtectedRoute><MainList /></ProtectedRoute>} />
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <MainBank />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="deposit-list"
+                element={
+                  <ProtectedRoute>
+                    <AmmountMain />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="expense-list"
+                element={
+                  <ProtectedRoute>
+                    <MainList />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="transactions-list"
-                element={<MaintransactionsList />}
+                element={
+                  <ProtectedRoute>
+                    <MaintransactionsList />
+                  </ProtectedRoute>
+                }
               />
             </Route>
 

@@ -1,3 +1,4 @@
+import ActionsCell from "@/components/shared/ActionsCell";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
@@ -101,7 +102,8 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
   {
     id: "actions",
     header: "عملیات",
-    cell: () => {
+    cell: ({ row }) => {
+      const news = row.original;
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -141,7 +143,12 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
             }}
             schema={validation}
           />
-          <DeleteDialog onConfirm={() => {}} />
+          <DeleteDialog onConfirm={() => { }} />
+          <ActionsCell
+          actions={[
+            { label: "نمایش جزییات", path: `/news-list/${news.id}` },
+          ]}
+        />
         </div>
       );
     },
