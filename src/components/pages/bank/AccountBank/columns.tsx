@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Modal } from "./Modal";
 import type { ColumnDef } from "@tanstack/react-table";
+import ActionsCell from "@/components/shared/ActionsCell";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
 export interface BankAccount {
   id: string;
@@ -47,15 +49,13 @@ export const useBankColumns = () => {
         const rowData = row.original;
         return (
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setSelectedAccount(rowData)}
-            >
-              ویرایش
-            </Button>
-            <Button variant="destructive" size="sm">حذف</Button>
-            <Button variant="default" size="sm">نمایش</Button>
+            <DeleteDialog onConfirm={() => {}} />
+            <ActionsCell
+          actions={[
+            { label: "نمایش جزییات", path: `/bank/accounts-list-details/${rowData.id}` },
+
+          ]}
+        />
           </div>
         );
       },

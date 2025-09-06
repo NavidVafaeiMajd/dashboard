@@ -64,6 +64,7 @@ import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo";
 import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills";
 import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
 import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes";
+import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails";
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -450,6 +451,7 @@ const LayoutContent = () => {
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+
         </div>
       </div>
     </main>
@@ -460,7 +462,15 @@ const Layout = () => {
   return (
     <AuthProvider>
       <Router>
-        <LayoutContent />
+        <Routes>
+          {/* مسیرهایی که نباید هدر و نوبار داشته باشن */}
+          <Route
+            path="bank/accounts-list-details/:id"
+            element={<AccountsListDetails />}
+          />
+
+          <Route path="/*" element={<LayoutContent />} />
+        </Routes>
       </Router>
     </AuthProvider>
   );
