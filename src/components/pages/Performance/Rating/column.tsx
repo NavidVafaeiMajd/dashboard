@@ -2,6 +2,7 @@ import StarRating from "@/components/shared/StarRating";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 export interface performanceRating extends Record<string, unknown> {
    id: number;
@@ -110,14 +111,15 @@ export const columns: ColumnDef<performanceRating>[] = [
       id: "actions",
       accessorKey: "id",
       header: "عملیات",
-      cell: () => {
+      cell: ({ row }) => {
+         const id = row.original.id;
          return (
             <div className="flex items-center gap-2">
                <Button
                   variant="outline"
                   size="sm"
                >
-                  نمایش جزییات
+                  <Link to={`${id}`}>نمایش جزییات</Link>
                </Button>
                <Button
                   variant="destructive"
