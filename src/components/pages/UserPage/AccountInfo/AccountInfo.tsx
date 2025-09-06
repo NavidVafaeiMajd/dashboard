@@ -33,20 +33,6 @@ const AccountInfo = () => {
           onSubmit={onSubmit}
           className="flex flex-col gap-5"
         >
-          <div className="flex gap-5">
-            <Form.Input
-              label="نام کاربری "
-              name="username"
-              placeholder="نام کاربری"
-              required
-            />
-            <Form.Input
-              label="حساب ایمیل "
-              name="email"
-              placeholder="حساب ایمیل "
-              required
-            />
-          </div>
           <div className="flex flex-col md:flex-row gap-5">
             <Form.Input
               name="monthlySalary"

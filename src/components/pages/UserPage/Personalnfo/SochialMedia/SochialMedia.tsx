@@ -5,7 +5,6 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { validation } from "./validation";
 
-
 const SocialMedia = () => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
@@ -14,6 +13,7 @@ const SocialMedia = () => {
       twitter: "",
       linkedin: "",
       facebook: "",
+      email: "",
     },
   });
 
@@ -49,6 +49,12 @@ const SocialMedia = () => {
         label="فیسبوک"
         name="facebook"
         placeholder="لینک فیسبوک"
+        required
+      />
+      <Form.Input
+        label="حساب ایمیل "
+        name="email"
+        placeholder="حساب ایمیل "
         required
       />
       <div>

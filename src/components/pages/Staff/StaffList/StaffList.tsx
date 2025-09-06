@@ -43,10 +43,6 @@ const StaffList: React.FC = () => {
         </Form.Select>
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Input name="email" label="ایمیل" placeholder="ایمیل" required />
-        <Form.Input name="username" label="نام کاربری" placeholder="نام کاربری" required />
-      </div>
-      <div className="flex flex-col md:flex-row gap-5">
         <Form.Select name="shift" label="شیفت اداره ای" placeholder="شیفت اداره ای" required>
           <Form.SelectItem value="male">آقا</Form.SelectItem>
           <Form.SelectItem value="female">خانم</Form.SelectItem>

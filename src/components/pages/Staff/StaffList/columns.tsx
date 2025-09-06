@@ -66,20 +66,6 @@ export const userColumns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "accessLevel",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          <LuArrowUpDown className="ml-2 h-4 w-4" />
-          سمت سازمانی
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: "status",
     cell(props) {
       const status = props.getValue() as string;
