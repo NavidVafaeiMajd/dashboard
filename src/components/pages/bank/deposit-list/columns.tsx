@@ -1,5 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { EditDialog } from "@/components/shared/EditDialog";
+import ActionsCell from "@/components/shared/ActionsCell";
 import type { ColumnDef } from "@tanstack/react-table";
+import { Form } from "@/components/shared/Form";
+import { z } from "zod";
 
 export interface DepositList {
   id: string;
@@ -12,6 +16,28 @@ export interface DepositList {
   date:  Date;            // تاریخ
   [key: string]: string | number | Date;
 }
+
+export const validation = z.object({
+  accountType: z.string().nonempty("نوع حساب بانکی الزامی است"),
+  amount: z.string().nonempty("مقدار الزامی است"),
+  date: z.date({ error: "تاریخ الزامی است" }),
+  category: z.string().nonempty("دسته بندی الزامی است"),
+  receiver: z.string().nonempty("دریافت کننده وجه الزامی است"),
+  paymentMethod: z.string().nonempty("روش پرداخت الزامی است"),
+  reference: z.string().optional(),
+  description: z.string().optional(),
+});
+
+export const defaultValues = {
+  accountType: "",
+  amount: "",
+  date: new Date(),
+  category: "",
+  receiver: "",
+  paymentMethod: "",
+  reference: "",
+  description: "",
+};
 
 export const columns: ColumnDef<DepositList>[] = [
   {
@@ -76,17 +102,48 @@ export const columns: ColumnDef<DepositList>[] = [
     cell: ({ row }) => {
       const rowData = row.original;
       return (
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
-            ویرایش
-          </Button>
-          <Button variant="destructive" size="sm">
-            حذف
-          </Button>
-          <Button variant="default" size="sm">
-            نمایش
-          </Button>
-        </div>
+<div className="flex items-center gap-2">
+  <EditDialog
+    onSave={() => {}}
+    fields={
+      <>
+        <Form.Select name="bankAccountType" label="نوع حساب بانکی " required >
+          <Form.SelectItem value="1">حساب جاری</Form.SelectItem>
+          <Form.SelectItem value="2">حساب پس انداز</Form.SelectItem>
+        </Form.Select>
+        <Form.Input name="amount" label="مقدار " required />
+        <Form.Date name="date" label="تاریخ "  />
+        <Form.Select name="category" label="دسته بندی " required >
+          <Form.SelectItem value="1">دسته بندی 1</Form.SelectItem>
+          <Form.SelectItem value="2">دسته بندی 2</Form.SelectItem>
+        </Form.Select>
+        <Form.Select name="recipient" label="دریافت کننده وجه " required >
+          <Form.SelectItem value="1">دریافت کننده وجه 1</Form.SelectItem>
+          <Form.SelectItem value="2">دریافت کننده وجه 2</Form.SelectItem>
+        </Form.Select>
+        <Form.Select name="paymentMethod" label="روش پرداخت " required >
+          <Form.SelectItem value="1">روش پرداخت 1</Form.SelectItem>
+          <Form.SelectItem value="2">روش پرداخت 2</Form.SelectItem>
+        </Form.Select>
+        <Form.Input name="reference" label="مرجع #" />
+        <Form.Image name="attachment" label="پیوست هزینه "  />
+        <Form.Textarea name="description" label="شرح" />
+      </>
+    }
+    defaultValues={defaultValues}
+    schema={validation}
+  />
+  <DeleteDialog onConfirm={() => {}} />
+  <ActionsCell
+    actions={[
+      {
+        label: "نمایش جزییات",
+        path: `/bank/deposit-list-details/${rowData.id}`,
+      },
+    ]}
+  />
+</div>
+
       );
     },
   },

@@ -65,6 +65,7 @@ import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingS
 import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
 import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes";
 import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails";
+import DepositListDetails from "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails";
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -463,11 +464,14 @@ const Layout = () => {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* مسیرهایی که نباید هدر و نوبار داشته باشن */}
-          <Route
-            path="bank/accounts-list-details/:id"
-            element={<AccountsListDetails />}
-          />
+            <Route
+              path="bank/accounts-list-details/:id"
+              element={<AccountsListDetails />}
+            />
+            <Route
+              path="bank/deposit-list-details/:id"
+              element={<DepositListDetails />}
+            />
 
           <Route path="/*" element={<LayoutContent />} />
         </Routes>
