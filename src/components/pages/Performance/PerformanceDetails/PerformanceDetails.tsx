@@ -1,4 +1,5 @@
 import StarRating from "@/components/shared/StarRating";
+import { Button } from "@/components/ui/button";
 
 const PerformanceDetails = () => {
    return (
@@ -36,7 +37,27 @@ const PerformanceDetails = () => {
                </div>
             </div>
          </div>
-         <div className="w-full bg-white"></div>
+         <div className="w-full space-y-4">
+            <div className="flex w-full bg-white gap-x-5 py-8 px-4">
+               <Button
+                  size={"lg"}
+                  className="rounded"
+               >
+                  مرور کلی
+               </Button>
+               <Button
+                  size={"lg"}
+                  className="rounded"
+               >
+                  ویرایش
+               </Button>
+            </div>
+            <div className="w-full bg-white ">
+               <div className="w-full p-4 mb-5 border-b-2 border-pink-400">
+                  <h2 className="text-xl">جزییات عملکرد</h2>
+               </div>
+            </div>
+         </div>
       </div>
    );
 };
