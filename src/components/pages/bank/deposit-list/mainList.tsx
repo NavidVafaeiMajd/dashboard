@@ -5,8 +5,10 @@ import { validation } from "./validation";
 import { columns } from "./columns";
 import { Form } from "@/components/shared/Form";
 import { DEPOSIT_LIST } from "./const";
-
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 export default function MainList() {
+  const navigate = useNavigate();
   const defaultValues = {
     accountType: "",
     amount: "",
@@ -110,6 +112,13 @@ export default function MainList() {
         }
         FirstTitle="ثبت جدید هزینه ها"
         SecoundTitle="لیست همه هزینه ها"
+        extraActions={
+          <>
+          <Button onClick={() => navigate("/accounts-list/expense-type")}>
+          دسته بندی ها
+            </Button>
+          </>
+        }
       />
     </div>
   );

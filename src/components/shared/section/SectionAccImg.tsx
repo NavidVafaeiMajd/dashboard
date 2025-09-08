@@ -18,6 +18,7 @@ interface SectionAccProps<T extends z.ZodTypeAny> {
   FirstTitle?: string;
   SecoundTitle?: string;
   FileTitle?: string;
+  extraActions?: React.ReactNode; 
 }
 
 const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
@@ -30,6 +31,7 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
   table,
   FirstTitle = "فرم",
   SecoundTitle = "فرم",
+  extraActions,
 }: SectionAccProps<T>) => {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema as any),
@@ -75,7 +77,8 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
         <div className="border-b-red-500 border-b-2 px-5 py-3 flex justify-between items-center">
           <span>{SecoundTitle}</span>
 
-          <span>
+          <span className="flex items-center gap-2">
+            {extraActions && extraActions}
             <Button onClick={() => setIsOpen((prev) => !prev)}>
               {" "}
               <FaPlus className="w-7 h-7" /> ثبت جدید{" "}

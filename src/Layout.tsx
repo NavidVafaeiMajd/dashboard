@@ -66,6 +66,7 @@ import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
 import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes";
 import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails";
 import DepositListDetails from "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails";
+import ExpenseType from "./components/pages/bank/deposit-list/ExpenseType/ExpenseType";
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -382,6 +383,14 @@ const LayoutContent = () => {
                 element={
                   <ProtectedRoute>
                     <MainList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="expense-type"
+                element={
+                  <ProtectedRoute>
+                    <ExpenseType />
                   </ProtectedRoute>
                 }
               />
