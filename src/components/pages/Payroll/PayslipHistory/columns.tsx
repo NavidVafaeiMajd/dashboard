@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 export interface PayslipHistoryColumnProps extends Record<string, unknown> {
    id: string;
@@ -66,13 +67,22 @@ export const columns: ColumnDef<PayslipHistoryColumnProps>[] = [
    },
    {
       id: "actions",
-      accessorKey: "id",
       header: "عملیات",
-      cell: () => {
+      cell: ({ row }) => {
+         const r = row.original;
+         const monthlySalary = (r.monthlySalary || "0").toString().replace(/[\,\s]/g, "");
+         const salary = (r.salary || "0").toString().replace(/[\,\s]/g, "");
+         const payDate = new Date(r.payDate).getTime();
+         const query = new URLSearchParams({
+            employee: String(r.employee),
+            monthlySalary,
+            salary,
+            payDate: String(payDate),
+         }).toString();
          return (
-            <div className="flex items-center gap-2">
+            <Link to={`/payslip-history/${r.id}?${query}`}>
                <Button>مشاهده فیش حقوقی</Button>
-            </div>
+            </Link>
          );
       },
    },

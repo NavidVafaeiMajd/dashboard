@@ -31,6 +31,7 @@ import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCateg
 import LayoutPayroll from "./components/pages/Payroll/Layout";
 import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
 import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
+import PayslipDetailsPage from "./components/pages/Payroll/PayslipHistory/PayslipDetailsPage";
 import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
 import Leads from "./components/pages/Leads/Leads";
 import LayoutBankaccount from "./components/pages/bank/layoutBank";
@@ -67,6 +68,7 @@ import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsLis
 import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails";
 import DepositListDetails from "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails";
 import ExpenseType from "./components/pages/bank/deposit-list/ExpenseType/ExpenseType";
+import PayrollListDetails from "./components/pages/Payroll/PayrollList/PayrollListDetails/PayrollListDetails";
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -327,6 +329,7 @@ const LayoutContent = () => {
                   </ProtectedRoute>
                 }
               />
+
               <Route
                 path="advance-salary"
                 element={
@@ -480,7 +483,19 @@ const Layout = () => {
             <Route
               path="bank/deposit-list-details/:id"
               element={<DepositListDetails />}
-            />
+          />
+            <Route
+              path="payroll/payroll-list-details/:id"
+              element={<PayrollListDetails />}
+          />
+                        <Route
+                path="payslip-history/:id"
+                element={
+                  <ProtectedRoute>
+                    <PayslipDetailsPage />
+                  </ProtectedRoute>
+                }
+              />
 
           <Route path="/*" element={<LayoutContent />} />
         </Routes>

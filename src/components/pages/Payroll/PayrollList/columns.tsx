@@ -109,7 +109,7 @@ export const columns: ColumnDef<PayrollListColumnProps>[] = [
                   <>
                      <ActionsCell
                         actions={[
-                           { label: "نمایش جزییات", path: `/payroll/payroll-list/${row.original.id}` },
+                           { label: "نمایش جزییات", path: `/payroll/payroll-list-details/${row.original.id}` },
                         ]}
                      />
                      <DeleteDialog onConfirm={() => {}} />
