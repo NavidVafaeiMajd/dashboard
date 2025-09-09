@@ -21,6 +21,7 @@ interface EditDialogProps<T extends z.ZodTypeAny> {
   defaultValues: z.infer<T>;
   onSave: (data: z.infer<T>) => void;
   schema: T;
+  btnTitle?: string;
 }
 
 export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
@@ -30,6 +31,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
   defaultValues,
   onSave,
   schema,
+  btnTitle = "ذخیره",
 }: EditDialogProps<T>) {
   const [open, setOpen] = useState(false);
 
@@ -69,7 +71,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
         >
           {fields}
           <DialogFooter>
-            <Button type="submit">ذخیره</Button>
+            <Button type="submit">{btnTitle}</Button>
           </DialogFooter>
         </Form>
       </DialogContent>

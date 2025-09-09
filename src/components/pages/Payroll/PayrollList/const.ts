@@ -8,7 +8,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "120,000,000",
     salary: "120,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "2",
@@ -17,7 +17,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "85,000,000",
     salary: "85,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "3",
@@ -26,7 +26,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "50,000,000",
     salary: "25,000,000",
-    status: "نیمه‌پرداخت"
+    status: "unpaid"
   },
   {
     id: "4",
@@ -35,7 +35,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "110,000,000",
     salary: "110,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "5",
@@ -44,7 +44,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "90,000,000",
     salary: "0",
-    status: "در انتظار پرداخت"
+  status: "unpaid"
   },
   {
     id: "6",
@@ -53,7 +53,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "130,000,000",
     salary: "130,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "7",
@@ -62,7 +62,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "60,000,000",
     salary: "30,000,000",
-    status: "نیمه‌پرداخت"
+    status: "unpaid"
   },
   {
     id: "8",
@@ -71,7 +71,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "95,000,000",
     salary: "95,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "9",
@@ -80,7 +80,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "100,000,000",
     salary: "0",
-    status: "در انتظار پرداخت"
+    status: "unpaid"
   },
   {
     id: "10",
@@ -89,7 +89,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "45,000,000",
     salary: "45,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "11",
@@ -98,7 +98,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "88,000,000",
     salary: "88,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "12",
@@ -107,7 +107,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "115,000,000",
     salary: "115,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "13",
@@ -116,7 +116,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "55,000,000",
     salary: "0",
-    status: "در انتظار پرداخت"
+    status: "unpaid"
   },
   {
     id: "14",
@@ -125,7 +125,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "92,000,000",
     salary: "46,000,000",
-    status: "نیمه‌پرداخت"
+    status: "unpaid"
   },
   {
     id: "15",
@@ -134,7 +134,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "140,000,000",
     salary: "140,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "16",
@@ -143,7 +143,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "80,000,000",
     salary: "80,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "17",
@@ -152,7 +152,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "40,000,000",
     salary: "20,000,000",
-    status: "نیمه‌پرداخت"
+    status: "unpaid"
   },
   {
     id: "18",
@@ -161,7 +161,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "رسمی",
     monthlySalary: "125,000,000",
     salary: "125,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "19",
@@ -170,7 +170,7 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "قراردادی",
     monthlySalary: "89,000,000",
     salary: "89,000,000",
-    status: "پرداخت‌شده"
+    status: "paid"
   },
   {
     id: "20",
@@ -179,6 +179,6 @@ export const PAYROLL_LIST:PayrollListColumnProps[] = [
     type: "پاره‌وقت",
     monthlySalary: "52,000,000",
     salary: "0",
-    status: "در انتظار پرداخت"
+    status: "unpaid"
   }
 ];

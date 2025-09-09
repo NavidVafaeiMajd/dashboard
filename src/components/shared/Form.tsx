@@ -110,6 +110,7 @@ interface FormInputProps<T extends FieldValues> {
   required?: boolean;
   className?: string;
   inputClassName?: string;
+  disabled?: boolean;
 }
 
 function FormInput<T extends FieldValues>({
@@ -119,6 +120,7 @@ function FormInput<T extends FieldValues>({
   required,
   className,
   inputClassName,
+  disabled,
 }: FormInputProps<T>) {
   const { control } = useFormContextSafe<T>();
 
@@ -135,6 +137,7 @@ function FormInput<T extends FieldValues>({
             <Input
               placeholder={placeholder}
               className={`min-h-12 ${inputClassName ?? ""}`}
+              disabled={disabled}
               {...field}
             />
           </FormControl>
