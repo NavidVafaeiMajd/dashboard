@@ -59,9 +59,9 @@ const Navbar = () => {
                      "hr",
                   ]}
                   dropInfo={[
-                     ["واحد سازمانی ", "hr/departments-list"],
-                     ["سمت سازمانی", "hr/designation-list"],
-                     ["ابلاغیه", "hr/news-list"],
+                     ["واحد سازمانی ", "/hr/departments-list"],
+                     ["سمت سازمانی", "/hr/designation-list"],
+                     ["ابلاغیه", "/hr/news-list"],
                   ]}
                />
                <NavbarItems
@@ -74,9 +74,9 @@ const Navbar = () => {
                      "rollcall",
                   ]}
                   dropInfo={[
-                     [" حضور و غیاب ", "rollcall/attendance-list"],
-                     ["ثبت تردد دستی پرسنل", "rollcall/manual-attendance"],
-                     ["گزارش کارکرد ماهانه", "rollcall/monthly-attendance"],
+                     [" حضور و غیاب ", "/rollcall/attendance-list"],
+                     ["ثبت تردد دستی پرسنل", "/rollcall/manual-attendance"],
+                     ["گزارش کارکرد ماهانه", "/rollcall/monthly-attendance"],
                   ]}
                />
                <NavbarItems
@@ -135,11 +135,11 @@ const Navbar = () => {
                      "performance",
                   ]}
                   dropInfo={[
-                     ["رتبه بندی شاخص ها", "performance/indicator-rating"],
-                     ["ارزیابی کارکنان", "performance/employee-rating"],
-                     ["پیگیری اهداف (OKR)", "performance/track-goals"],
-                     ["تنظیم اندیکاتور", "performance/setup-indicator"],
-                     ["انواع اهداف", "performance/goals-type"],
+                     ["رتبه بندی شاخص ها", "/performance/indicator-rating"],
+                     ["ارزیابی کارکنان", "/performance/employee-rating"],
+                     ["پیگیری اهداف (OKR)", "/performance/track-goals"],
+                     ["تنظیم اندیکاتور", "/performance/setup-indicator"],
+                     ["انواع اهداف", "/performance/goals-type"],
                   ]}
                />
                <NavbarItems
