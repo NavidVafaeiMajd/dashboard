@@ -1,6 +1,10 @@
+import { EditDialog } from "@/components/shared/EditDialog";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { Form } from "@/components/shared/Form";
+import { z } from "zod";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
 export interface leaveTypeColumnProps extends Record<string, unknown> {
    id: string;
@@ -54,18 +58,29 @@ export const columns: ColumnDef<leaveTypeColumnProps>[] = [
       cell: () => {
          return (
             <div className="flex items-center gap-2">
-               <Button
-                  variant="outline"
-                  size="sm"
-               >
-                  ویرایش
-               </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+
+               <EditDialog
+                  onSave={() => {}}
+                  fields={<>
+                     <Form.Input name="name" label="نوع مرخصی" required />
+                     <Form.Input name="daysPerYear" label="روزها در سال" required />
+                     <Form.Select name="requiresApproval" label="نیاز به تایید دارد" required >
+                        <Form.SelectItem value="1">بله</Form.SelectItem>
+                        <Form.SelectItem value="2">خیر</Form.SelectItem>
+                     </Form.Select>
+                  </>}
+                  defaultValues={{
+                     name: "",
+                     daysPerYear: "",
+                     requiresApproval: "",
+                  }}
+                  schema={z.object({
+                     name: z.string().min(1, "نوع مرخصی الزامی است"),
+                     daysPerYear: z.string().min(1, "روزها در سال الزامی است"),
+                     requiresApproval: z.string().min(1, "نیاز به تایید دارد الزامی است"),
+                  })}
+               />
+               <DeleteDialog onConfirm={() => {}} />
             </div>
          );
       },
