@@ -2,6 +2,10 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { LuArrowUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { EditDialog } from "@/components/shared/EditDialog";
+import { z } from "zod";
+import { Form } from "@/components/shared/Form";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
 export interface LeaveRequest {
   id: number;
@@ -130,8 +134,23 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
           <Link to={`/leave/details/${r.id}?${query}`}>
             <Button size="sm">نمایش جزییات</Button>
           </Link>
-          <Button variant="outline" size="sm">ویرایش</Button>
-          <Button variant="destructive" size="sm">حذف</Button>
+          <EditDialog
+            fields={<>
+              <Form.Textarea name="notes" label="ملاحظات" />
+              <Form.Textarea name="reason" label="دلیل مرخصی" />
+              
+            </>}
+            defaultValues={{
+              notes: "",
+              reason: "",
+            }}
+            onSave={() => {}}
+            schema={z.object({
+              notes: z.string( ).min(1, "ملاحظات الزامی است"),
+              reason: z.string().min(1, "دلیل مرخصی الزامی است"),
+            })}
+          />
+          <DeleteDialog onConfirm={() => {}} />
         </div>
       );
     },
