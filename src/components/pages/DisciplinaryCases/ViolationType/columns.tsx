@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { EditDialog } from "@/components/shared/EditDialog";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { Form } from "@/components/shared/Form";
+import { z } from "zod";
 
 export interface violationTypeColumnProps extends Record<string, unknown> {
    id: string;
@@ -36,22 +40,25 @@ export const columns: ColumnDef<violationTypeColumnProps>[] = [
       accessorKey: "id",
       id: "actions",
       header: "عملیات",
-
-      cell: () => {
+      cell: ({ row }) => {
+         const r = row.original;
          return (
             <div className="flex items-center gap-2">
-               <Button
-                  variant="outline"
-                  size="sm"
-               >
-                  ویرایش
-               </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <EditDialog
+                  title="ویرایش نوع پرونده"
+                  triggerLabel="ویرایش"
+                  defaultValues={{ name: String((r as any).name || "") }}
+                  schema={z.object({ name: z.string().min(1, "نام الزامی است") })}
+                  onSave={(vals) => {
+                     console.log("save violation type", r.id, vals);
+                  }}
+                  fields={
+                     <>
+                        <Form.Input name="name" label="نوع پرونده" required />
+                     </>
+                  }
+               />
+               <DeleteDialog onConfirm={() => console.log("delete violation type", r.id)} />
             </div>
          );
       },
