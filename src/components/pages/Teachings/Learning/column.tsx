@@ -75,18 +75,64 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
             <Button size="sm">نمایش جزییات</Button>
           </Link>
           <EditDialog
-            fields={<>
-              <Form.Textarea name="notes" label="ملاحظات" />
-              <Form.Textarea name="reason" label="دلایل" />
-            </>}
+            title="ویرایش  "
+            triggerLabel="ویرایش"
+            fields={
+              <>
+                <Form.Select name="infoTecher" label=" مهارت آموزشی" required>
+                  <Form.SelectItem value="1">مهارت آموزشی 1</Form.SelectItem>
+                  <Form.SelectItem value="2">مهارت آموزشی 2</Form.SelectItem>
+                </Form.Select>
+                <Form.Select name="skillslearn" label=" مشخصات مدرس" required>
+                  <Form.SelectItem value="1">مشخصات مدرس 1</Form.SelectItem>
+                  <Form.SelectItem value="2">مشخصات مدرس 2</Form.SelectItem>
+                </Form.Select>
+                <Form.Input name="priceLearn" label=" هزینه آموزش " required />
+                <Form.MultiSelect
+                    label="پرسنل"
+                    name="personnel"
+                    options={[
+                      { label: "پرسنل 1", value: "1" },
+                      { label: "پرسنل 2", value: "2" },
+                    ]}
+                    required
+                />
+                                    <Form.Date name="startDate" label=" تاریخ شروع  " />
+                                    <Form.Date name="finishtDate" label=" تاریخ پایان " />
+
+                <Form.Select name="goalsRelated" label=" اهداف مرتبط" required>
+                  <Form.SelectItem value="1">اهداف مرتبط 1</Form.SelectItem>
+                  <Form.SelectItem value="2">اهداف مرتبط 2</Form.SelectItem>
+                </Form.Select>
+                <Form.RichText name="text" label=" شرح "  required />
+
+              </>
+            }
             defaultValues={{
-              notes: "",
-              reason: "",
+              infoTecher: "",
+              skillslearn: "",
+              priceLearn: "",
+              status: "",
+              startDate: new Date(),
+              finishtDate: new Date(),
+              text: "",
+              goalsRelated: "",
+              personnel: "",
             }}
-            onSave={() => {}}
+            onSave={(data) => {
+              console.log(data);
+            }}
             schema={z.object({
-              notes: z.string().min(1, "ملاحظات الزامی است"),
-              reason: z.string().min(1, "دلایل الزامی است"),
+
+              infoTecher: z.string().min(1, "مشخصات مدرس الزامی است"),
+              skillslearn: z.string().min(1, "مهارت آموزشی الزامی است"),
+              priceLearn: z.string().min(1, "هزینه آموزش الزامی است"),
+              status: z.string().min(1, "پرسنل الزامی است"),
+              startDate: z.date( { error: "تاریخ شروع الزامی است" }),
+              finishtDate: z.date( { error: "تاریخ پایان الزامی است" }),
+              text: z.string().min(1, "شرح الزامی است"),
+              goalsRelated: z.string().min(1, "اهداف مرتبط الزامی است"),
+              personnel: z.string().min(1, "پرسنل الزامی است"),
             })}
           />
           <DeleteDialog onConfirm={() => {}} />
