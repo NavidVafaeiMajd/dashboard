@@ -62,6 +62,7 @@ import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
 import AuthProvider from "./Context/AuthContext";
 import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
 import LearningPage from "./components/pages/Teachings/Learning/mainLearing";
+import LearningDetailsPage from "./components/pages/Teachings/Learning/LearningDetailsPage";
 import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo";
 import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills";
 import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
@@ -497,6 +498,8 @@ const Layout = () => {
             }
           />
           <Route path="leave/details/:id" element={<LeaveDetailsPage />} />
+          <Route path="learning/details/:id" element={<LearningDetailsPage />} />
+
 
           <Route path="/*" element={<LayoutContent />} />
         </Routes>
