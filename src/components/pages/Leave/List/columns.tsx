@@ -1,6 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { LuArrowUpDown } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 export interface LeaveRequest {
   id: number;
@@ -115,17 +116,22 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
     id: "actions",
     header: "عملیات",
     cell: ({ row }) => {
+      const r = row.original;
+      const query = new URLSearchParams({
+        employee: String(r.employee),
+        leaveType: String(r.leaveType),
+        duration: String(r.duration),
+        days: String(r.days),
+        requestDate: String(new Date(r.requestDate).getTime()),
+        status: String(r.status),
+      }).toString();
       return (
         <div className="flex items-center gap-2">
-          <Button size="sm">
-            نمایش جزییات
-          </Button>
-          <Button variant="outline" size="sm">
-            ویرایش
-          </Button>
-          <Button variant="destructive" size="sm">
-            حذف
-          </Button>
+          <Link to={`/leave/details/${r.id}?${query}`}>
+            <Button size="sm">نمایش جزییات</Button>
+          </Link>
+          <Button variant="outline" size="sm">ویرایش</Button>
+          <Button variant="destructive" size="sm">حذف</Button>
         </div>
       );
     },

@@ -50,6 +50,7 @@ import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupI
 import GoalType from "./components/pages/Performance/GoalType/GoalType";
 import LayoutLeave from "./components/pages/Leave/Layout";
 import LeaveList from "./components/pages/Leave/List/LeaveList";
+import LeaveDetailsPage from "./components/pages/Leave/List/LeaveDetailsPage";
 import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import PublicRoute from "./PublicRoute/PublicRoute";
@@ -464,7 +465,6 @@ const LayoutContent = () => {
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-
         </div>
       </div>
     </main>
@@ -476,26 +476,27 @@ const Layout = () => {
     <AuthProvider>
       <Router>
         <Routes>
-            <Route
-              path="bank/accounts-list-details/:id"
-              element={<AccountsListDetails />}
-            />
-            <Route
-              path="bank/deposit-list-details/:id"
-              element={<DepositListDetails />}
+          <Route
+            path="bank/accounts-list-details/:id"
+            element={<AccountsListDetails />}
           />
-            <Route
-              path="payroll/payroll-list-details/:id"
-              element={<PayrollListDetails />}
+          <Route
+            path="bank/deposit-list-details/:id"
+            element={<DepositListDetails />}
           />
-                        <Route
-                path="payslip-history/:id"
-                element={
-                  <ProtectedRoute>
-                    <PayslipDetailsPage />
-                  </ProtectedRoute>
-                }
-              />
+          <Route
+            path="payroll/payroll-list-details/:id"
+            element={<PayrollListDetails />}
+          />
+          <Route
+            path="payslip-history/:id"
+            element={
+              <ProtectedRoute>
+                <PayslipDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="leave/details/:id" element={<LeaveDetailsPage />} />
 
           <Route path="/*" element={<LayoutContent />} />
         </Routes>
