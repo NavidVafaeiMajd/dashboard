@@ -46,7 +46,8 @@ import EmployeDetailse from "./components/pages/UserPage/UserPage";
 import NotFound from "./NotFound";
 import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
 import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
-import SetupIndicator from "./components/pages/Performance/SetupIndicator/SetupIndicator";
+import TechnicalIndicator from "./components/pages/Performance/SetupIndicator/TechnicalIndicator";
+import BehavioralIndicator from "./components/pages/Performance/SetupIndicator/BehavioralIndicator";
 import GoalType from "./components/pages/Performance/GoalType/GoalType";
 import LayoutLeave from "./components/pages/Leave/Layout";
 import LeaveList from "./components/pages/Leave/List/LeaveList";
@@ -458,7 +459,11 @@ const LayoutContent = () => {
                      />
                      <Route
                         path="setup-indicator"
-                        element={<SetupIndicator />}
+                        element={<TechnicalIndicator />}
+                     />
+                     <Route
+                        path="behavioral"
+                        element={<BehavioralIndicator />}
                      />
                      <Route
                         path="goals-type"

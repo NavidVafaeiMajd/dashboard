@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { EditDialog } from "@/components/shared/EditDialog";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { Form } from "@/components/shared/Form";
+import { z } from "zod";
 
 export interface setupIndicator extends Record<string, unknown> {
    id: number;
@@ -49,21 +53,25 @@ export const columns: ColumnDef<setupIndicator>[] = [
       id: "actions",
       accessorKey: "id",
       header: "عملیات",
-      cell: () => {
+      cell: ({ row }) => {
+         const r = row.original as setupIndicator;
          return (
             <div className="flex items-center gap-2">
-               <Button
-                  variant="outline"
-                  size="sm"
-               >
-                  ویرایش
-               </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <EditDialog
+                  title="ویرایش"
+                  triggerLabel="ویرایش"
+                  defaultValues={{ sorting: String(r.sorting || "") }}
+                  schema={z.object({ sorting: z.string().min(1, "فیلد الزامی است") })}
+                  onSave={(vals) => {
+                     console.log("save setup-indicator", r.id, vals);
+                  }}
+                  fields={
+                     <>
+                        <Form.Input name="sorting" label="دسته بندی" required />
+                     </>
+                  }
+               />
+               <DeleteDialog onConfirm={() => console.log("delete setup-indicator", r.id)} />
             </div>
          );
       },
