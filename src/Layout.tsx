@@ -2,10 +2,10 @@ import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Desk from "./components/pages/Desk";
 import {
-   BrowserRouter as Router,
-   Routes,
-   Route,
-   useLocation,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
 } from "react-router-dom";
 import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
 import StaffList from "./components/pages/Staff/StaffList/StaffList";
@@ -71,112 +71,113 @@ import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsLis
 import DepositListDetails from "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails";
 import ExpenseType from "./components/pages/bank/deposit-list/ExpenseType/ExpenseType";
 import PayrollListDetails from "./components/pages/Payroll/PayrollList/PayrollListDetails/PayrollListDetails";
-import PerformanceDetails from "./components/pages/Performance/PerformanceDetails/PerformanceDetails";
+import IndicatorRatingDetails from "./components/pages/Performance/PerformanceDetails/IndicatorRatingDetails";
+import EmployeeRatingDetailes from "./components/pages/Performance/PerformanceDetails/EmployeeRatingDetailes";
 
 const LayoutContent = () => {
-   const { toggleNavbar, isNavbarOpen } = useNavbar();
-   const location = useLocation();
+  const { toggleNavbar, isNavbarOpen } = useNavbar();
+  const location = useLocation();
 
-   const isLoginPage = location.pathname === "/login";
+  const isLoginPage = location.pathname === "/login";
 
-   const handleDataFromChild = () => {
-      toggleNavbar();
-   };
+  const handleDataFromChild = () => {
+    toggleNavbar();
+  };
 
-   return (
-      <main className="w-full! min-h-screen flex flex-col">
-         {/* فقط وقتی صفحه login نیست، هدر نمایش داده می‌شود */}
-         {!isLoginPage && (
-            <div className="fixed z-100 w-full">
-               <Header headerMenu={handleDataFromChild} />
-            </div>
-         )}
+  return (
+    <main className="w-full! min-h-screen flex flex-col">
+      {/* فقط وقتی صفحه login نیست، هدر نمایش داده می‌شود */}
+      {!isLoginPage && (
+        <div className="fixed z-100 w-full">
+          <Header headerMenu={handleDataFromChild} />
+        </div>
+      )}
 
          <ToastContainer
             toastClassName="custom-toast-font"
             position="top-right"
          />
 
-         <div
-            className={`flex flex-1 gap-[3.5rem] py-5 ${
-               !isLoginPage ? "lg:mt-[75px] mt-[60px]" : ""
-            } max-lg:flex-col`}
-         >
-            {/* فقط وقتی صفحه login نیست، نوبار نمایش داده می‌شود */}
-            {!isLoginPage && (
-               <div
-                  className={`w-[25%] overflow-auto ${
-                     isNavbarOpen ? "show" : "max-lg:hidden"
-                  }`}
-               >
-                  <Navbar />
-                  <div
-                     onClick={toggleNavbar}
-                     className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"
-                  />
-               </div>
-            )}
-
+      <div
+        className={`flex flex-1 gap-[3.5rem] py-5 ${
+          !isLoginPage ? "lg:mt-[75px] mt-[60px]" : ""
+        } max-lg:flex-col`}
+      >
+        {/* فقط وقتی صفحه login نیست، نوبار نمایش داده می‌شود */}
+        {!isLoginPage && (
+          <div
+            className={`w-[25%] overflow-auto ${
+              isNavbarOpen ? "show" : "max-lg:hidden"
+            }`}
+          >
+            <Navbar />
             <div
-               className={`${
+              onClick={toggleNavbar}
+              className="max-lg:bg-black/50 md:hidden fixed h-full w-full z-9"
+            />
+          </div>
+        )}
+
+        <div
+          className={`${
                   !isLoginPage
                      ? "lg:w-[100%] overflow-auto px-5 md:px-10"
                      : "w-full"
-               }`}
+          }`}
+        >
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path="login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+
+            {/* Protected Routes */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Desk />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="users/:id"
+              element={
+                <ProtectedRoute>
+                  <EmployeDetailse />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="clients/:id"
+              element={
+                <ProtectedRoute>
+                  <ClientPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="news-list/:id"
+              element={
+                <ProtectedRoute>
+                  <NewsListDetailes />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="staff"
+              element={
+                <ProtectedRoute>
+                  <LayoutStaffList />
+                </ProtectedRoute>
+              }
             >
-               <Routes>
-                  {/* Public Routes */}
-                  <Route
-                     path="login"
-                     element={
-                        <PublicRoute>
-                           <LoginPage />
-                        </PublicRoute>
-                     }
-                  />
-
-                  {/* Protected Routes */}
-                  <Route
-                     path="/"
-                     element={
-                        <ProtectedRoute>
-                           <Desk />
-                        </ProtectedRoute>
-                     }
-                  />
-                  <Route
-                     path="users/:id"
-                     element={
-                        <ProtectedRoute>
-                           <EmployeDetailse />
-                        </ProtectedRoute>
-                     }
-                  />
-                  <Route
-                     path="clients/:id"
-                     element={
-                        <ProtectedRoute>
-                           <ClientPage />
-                        </ProtectedRoute>
-                     }
-                  />
-                  <Route
-                     path="news-list/:id"
-                     element={
-                        <ProtectedRoute>
-                           <NewsListDetailes />
-                        </ProtectedRoute>
-                     }
-                  />
-
-                  <Route
-                     path="staff"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutStaffList />
-                        </ProtectedRoute>
-                     }
-                  >
                      <Route
                         index
                         element={<StaffList />}
@@ -193,137 +194,137 @@ const LayoutContent = () => {
                         path="employ-exit"
                         element={<EmployExit />}
                      />
-                  </Route>
+            </Route>
 
-                  <Route
-                     path="hr"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutHumanResource />
-                        </ProtectedRoute>
-                     }
-                  >
-                     <Route
-                        path="departments-list"
-                        element={
-                           <ProtectedRoute>
-                              <OrganizationalUnit />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="designation-list"
-                        element={
-                           <ProtectedRoute>
-                              <OrganizationalPosition />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="office-shifts"
-                        element={
-                           <ProtectedRoute>
-                              <OfficeShifts />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="policies-list"
-                        element={
-                           <ProtectedRoute>
-                              <Policies />
-                           </ProtectedRoute>
-                        }
-                     />
+            <Route
+              path="hr"
+              element={
+                <ProtectedRoute>
+                  <LayoutHumanResource />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                path="departments-list"
+                element={
+                  <ProtectedRoute>
+                    <OrganizationalUnit />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="designation-list"
+                element={
+                  <ProtectedRoute>
+                    <OrganizationalPosition />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="office-shifts"
+                element={
+                  <ProtectedRoute>
+                    <OfficeShifts />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="policies-list"
+                element={
+                  <ProtectedRoute>
+                    <Policies />
+                  </ProtectedRoute>
+                }
+              />
 
-                     <Route
-                        path="news-list"
-                        element={
-                           <ProtectedRoute>
-                              <NewsList />
-                           </ProtectedRoute>
-                        }
-                     />
-                  </Route>
+              <Route
+                path="news-list"
+                element={
+                  <ProtectedRoute>
+                    <NewsList />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
-                  <Route
-                     path="rollcall"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutRollCall />
-                        </ProtectedRoute>
-                     }
-                  >
-                     <Route
-                        path="attendance-list"
-                        element={
-                           <ProtectedRoute>
-                              <AttendanceList />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="monthly-attendance"
-                        element={
-                           <ProtectedRoute>
-                              <MonthlyAttendance />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="manual-attendance"
-                        element={
-                           <ProtectedRoute>
-                              <ManualAttendance />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="overtime-request"
-                        element={
-                           <ProtectedRoute>
-                              <OverTimeRequest />
-                           </ProtectedRoute>
-                        }
-                     />
-                  </Route>
+            <Route
+              path="rollcall"
+              element={
+                <ProtectedRoute>
+                  <LayoutRollCall />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                path="attendance-list"
+                element={
+                  <ProtectedRoute>
+                    <AttendanceList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="monthly-attendance"
+                element={
+                  <ProtectedRoute>
+                    <MonthlyAttendance />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="manual-attendance"
+                element={
+                  <ProtectedRoute>
+                    <ManualAttendance />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="overtime-request"
+                element={
+                  <ProtectedRoute>
+                    <OverTimeRequest />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
-                  <Route
-                     path="exit-type"
-                     element={
-                        <ProtectedRoute>
-                           <ProtectedRoute>
-                              <ExitType />
-                           </ProtectedRoute>
-                        </ProtectedRoute>
-                     }
-                  />
+            <Route
+              path="exit-type"
+              element={
+                <ProtectedRoute>
+                  <ProtectedRoute>
+                    <ExitType />
+                  </ProtectedRoute>
+                </ProtectedRoute>
+              }
+            />
 
-                  <Route
-                     path="employeeCert"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutEmploymentCertificate />
-                        </ProtectedRoute>
-                     }
-                  >
-                     <Route
-                        path="assets-list"
-                        element={
-                           <ProtectedRoute>
-                              <AssetsList />
-                           </ProtectedRoute>
-                        }
-                     />
-                     <Route
-                        path="assets-category"
-                        element={
-                           <ProtectedRoute>
-                              <AssetsCategory />
-                           </ProtectedRoute>
-                        }
-                     />
-                  </Route>
+            <Route
+              path="employeeCert"
+              element={
+                <ProtectedRoute>
+                  <LayoutEmploymentCertificate />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                path="assets-list"
+                element={
+                  <ProtectedRoute>
+                    <AssetsList />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="assets-category"
+                element={
+                  <ProtectedRoute>
+                    <AssetsCategory />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
             <Route
               path="payroll"
@@ -360,22 +361,22 @@ const LayoutContent = () => {
               />
             </Route>
 
-                  <Route
-                     path="leads"
-                     element={
-                        <ProtectedRoute>
-                           <Leads />
-                        </ProtectedRoute>
-                     }
-                  />
-                  <Route
-                     path="leads/:id"
-                     element={
-                        <ProtectedRoute>
-                           <LeadPage />
-                        </ProtectedRoute>
-                     }
-                  />
+            <Route
+              path="leads"
+              element={
+                <ProtectedRoute>
+                  <Leads />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="leads/:id"
+              element={
+                <ProtectedRoute>
+                  <LeadPage />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="accounts-list"
@@ -427,21 +428,25 @@ const LayoutContent = () => {
               />
             </Route>
 
-                  <Route
-                     path="performance"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutPerformance />
-                        </ProtectedRoute>
-                     }
-                  >
+            <Route
+              path="performance"
+              element={
+                <ProtectedRoute>
+                  <LayoutPerformance />
+                </ProtectedRoute>
+              }
+            >
                      <Route
                         path="indicator-rating"
                         element={<PerformanceRating />}
                      />
                      <Route
-                        element={<PerformanceDetails />}
+                        element={<IndicatorRatingDetails />}
                         path="indicator-rating/:id"
+              />
+                                   <Route
+                        element={<EmployeeRatingDetailes />}
+                        path="employee-rating/:id"
                      />
                      <Route
                         path="employee-rating"
@@ -459,16 +464,16 @@ const LayoutContent = () => {
                         path="goals-type"
                         element={<GoalType />}
                      />
-                  </Route>
+            </Route>
 
-                  <Route
-                     path="leave"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutLeave />
-                        </ProtectedRoute>
-                     }
-                  >
+            <Route
+              path="leave"
+              element={
+                <ProtectedRoute>
+                  <LayoutLeave />
+                </ProtectedRoute>
+              }
+            >
                      <Route
                         path="list"
                         element={<LeaveList />}
@@ -477,16 +482,16 @@ const LayoutContent = () => {
                         path="type"
                         element={<LeaveType />}
                      />
-                  </Route>
+            </Route>
 
-                  <Route
-                     path="disciplinary"
-                     element={
-                        <ProtectedRoute>
-                           <LayoutDisciplinaryCases />
-                        </ProtectedRoute>
-                     }
-                  >
+            <Route
+              path="disciplinary"
+              element={
+                <ProtectedRoute>
+                  <LayoutDisciplinaryCases />
+                </ProtectedRoute>
+              }
+            >
                      <Route
                         path="list"
                         element={<DisciplinaryList />}
@@ -495,7 +500,7 @@ const LayoutContent = () => {
                         path="type"
                         element={<ViolationType />}
                      />
-                  </Route>
+            </Route>
 
                   <Route
                      path="teaching"
@@ -513,27 +518,27 @@ const LayoutContent = () => {
                         path="traningskills"
                         element={<TraningSkills />}
                      />
-                  </Route>
+            </Route>
 
-                  <Route
-                     path="clients-list"
-                     element={
-                        <ProtectedRoute>
-                           <MainclientsList />
-                        </ProtectedRoute>
-                     }
-                  />
+            <Route
+              path="clients-list"
+              element={
+                <ProtectedRoute>
+                  <MainclientsList />
+                </ProtectedRoute>
+              }
+            />
 
-                  {/* Not Found */}
+            {/* Not Found */}
                   <Route
                      path="*"
                      element={<NotFound />}
                   />
-               </Routes>
-            </div>
-         </div>
-      </main>
-   );
+          </Routes>
+        </div>
+      </div>
+    </main>
+  );
 };
 
 const Layout = () => {
@@ -541,18 +546,18 @@ const Layout = () => {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route
-            path="bank/accounts-list-details/:id"
-            element={<AccountsListDetails />}
+            <Route
+              path="bank/accounts-list-details/:id"
+              element={<AccountsListDetails />}
+            />
+            <Route
+              path="bank/deposit-list-details/:id"
+              element={<DepositListDetails />}
           />
-          <Route
-            path="bank/deposit-list-details/:id"
-            element={<DepositListDetails />}
-          />
-          <Route
-            path="payroll/payroll-list-details/:id"
-            element={<PayrollListDetails />}
-          />
+            <Route
+              path="payroll/payroll-list-details/:id"
+              element={<PayrollListDetails />}
+            />
           <Route
             path="payslip-history/:id"
             element={

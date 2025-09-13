@@ -67,14 +67,14 @@ const PayrollListDetails = () => {
             <div className="flex items-center justify-between">
               <span className="text-gray-600">تاریخ پرداخت :</span>
               <span className="text-gray-800">{payDate}</span>
-            </div>
+        </div>
             <div className="pt-2 border-t">
               <div className="flex items-center justify-between">
                 <span className="text-gray-700 font-medium">خالص پرداختی</span>
                 <span className="text-indigo-600 font-semibold">{toIRR(netPay)}</span>
-              </div>
-            </div>
-          </div>
+        </div>
+      </div>
+        </div>
         </div>
       </div>
 

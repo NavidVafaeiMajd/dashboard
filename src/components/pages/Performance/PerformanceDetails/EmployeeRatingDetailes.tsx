@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 
-const PerformanceDetails = () => {
+const EmployeeRatingDetailes = () => {
    const defaultValues = {
       name: "",
       position: "",
@@ -174,4 +174,4 @@ const PerformanceDetails = () => {
       </div>
    );
 };
-export default PerformanceDetails;
+export default EmployeeRatingDetailes;
