@@ -1,8 +1,12 @@
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { EditDialog } from "@/components/shared/EditDialog";
+import { Form } from "@/components/shared/Form";
 import ProgressBar from "@/components/shared/ProgressBar";
 import StarRating from "@/components/shared/StarRating";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
+import { z } from "zod";
 
 export interface trackGoals extends Record<string, unknown> {
    id: number;
@@ -11,7 +15,7 @@ export interface trackGoals extends Record<string, unknown> {
    startDate: Date;
    endDate: Date;
    totalRating: number;
-   progress: number;
+   progress: string;
 }
 
 export const columns: ColumnDef<trackGoals>[] = [
@@ -140,18 +144,38 @@ export const columns: ColumnDef<trackGoals>[] = [
       cell: () => {
          return (
             <div className="flex items-center gap-2">
-               <Button
-                  variant="outline"
-                  size="sm"
-               >
-                  نمایش جزییات
-               </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <EditDialog
+                  triggerLabel="ویرایش"
+                  defaultValues={{
+                     typeOfGoal: "",
+                     title: "",
+                     startDate: new Date(),
+                     endDate: new Date(),
+                     totalRating: 0,
+                  }}
+                  fields={
+                     <>
+                        <Form.Input name="typeOfGoal" label="نوع هدف" required />
+                        <Form.Input name="title" label="موضوع" required />
+                        <Form.Date name="startDate" label="تاریخ شروع"  />
+                        <Form.Date name="endDate" label="تاریخ پایان"  />
+                        <Form.Input name="totalRating" label=" دستیابی به هدف " required />
+                     </>
+
+                  }
+                  onSave={() => { }}
+                  schema={z.object({
+                     typeOfGoal: z.string().min(1, "نوع هدف الزامی است"),
+                     title: z.string().min(1, "موضوع الزامی است"),
+                     startDate: z.date(),
+                     endDate: z.date(),
+                     totalRating: z.number().min(1, "دستیابی به هدف الزامی است"),
+                  })}
+
+               />
+               <DeleteDialog onConfirm={() => { }} />
+               
+               
             </div>
          );
       },
