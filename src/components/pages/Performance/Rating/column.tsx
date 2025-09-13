@@ -1,3 +1,4 @@
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import StarRating from "@/components/shared/StarRating";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -121,12 +122,7 @@ export const columns: ColumnDef<performanceRating>[] = [
                >
                   <Link to={`${id}`}>نمایش جزییات</Link>
                </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <DeleteDialog onConfirm={() => {}} />
             </div>
          );
       },

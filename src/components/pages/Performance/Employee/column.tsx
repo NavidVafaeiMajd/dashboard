@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
 export interface employeeRating extends Record<string, unknown> {
    id: number;
@@ -143,12 +144,7 @@ export const columns: ColumnDef<employeeRating>[] = [
                >
                   <Link to={`${id}`}>نمایش جزییات</Link>
                </Button>
-               <Button
-                  variant="destructive"
-                  size="sm"
-               >
-                  حذف
-               </Button>
+               <DeleteDialog onConfirm={() => {}} />
             </div>
          );
       },
