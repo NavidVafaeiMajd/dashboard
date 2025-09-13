@@ -13,8 +13,6 @@ const AccountInfo = () => {
       username: "",
       email: "",
       monthlySalary: "",
-      dailySalary: "",
-      salaryType: "",
     },
   });
   const onSubmit = (data: z.infer<typeof validation>) => {
@@ -40,21 +38,6 @@ const AccountInfo = () => {
               placeholder="دستمزد ماهانه"
               required
             />
-            <Form.Input
-              name="dailySalary"
-              label="دستمزد روزانه"
-              placeholder="دستمزد روزانه"
-              required
-            />
-            <Form.Select
-              name="salaryType"
-              label="نوع  فیش حقوقی"
-              placeholder="نوع  فیش حقوقی"
-              required
-            >
-              <Form.SelectItem value="male">آقا</Form.SelectItem>
-              <Form.SelectItem value="female">خانم</Form.SelectItem>
-            </Form.Select>
           </div>
 
           <div>

@@ -12,8 +12,7 @@ const EmergencyCall = () => {
     defaultValues: {
       fullName: "",
       phoneNumber: "",
-      email: "",
-      address: "",
+
     },
   });
 
@@ -33,18 +32,6 @@ const EmergencyCall = () => {
         label="شماره تماس"
         name="phoneNumber"
         placeholder="شماره تماس"
-        required
-      />
-      <Form.Input
-        label="ایمیل"
-        name="email"
-        placeholder="ایمیل"
-        required
-      />
-      <Form.Textarea
-        label="نشانی"
-        name="address"
-        placeholder="نشانی"
         required
       />
       <div>

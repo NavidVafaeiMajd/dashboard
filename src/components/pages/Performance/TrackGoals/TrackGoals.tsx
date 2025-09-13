@@ -25,15 +25,12 @@ const TrackGoals = () => {
         formFields={
           <>
             <div className="flex justify-between items-center gap-x-5">
-              <Form.Select
+              <Form.Input
                 label="انواع هدف"
                 name="purposeType"
                 placeholder="انواع هدف"
                 required
-              >
-                <Form.SelectItem value="purpose 1">هدف 1</Form.SelectItem>
-                <Form.SelectItem value="purpose 2">هدف 2</Form.SelectItem>
-              </Form.Select>
+              />
 
               <Form.Input
                 label="موضوع"

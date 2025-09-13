@@ -71,18 +71,6 @@ export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
       ),
    },
    {
-      accessorKey: "filedBy",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            پرونده توسط
-         </Button>
-      ),
-   },
-   {
       accessorKey: "id",
       id: "actions",
       header: "عملیات",

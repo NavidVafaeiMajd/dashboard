@@ -36,7 +36,7 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
   },
   {
     accessorKey: "status",
-    header: "پرسنل",
+    header: "تعداد دانشجو",
     cell: ({ row }) => <div className="text-center">{row.getValue("status")}</div>,
   },
   {
