@@ -3,7 +3,6 @@ import { CiHome } from "react-icons/ci";
 import { FiUsers } from "react-icons/fi";
 import { TfiTarget } from "react-icons/tfi";
 import { GoClock } from "react-icons/go";
-import { MdPayment } from "react-icons/md";
 import { AiOutlineMobile } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { FiUserPlus } from "react-icons/fi";
@@ -84,18 +83,6 @@ const Navbar = () => {
                   itemInfo={[
                      <>
                         {" "}
-                        <MdPayment className="w-7 h-7" />
-                        حساب بانکی{" "}
-                     </>,
-                     "/accounts-list",
-                  ]}
-                  dropInfo={[]}
-               />
-               <NavbarItems
-                  DropMenu={false}
-                  itemInfo={[
-                     <>
-                        {" "}
                         <AiOutlineMobile className="w-7 h-7" /> عملیات حقوق
                      </>,
                      "/payroll/payroll-list",
@@ -139,7 +126,6 @@ const Navbar = () => {
                      ["ارزیابی کارکنان", "/performance/employee-rating"],
                      ["پیگیری اهداف (OKR)", "/performance/track-goals"],
                      ["تنظیم اندیکاتور", "/performance/setup-indicator"],
-                     ["انواع اهداف", "/performance/goals-type"],
                   ]}
                />
                <NavbarItems

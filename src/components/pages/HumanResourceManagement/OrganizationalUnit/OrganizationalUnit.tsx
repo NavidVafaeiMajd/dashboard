@@ -15,13 +15,10 @@ const OrganizationalUnit = () => {
 
   const defaultValues = {
     name: "",
-    unitBoss: "",
   };
 
   const onSubmit = (data: z.infer<typeof validation>) => {
      console.log(data);
-     ORGANIZATIONAL_UNIT_DATA.push({ ...data, id: ORGANIZATIONAL_UNIT_DATA.length + 1, createdAt: new Date() });
-     console.log(ORGANIZATIONAL_UNIT_DATA);
   };
 
   return (
@@ -31,11 +28,6 @@ const OrganizationalUnit = () => {
         schema={validation}
            formFields={<>
            <Form.Input name="name" label="نام" required placeholder="نام واحد سازمانی"/>
-           <Form.Select name="unitBoss" label="رئیس واحد" required placeholder="انتخاب رئیس واحد">
-            <Form.SelectItem value="boss1">رئیس 1</Form.SelectItem>
-            <Form.SelectItem value="boss2">رئیس 2</Form.SelectItem>
-            <Form.SelectItem value="boss3">رئیس 3</Form.SelectItem>
-           </Form.Select>
            </>}
         FirstTitle="ثبت جدید واحد سازمانی"
         SecoundTitle="لیست همه واحدها"
