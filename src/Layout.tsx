@@ -6,6 +6,7 @@ import {
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
 import StaffList from "./components/pages/Staff/StaffList/StaffList";
@@ -60,7 +61,7 @@ import LeaveType from "./components/pages/Leave/LeaveType";
 import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
 import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
 import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
-import AuthProvider from "./Context/AuthContext";
+import AuthProvider, { useAuth } from "./Context/AuthContext";
 import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
 import LearningPage from "./components/pages/Teachings/Learning/mainLearing";
 import LearningDetailsPage from "./components/pages/Teachings/Learning/LearningDetailsPage";
@@ -78,8 +79,14 @@ import EmployeeRatingDetailes from "./components/pages/Performance/PerformanceDe
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
   const location = useLocation();
+  const { isLoggedIn } = useAuth();
 
   const isLoginPage = location.pathname === "/login";
+
+  // Prevent dashboard flash for unauthenticated users
+  if (!isLoginPage && !isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
 
   const handleDataFromChild = () => {
     toggleNavbar();
