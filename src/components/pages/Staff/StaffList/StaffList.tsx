@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Table from "./Table";
 import SectionAccImg from "@/components/shared/section/SectionAccImg";
 import { Form } from "@/components/shared/Form";
@@ -69,10 +69,8 @@ const StaffList: React.FC = () => {
     image: null,
   };
 
-  // 📌 queryClient برای invalidate
   const queryClient = useQueryClient();
 
-  // 📌 mutation برای ارسال داده
   const mutation = useMutation({
     mutationFn: async (data: z.infer<typeof validation>) => {
       const res = await fetch("http://localhost:8000/api/employees", {
@@ -88,11 +86,14 @@ const StaffList: React.FC = () => {
     onSuccess: () => {
       toast.success("ثبت پرسنل با موفقیت انجام شد");
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      ;
     },
     onError: () => {
       toast.error("ثبت پرسنل ناموفق بود");
     },
   });
+  
+
   const formFields = (
     <div className="relative">
       {mutation.isPending && (
