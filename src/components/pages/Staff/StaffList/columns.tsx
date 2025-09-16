@@ -7,7 +7,7 @@ import ActionsCell from "@/components/shared/ActionsCell";
 
 export const userColumns: ColumnDef<User>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "fullName",
     header: ({ column }) => {
       return (
         <Button
@@ -21,7 +21,7 @@ export const userColumns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "position",
+    accessorKey: "department",
     header: ({ column }) => {
       return (
         <Button
@@ -35,7 +35,7 @@ export const userColumns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "phone",
+    accessorKey: "phoneNumber",
     header: ({ column }) => {
       return (
         <Button

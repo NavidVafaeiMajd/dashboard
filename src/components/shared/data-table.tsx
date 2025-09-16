@@ -40,7 +40,7 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
    const [filteredData, setFilteredData] = useState<TData[]>(data);
 
    const table = useReactTable({
-      data: filteredData,
+      data: filteredData.slice().reverse(),
       columns,
       getCoreRowModel: getCoreRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
