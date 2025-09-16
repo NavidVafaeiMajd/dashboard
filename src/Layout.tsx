@@ -1,6 +1,7 @@
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
-import Desk from "./components/pages/Desk";
+import { lazy, Suspense } from "react";
+const Desk = lazy(() => import("./components/pages/Desk"));
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,73 +9,212 @@ import {
   useLocation,
   Navigate,
 } from "react-router-dom";
-import LayoutStaffList from "./components/pages/Staff/LayoutStaffList";
-import StaffList from "./components/pages/Staff/StaffList/StaffList";
-import SetRoles from "./components/pages/Staff/SetRoles/SetRoles";
-import OfficeShifts from "./components/pages/Staff/OfficeShifts/OfficeShifts";
-import EmployExit from "./components/pages/Staff/EmployExit/EmployExit";
+const LayoutStaffList = lazy(
+  () => import("./components/pages/Staff/LayoutStaffList")
+);
+const StaffList = lazy(
+  () => import("./components/pages/Staff/StaffList/StaffList")
+);
+const SetRoles = lazy(
+  () => import("./components/pages/Staff/SetRoles/SetRoles")
+);
+const OfficeShifts = lazy(
+  () => import("./components/pages/Staff/OfficeShifts/OfficeShifts")
+);
+const EmployExit = lazy(
+  () => import("./components/pages/Staff/EmployExit/EmployExit")
+);
 import { ToastContainer } from "react-toastify";
-import LayoutHumanResource from "./components/pages/HumanResourceManagement/LayoutHumanResource";
-import OrganizationalUnit from "./components/pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit";
-import OrganizationalPosition from "./components/pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition";
-import ExitType from "./components/pages/Staff/EmployExit/ExitType/ExitType";
-import Policies from "./components/pages/HumanResourceManagement/Policies/Policies";
+const LayoutHumanResource = lazy(
+  () => import("./components/pages/HumanResourceManagement/LayoutHumanResource")
+);
+const OrganizationalUnit = lazy(
+  () =>
+    import(
+      "./components/pages/HumanResourceManagement/OrganizationalUnit/OrganizationalUnit"
+    )
+);
+const OrganizationalPosition = lazy(
+  () =>
+    import(
+      "./components/pages/HumanResourceManagement/OrganizationalPosition/OrganizationalPosition"
+    )
+);
+const ExitType = lazy(
+  () => import("./components/pages/Staff/EmployExit/ExitType/ExitType")
+);
+const Policies = lazy(
+  () => import("./components/pages/HumanResourceManagement/Policies/Policies")
+);
 import { useNavbar } from "./Context/NavbarContext";
-import LayoutRollCall from "./components/pages/RollCall/Layout";
-import AttendanceList from "./components/pages/RollCall/AttendanceList/AttendanceList";
-import NewsList from "./components/pages/HumanResourceManagement/NewsList/NewsList";
-import MonthlyAttendance from "./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance";
-import ManualAttendance from "./components/pages/RollCall/ManualAttendance/ManualAttendance";
-import OverTimeRequest from "./components/pages/RollCall/OverTimeRequest/OverTimeRequest";
-import LayoutEmploymentCertificate from "./components/pages/EmploymentCertificate/Layout";
-import AssetsList from "./components/pages/EmploymentCertificate/AssetsList/AssetsList";
-import AssetsCategory from "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory";
-import LayoutPayroll from "./components/pages/Payroll/Layout";
-import PayrollList from "./components/pages/Payroll/PayrollList/PayrollList";
-import PayslipHistory from "./components/pages/Payroll/PayslipHistory/PayslipHistory";
-import PayslipDetailsPage from "./components/pages/Payroll/PayslipHistory/PayslipDetailsPage";
-import AdvanceSalary from "./components/pages/Payroll/AdvanceSalary/AdvanceSalary";
-import Leads from "./components/pages/Leads/Leads";
-import LayoutBankaccount from "./components/pages/bank/layoutBank";
-import MainBank from "./components/pages/bank/AccountBank/mainBank";
-import AmmountMain from "./components/pages/bank/ammount/AmmountMain";
-import MainList from "./components/pages/bank/deposit-list/mainList";
-import MaintransactionsList from "./components/pages/bank/transactionsList/MaintransactionsList";
-import MainclientsList from "./components/pages/ClientsList/MainclientsList";
-import PerformanceRating from "./components/pages/Performance/Rating/PerformanceRating";
-import LayoutPerformance from "./components/pages/Performance/Layout";
-import EmployeDetailse from "./components/pages/UserPage/UserPage";
-import NotFound from "./NotFound";
-import EmployeeRating from "./components/pages/Performance/Employee/EmployeeRating";
-import TrackGoals from "./components/pages/Performance/TrackGoals/TrackGoals";
-import TechnicalIndicator from "./components/pages/Performance/SetupIndicator/TechnicalIndicator";
-import BehavioralIndicator from "./components/pages/Performance/SetupIndicator/BehavioralIndicator";
-import GoalType from "./components/pages/Performance/GoalType/GoalType";
-import LayoutLeave from "./components/pages/Leave/Layout";
-import LeaveList from "./components/pages/Leave/List/LeaveList";
-import LeaveDetailsPage from "./components/pages/Leave/List/LeaveDetailsPage";
-import ClientPage from "./components/pages/ClientsList/UserPage/ClientPage";
-import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
-import PublicRoute from "./PublicRoute/PublicRoute";
-import LoginPage from "./components/pages/login/LoginPage";
-import LeaveType from "./components/pages/Leave/LeaveType";
-import LayoutDisciplinaryCases from "./components/pages/DisciplinaryCases";
-import DisciplinaryList from "./components/pages/DisciplinaryCases/List";
-import ViolationType from "./components/pages/DisciplinaryCases/ViolationType";
+const LayoutRollCall = lazy(() => import("./components/pages/RollCall/Layout"));
+const AttendanceList = lazy(
+  () => import("./components/pages/RollCall/AttendanceList/AttendanceList")
+);
+const NewsList = lazy(
+  () => import("./components/pages/HumanResourceManagement/NewsList/NewsList")
+);
+const MonthlyAttendance = lazy(
+  () =>
+    import("./components/pages/RollCall/MonthlyAttendance/MonthlyAttendance")
+);
+const ManualAttendance = lazy(
+  () => import("./components/pages/RollCall/ManualAttendance/ManualAttendance")
+);
+const OverTimeRequest = lazy(
+  () => import("./components/pages/RollCall/OverTimeRequest/OverTimeRequest")
+);
+const LayoutEmploymentCertificate = lazy(
+  () => import("./components/pages/EmploymentCertificate/Layout")
+);
+const AssetsList = lazy(
+  () => import("./components/pages/EmploymentCertificate/AssetsList/AssetsList")
+);
+const AssetsCategory = lazy(
+  () =>
+    import(
+      "./components/pages/EmploymentCertificate/assetsCategory/AssetsCategory"
+    )
+);
+const LayoutPayroll = lazy(() => import("./components/pages/Payroll/Layout"));
+const PayrollList = lazy(
+  () => import("./components/pages/Payroll/PayrollList/PayrollList")
+);
+const PayslipHistory = lazy(
+  () => import("./components/pages/Payroll/PayslipHistory/PayslipHistory")
+);
+const PayslipDetailsPage = lazy(
+  () => import("./components/pages/Payroll/PayslipHistory/PayslipDetailsPage")
+);
+const AdvanceSalary = lazy(
+  () => import("./components/pages/Payroll/AdvanceSalary/AdvanceSalary")
+);
+const Leads = lazy(() => import("./components/pages/Leads/Leads"));
+const LayoutBankaccount = lazy(
+  () => import("./components/pages/bank/layoutBank")
+);
+const MainBank = lazy(
+  () => import("./components/pages/bank/AccountBank/mainBank")
+);
+const AmmountMain = lazy(
+  () => import("./components/pages/bank/ammount/AmmountMain")
+);
+const MainList = lazy(
+  () => import("./components/pages/bank/deposit-list/mainList")
+);
+const MaintransactionsList = lazy(
+  () => import("./components/pages/bank/transactionsList/MaintransactionsList")
+);
+const MainclientsList = lazy(
+  () => import("./components/pages/ClientsList/MainclientsList")
+);
+const PerformanceRating = lazy(
+  () => import("./components/pages/Performance/Rating/PerformanceRating")
+);
+const LayoutPerformance = lazy(
+  () => import("./components/pages/Performance/Layout")
+);
+const EmployeDetailse = lazy(
+  () => import("./components/pages/UserPage/UserPage")
+);
+const NotFound = lazy(() => import("./NotFound"));
+const EmployeeRating = lazy(
+  () => import("./components/pages/Performance/Employee/EmployeeRating")
+);
+const TrackGoals = lazy(
+  () => import("./components/pages/Performance/TrackGoals/TrackGoals")
+);
+const TechnicalIndicator = lazy(
+  () =>
+    import("./components/pages/Performance/SetupIndicator/TechnicalIndicator")
+);
+const BehavioralIndicator = lazy(
+  () =>
+    import("./components/pages/Performance/SetupIndicator/BehavioralIndicator")
+);
+const GoalType = lazy(
+  () => import("./components/pages/Performance/GoalType/GoalType")
+);
+const LayoutLeave = lazy(() => import("./components/pages/Leave/Layout"));
+const LeaveList = lazy(() => import("./components/pages/Leave/List/LeaveList"));
+const LeaveDetailsPage = lazy(
+  () => import("./components/pages/Leave/List/LeaveDetailsPage")
+);
+const ClientPage = lazy(
+  () => import("./components/pages/ClientsList/UserPage/ClientPage")
+);
+import ProtectedRoute from "./routes/ProtectedRoute/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute/PublicRoute";
+const LoginPage = lazy(() => import("./components/pages/login/LoginPage"));
+const LeaveType = lazy(() => import("./components/pages/Leave/LeaveType"));
+const LayoutDisciplinaryCases = lazy(
+  () => import("./components/pages/DisciplinaryCases")
+);
+const DisciplinaryList = lazy(
+  () => import("./components/pages/DisciplinaryCases/List")
+);
+const ViolationType = lazy(
+  () => import("./components/pages/DisciplinaryCases/ViolationType")
+);
 import AuthProvider, { useAuth } from "./Context/AuthContext";
-import LayoutTeching from "./components/pages/Teachings/layoutTeaching";
-import LearningPage from "./components/pages/Teachings/Learning/mainLearing";
-import LearningDetailsPage from "./components/pages/Teachings/Learning/LearningDetailsPage";
-import TecherInfo from "./components/pages/Teachings/TecherInfo/mainTecherInfo";
-import TraningSkills from "./components/pages/Teachings/TrainingSkills/TrainingSkills";
-import LeadPage from "./components/pages/Leads/LeadPage/LeadPage";
-import NewsListDetailes from "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes";
-import AccountsListDetails from "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails";
-import DepositListDetails from "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails";
-import ExpenseType from "./components/pages/bank/deposit-list/ExpenseType/ExpenseType";
-import PayrollListDetails from "./components/pages/Payroll/PayrollList/PayrollListDetails/PayrollListDetails";
-import IndicatorRatingDetails from "./components/pages/Performance/PerformanceDetails/IndicatorRatingDetails";
-import EmployeeRatingDetailes from "./components/pages/Performance/PerformanceDetails/EmployeeRatingDetailes";
+import Skeleton from "react-loading-skeleton";
+const LayoutTeching = lazy(
+  () => import("./components/pages/Teachings/layoutTeaching")
+);
+const LearningPage = lazy(
+  () => import("./components/pages/Teachings/Learning/mainLearing")
+);
+const LearningDetailsPage = lazy(
+  () => import("./components/pages/Teachings/Learning/LearningDetailsPage")
+);
+const TecherInfo = lazy(
+  () => import("./components/pages/Teachings/TecherInfo/mainTecherInfo")
+);
+const TraningSkills = lazy(
+  () => import("./components/pages/Teachings/TrainingSkills/TrainingSkills")
+);
+const LeadPage = lazy(
+  () => import("./components/pages/Leads/LeadPage/LeadPage")
+);
+const NewsListDetailes = lazy(
+  () =>
+    import(
+      "./components/pages/HumanResourceManagement/NewsList/NewaListDetailes/NewsListDetailes"
+    )
+);
+const AccountsListDetails = lazy(
+  () =>
+    import(
+      "./components/pages/bank/AccountBank/AccountsListDetails/AccountsListDetails"
+    )
+);
+const DepositListDetails = lazy(
+  () =>
+    import(
+      "./components/pages/bank/deposit-list/DepositListDetails/DepositListDetails"
+    )
+);
+const ExpenseType = lazy(
+  () => import("./components/pages/bank/deposit-list/ExpenseType/ExpenseType")
+);
+const PayrollListDetails = lazy(
+  () =>
+    import(
+      "./components/pages/Payroll/PayrollList/PayrollListDetails/PayrollListDetails"
+    )
+);
+const IndicatorRatingDetails = lazy(
+  () =>
+    import(
+      "./components/pages/Performance/PerformanceDetails/IndicatorRatingDetails"
+    )
+);
+const EmployeeRatingDetailes = lazy(
+  () =>
+    import(
+      "./components/pages/Performance/PerformanceDetails/EmployeeRatingDetailes"
+    )
+);
 
 const LayoutContent = () => {
   const { toggleNavbar, isNavbarOpen } = useNavbar();
@@ -101,10 +241,7 @@ const LayoutContent = () => {
         </div>
       )}
 
-         <ToastContainer
-            toastClassName="custom-toast-font"
-            position="top-right"
-         />
+      <ToastContainer toastClassName="custom-toast-font" position="top-right" />
 
       <div
         className={`flex flex-1 gap-[3.5rem] py-5 ${
@@ -128,9 +265,7 @@ const LayoutContent = () => {
 
         <div
           className={`${
-                  !isLoginPage
-                     ? "lg:w-[100%] overflow-auto px-5 md:px-10"
-                     : "w-full"
+            !isLoginPage ? "lg:w-[100%] overflow-auto px-5 md:px-10" : "w-full"
           }`}
         >
           <Routes>
@@ -186,22 +321,10 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-                     <Route
-                        index
-                        element={<StaffList />}
-                     />
-                     <Route
-                        path="set-roles"
-                        element={<SetRoles />}
-                     />
-                     <Route
-                        path="office-shifts"
-                        element={<OfficeShifts />}
-                     />
-                     <Route
-                        path="employ-exit"
-                        element={<EmployExit />}
-                     />
+              <Route index element={<StaffList />} />
+              <Route path="set-roles" element={<SetRoles />} />
+              <Route path="office-shifts" element={<OfficeShifts />} />
+              <Route path="employ-exit" element={<EmployExit />} />
             </Route>
 
             <Route
@@ -444,38 +567,20 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-                     <Route
-                        path="indicator-rating"
-                        element={<PerformanceRating />}
-                     />
-                     <Route
-                        element={<IndicatorRatingDetails />}
-                        path="indicator-rating/:id"
+              <Route path="indicator-rating" element={<PerformanceRating />} />
+              <Route
+                element={<IndicatorRatingDetails />}
+                path="indicator-rating/:id"
               />
-                                   <Route
-                        element={<EmployeeRatingDetailes />}
-                        path="employee-rating/:id"
-                     />
-                     <Route
-                        path="employee-rating"
-                        element={<EmployeeRating />}
-                     />
-                     <Route
-                        path="track-goals"
-                        element={<TrackGoals />}
-                     />
-                     <Route
-                        path="setup-indicator"
-                        element={<TechnicalIndicator />}
-                     />
-                     <Route
-                        path="behavioral"
-                        element={<BehavioralIndicator />}
-                     />
-                     <Route
-                        path="goals-type"
-                        element={<GoalType />}
-                     />
+              <Route
+                element={<EmployeeRatingDetailes />}
+                path="employee-rating/:id"
+              />
+              <Route path="employee-rating" element={<EmployeeRating />} />
+              <Route path="track-goals" element={<TrackGoals />} />
+              <Route path="setup-indicator" element={<TechnicalIndicator />} />
+              <Route path="behavioral" element={<BehavioralIndicator />} />
+              <Route path="goals-type" element={<GoalType />} />
             </Route>
 
             <Route
@@ -486,14 +591,8 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-                     <Route
-                        path="list"
-                        element={<LeaveList />}
-                     />
-                     <Route
-                        path="type"
-                        element={<LeaveType />}
-                     />
+              <Route path="list" element={<LeaveList />} />
+              <Route path="type" element={<LeaveType />} />
             </Route>
 
             <Route
@@ -504,32 +603,14 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             >
-                     <Route
-                        path="list"
-                        element={<DisciplinaryList />}
-                     />
-                     <Route
-                        path="type"
-                        element={<ViolationType />}
-                     />
+              <Route path="list" element={<DisciplinaryList />} />
+              <Route path="type" element={<ViolationType />} />
             </Route>
 
-                  <Route
-                     path="teaching"
-                     element={<LayoutTeching />}
-                  >
-                     <Route
-                        index
-                        element={<LearningPage />}
-                     />
-                     <Route
-                        path="techerinfo"
-                        element={<TecherInfo />}
-                     />
-                     <Route
-                        path="traningskills"
-                        element={<TraningSkills />}
-                     />
+            <Route path="teaching" element={<LayoutTeching />}>
+              <Route index element={<LearningPage />} />
+              <Route path="techerinfo" element={<TecherInfo />} />
+              <Route path="traningskills" element={<TraningSkills />} />
             </Route>
 
             <Route
@@ -542,10 +623,7 @@ const LayoutContent = () => {
             />
 
             {/* Not Found */}
-                  <Route
-                     path="*"
-                     element={<NotFound />}
-                  />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>
@@ -558,18 +636,18 @@ const Layout = () => {
     <AuthProvider>
       <Router>
         <Routes>
-            <Route
-              path="bank/accounts-list-details/:id"
-              element={<AccountsListDetails />}
-            />
-            <Route
-              path="bank/deposit-list-details/:id"
-              element={<DepositListDetails />}
+          <Route
+            path="bank/accounts-list-details/:id"
+            element={<AccountsListDetails />}
           />
-            <Route
-              path="payroll/payroll-list-details/:id"
-              element={<PayrollListDetails />}
-            />
+          <Route
+            path="bank/deposit-list-details/:id"
+            element={<DepositListDetails />}
+          />
+          <Route
+            path="payroll/payroll-list-details/:id"
+            element={<PayrollListDetails />}
+          />
           <Route
             path="payslip-history/:id"
             element={
@@ -579,8 +657,10 @@ const Layout = () => {
             }
           />
           <Route path="leave/details/:id" element={<LeaveDetailsPage />} />
-          <Route path="learning/details/:id" element={<LearningDetailsPage />} />
-
+          <Route
+            path="learning/details/:id"
+            element={<LearningDetailsPage />}
+          />
 
           <Route path="/*" element={<LayoutContent />} />
         </Routes>

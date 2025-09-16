@@ -92,6 +92,9 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.1)
+      react-loading-skeleton:
+        specifier: ^3.5.0
+        version: 3.5.0(react@19.1.1)
       react-multi-date-picker:
         specifier: ^4.5.2
         version: 4.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -2819,6 +2822,11 @@ packages:
       konva: ^8.0.1 || ^7.2.5 || ^9.0.0
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
+
+  react-loading-skeleton@3.5.0:
+    resolution: {integrity: sha512-gxxSyLbrEAdXTKgfbpBEFZCO/P153DnqSCQau2+o6lNy1jgMRr2MmRmOzMmyrwSaSYLRB8g7b0waYPmUjz7IhQ==}
+    peerDependencies:
+      react: '>=16.8.0'
 
   react-multi-date-picker@4.5.2:
     resolution: {integrity: sha512-FgWjZB3Z6IA6XpcWiLPk85PwcRUhOiYhKK42o5k672gD/n2I6rzPfQ8bUrldOIiF/Z7FfOCdH7a6FeubzqteLg==}
@@ -6178,6 +6186,10 @@ snapshots:
       scheduler: 0.23.2
     transitivePeerDependencies:
       - '@types/react'
+
+  react-loading-skeleton@3.5.0(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   react-multi-date-picker@4.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:

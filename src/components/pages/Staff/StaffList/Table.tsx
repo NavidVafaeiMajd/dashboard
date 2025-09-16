@@ -29,8 +29,11 @@ const Table: React.FC = () => {
       queryFn: fetchUsers,
    });
    
-   if (isLoading) return <div>در حال بارگذاری...</div>;
-   if (isError) return <div>خطا در دریافت دیتا: {(error as Error).message}</div>;
+   if (isLoading) return <div className="h-[200px]! flex justify-center items-center gap-3">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      در حال بارگذاری...  </div>
+   
+   if (isError) return <div className="h-[200px]! flex justify-center items-center">خطا در دریافت دیتا: {(error as Error).message}</div>;
  
 
    return (

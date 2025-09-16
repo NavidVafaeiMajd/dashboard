@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SearchInput } from "./SearchInput";
 import { PageSizeSelector } from "./PageSizeSelector";
 
@@ -39,8 +39,10 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
    const [filteredData, setFilteredData] = useState<TData[]>(data);
 
+   const dataForTable = useMemo(() => filteredData.slice().reverse(), [filteredData]);
+
    const table = useReactTable({
-      data: filteredData.slice().reverse(),
+      data: dataForTable,
       columns,
       getCoreRowModel: getCoreRowModel(),
       getPaginationRowModel: getPaginationRowModel(),
@@ -146,20 +148,61 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
                   قبلی
                </Button>
 
-               {Array.from({ length: pageCount }).map((_, index) => (
-                  <Button
-                     key={index}
-                     variant={
-                        index === currentPage
-                           ? "paginationNumber"
-                           : "paginationNumberDis"
+               {(() => {
+                  const windowSize = 5;
+                  const half = Math.floor(windowSize / 2);
+                  const start = Math.max(0, Math.min(currentPage - half, pageCount - windowSize));
+                  const end = Math.min(pageCount - 1, start + windowSize - 1);
+
+                  const buttons: React.ReactNode[] = [];
+
+                  // First page shortcut
+                  if (start > 0) {
+                     buttons.push(
+                        <Button key={0} variant={0 === currentPage ? "paginationNumber" : "paginationNumberDis"} size="sm" onClick={() => table.setPageIndex(0)}>
+                           1
+                        </Button>
+                     );
+                     if (start > 1) {
+                        buttons.push(
+                           <Button key="start-ellipsis" variant="ghost" size="sm" disabled>
+                              ...
+                           </Button>
+                        );
                      }
-                     size="sm"
-                     onClick={() => table.setPageIndex(index)}
-                  >
-                     {index + 1}
-                  </Button>
-               ))}
+                  }
+
+                  for (let i = start; i <= end; i++) {
+                     buttons.push(
+                        <Button
+                           key={i}
+                           variant={i === currentPage ? "paginationNumber" : "paginationNumberDis"}
+                           size="sm"
+                           onClick={() => table.setPageIndex(i)}
+                        >
+                           {i + 1}
+                        </Button>
+                     );
+                  }
+
+                  // Last page shortcut
+                  if (end < pageCount - 1) {
+                     if (end < pageCount - 2) {
+                        buttons.push(
+                           <Button key="end-ellipsis" variant="ghost" size="sm" disabled>
+                              ...
+                           </Button>
+                        );
+                     }
+                     buttons.push(
+                        <Button key={pageCount - 1} variant={pageCount - 1 === currentPage ? "paginationNumber" : "paginationNumberDis"} size="sm" onClick={() => table.setPageIndex(pageCount - 1)}>
+                           {pageCount}
+                        </Button>
+                     );
+                  }
+
+                  return buttons;
+               })()}
 
                <Button
                   onClick={() => table.nextPage()}

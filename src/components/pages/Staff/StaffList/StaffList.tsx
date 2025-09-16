@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Table from "./Table";
 import SectionAccImg from "@/components/shared/section/SectionAccImg";
 import { Form } from "@/components/shared/Form";
