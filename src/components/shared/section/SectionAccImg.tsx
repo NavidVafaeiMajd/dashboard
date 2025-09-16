@@ -1,6 +1,5 @@
 // components/shared/DynamicPage.tsx
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { type FieldValues, type UseFormReturn } from "react-hook-form";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
 import z from "zod";
@@ -9,8 +8,7 @@ import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 
 interface SectionAccProps<T extends z.ZodTypeAny> {
-  schema: T;
-  defaultValues: z.infer<T>;
+  form: UseFormReturn<z.infer<T> & FieldValues>;
   formFields: React.ReactNode;
   file: React.ReactNode;
   onSubmit: (data: z.infer<T>) => void;
@@ -22,8 +20,7 @@ interface SectionAccProps<T extends z.ZodTypeAny> {
 }
 
 const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
-  schema,
-  defaultValues,
+  form,
   formFields,
   onSubmit,
   file,
@@ -33,10 +30,7 @@ const SectionAccImg = <T extends z.ZodTypeAny<any, any, any>>({
   SecoundTitle = "فرم",
   extraActions,
 }: SectionAccProps<T>) => {
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema as any),
-    defaultValues,
-  });
+
 
   const [isOpen, setIsOpen] = useState(false);
 

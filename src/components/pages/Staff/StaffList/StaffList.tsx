@@ -6,6 +6,8 @@ import z from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { imageSchema } from "@/components/shared/validation";
 import { toast } from "react-toastify";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 const StaffList: React.FC = () => {
   const title = "پرسنل";
@@ -69,6 +71,11 @@ const StaffList: React.FC = () => {
     image: null,
   };
 
+  const form = useForm<z.infer<typeof validation>>({
+    resolver: zodResolver(validation as any),
+    defaultValues,
+  });
+  
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -86,7 +93,7 @@ const StaffList: React.FC = () => {
     onSuccess: () => {
       toast.success("ثبت پرسنل با موفقیت انجام شد");
       queryClient.invalidateQueries({ queryKey: ["users"] });
-      ;
+      form.reset(defaultValues);
     },
     onError: () => {
       toast.error("ثبت پرسنل ناموفق بود");
@@ -176,8 +183,7 @@ const StaffList: React.FC = () => {
   return (
     <>
       <SectionAccImg
-        schema={validation}
-        defaultValues={defaultValues}
+        form={form}
         formFields={formFields}
         file={
           <>
