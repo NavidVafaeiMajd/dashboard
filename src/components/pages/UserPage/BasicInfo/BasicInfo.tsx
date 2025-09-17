@@ -5,6 +5,7 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { useEmployees } from "@/hook/useEmployees";
 
 const BasicInfo = () => {
   const form = useForm<z.infer<typeof validation>>({
@@ -36,6 +37,7 @@ const BasicInfo = () => {
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
+
   return (
     <>
       <div>

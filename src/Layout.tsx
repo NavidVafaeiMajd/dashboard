@@ -157,6 +157,7 @@ const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
 );
 import AuthProvider, { useAuth } from "./Context/AuthContext";
+import { useBootstrapData } from "./hook/useBootstrapData";
 import Skeleton from "react-loading-skeleton";
 const LayoutTeching = lazy(
   () => import("./components/pages/Teachings/layoutTeaching")
@@ -217,6 +218,7 @@ const EmployeeRatingDetailes = lazy(
 );
 
 const LayoutContent = () => {
+  useBootstrapData();
   const { toggleNavbar, isNavbarOpen } = useNavbar();
   const location = useLocation();
   const { isLoggedIn } = useAuth();

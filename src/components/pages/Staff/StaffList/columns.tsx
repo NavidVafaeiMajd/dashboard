@@ -68,27 +68,25 @@ export const userColumns: ColumnDef<User>[] = [
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "position",
     cell(props) {
       const status = props.getValue() as string;
       return (
         <span
           className={cn(
-            status === "active"
+            status === "فعال"
               ? "bg-green-100 text-green-500"
-              : status === "inactive"
-              ? "bg-red-100 text-red-500"
-              : status === "pending"
-              ? "bg-yellow-100 text-yellow-500"
-              : "",
+              : status === "ممنوع"
+               ? "bg-red-100 text-red-500"
+               : status === "در حال بررسی"
+               ? "bg-yellow-100 text-yellow-500"
+               : "",
+
             "p-2 rounded-sm"
           )}
         >
-          {status === "active"
-            ? "فعال"
-            : status === "inactive"
-            ? "غیرفعال"
-            : "در حال بررسی"}
+          {status === "فعال"? "فعال" : status === "ممنوع" ? "ممنوع" : status === "در حال بررسی" ? "در حال بررسی" : ""} 
+
         </span>
       );
     },

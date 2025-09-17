@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { SearchInput } from "./SearchInput";
 import { PageSizeSelector } from "./PageSizeSelector";
 import { useQuery } from "@tanstack/react-query";
@@ -48,19 +48,15 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
     queryFn: queryFn,
   });
 
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const rows = queryData?.data ?? [];
-  const [filteredData, setFilteredData] = useState<TData[]>(rows);
+   const [sorting, setSorting] = useState<SortingState>([]);
+   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+   const rows = queryData?.data ?? [];
+   const [filteredData, setFilteredData] = useState<TData[]>([]);
 
-  useEffect(() => {
-    setFilteredData(rows);
-  }, [rows]);
-
-  const dataForTable = useMemo(
-    () => filteredData.slice().reverse(),
-    [filteredData]
-  );
+   const dataForTable = useMemo(
+     () => (filteredData.length > 0 ? filteredData : rows).slice().reverse(),
+     [filteredData, rows]
+   );
 
   const table = useReactTable({
     data: dataForTable,
