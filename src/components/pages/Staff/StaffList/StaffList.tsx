@@ -3,11 +3,8 @@ import Table from "./Table";
 import SectionAccImg from "@/components/shared/section/SectionAccImg";
 import { Form } from "@/components/shared/Form";
 import z from "zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { imageSchema } from "@/components/shared/validation";
-import { toast } from "react-toastify";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { validation } from "./validation";
+import { usePostRows } from "@/hook/usePostRows";
 
 const StaffList: React.FC = () => {
   const title = "پرسنل";
@@ -15,91 +12,21 @@ const StaffList: React.FC = () => {
     document.title = title;
   }, []);
 
-  const validation = z.object({
-    firstName: z
-      .string()
-      .min(1, "نام الزامی است")
-      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-      .describe("مثلاً: نوید"),
-
-    lastName: z
-      .string()
-      .min(1, "نام خانوادگی الزامی است")
-      .regex(/^[\u0600-\u06FF\s]+$/, "فقط حروف فارسی مجاز است")
-      .describe("مثلاً: محمدی"),
-
-    personeliCode: z
-      .string()
-      .regex(/^\d+$/, "فقط عدد مجاز است")
-      .min(1, "کد پرسنلی الزامی است")
-      .describe("مثلاً: 12345"),
-
-    phoneNumber: z
-      .string()
-      .regex(/^09\d{9}$/, "شماره تماس معتبر نیست")
-      .describe("مثلاً: 09121234567"),
-
-    gender: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-    }),
-
-    shift: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-    }),
-
-    department_id: z.coerce.number().min(1, "واحد سازمانی الزامی است"),
-
-    designations_id: z.coerce.number().min(1, "واحد سازمانی الزامی است"),
-
-    position: z.string().refine((val) => val !== "", {
-      message: "لطفاً یک گزینه انتخاب کنید",
-    }),
-
-    image: imageSchema,
-  });
 
   const defaultValues = {
-    firstName: " ",
+    firstName: "",
     lastName: "",
     personeliCode: "",
     phoneNumber: "",
     gender: "مرد",
     shift: "morning",
-    department_id: 1,
-    designations_id: 1,
+    department_id: "1",
+    designations_id: "1",
     position: "فعال",
     image: null,
   };
-
-  const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation as any),
-    defaultValues,
-  });
   
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: async (data: z.infer<typeof validation>) => {
-      const res = await fetch("http://localhost:8000/api/employees", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        toast.error("ثبت پرسنل ناموفق بود");
-      }
-      return res.json();
-    },
-    onSuccess: () => {
-      toast.success("ثبت پرسنل با موفقیت انجام شد");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      form.reset(defaultValues);
-    },
-    onError: () => {
-      toast.error("ثبت پرسنل ناموفق بود");
-    },
-  });
-  
+  const { mutation, form } = usePostRows("employees", ["users"], defaultValues);
 
   const formFields = (
     <div className="relative">
