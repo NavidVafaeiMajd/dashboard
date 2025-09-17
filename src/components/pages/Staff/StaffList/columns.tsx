@@ -5,51 +5,9 @@ import { LuArrowUpDown } from "react-icons/lu";
 import { cn } from "@/lib/utils";
 import ActionsCell from "@/components/shared/ActionsCell";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-
-const UserActionsCell: React.FC<{ user: User }> = ({ user }) => {
-  const queryClient = useQueryClient();
-
-  const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
-      const res = await fetch(`http://localhost:8000/api/employees/${id}` , {
-        method: "DELETE",
-      });
-      if (!res.ok) {
-        let message = "حذف ناموفق بود";
-        try {
-          const data = await res.json();
-          message = data?.message || message;
-        } catch {}
-        throw new Error(message);
-      }
-      return true;
-    },
-    onSuccess: () => {
-      toast.success("با موفقیت حذف شد");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-    onError: (error: any) => {
-      toast.error(error?.message || "خطا در حذف آیتم");
-    },
-  });
-
-  return (
-    <div className="flex items-center gap-2">
-      <ActionsCell actions={[{ label: "نمایش جزییات", path: `/users/${user.id}` }]} />
-      <DeleteDialog
-        onConfirm={() => {
-          deleteMutation.mutate(user.id);
-        }}
-      />
-    </div>
-  );
-};
-
+import { useDeleteRows } from "@/hook/useDeleteRows";
 
 export const userColumns: ColumnDef<User>[] = [
-  
   {
     accessorKey: "fullName",
     header: ({ column }) => {
@@ -150,8 +108,23 @@ export const userColumns: ColumnDef<User>[] = [
     id: "actions",
     accessorKey: "id",
     cell: ({ row }) => {
+      const deleteRow = useDeleteRows({
+        url: "employees",
+        queryKey: ["users"],
+      });
       const user = row.original;
-      return <UserActionsCell user={user} />;
+      return (
+        <div className="flex items-center gap-2">
+          <ActionsCell
+            actions={[{ label: "نمایش جزییات", path: `/users/${user.id}` }]}
+          />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(user.id);
+            }}
+          />
+        </div>
+      );
     },
     header: () => {
       return <span className="font-normal">عملیات</span>;
