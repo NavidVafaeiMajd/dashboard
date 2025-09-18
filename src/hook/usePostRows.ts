@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
-export const usePostRows = (url: string, queryKey: string[], defaultValues: any , validation: any, reset?: boolean, message: string) => {
+export const usePostRows = (url: string, queryKey: string[], defaultValues: any , validation: any, message: string, reset?: boolean) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation as any),
     defaultValues,

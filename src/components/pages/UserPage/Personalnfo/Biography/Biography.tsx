@@ -15,7 +15,7 @@ const Biography = ({ queryData }: { queryData: any }) => {
   const {id} = useParams() as {id: string}
 
 
-  const { mutation, form } = usePostRows(`employeeBiography/upsert/${id}`, ["employeesDetailse", id] , defaultValues, validation , false , "بیوگرافی");
+  const { mutation, form } = usePostRows(`employeeBiography/upsert/${id}`, ["employeesDetailse", id] , defaultValues, validation  , "بیوگرافی",false);
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
@@ -26,8 +26,14 @@ const Biography = ({ queryData }: { queryData: any }) => {
     <Form
       formProp={form}
       onSubmit={onSubmit}
-      className="flex flex-col gap-5 w-full"
+      className="flex flex-col gap-5 w-full relative"
     >
+            {mutation.isPending && (
+        <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <span className="mr-2">در حال ارسال اطلاعات...</span>
+        </div>
+      )}
       <Form.Textarea
         label="بیوگرافی"
         name="bio"
