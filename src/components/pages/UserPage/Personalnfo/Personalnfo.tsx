@@ -12,7 +12,7 @@ const PersonalInfo = ({ queryData }: { queryData: any }) => {
         <span>
           <FiUser className="w-7 h-7" />
         </span>
-        <span> اطلاعات اولیه</span>
+        <span> اطلاعات شخصی</span>
       </div>
       <Tabs className="flex-col! gap-0" defaultValue="biography">
         <TabsList className="flex! flex-row! w-full!">
