@@ -1,22 +1,25 @@
 // Biography.tsx
 import { Form } from "@/components/shared/Form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { validation } from "./validation";
 import { Button } from "@/components/ui/button";
 import type z from "zod";
+import { usePostRows } from "@/hook/usePostRows";
+import { useParams } from "react-router-dom";
 
 const Biography = ({ queryData }: { queryData: any }) => {
-  const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation),
-    defaultValues: {
-      biography: queryData?.bio == null ? "" : queryData?.bio,
-      workExperience: queryData?.workExperience == null ? "" : queryData?.workExperience,
-    },
-  });
+  const defaultValues = {
+    bio: queryData?.bio == null ? "" : queryData?.bio,
+    workExperience: queryData?.workExperience == null ? "" : queryData?.workExperience,
+  };
+
+  const {id} = useParams() as {id: string}
+
+
+  const { mutation, form } = usePostRows(`employeeBiography/upsert/${id}`, ["employeesDetailse", id] , defaultValues, validation , false , "بیوگرافی");
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
+    mutation.mutate(data);
   };
 
   return (
@@ -27,7 +30,7 @@ const Biography = ({ queryData }: { queryData: any }) => {
     >
       <Form.Textarea
         label="بیوگرافی"
-        name="biography"
+        name="bio"
         placeholder="بیوگرافی پرسنل را اینجا وارد کنید.."
         required
       />

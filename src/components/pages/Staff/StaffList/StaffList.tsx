@@ -103,8 +103,20 @@ const StaffList: React.FC = () => {
   );
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log("📦 Submitted Data:", data);
-    mutation.mutate(data);
+    const formData = new FormData();
+    Object.entries(data as Record<string, any>).forEach(([key, value]) => {
+      if (key === "image") {
+        if (value instanceof File) {
+          formData.append("image", value);
+        }
+        // skip if null/undefined or already a URL string (server expects file on create)
+        return;
+      }
+      if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
+      }
+    });
+    mutation.mutate(formData);
   };
 
   return (

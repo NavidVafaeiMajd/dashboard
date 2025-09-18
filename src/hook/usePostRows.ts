@@ -5,7 +5,7 @@ import { z } from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
-export const usePostRows = (url: string, queryKey: string[], defaultValues: any , validation: any) => {
+export const usePostRows = (url: string, queryKey: string[], defaultValues: any , validation: any, reset?: boolean, message: string) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation as any),
     defaultValues,
@@ -22,14 +22,16 @@ export const usePostRows = (url: string, queryKey: string[], defaultValues: any 
         body: isFormData ? data : JSON.stringify(data),
       });
       if (!res.ok) {
-        toast.error("ثبت پرسنل ناموفق بود");
+        toast.error(`ثبت ${message} ناموفق بود`);
       }
       return res.json();
     },
     onSuccess: () => {
-      toast.success("ثبت پرسنل با موفقیت انجام شد");
+      toast.success(`${message} با موفقیت ثبت شد`);
       queryClient.invalidateQueries({ queryKey });
-      form.reset(defaultValues);
+      if (reset) {
+        form.reset(defaultValues);
+      }
     },
     onError: () => {
       toast.error("ثبت پرسنل ناموفق بود");
