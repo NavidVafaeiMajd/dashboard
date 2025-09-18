@@ -6,12 +6,12 @@ import { validation } from "./validation";
 import { Button } from "@/components/ui/button";
 import type z from "zod";
 
-const Biography = () => {
+const Biography = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      biography: "",
-      workExperience: "",
+      biography: queryData?.bio == null ? "" : queryData?.bio,
+      workExperience: queryData?.workExperience == null ? "" : queryData?.workExperience,
     },
   });
 

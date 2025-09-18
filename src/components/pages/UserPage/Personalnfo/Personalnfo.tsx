@@ -5,7 +5,7 @@ import SochialMedia from "./SochialMedia/SochialMedia";
 import BankAccountForm from "./Bank/Bank";
 import EmergencyCall from "./EmergencyCall/EmergencyCall";
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ queryData }: { queryData: any }) => {
   return (
     <div>
       <div className="flex gap-2 border-b-red-500 border-b-2 p-3 w-full!">
@@ -31,16 +31,16 @@ const PersonalInfo = () => {
         </TabsList>
 
         <TabsContent value="biography" className="p-5 w-full!">
-          <Biography />
+          <Biography queryData={queryData?.biography} />
         </TabsContent>
         <TabsContent value="socialProfile" className="p-5 w-full!">
-          <SochialMedia/>
+          <SochialMedia queryData={queryData?.social_profile}/>
         </TabsContent>
         <TabsContent value="bankAccount" className="p-5 w-full!">
-          <BankAccountForm/>
+          <BankAccountForm queryData={queryData?.bank_account}/>
         </TabsContent>
         <TabsContent value="emergencyContact" className="p-5 w-full!">
-          <EmergencyCall/>
+          <EmergencyCall queryData={queryData?.emergency_contact}/>
         </TabsContent>
       </Tabs>
     </div>

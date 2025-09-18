@@ -6,11 +6,11 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { z } from "zod";
 import { validation } from "./validation";
 
-const ProfileImg = () => {
+const ProfileImg = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      image: undefined,
+      image: queryData?.image == null ? undefined : queryData?.image,
     },
   });
 

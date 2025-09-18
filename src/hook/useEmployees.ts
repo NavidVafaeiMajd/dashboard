@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useGetRows } from "./useGetRows";
+import { useGetRowsToTable } from "./useGetRowsTable";
 
 interface UsersResponse {
    data: any[];
@@ -8,7 +8,7 @@ interface UsersResponse {
 export const useEmployees = () => {
    return useQuery<UsersResponse>({
       queryKey: ["employees"],
-      queryFn: () => useGetRows("employees"),
+      queryFn: () => useGetRowsToTable("employees"),
       staleTime: 5 * 60_000,
       refetchOnWindowFocus: false,
    });

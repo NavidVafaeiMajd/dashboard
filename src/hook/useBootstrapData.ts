@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetRows } from "./useGetRows";
+import { useGetRowsToTable } from "./useGetRowsTable";
 
 /**
  * Prefetch global, frequently-used server data so it's instantly
@@ -13,7 +13,7 @@ export const useBootstrapData = () => {
       // Users list (adjust endpoint to your API naming)
       queryClient.prefetchQuery({
          queryKey: ["employees"],
-         queryFn: () => useGetRows("employees"),
+         queryFn: () => useGetRowsToTable("employees"),
          staleTime: 5 * 60_000,
       });
 

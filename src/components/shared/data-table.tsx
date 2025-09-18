@@ -38,6 +38,8 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
   queryKey,
   queryFn,
 }: DataTableProps<TData, TValue>) {
+
+   //use query
   const {
     data: queryData,
     isLoading,

@@ -10,10 +10,38 @@ import BasicInfo from "./BasicInfo/BasicInfo";
 import AccountInfo from "./AccountInfo/AccountInfo";
 import Personalnfo from "./Personalnfo/Personalnfo";
 import ProfileImg from "./ProfileImg/ProfileImg";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { HiUserCircle } from "react-icons/hi2";
 
 const EmployeDetailse = () => {
-  // const { id } = useParams();
-  // const navigate = useNavigate();
+  const { id } = useParams();
+
+  const useGetEmployee = async (): Promise<any> => {
+    const res = await fetch(`http://localhost:8000/api/employees/${id}`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return res.json();
+  };
+
+  const {
+    data: queryData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<any>({
+    queryKey: ["employeesDetailse", id],
+    queryFn: useGetEmployee,
+  });
+
+  if (isLoading) return <div className="p-4">در حال بارگذاری...</div>;
+  if (isError)
+    return (
+      <div className="p-4 text-red-600">خطا: {(error as Error)?.message}</div>
+    );
+
+  console.log(queryData);
 
   return (
     <>
@@ -23,20 +51,24 @@ const EmployeDetailse = () => {
             <div className="flex justify-between p-5 items-center">
               <div className="flex gap-3">
                 <div>
-                  <img
-                    className="w-25"
-                    src="https://trust.jaferi.ir/public/uploads/users/20240801_221626.jpg"
-                    alt=""
-                  />
+                  {queryData?.image ? (
+                    <img className="w-25" src={queryData?.image} alt="" />
+                  ) : (
+                    <HiUserCircle className="w-20 h-25"/>
+                  )}
                 </div>
-                <div className="flex flex-col">
-                  <span>اکبر محمدی</span>
-                  <span className="text-gray-400">رئیس واحد</span>
+                <div className="flex flex-col justify-center items-center">
+                  <span>
+                    {queryData?.firstName} {queryData?.lastName}
+                  </span>
+                  <span className="text-gray-400">
+                    {queryData?.designation}{" "}
+                  </span>
                 </div>
               </div>
               <div>
                 <span className="bg-greenLight text-greenDark py-1 px-4 rounded-sm text-sm!">
-                  فعال
+                  {queryData?.position}
                 </span>
               </div>
             </div>
@@ -53,7 +85,7 @@ const EmployeDetailse = () => {
                   <MdOutlineMail className="w-7! h-7!" />
                   ایمیل
                 </span>
-                <span>a@g.com</span>
+                <span>{queryData?.email}</span>
               </div>
             </div>
           </div>
@@ -95,18 +127,17 @@ const EmployeDetailse = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="basicInfo">
-          <BasicInfo/>
+          <BasicInfo queryData={queryData} />
         </TabsContent>
         <TabsContent value="personalInfo">
-          <Personalnfo/>
+          <Personalnfo queryData={queryData} />
         </TabsContent>
         <TabsContent value="profImg">
-          <ProfileImg/>
+          <ProfileImg queryData={queryData} />
         </TabsContent>
         <TabsContent value="accountInfo">
-          <AccountInfo/>
+          <AccountInfo queryData={queryData?.salary} />
         </TabsContent>
-
       </Tabs>
     </>
   );

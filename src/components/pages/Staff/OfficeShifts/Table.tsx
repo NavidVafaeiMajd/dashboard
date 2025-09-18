@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DataTable } from "@/components/shared/data-table";
 import { userColumns } from "./columns";
-import { useGetRows } from "@/hook/useGetRows";
+import { useGetRowsToTable } from "@/hook/useGetRowsTable";
 
 export interface User {
    id: number;
@@ -50,7 +50,7 @@ const Table: React.FC = () => {
       fetchData();
    }, []);
 
-   const fetchData = useGetRows("office-shifts");
+   const fetchData = useGetRowsToTable("office-shifts");
    return (
       <DataTable<User, unknown>
          columns={userColumns}

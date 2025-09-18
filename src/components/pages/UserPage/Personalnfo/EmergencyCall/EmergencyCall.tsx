@@ -6,12 +6,12 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { validation } from "./validation";
 
-const EmergencyCall = () => {
+const EmergencyCall = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      fullName: "",
-      phoneNumber: "",
+      fullName: queryData?.emergencyName == null ? "" : queryData?.emergencyName,
+      phoneNumber: queryData?.emergencyPhone == null ? "" : queryData?.emergencyPhone,
 
     },
   });

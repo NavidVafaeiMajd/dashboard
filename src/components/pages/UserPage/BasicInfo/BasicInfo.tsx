@@ -7,37 +7,36 @@ import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useEmployees } from "@/hook/useEmployees";
 
-const BasicInfo = () => {
+const BasicInfo = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      gender: "",
-      personeliCode: "",
-      birthDate: new Date(),
-      department: "",
-      position: "",
-      maritalStatus: "",
-      status: "",
-      accessLevel: "",
-      province: "",
-      city: "",
-      postalCode: "",
-      religion: "",
-      bloodGroup: "",
-      nationality: "",
-      citizenship: "",
-      address1: "",
-      address2: "",
+      firstName: queryData?.firstName == null ? "" : queryData?.firstName,
+      lastName: queryData?.lastName == null ? "" : queryData?.lastName,
+      phoneNumber: queryData?.phoneNumber == null ? "" : queryData?.phoneNumber,
+      gender: queryData?.gender == null ? "" : queryData?.gender,
+      personeliCode: queryData?.personeliCode == null ? "" : queryData?.personeliCode,
+      birthDate: queryData?.birthDate == null ? "" : queryData?.birthDate || new Date(),
+      department: queryData?.department == null ? "" : queryData?.department,
+      position: queryData?.designation == null ? "" : queryData?.designation,
+      status: queryData?.position == null ? "" : queryData?.position,
+      province: queryData?.province == null ? "" : queryData?.province,
+      city: queryData?.city == null ? "" : queryData?.city,
+      postalCode: queryData?.postalCode == null ? "" : queryData?.postalCode,
+      religion: queryData?.religion == null ? "" : queryData?.religion,
+      bloodGroup: queryData?.bloodGroup == null ? "" : queryData?.bloodGroup,
+      nationality: queryData?.nationality == null ? "" : queryData?.nationality,
+      citizenship: queryData?.citizenship == null ? "" : queryData?.citizenship,
+      address1: queryData?.address1 == null ? "" : queryData?.address1,
+      address2: queryData?.address2 == null ? "" : queryData?.address2,
+      maritalStatus: queryData?.maritalStatus == null ? "" : queryData?.maritalStatus,
     },
   });
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
-
+  
   return (
     <>
       <div>
@@ -80,8 +79,8 @@ const BasicInfo = () => {
                 placeholder="انتخاب جنسیت"
                 required
               >
-                <Form.SelectItem value="1">مرد</Form.SelectItem>
-                <Form.SelectItem value="2">زن</Form.SelectItem>
+                <Form.SelectItem value="مرد">مرد</Form.SelectItem>
+                <Form.SelectItem value="زن">زن</Form.SelectItem>
               </Form.Select>
             </div>
             <div className="flex gap-5">
@@ -98,8 +97,8 @@ const BasicInfo = () => {
                 placeholder="انتخاب وضعیت"
                 required
               >
-                <Form.SelectItem value="1">فعال </Form.SelectItem>
-                <Form.SelectItem value="2">ممنوع</Form.SelectItem>
+                <Form.SelectItem value="فعال">فعال </Form.SelectItem>
+                <Form.SelectItem value="ممنوع">ممنوع</Form.SelectItem>
               </Form.Select>
             </div>
             <div className="flex gap-5">
@@ -109,10 +108,10 @@ const BasicInfo = () => {
                 placeholder="انتخاب وضعیت تاهل"
                 required
               >
-                <Form.SelectItem value="1">مجرد</Form.SelectItem>
-                <Form.SelectItem value="2">متاهل</Form.SelectItem>
-                <Form.SelectItem value="3">بیوه</Form.SelectItem>
-                <Form.SelectItem value="4">
+                <Form.SelectItem value="مجرد">مجرد</Form.SelectItem>
+                <Form.SelectItem value="متاهل">متاهل</Form.SelectItem>
+                <Form.SelectItem value="بیوه">بیوه</Form.SelectItem>
+                <Form.SelectItem value="طلاق گرفته یا جدا شده">
                   طلاق گرفته یا جدا شده
                 </Form.SelectItem>
               </Form.Select>
@@ -160,11 +159,11 @@ const BasicInfo = () => {
                 placeholder="انتخاب مذهب"
                 
               >
-                <Form.SelectItem value="1">اسلام</Form.SelectItem>
-                <Form.SelectItem value="2">مسیحیت</Form.SelectItem>
-                <Form.SelectItem value="3">یهودیت</Form.SelectItem>
-                <Form.SelectItem value="4">زرتشتی</Form.SelectItem>
-                <Form.SelectItem value="5">سایر</Form.SelectItem>
+                <Form.SelectItem value="اسلام">اسلام</Form.SelectItem>
+                <Form.SelectItem value="مسیحیت">مسیحیت</Form.SelectItem>
+                <Form.SelectItem value="یهودیت">یهودیت</Form.SelectItem>
+                <Form.SelectItem value="زرتشتی">زرتشتی</Form.SelectItem>
+                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
               </Form.Select>
               <Form.Select
                 label="گروه خونی"
@@ -172,14 +171,14 @@ const BasicInfo = () => {
                 placeholder="انتخاب گروه خونی"
                 
               >
-                <Form.SelectItem value="1">A+</Form.SelectItem>
-                <Form.SelectItem value="2">A-</Form.SelectItem>
-                <Form.SelectItem value="3">B+</Form.SelectItem>
-                <Form.SelectItem value="4">B-</Form.SelectItem>
-                <Form.SelectItem value="5">AB+</Form.SelectItem>
-                <Form.SelectItem value="6">AB-</Form.SelectItem>
-                <Form.SelectItem value="7">O+</Form.SelectItem>
-                <Form.SelectItem value="8">O-</Form.SelectItem>
+                <Form.SelectItem value="A+">A+</Form.SelectItem>
+                <Form.SelectItem value="A-">A-</Form.SelectItem>
+                <Form.SelectItem value="B+">B+</Form.SelectItem>
+                <Form.SelectItem value="B-">B-</Form.SelectItem>
+                <Form.SelectItem value="AB+">AB+</Form.SelectItem>
+                <Form.SelectItem value="AB-">AB-</Form.SelectItem>
+                <Form.SelectItem value="O+">O+</Form.SelectItem>
+                <Form.SelectItem value="O-">O-</Form.SelectItem>
               </Form.Select>
             </div>
             <div className="flex gap-5">
@@ -189,12 +188,12 @@ const BasicInfo = () => {
                 placeholder="انتخاب ملیت"
                 
               >
-                <Form.SelectItem value="1">ایرانی</Form.SelectItem>
-                <Form.SelectItem value="2">افغانستانی</Form.SelectItem>
-                <Form.SelectItem value="3">عراقی</Form.SelectItem>
-                <Form.SelectItem value="4">پاکستانی</Form.SelectItem>
-                <Form.SelectItem value="5">ترک</Form.SelectItem>
-                <Form.SelectItem value="6">سایر</Form.SelectItem>
+                  <Form.SelectItem value="ایرانی">ایرانی</Form.SelectItem>
+                <Form.SelectItem value="افغانستانی">افغانستانی</Form.SelectItem>
+                <Form.SelectItem value="عراقی">عراقی</Form.SelectItem>
+                <Form.SelectItem value="پاکستانی">پاکستانی</Form.SelectItem>
+                <Form.SelectItem value="ترک">ترک</Form.SelectItem>
+                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
               </Form.Select>
               <Form.Select
                 label="تابعیت"
@@ -202,12 +201,12 @@ const BasicInfo = () => {
                 placeholder="انتخاب تابعیت"
                 
               >
-                <Form.SelectItem value="1">ایران</Form.SelectItem>
-                <Form.SelectItem value="2">افغانستان</Form.SelectItem>
-                <Form.SelectItem value="3">عراق</Form.SelectItem>
-                <Form.SelectItem value="4">پاکستان</Form.SelectItem>
-                <Form.SelectItem value="5">ترکیه</Form.SelectItem>
-                <Form.SelectItem value="6">سایر</Form.SelectItem>
+                  <Form.SelectItem value="ایران">ایران</Form.SelectItem>
+                <Form.SelectItem value="افغانستان">افغانستان</Form.SelectItem>
+                <Form.SelectItem value="عراق">عراق</Form.SelectItem>
+                <Form.SelectItem value="پاکستان">پاکستان</Form.SelectItem>
+                <Form.SelectItem value="ترکیه">ترکیه</Form.SelectItem>
+                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
               </Form.Select>
             </div>
             <div className="flex gap-5">

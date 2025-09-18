@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/shared/data-table";
 import { userColumns } from "./columns";
-import { useGetRows } from "@/hook/useGetRows";
+import { useGetRowsToTable } from "@/hook/useGetRowsTable";
 
 export interface User {
    id: number;
@@ -17,7 +17,7 @@ export interface User {
 
 const Table: React.FC = () => {
 
-   const fetchUsers  = useGetRows("employees");
+   const fetchUsers  = useGetRowsToTable("employees");
     
    return (
       <DataTable

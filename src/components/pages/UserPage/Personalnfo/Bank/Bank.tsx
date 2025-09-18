@@ -6,16 +6,16 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { validation } from "./validation";
 
-const BankAccountForm = () => {
+const BankAccountForm = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      accountType: "",
-      accountNumber: "",
-      bankName: "",
-      cardNumber: "",
-      shebaNumber: "",
-      branchName: "",
+      accountType: queryData?.accountType == null ? "" : queryData?.accountType,
+      accountNumber: queryData?.accountNumber == null ? "" : queryData?.accountNumber,
+      bankName: queryData?.bankName == null ? "" : queryData?.bankName,
+      cardNumber: queryData?.cardNumber == null ? "" : queryData?.cardNumber,
+      shebaNumber: queryData?.sheba == null ? "" : queryData?.sheba,
+      branchName: queryData?.branch == null ? "" : queryData?.branch,
     },
   });
 

@@ -6,13 +6,11 @@ import { z } from "zod";
 import { validation } from "./validation";
 import { TbLockPassword } from "react-icons/tb";
 
-const AccountInfo = () => {
+const AccountInfo = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      username: "",
-      email: "",
-      monthlySalary: "",
+      monthlySalary: queryData?.amount == null ? "" : queryData?.amount,
     },
   });
   const onSubmit = (data: z.infer<typeof validation>) => {

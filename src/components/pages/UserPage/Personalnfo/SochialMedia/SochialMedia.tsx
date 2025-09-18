@@ -5,15 +5,15 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { validation } from "./validation";
 
-const SocialMedia = () => {
+const SocialMedia = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      instagram: "",
-      twitter: "",
-      linkedin: "",
-      facebook: "",
-      email: "",
+      instagram: queryData?.instagram == null ? "" : queryData?.instagram,
+      twitter: queryData?.twitter == null ? "" : queryData?.twitter,
+      linkedin: queryData?.linkedin == null ? "" : queryData?.linkedin,
+      facebook: queryData?.facebook == null ? "" : queryData?.facebook,
+      email: queryData?.email == null ? "" : queryData?.email,
     },
   });
 
