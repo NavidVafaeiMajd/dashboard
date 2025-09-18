@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useGetRowsToTable } from "./useGetRowsTable";
+import { useGetRowsToTable } from "./useGetRows";
 
 interface UsersResponse {
    data: any[];

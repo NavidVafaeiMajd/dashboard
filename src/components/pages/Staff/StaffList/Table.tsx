@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/shared/data-table";
 import { userColumns } from "./columns";
-import { useGetRowsToTable } from "@/hook/useGetRowsTable";
+import { useGetRowsToTable } from "@/hook/useGetRows";
 
 export interface User {
    id: number;

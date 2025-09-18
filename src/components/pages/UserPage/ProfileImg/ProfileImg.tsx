@@ -1,21 +1,42 @@
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { z } from "zod";
 import { validation } from "./validation";
+import { usePostRows } from "@/hook/usePostRows";
+import { useParams } from "react-router-dom";
+
+
 
 const ProfileImg = ({ queryData }: { queryData: any }) => {
-  const form = useForm<z.infer<typeof validation>>({
-    resolver: zodResolver(validation),
-    defaultValues: {
-      image: queryData?.image == null ? undefined : queryData?.image,
-    },
-  });
+  const { id } = useParams();
 
-  const onSubmit = (data: z.infer<typeof validation>) => {
+  const defaultValues = {
+    image: queryData?.image == null ? undefined : queryData?.image,
+  };
+
+
+
+  const { form, mutation } = usePostRows(
+    `employees/${queryData?.id}/image`,
+    ["employeesDetailse", id as string],
+    defaultValues,
+    validation
+  );
+  
+  const onSubmit = (data: any) => {
+    // Create FormData to send file
+    const formData = new FormData();
+    if (data.image) {
+      formData.append('image', data.image);
+    }
+    console.log(formData);
+
+    mutation.mutate(formData);
+  };
+
+  const onDelete = (data: any) => {
     console.log(data);
+    mutation.mutate(data);
   };
 
   return (
@@ -38,6 +59,18 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
             </Button>
           </div>
         </Form>
+      </div>
+      <div>
+        {queryData?.image &&(
+          <div className="flex gap-2 items-center p-4">
+            <img src={`http://localhost:8000/${queryData?.image}`} className="w-40 h-40" alt="" />
+            <Button type="button" variant="destructive" onClick={() => {
+              onDelete({ image: "image" });
+            }}>
+              حذف تصویر
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

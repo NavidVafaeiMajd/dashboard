@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetRowsToTable } from "./useGetRowsTable";
+import { useGetRowsToTable } from "./useGetRows";
 
 /**
  * Prefetch global, frequently-used server data so it's instantly

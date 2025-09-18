@@ -52,7 +52,7 @@ const EmployeDetailse = () => {
               <div className="flex gap-3">
                 <div>
                   {queryData?.image ? (
-                    <img className="w-25" src={queryData?.image} alt="" />
+                    <img className="w-25" src={`http://localhost:8000/${queryData?.image}`} alt="" />
                   ) : (
                     <HiUserCircle className="w-20 h-25"/>
                   )}

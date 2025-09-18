@@ -26,7 +26,7 @@ const StaffList: React.FC = () => {
     image: null,
   };
   
-  const { mutation, form } = usePostRows("employees", ["users"], defaultValues);
+  const { mutation, form } = usePostRows("employees", ["users"], defaultValues, validation);
 
   const formFields = (
     <div className="relative">
