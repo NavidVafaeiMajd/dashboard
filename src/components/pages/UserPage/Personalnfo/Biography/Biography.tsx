@@ -18,7 +18,6 @@ const Biography = ({ queryData }: { queryData: any }) => {
   const { mutation, form } = usePostRows(`employeeBiography/upsert/${id}`, ["employeesDetailse", id] , defaultValues, validation  , "بیوگرافی",false);
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
     mutation.mutate(data);
   };
 

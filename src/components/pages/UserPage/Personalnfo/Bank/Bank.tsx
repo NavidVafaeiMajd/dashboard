@@ -23,7 +23,6 @@ const BankAccountForm = ({ queryData }: { queryData: any }) => {
   const { mutation, form } = usePostRows(`employeeBankAccount/upsert/${id}`, ["employeesDetailse", id] , defaultValues, validation  , "حساب بانکی",false);
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
     mutation.mutate(data);
   };
 
