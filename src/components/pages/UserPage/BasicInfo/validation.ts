@@ -57,6 +57,6 @@ export const validation = z.object({
     .optional(),
 
   department: z.string().min(1, "واحد سازمانی الزامی است"),
-  position: z.string().min(1, "سمت سازمانی الزامی است"),
-  status: z.string().min(1, "وضعیت الزامی است"),
+  designation: z.string().min(1, "سمت سازمانی الزامی است"),
+  position: z.string().min(1, "وضعیت الزامی است"),
 });

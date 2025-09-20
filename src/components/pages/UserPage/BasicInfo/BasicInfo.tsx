@@ -5,7 +5,6 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
-import { useEmployees } from "@/hook/useEmployees";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
@@ -16,10 +15,10 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
       phoneNumber: queryData?.phoneNumber == null ? "" : queryData?.phoneNumber,
       gender: queryData?.gender == null ? "" : queryData?.gender,
       personeliCode: queryData?.personeliCode == null ? "" : queryData?.personeliCode,
-      birthDate: queryData?.birthDate == null ? "" : queryData?.birthDate || new Date(),
+      birthDate: queryData?.birthDate == null ? new Date() : queryData?.birthDate || new Date(),
       department: queryData?.department == null ? "" : queryData?.department,
-      position: queryData?.designation == null ? "" : queryData?.designation,
-      status: queryData?.position == null ? "" : queryData?.position,
+      designation: queryData?.designation == null ? "" : queryData?.designation,
+      position: queryData?.position == null ? "" : queryData?.position,
       province: queryData?.province == null ? "" : queryData?.province,
       city: queryData?.city == null ? "" : queryData?.city,
       postalCode: queryData?.postalCode == null ? "" : queryData?.postalCode,
@@ -93,7 +92,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
               <Form.Date label="تاریخ تولد" name="birthDate" />
               <Form.Select
                 label="وضعیت"
-                name="status"
+                name="position"
                 placeholder="انتخاب وضعیت"
                 required
               >
@@ -128,7 +127,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 <Form.SelectItem value="female">خانم</Form.SelectItem>
               </Form.Select>
               <Form.Select
-                name="position"
+                name="designation"
                 label="سمت سازمانی"
                 placeholder="سمت سازمانی"
                 required

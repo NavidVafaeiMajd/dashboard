@@ -17,13 +17,13 @@ export interface User {
 
 const Table: React.FC = () => {
 
-   const fetchUsers  = useGetRowsToTable("employees");
+   const fetchUsers = () => useGetRowsToTable("employees");
     
    return (
       <DataTable
          columns={userColumns}
-         queryKey={["users"]}
-         queryFn={() => fetchUsers}
+         queryKey={["employees"]}
+         queryFn={fetchUsers}
          searchableKeys={["fullName", "department", "phoneNumber", "accessLevel"]}
       />
    );

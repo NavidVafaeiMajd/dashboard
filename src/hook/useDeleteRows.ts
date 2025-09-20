@@ -2,13 +2,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 type UseDeleteRowsProps = {
-  url: string; // مثلا "http://localhost:8000/api/employees"
-  queryKey?: string[]; // مثلا ["users"]
+  url: string; 
+  queryKey?: string[]; 
 };
 
 export const useDeleteRows = ({ url, queryKey = [] }: UseDeleteRowsProps) => {
   const queryClient = useQueryClient();
 
+  console.log(queryClient)
   return useMutation({
     mutationFn: async (id: number) => {
       const res = await fetch(`http://localhost:8000/api/${url}/${id}`, {
