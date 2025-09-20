@@ -5,6 +5,8 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
   const form = useForm<z.infer<typeof validation>>({
@@ -32,8 +34,65 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
     },
   });
 
+  
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (data: z.infer<typeof validation>) => {
+      // Transform data to match API structure
+      const apiData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phoneNumber: data.phoneNumber,
+        gender: data.gender,
+        personeliCode: data.personeliCode,
+        birthDate: data.birthDate?.toISOString().split('T')[0], // Convert Date to YYYY-MM-DD
+        position: data.position,
+        maritalStatus: data.maritalStatus,
+        province: data.province,
+        city: data.city,
+        postalCode: data.postalCode,
+        religion: data.religion,
+        bloodGroup: data.bloodGroup,
+        nationality: data.nationality,
+        citizenship: data.citizenship,
+        address1: data.address1,
+        address2: data.address2,
+        department_id: data.department ? parseInt(data.department) : null,
+        designation_id: data.designation ? parseInt(data.designation) : null,
+      };
+      
+      console.log("Sending data:", apiData);
+      console.log("User ID:", queryData?.id);
+      
+      const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(apiData),
+      });
+      
+      console.log("Response status:", res.status);
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Error response:", errorText);
+        toast.error(`خطا ${res.status}: ${errorText}`);
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
+      queryClient.invalidateQueries({ queryKey: ["employeesDetailse", queryData?.id] });
+    },
+    onError: () => {
+      toast.error("به‌روزرسانی ناموفق بود");
+    },
+  });
+
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    console.log(data)
+    mutation.mutate(data);
   };
   
   return (
@@ -123,8 +182,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 placeholder="واحد سازمانی"
                 required
               >
-                <Form.SelectItem value="male">آقا</Form.SelectItem>
-                <Form.SelectItem value="female">خانم</Form.SelectItem>
+                <Form.SelectItem value="1">آقا</Form.SelectItem>
+                <Form.SelectItem value="fem2ale">خانم</Form.SelectItem>
               </Form.Select>
               <Form.Select
                 name="designation"
@@ -132,8 +191,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 placeholder="سمت سازمانی"
                 required
               >
-                <Form.SelectItem value="male">آقا</Form.SelectItem>
-                <Form.SelectItem value="female">خانم</Form.SelectItem>
+                <Form.SelectItem value="1">آقا</Form.SelectItem>
+                <Form.SelectItem value="2">خانم</Form.SelectItem>
               </Form.Select>
             </div>
             <div className="flex gap-5">
@@ -224,7 +283,9 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
             </div>
 
             <div className="flex gap-x-2 mt-5">
-              <Button>به روزرسانی پروفایل</Button>
+              <Button type="submit" disabled={mutation.isPending}>
+                {mutation.isPending ? "در حال به‌روزرسانی..." : "به‌روزرسانی پروفایل"}
+              </Button>
             </div>
           </Form>
         </div>

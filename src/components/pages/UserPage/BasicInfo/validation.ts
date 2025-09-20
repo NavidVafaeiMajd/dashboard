@@ -29,8 +29,7 @@ export const validation = z.object({
     .optional(),
 
   gender: z.string().min(1, "جنسیت الزامی است"),
-  maritalStatus: z.string().min(1, "وضعیت تاهل الزامی است"),
-  accessLevel: z.string().min(1, "سطح دسترسی الزامی است"),
+  maritalStatus: z.string().optional(),
 
   religion: z.string().optional(),
   bloodGroup: z.string().optional(),
@@ -56,7 +55,7 @@ export const validation = z.object({
     .max(200, "نشانی 2 نباید بیشتر از 200 کاراکتر باشد")
     .optional(),
 
-  department: z.string().min(1, "واحد سازمانی الزامی است"),
-  designation: z.string().min(1, "سمت سازمانی الزامی است"),
-  position: z.string().min(1, "وضعیت الزامی است"),
+  department: z.string().optional(),
+  designation: z.string().optional(),
+  position: z.string().optional(),
 });
