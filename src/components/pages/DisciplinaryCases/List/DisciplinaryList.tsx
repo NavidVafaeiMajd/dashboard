@@ -4,6 +4,8 @@ import z from "zod";
 
 import SectionAccImg from "@/components/shared/section/SectionAccImg";
 import DisciplinaryTable from "./DisciplinaryTable";
+import { usePostRows } from "@/hook/usePostRows";
+
 
 const validation = z.object({
   employee: z.string().min(1, "انتخاب کارمند الزامی است"),
@@ -24,18 +26,33 @@ const DisciplinaryList = () => {
     files: [],
   };
 
+  const { mutation, form } = usePostRows("disciplinary-cases", ["disciplinary"], defaultValues, validation, "پرسنل", true);
+
+
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log("Form Data:", data);
+    const formData = new FormData();
+    Object.entries(data as Record<string, any>).forEach(([key, value]) => {
+      if (key === "image") {
+        if (value instanceof File) {
+          formData.append("image", value);
+        }
+        // skip if null/undefined or already a URL string (server expects file on create)
+        return;
+      }
+      if (value !== undefined && value !== null) {
+        formData.append(key, String(value));
+      }
+    });
+    mutation.mutate(formData);
   };
 
   return (
     <div>
       <SectionAccImg
-        file={<><Form.Image name="files " label="پیوست" required /></>}
+        form={form}
+        file={<><Form.Image name="files" label="پیوست" required /></>}
         FileTitle="پیوست پرونده"
-        defaultValues={defaultValues}
         onSubmit={onSubmit}
-        schema={validation}
         table={<DisciplinaryTable />}
         FirstTitle="ثبت جدید مورد"
         SecoundTitle="لیست همه موارد"
