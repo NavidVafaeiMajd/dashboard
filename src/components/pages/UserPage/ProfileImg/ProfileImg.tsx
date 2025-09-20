@@ -4,6 +4,8 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { validation } from "./validation";
 import { usePostRows } from "@/hook/usePostRows";
 import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 
 
@@ -20,8 +22,32 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
     `employees/${queryData?.id}/image`,
     ["employeesDetailse", id as string],
     defaultValues,
-    validation
+    validation,
+     "تصویر پروفایل"
   );
+
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}/image`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        throw new Error("حذف تصویر ناموفق بود");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast.success("تصویر با موفقیت حذف شد");
+      queryClient.invalidateQueries({ queryKey: ["employeesDetailse", id] });
+      // Clear the form image field
+      form.setValue("image", undefined);
+    },
+    onError: (error: any) => {
+      toast.error(error?.message || "خطا در حذف تصویر");
+    },
+  });
   
   const onSubmit = (data: any) => {
     // Create FormData to send file
@@ -34,11 +60,12 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
     mutation.mutate(formData);
   };
 
-  const onDelete = (data: any) => {
-    console.log(data);
-    mutation.mutate(data);
+  
+  const onDelete = () => {
+    deleteMutation.mutate();
   };
 
+  
   return (
     <div>
       <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
@@ -64,10 +91,13 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
         {queryData?.image &&(
           <div className="flex gap-2 items-center p-4">
             <img src={`http://localhost:8000/${queryData?.image}`} className="w-40 h-40" alt="" />
-            <Button type="button" variant="destructive" onClick={() => {
-              onDelete({ image: "image" });
-            }}>
-              حذف تصویر
+            <Button 
+              type="button" 
+              variant="destructive" 
+              onClick={() => onDelete()}
+              disabled={deleteMutation.isPending}
+            >
+              {deleteMutation.isPending ? "در حال حذف..." : "حذف تصویر"}
             </Button>
           </div>
         )}
