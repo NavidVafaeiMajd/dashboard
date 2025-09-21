@@ -48,6 +48,9 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
   } = useQuery<{ data: TData[] }>({
     queryKey: queryKey,
     queryFn: queryFn,
+    staleTime: 1000 * 60 * 1,       
+    gcTime: 1000 * 60 * 5,     
+    refetchOnWindowFocus: false,    
   });
 
    const [sorting, setSorting] = useState<SortingState>([]);

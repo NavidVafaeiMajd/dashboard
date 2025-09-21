@@ -60,7 +60,7 @@ const EmployeDetailse = () => {
                     {queryData?.firstName} {queryData?.lastName}
                   </span>
                   <span className="text-gray-400">
-                    {queryData?.designation}{" "}
+                    {queryData?.designation.title}{" "}
                   </span>
                 </div>
               </div>

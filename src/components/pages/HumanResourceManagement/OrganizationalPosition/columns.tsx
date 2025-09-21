@@ -6,23 +6,22 @@ import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { useDepartments } from "@/hook/useDepartments";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 export interface designationColumnProps extends Record<string, unknown> {
-   department_id : string;
+   department_id: string;
    title: string;
-   designation: "",
-   unit: string;
+   description?: string | undefined;
 }
 
 const defaultValues = {
-   unit: "",
-   designation: "",
+   department_id: "",
+   title: "",
    description: "",
 };
 
 const validation = z.object({
-
-   unit: z.string().min(1, "واحد سازمانی الزامی است"),
-   designation: z.string().min(1, "نام سمت سازمانی الزامی است"),
+   department_id: z.string().min(1, "واحد سازمانی الزامی است"),
+   title: z.string().min(1, "نام سمت سازمانی الزامی است"),
    description: z.string().optional(),
 });
 
@@ -42,7 +41,7 @@ export const columns: ColumnDef<designationColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "unit",
+      accessorKey: "department_id",
       header: ({ column }) => (
         <Button
           variant="ghost"
@@ -69,7 +68,12 @@ export const columns: ColumnDef<designationColumnProps>[] = [
       id: "actions",
       header: "عملیات",
 
-      cell: () => {
+      cell: ({ row }) => {
+         const rowInf = row.original;
+         const deleteRow = useDeleteRows({
+            url: "designations",
+            queryKey: ["designations"],
+          });
          return (
             <div className="flex items-center gap-2">
 
@@ -94,7 +98,11 @@ export const columns: ColumnDef<designationColumnProps>[] = [
                   }}
                   schema={validation}
                />
-               <DeleteDialog onConfirm={()=>{}}/>
+                         <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(rowInf.id as number);
+            }}
+          />
             </div>
          );
       },

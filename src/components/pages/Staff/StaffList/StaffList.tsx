@@ -5,13 +5,14 @@ import { Form } from "@/components/shared/Form";
 import z from "zod";
 import { validation } from "./validation";
 import { usePostRows } from "@/hook/usePostRows";
+import { useDepartments } from "@/hook/useDepartments";
+import { useDesignationsts } from "@/hook/useDesignationsts";
 
 const StaffList: React.FC = () => {
   const title = "پرسنل";
   useEffect(() => {
     document.title = title;
   }, []);
-
 
   const defaultValues = {
     firstName: "",
@@ -21,12 +22,22 @@ const StaffList: React.FC = () => {
     gender: "مرد",
     shift: "morning",
     department_id: "1",
-    designations_id: "1",
+    designation_id: "1",
     position: "فعال",
     image: null,
   };
-  
-  const { mutation, form } = usePostRows("employees", ["employees"], defaultValues, validation, "پرسنل", true);
+
+  const { data: departments, isPending: departmentsLoading } = useDepartments();
+  const { data: designationsts, isPending: designationstsLoading } = useDesignationsts();
+
+  const { mutation, form } = usePostRows(
+    "employees",
+    ["employees"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
 
   const formFields = (
     <div className="relative">
@@ -86,8 +97,11 @@ const StaffList: React.FC = () => {
           placeholder="سمت سازمانی"
           required
         >
-          <Form.SelectItem value="1">سمت سازمانی1</Form.SelectItem>
-          <Form.SelectItem value="2">سمت سازمانی2</Form.SelectItem>
+          {designationsts?.data?.map((dept, index) => (
+            <Form.SelectItem key={index} value={String(dept.id)}>
+              {dept.name || dept.title || dept.department_name}
+            </Form.SelectItem>
+          ))}
         </Form.Select>
         <Form.Select
           name="designations_id"
@@ -95,8 +109,11 @@ const StaffList: React.FC = () => {
           placeholder="واحد سازمانی"
           required
         >
-          <Form.SelectItem value="1">واحد سازمانی1</Form.SelectItem>
-          <Form.SelectItem value="2">واحد سازمانی2</Form.SelectItem>
+          {departments?.data?.map((dept , index) => (
+            <Form.SelectItem key={index} value={String(dept.id)}>
+              {dept.name || dept.title || dept.department_name}
+            </Form.SelectItem>
+          ))}
         </Form.Select>
       </div>
     </div>

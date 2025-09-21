@@ -7,8 +7,13 @@ import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useDepartments } from "@/hook/useDepartments";
+import { useDesignationsts } from "@/hook/useDesignationsts";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
+  const { data: departments, isPending: departmentsLoading } = useDepartments();
+  const { data: designationsts, isPending: designationstsLoading } =useDesignationsts();
+
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
@@ -16,10 +21,19 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
       lastName: queryData?.lastName == null ? "" : queryData?.lastName,
       phoneNumber: queryData?.phoneNumber == null ? "" : queryData?.phoneNumber,
       gender: queryData?.gender == null ? "" : queryData?.gender,
-      personeliCode: queryData?.personeliCode == null ? "" : queryData?.personeliCode,
-      birthDate: queryData?.birthDate == null ? new Date() : queryData?.birthDate || new Date(),
-      department: queryData?.department == null ? "" : queryData?.department,
-      designation: queryData?.designation == null ? "" : queryData?.designation,
+      personeliCode:
+        queryData?.personeliCode == null ? "" : queryData?.personeliCode,
+        birthDate: queryData?.birthDate
+        ? new Date(queryData.birthDate)
+        : new Date(),
+      
+      department: queryData?.department_id
+        ? String(queryData.department_id)
+        : "",
+      
+      designation: queryData?.designation_id
+        ? String(queryData.designation_id)
+        : "",
       position: queryData?.position == null ? "" : queryData?.position,
       province: queryData?.province == null ? "" : queryData?.province,
       city: queryData?.city == null ? "" : queryData?.city,
@@ -30,11 +44,11 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
       citizenship: queryData?.citizenship == null ? "" : queryData?.citizenship,
       address1: queryData?.address1 == null ? "" : queryData?.address1,
       address2: queryData?.address2 == null ? "" : queryData?.address2,
-      maritalStatus: queryData?.maritalStatus == null ? "" : queryData?.maritalStatus,
+      maritalStatus:
+        queryData?.maritalStatus == null ? "" : queryData?.maritalStatus,
     },
   });
 
-  
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -46,7 +60,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
         phoneNumber: data.phoneNumber,
         gender: data.gender,
         personeliCode: data.personeliCode,
-        birthDate: data.birthDate?.toISOString().split('T')[0], // Convert Date to YYYY-MM-DD
+        birthDate: data.birthDate?.toISOString().split("T")[0], // Convert Date to YYYY-MM-DD
         position: data.position,
         maritalStatus: data.maritalStatus,
         province: data.province,
@@ -61,15 +75,18 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
         department_id: data.department ? parseInt(data.department) : null,
         designation_id: data.designation ? parseInt(data.designation) : null,
       };
-    
-      const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(apiData),
-      });
-      
+
+      const res = await fetch(
+        `http://localhost:8000/api/employees/${queryData?.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(apiData),
+        }
+      );
+
       console.log("Response status:", res.status);
-      
+
       if (!res.ok) {
         const errorText = await res.text();
         toast.error(`خطا ${res.status}: ${errorText}`);
@@ -79,7 +96,9 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
     },
     onSuccess: () => {
       toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries({ queryKey: ["employeesDetailse", queryData?.id] });
+      queryClient.invalidateQueries({
+        queryKey: ["employeesDetailse", queryData?.id],
+      });
     },
     onError: () => {
       toast.error("به‌روزرسانی ناموفق بود");
@@ -87,10 +106,10 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
   });
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data)
+    console.log(data);
     mutation.mutate(data);
   };
-  
+
   return (
     <>
       <div>
@@ -169,7 +188,6 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                   طلاق گرفته یا جدا شده
                 </Form.SelectItem>
               </Form.Select>
-
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <Form.Select
@@ -178,8 +196,11 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 placeholder="واحد سازمانی"
                 required
               >
-                <Form.SelectItem value="1">آقا</Form.SelectItem>
-                <Form.SelectItem value="fem2ale">خانم</Form.SelectItem>
+                {departments?.data?.map((dept, index) => (
+                  <Form.SelectItem key={index} value={String(dept.id)}>
+                    {dept.name || dept.title || dept.department_name}
+                  </Form.SelectItem>
+                ))}
               </Form.Select>
               <Form.Select
                 name="designation"
@@ -187,23 +208,20 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 placeholder="سمت سازمانی"
                 required
               >
-                <Form.SelectItem value="1">آقا</Form.SelectItem>
-                <Form.SelectItem value="2">خانم</Form.SelectItem>
+                {designationsts?.data?.map((dept, index) => (
+                  <Form.SelectItem key={index} value={String(dept.id)}>
+                    {dept.name || dept.title || dept.department_name}
+                  </Form.SelectItem>
+                ))}
               </Form.Select>
             </div>
             <div className="flex gap-5">
-              <Form.Input
-                placeholder="استان"
-                label="استان"
-                name="province"
-                
-              />
-              <Form.Input placeholder="شهر" label="شهر" name="city"  />
+              <Form.Input placeholder="استان" label="استان" name="province" />
+              <Form.Input placeholder="شهر" label="شهر" name="city" />
               <Form.Input
                 placeholder="کدپستی"
                 label="کدپستی"
                 name="postalCode"
-                
               />
             </div>
             <div className="flex gap-5">
@@ -211,7 +229,6 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="مذهب"
                 name="religion"
                 placeholder="انتخاب مذهب"
-                
               >
                 <Form.SelectItem value="اسلام">اسلام</Form.SelectItem>
                 <Form.SelectItem value="مسیحیت">مسیحیت</Form.SelectItem>
@@ -223,7 +240,6 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="گروه خونی"
                 name="bloodGroup"
                 placeholder="انتخاب گروه خونی"
-                
               >
                 <Form.SelectItem value="A+">A+</Form.SelectItem>
                 <Form.SelectItem value="A-">A-</Form.SelectItem>
@@ -240,9 +256,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="ملیت"
                 name="nationality"
                 placeholder="انتخاب ملیت"
-                
               >
-                  <Form.SelectItem value="ایرانی">ایرانی</Form.SelectItem>
+                <Form.SelectItem value="ایرانی">ایرانی</Form.SelectItem>
                 <Form.SelectItem value="افغانستانی">افغانستانی</Form.SelectItem>
                 <Form.SelectItem value="عراقی">عراقی</Form.SelectItem>
                 <Form.SelectItem value="پاکستانی">پاکستانی</Form.SelectItem>
@@ -253,9 +268,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="تابعیت"
                 name="citizenship"
                 placeholder="انتخاب تابعیت"
-                
               >
-                  <Form.SelectItem value="ایران">ایران</Form.SelectItem>
+                <Form.SelectItem value="ایران">ایران</Form.SelectItem>
                 <Form.SelectItem value="افغانستان">افغانستان</Form.SelectItem>
                 <Form.SelectItem value="عراق">عراق</Form.SelectItem>
                 <Form.SelectItem value="پاکستان">پاکستان</Form.SelectItem>
@@ -268,19 +282,19 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="نشانی 1"
                 name="address1"
                 placeholder="نشانی 1"
-                
               />
               <Form.Input
                 label="نشانی 2"
                 name="address2"
                 placeholder="نشانی 2"
-                
               />
             </div>
 
             <div className="flex gap-x-2 mt-5">
               <Button type="submit" disabled={mutation.isPending}>
-                {mutation.isPending ? "در حال به‌روزرسانی..." : "به‌روزرسانی پروفایل"}
+                {mutation.isPending
+                  ? "در حال به‌روزرسانی..."
+                  : "به‌روزرسانی پروفایل"}
               </Button>
             </div>
           </Form>
