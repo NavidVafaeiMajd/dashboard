@@ -10,8 +10,8 @@ import { z } from "zod";
 export interface PolicyColumnProps extends Record<string, unknown> {
   id: string;
   title: string;
-  startDate: string;
-  finishDate: string;
+  publish_date: Date;
+  end_date: Date
   organizationalUnit: string;
 }
 
@@ -64,7 +64,7 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
     },
   },
   {
-    accessorKey: "startDate",
+    accessorKey: "publish_date",
     header: ({ column }) => {
       return (
         <Button
@@ -77,12 +77,16 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("startDate"));
+      const rawDate = row.getValue("publish_date") as string | null;
+
+      if (!rawDate) return "-";
+
+      const date = new Date(rawDate.replace(" ", "T"));
       return date.toLocaleDateString("fa-IR");
     },
   },
   {
-    accessorKey: "finishDate",
+    accessorKey: "end_date",
     header: ({ column }) => {
       return (
         <Button
@@ -95,10 +99,15 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("finishDate"));
+      const rawDate = row.getValue("end_date") as string | null; 
+  
+      if (!rawDate) return "-";
+  
+      const date = new Date(rawDate.replace(" ", "T"));
       return date.toLocaleDateString("fa-IR");
     },
   },
+  
   {
     id: "actions",
     header: "عملیات",

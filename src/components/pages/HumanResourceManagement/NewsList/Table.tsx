@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
-import { POLICY_CONST } from "./const";
+import { useGetRowsToTable } from "@/hook/useGetRows";
 
 export interface User {
    id: number;
@@ -14,10 +14,14 @@ export interface User {
 
 const Table: React.FC = () => {
 
+   const fetchNewsList = () => useGetRowsToTable("hr-news");
+
+
    return (
       <DataTable
-         columns={columns}
-         data={POLICY_CONST}
+      columns={columns}
+      queryKey={["hr-news"]}
+      queryFn={fetchNewsList}
          searchableKeys={["name", "position", "phone", "accessLevel"]}
       />
    );

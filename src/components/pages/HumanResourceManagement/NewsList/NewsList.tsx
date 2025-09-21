@@ -4,6 +4,7 @@ import SectionAcc from "@/components/shared/section/SectionAcc";
 import { validation } from "./validation";
 import { Form } from "@/components/shared/Form";
 import type z from "zod";
+import { usePostRows } from "@/hook/usePostRows";
 
 const NewsList: React.FC = () => {
   const title = " ابلاغیه ";
@@ -12,54 +13,83 @@ const NewsList: React.FC = () => {
   }, []);
 
   const defaultValues = {
-    newsTitle: "",
-    startDate: null,
-    finishDate: null,
-    organizationalUnit: "",
+    title: "",
+    publish_date: null,
+    end_date: null,
+    department_id: "",
     summary: "",
-    newsText: "",
+    content: "",
   };
+  const { mutation, form } = usePostRows(
+    "hr-news",
+    ["hr-news"],
+    defaultValues,
+    validation,
+    "ابلاغیه",
+    true
+  );
   const formFields = (
-    <>
+    <div className="relative">
+      {mutation.isPending && (
+        <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <span className="mr-2">در حال ارسال اطلاعات...</span>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <Form.Input
-          name="newsTitle"
+          name="title"
           label="عنوان ابلاغیه"
           required
           placeholder="عنوان ابلاغیه"
         />
         <div className="flex flex-col md:flex-row gap-5">
-          <Form.Date name="startDate" label="تاریخ شروع" />
-          <Form.Date name="finishDate" label="تاریخ پایان" />
+          <Form.Date name="publish_date" label="تاریخ شروع" />
+          <Form.Date name="end_date" label="تاریخ پایان" />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-5">
-
-      </div>
+      <div className="flex flex-col md:flex-row gap-5"></div>
 
       <div className="flex flex-col md:flex-row gap-5">
-      <Form.Select
-        name="organizationalUnit"
-        label="واحد سازمانی"
-        required
-        placeholder="انتخاب واحد سازمانی"
-      >
-        <Form.SelectItem value="1">واحد سازمانی 1</Form.SelectItem>
-        <Form.SelectItem value="2">واحد سازمانی 2</Form.SelectItem>
-      </Form.Select>
-      <Form.Input name="summary" label="اختصاری" required placeholder="اختصاری" />
+        <Form.Select
+          name="department_id"
+          label="واحد سازمانی"
+          required
+          placeholder="انتخاب واحد سازمانی"
+        >
+          <Form.SelectItem value="1">واحد سازمانی 1</Form.SelectItem>
+          <Form.SelectItem value="2">واحد سازمانی 2</Form.SelectItem>
+        </Form.Select>
+        <Form.Input
+          name="summary"
+          label="اختصاری"
+          required
+          placeholder="اختصاری"
+        />
       </div>
-      <Form.RichText name="newsText" label="متن ابلاغیه" required />
-    </>
+      <Form.RichText name="content" label="متن ابلاغیه" required />
+    </div>
   );
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    const formData = {
+      ...data,
+      publish_date: data.publish_date
+        ? data.publish_date.toISOString().slice(0, 19)
+        : null,
+      end_date: data.end_date
+        ? data.end_date.toISOString().slice(0, 19)
+        : null,
+    };
+    
+    console.log(formData)
+    mutation.mutate(formData);
   };
 
   return (
     <>
       <SectionAcc
+        form={form}
         defaultValues={defaultValues}
         schema={validation}
         formFields={formFields}
