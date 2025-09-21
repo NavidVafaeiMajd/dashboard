@@ -5,6 +5,7 @@ import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { useDepartments } from "@/hook/useDepartments";
 export interface designationColumnProps extends Record<string, unknown> {
    department_id : string;
    title: string;
@@ -25,7 +26,9 @@ const validation = z.object({
    description: z.string().optional(),
 });
 
+
 export const columns: ColumnDef<designationColumnProps>[] = [
+
    {
       accessorKey: "title",
       header: ({ column }) => (
@@ -41,15 +44,26 @@ export const columns: ColumnDef<designationColumnProps>[] = [
    {
       accessorKey: "unit",
       header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            واحد سازمانی
-         </Button>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <LuArrowUpDown className="ml-2 h-4 w-4" />
+          واحد سازمانی
+        </Button>
       ),
-   },
+      cell: ({ row }) => {
+        const { data: departments } = useDepartments();
+        const rowData = row.original;
+    
+        const department = departments?.data?.find(
+          (item) => item?.id === rowData.department_id
+        );
+    
+        return department ? department.name : "-";
+      },
+    },
+    
    {
       accessorKey: "id",
       id: "actions",

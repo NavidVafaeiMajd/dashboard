@@ -7,11 +7,12 @@ import { columns } from "./columns";
 import SectionCol from "@/components/shared/section/SectionCol";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
+import { useDepartments } from "@/hook/useDepartments";
 
 const defaultValues = {
   title: "",
   description: "",
-  organizationUnit: "",
+  department_id: "",
 };
 
 const OrganizationalPosition = () => {
@@ -19,12 +20,14 @@ const OrganizationalPosition = () => {
     document.title = "سمت سازمانی";
   }, []);
 
+  const { data: departments, isPending: departmentsLoading } = useDepartments();
+
   const { mutation, form } = usePostRows(
-    "disciplinary-cases",
-    ["disciplinary"],
+    "designations",
+    ["designations"],
     defaultValues,
     validation,
-    "پرسنل",
+    "سمت سازمانی",
     true
   );
 
@@ -32,7 +35,6 @@ const OrganizationalPosition = () => {
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     mutation.mutate(data);
-    console.log(data);
   };
 
   return (
@@ -54,21 +56,28 @@ const OrganizationalPosition = () => {
           FirstTitle="ثبت جدید سمت سازمانی"
           SecoundTitle="لیست همه سمت ها"
           formFields={
-            <>
+            <div className="relative">
+              {(mutation.isPending || departmentsLoading) && (
+                <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                  <span className="mr-2">در حال بارگذاری...</span>
+                </div>
+              )}
               <Form.Select
                 label="واحد سازمانی  "
-                name="organizationUnit"
+                name="department_id"
                 placeholder="انتخاب واحد سازمانی "
                 required
               >
-                <Form.SelectItem value="1">استحقاقی</Form.SelectItem>
-                <Form.SelectItem value="2">استعلاجی</Form.SelectItem>
-                <Form.SelectItem value="3">بدون حقوق</Form.SelectItem>
-                <Form.SelectItem value="4">سایر</Form.SelectItem>
+                {departments?.data?.map((dept, index) => (
+                  <Form.SelectItem key={index} value={String(dept.id)}>
+                    {dept.name || dept.title || dept.department_name}
+                  </Form.SelectItem>
+                ))}
               </Form.Select>
               <Form.Input
                 label="نام سمت سازمانی "
-                name="name"
+                name="title"
                 placeholder="انتخاب نام سمت سازمانی "
                 required
               />
@@ -77,7 +86,7 @@ const OrganizationalPosition = () => {
                 name="description"
                 placeholder="شرح "
               />
-            </>
+            </div>
           }
         />
       </div>

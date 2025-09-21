@@ -5,12 +5,15 @@ import { validation } from "./validation";
 import { Form } from "@/components/shared/Form";
 import type z from "zod";
 import { usePostRows } from "@/hook/usePostRows";
+import { useDepartments } from "@/hook/useDepartments";
 
 const NewsList: React.FC = () => {
   const title = " ابلاغیه ";
   useEffect(() => {
     document.title = title;
   }, []);
+
+  const { data: departments, isPending: departmentsLoading } = useDepartments();
 
   const defaultValues = {
     title: "",
@@ -30,10 +33,10 @@ const NewsList: React.FC = () => {
   );
   const formFields = (
     <div className="relative">
-      {mutation.isPending && (
+      {(mutation.isPending || departmentsLoading) && (
         <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-          <span className="mr-2">در حال ارسال اطلاعات...</span>
+          <span className="mr-2">در حال بارگذاری...</span>
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -57,8 +60,11 @@ const NewsList: React.FC = () => {
           required
           placeholder="انتخاب واحد سازمانی"
         >
-          <Form.SelectItem value="1">واحد سازمانی 1</Form.SelectItem>
-          <Form.SelectItem value="2">واحد سازمانی 2</Form.SelectItem>
+          {departments?.data?.map((dept, index) => (
+            <Form.SelectItem key={index} value={String(dept.id)}>
+              {dept.name || dept.title || dept.department_name}
+            </Form.SelectItem>
+          ))}
         </Form.Select>
         <Form.Input
           name="summary"

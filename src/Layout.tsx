@@ -1,6 +1,7 @@
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
 import { lazy, Suspense } from "react";
+import { useBootstrapData } from "./hook/useBootstrapData";
 const Desk = lazy(() => import("./components/pages/Desk"));
 import {
   BrowserRouter as Router,
@@ -155,10 +156,9 @@ const DisciplinaryList = lazy(
 );
 const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
-);
-import AuthProvider, { useAuth } from "./Context/AuthContext";
-import { useBootstrapData } from "./hook/useBootstrapData";
-import Skeleton from "react-loading-skeleton";
+  );
+  import AuthProvider, { useAuth } from "./Context/AuthContext";
+  import Skeleton from "react-loading-skeleton";
 const LayoutTeching = lazy(
   () => import("./components/pages/Teachings/layoutTeaching")
 );

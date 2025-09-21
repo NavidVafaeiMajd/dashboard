@@ -17,6 +17,12 @@ export const useBootstrapData = () => {
          staleTime: 5 * 60_000,
       });
 
+      queryClient.prefetchQuery({
+         queryKey: ["departments"],
+         queryFn: () => useGetRowsToTable("departments"),
+         staleTime: 6 * 60_000,
+      });
+
       // Add more bootstrapped queries if needed, e.g. roles, departments
       // queryClient.prefetchQuery({ queryKey: ["roles"], queryFn: () => useGetRows("roles"), staleTime: 10 * 60_000 });
    }, [queryClient]);
