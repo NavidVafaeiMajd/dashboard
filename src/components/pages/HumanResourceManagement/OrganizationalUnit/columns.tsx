@@ -2,6 +2,7 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { z } from "zod";
@@ -55,9 +56,15 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
     id: "actions",
     header: "عملیات",
 
-    cell: () => {
+    cell: ({row}) => {
+      const user = row.original;
+      const deleteRow = useDeleteRows({
+        url: "departments",
+        queryKey: ["departments"],
+      });
       return (
         <div className="flex items-center gap-2">
+          
           <EditDialog
             title="ویرایش  "
             triggerLabel="ویرایش"
@@ -78,7 +85,11 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
             }}
             schema={validation}
           />
-          <DeleteDialog onConfirm={() => {}} />
+                    <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(user.id);
+            }}
+          />
         </div>
       );
     },
