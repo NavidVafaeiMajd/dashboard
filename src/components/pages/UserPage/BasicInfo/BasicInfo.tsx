@@ -72,7 +72,6 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
       
       if (!res.ok) {
         const errorText = await res.text();
-        console.error("Error response:", errorText);
         toast.error(`خطا ${res.status}: ${errorText}`);
         throw new Error(`HTTP ${res.status}: ${errorText}`);
       }
