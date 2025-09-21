@@ -9,7 +9,6 @@ type UseDeleteRowsProps = {
 export const useDeleteRows = ({ url, queryKey = [] }: UseDeleteRowsProps) => {
   const queryClient = useQueryClient();
 
-  console.log(queryClient)
   return useMutation({
     mutationFn: async (id: number) => {
       const res = await fetch(`http://localhost:8000/api/${url}/${id}`, {

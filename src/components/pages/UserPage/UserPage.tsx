@@ -41,8 +41,6 @@ const EmployeDetailse = () => {
       <div className="p-4 text-red-600">خطا: {(error as Error)?.message}</div>
     );
 
-  console.log(queryData);
-
   return (
     <>
       <Tabs defaultValue="basicInfo">

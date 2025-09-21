@@ -61,10 +61,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
         department_id: data.department ? parseInt(data.department) : null,
         designation_id: data.designation ? parseInt(data.designation) : null,
       };
-      
-      console.log("Sending data:", apiData);
-      console.log("User ID:", queryData?.id);
-      
+    
       const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
