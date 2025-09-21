@@ -26,8 +26,6 @@ const DisciplinaryList = () => {
 
   const { data: employee, isPending } = useEmployees();
 
-  console.log(employee);
-
   const { mutation, form } = usePostRows(
     "disciplinary-cases",
     ["disciplinary"],

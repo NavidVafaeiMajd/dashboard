@@ -4,9 +4,10 @@ import { validation } from "./validation";
 import { Form } from "@/components/shared/Form";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
-import { ORGANIZATIONAL_UNIT_DATA } from "./const";
 import { useEffect } from "react";
 import SectionCol from "@/components/shared/section/SectionCol";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { usePostRows } from "@/hook/usePostRows";
 
 const OrganizationalUnit = () => {
   useEffect(() => {
@@ -17,13 +18,27 @@ const OrganizationalUnit = () => {
     name: "",
   };
 
+  const { mutation, form } = usePostRows(
+    "departments",
+    ["departments"],
+    defaultValues,
+    validation,
+    "واحد سازمانی",
+    true
+  );
+
+  const fetchDepartments = () => useGetRowsToTable("departments");
+
+
   const onSubmit = (data: z.infer<typeof validation>) => {
+    mutation.mutate(data)
      console.log(data);
   };
 
   return (
     <div>
       <SectionCol
+        form={form}
         defaultValues={defaultValues}
         schema={validation}
            formFields={<>
@@ -34,8 +49,9 @@ const OrganizationalUnit = () => {
         onSubmit={onSubmit}
         table={
           <DataTable
-            columns={columns}
-            data={ORGANIZATIONAL_UNIT_DATA}
+          columns={columns}
+          queryKey={["departments"]}
+          queryFn={fetchDepartments}
             searchableKeys={["name", "unitBoss"]}
           />
         }

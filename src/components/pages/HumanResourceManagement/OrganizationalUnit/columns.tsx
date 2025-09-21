@@ -9,8 +9,7 @@ import { z } from "zod";
 export interface organizationUnitColumnProps extends Record<string, unknown> {
   id: number;
   name: string;
-  unitBoss: string;
-  createdAt: Date;
+  created_at: Date;
 }
 
 const defaultValues = {
@@ -39,27 +38,18 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
     },
   },
   {
-    accessorKey: "unitBoss",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          <LuArrowUpDown className="ml-2 h-4 w-4" />
-          رئیس واحد
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "createdAt",
+    accessorKey: "created_at",
     header: "تاریخ ایجاد",
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
-      return date.toLocaleDateString("fa-IR");
+      const rawDate = row.getValue("created_at") as string | null;
+  
+      if (!rawDate) return "-"; 
+  
+      const date = new Date(rawDate.replace(" ", "T"));
+      return date.toLocaleDateString("fa-IR"); 
     },
   },
+  
   {
     accessorKey: "id",
     id: "actions",

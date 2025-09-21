@@ -12,7 +12,6 @@ const SocialMedia = ({ queryData }: { queryData: any }) => {
     instagram: queryData?.instagram == null ? "" : queryData?.instagram,
     twitter: queryData?.twitter == null ? "" : queryData?.twitter,
     linkedin: queryData?.linkedin == null ? "" : queryData?.linkedin,
-    facebook: queryData?.facebook == null ? "" : queryData?.facebook,
     email: queryData?.email == null ? "" : queryData?.email,
   }
 
@@ -54,12 +53,6 @@ const SocialMedia = ({ queryData }: { queryData: any }) => {
         label="لینکدین"
         name="linkedin"
         placeholder="لینک لینکدین"
-        required
-      />
-      <Form.Input
-        label="فیسبوک"
-        name="facebook"
-        placeholder="لینک فیسبوک"
         required
       />
       <Form.Input

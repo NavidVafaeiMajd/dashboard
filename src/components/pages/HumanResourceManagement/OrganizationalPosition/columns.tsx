@@ -6,8 +6,9 @@ import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 export interface designationColumnProps extends Record<string, unknown> {
-   id: string;
-   designation: string;
+   department_id : string;
+   title: string;
+   designation: "",
    unit: string;
 }
 
@@ -26,7 +27,7 @@ const validation = z.object({
 
 export const columns: ColumnDef<designationColumnProps>[] = [
    {
-      accessorKey: "designation",
+      accessorKey: "title",
       header: ({ column }) => (
          <Button
             variant="ghost"

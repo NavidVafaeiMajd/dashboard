@@ -4,21 +4,34 @@ import { Form } from "@/components/shared/Form";
 import type z from "zod";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
-import { DESIGNATION_CONSTANTS } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+
+const defaultValues = {
+  title: "",
+  description: "",
+  organizationUnit: "",
+};
 
 const OrganizationalPosition = () => {
   useEffect(() => {
     document.title = "سمت سازمانی";
   }, []);
 
-  const defaultValues = {
-    name: "",
-    description: "",
-    organizationUnit: "",
-  };
+  const { mutation, form } = usePostRows(
+    "disciplinary-cases",
+    ["disciplinary"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
+  const fetchDisciplinary = () => useGetRowsToTable("designations");
 
   const onSubmit = (data: z.infer<typeof validation>) => {
+    mutation.mutate(data);
     console.log(data);
   };
 
@@ -28,10 +41,12 @@ const OrganizationalPosition = () => {
         <SectionCol
           defaultValues={defaultValues}
           schema={validation}
+          form={form}
           table={
             <DataTable
               columns={columns}
-              data={DESIGNATION_CONSTANTS}
+              queryKey={["designations"]}
+              queryFn={fetchDisciplinary}
               searchableKeys={["designation", "unit"]}
             />
           }
