@@ -3,6 +3,7 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
+import { useDepartments } from "@/hook/useDepartments";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { z } from "zod";
@@ -50,17 +51,24 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
     },
   },
   {
-    accessorKey: "organizationalUnit",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          <LuArrowUpDown className="ml-2 h-4 w-4" />
-          واحد سازمانی
-        </Button>
+    accessorKey: "department_id",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <LuArrowUpDown className="ml-2 h-4 w-4" />
+        واحد سازمانی
+      </Button>
+    ),
+     cell: ({ row }) => {
+      const { data: departments } = useDepartments();
+      const rowData = row.original;
+      const department = departments?.data?.find(
+        (item) => item?.id === rowData.department_id
       );
+
+      return department ? department.name : "-";
     },
   },
   {
