@@ -3,6 +3,7 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 import { useDepartments } from "@/hook/useDepartments";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
@@ -12,27 +13,26 @@ export interface PolicyColumnProps extends Record<string, unknown> {
   id: string;
   title: string;
   publish_date: Date;
-  end_date: Date
+  end_date: Date;
   organizationalUnit: string;
 }
 
 const defaultValues = {
-   title: "",
-   startDate: new Date(),
-   finishDate: new Date(),
-   organizationalUnit: "",
-   summary: "",
-   newsText: "",
-}
+  title: "",
+  startDate: new Date(),
+  finishDate: new Date(),
+  organizationalUnit: "",
+  summary: "",
+  newsText: "",
+};
 
 const validation = z.object({
-
-   title: z.string().min(1, "عنوان الزامی است"),
-   startDate: z.date(),
-   finishDate: z.date(),
-   organizationalUnit: z.string(),
-   summary: z.string(),
-   newsText: z.string(),
+  title: z.string().min(1, "عنوان الزامی است"),
+  startDate: z.date(),
+  finishDate: z.date(),
+  organizationalUnit: z.string(),
+  summary: z.string(),
+  newsText: z.string(),
 });
 
 export const columns: ColumnDef<PolicyColumnProps>[] = [
@@ -61,7 +61,7 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
         واحد سازمانی
       </Button>
     ),
-     cell: ({ row }) => {
+    cell: ({ row }) => {
       const { data: departments } = useDepartments();
       const rowData = row.original;
       const department = departments?.data?.find(
@@ -107,20 +107,24 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
       );
     },
     cell: ({ row }) => {
-      const rawDate = row.getValue("end_date") as string | null; 
-  
+      const rawDate = row.getValue("end_date") as string | null;
+
       if (!rawDate) return "-";
-  
+
       const date = new Date(rawDate.replace(" ", "T"));
       return date.toLocaleDateString("fa-IR");
     },
   },
-  
+
   {
     id: "actions",
     header: "عملیات",
     cell: ({ row }) => {
       const news = row.original;
+      const deleteRow = useDeleteRows({
+        url: "hr-news",
+        queryKey: ["hr-news"],
+      });
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -160,12 +164,14 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
             }}
             schema={validation}
           />
-          <DeleteDialog onConfirm={() => { }} />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(news.id as any);
+            }}
+          />
           <ActionsCell
-          actions={[
-            { label: "نمایش جزییات", path: `/news-list/${news.id}` },
-          ]}
-        />
+            actions={[{ label: "نمایش جزییات", path: `/news-list/${news.id}` }]}
+          />
         </div>
       );
     },
