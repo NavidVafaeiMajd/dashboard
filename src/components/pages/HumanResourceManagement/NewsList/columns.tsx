@@ -5,6 +5,7 @@ import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
 import { useDeleteRows } from "@/hook/useDeleteRows";
 import { useDepartments } from "@/hook/useDepartments";
+import { useUpdateRows } from "@/hook/useUpdateRows";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { z } from "zod";
@@ -14,25 +15,18 @@ export interface PolicyColumnProps extends Record<string, unknown> {
   title: string;
   publish_date: Date;
   end_date: Date;
-  organizationalUnit: string;
+  department_id: string;
+  summary: string;
+  content: string;
 }
-
-const defaultValues = {
-  title: "",
-  startDate: new Date(),
-  finishDate: new Date(),
-  organizationalUnit: "",
-  summary: "",
-  newsText: "",
-};
 
 const validation = z.object({
   title: z.string().min(1, "عنوان الزامی است"),
-  startDate: z.date(),
-  finishDate: z.date(),
-  organizationalUnit: z.string(),
+  publish_date: z.date(),
+  end_date: z.date(),
+  department_id: z.string(),
   summary: z.string(),
-  newsText: z.string(),
+  content: z.string(),
 });
 
 export const columns: ColumnDef<PolicyColumnProps>[] = [
@@ -125,6 +119,14 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
         url: "hr-news",
         queryKey: ["hr-news"],
       });
+      const { mutation } = useUpdateRows(
+        `hr-news/${news.id}`,
+        ["hr-news"],
+        validation,
+        " ابلاغیه "
+      );
+      const { data: departments } = useDepartments();
+
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -132,35 +134,60 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
             triggerLabel="ویرایش"
             fields={
               <>
-                <div className="flex gap-5">
+                <div className="flex flex-col gap-5">
                   <Form.Input name="title" label=" موضوع ابلاغیه " required />
-                  <div className="flex gap-5">
-                    <Form.Date name="startDate" label=" تاریخ شروع  " />
-                    <Form.Date name="finishtDate" label=" تاریخ پایان " />
-                  </div>
+                  <Form.Date name="publish_date" label=" تاریخ شروع  " />
+                  <Form.Date name="end_date" label=" تاریخ پایان " />
                 </div>
                 <div>
-                  <Form.MultiSelect
+                  <Form.Select
+                    name="department_id"
                     label="واحد سازمانی"
-                    name="organizationalUnit"
-                    options={[
-                      { label: "واحد سازمانی 1", value: "1" },
-                      { label: "واحد سازمانی 2", value: "2" },
-                    ]}
                     required
-                  />
+                    placeholder="انتخاب واحد سازمانی"
+                  >
+                    {departments?.data?.map((dept, index) => (
+                      <Form.SelectItem key={index} value={String(dept.id)}>
+                        {dept.name || dept.title || dept.department_name}
+                      </Form.SelectItem>
+                    ))}
+                  </Form.Select>
                 </div>
                 <div>
                   <Form.Input name="summary" label="اختصاری" />
                 </div>
                 <div>
-                  <Form.RichText name="newsText" label="متن ابلاغیه" required />
+                  <Form.RichText name="content" label="متن ابلاغیه" required />
                 </div>
               </>
             }
-            defaultValues={defaultValues}
+            defaultValues={{
+              title: news.title,
+              publish_date: news.publish_date,
+              end_date: news.end_date,
+              department_id: news.department_id,
+              summary: news.summary,
+              content: news.content,
+            }}
             onSave={(data) => {
-              console.log(data);
+              const payload = {
+                ...data,
+                publish_date:
+                  data.publish_date instanceof Date
+                    ? data.publish_date
+                        .toISOString()
+                        .slice(0, 19)
+                        .replace("T", " ")
+                    : (data.publish_date as string)
+                        .slice(0, 19)
+                        .replace("T", " "),
+                end_date:
+                  data.end_date instanceof Date
+                    ? data.end_date.toISOString().slice(0, 19).replace("T", " ")
+                    : (data.end_date as string).slice(0, 19).replace("T", " "),
+              };
+
+              mutation.mutate(payload);
             }}
             schema={validation}
           />

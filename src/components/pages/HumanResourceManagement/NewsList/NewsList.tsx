@@ -39,14 +39,14 @@ const NewsList: React.FC = () => {
           <span className="mr-2">در حال بارگذاری...</span>
         </div>
       )}
-      <div className="grid flex-col! gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <Form.Input
           name="title"
           label="عنوان ابلاغیه"
           required
           placeholder="عنوان ابلاغیه"
         />
-        <div className="flex flex-col! gap-5">
+        <div className="flex flex-col md:flex-row gap-5">
           <Form.Date name="publish_date" label="تاریخ شروع" />
           <Form.Date name="end_date" label="تاریخ پایان" />
         </div>
