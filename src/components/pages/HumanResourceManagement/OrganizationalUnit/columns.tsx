@@ -81,7 +81,6 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
             defaultValues={defaultValues}
             onSave={(data) => {
               mutation.mutate(data);
-              console.log(data);
             }}
             schema={validation}
           />
