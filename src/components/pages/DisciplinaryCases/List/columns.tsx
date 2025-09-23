@@ -5,12 +5,13 @@ import { EditDialog } from "@/components/shared/EditDialog";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
+import { useEmployees } from "@/hook/useEmployees";
 
 export interface DisciplinaryFile {
    id: number;
-   employee: string;
-   caseType: string;
-   caseDate: Date;
+   employee_id: string;
+   type: string;
+   case_date: Date;
    subject: string;
    filedBy: string;
 
@@ -19,7 +20,7 @@ export interface DisciplinaryFile {
 
 export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
    {
-      accessorKey: "employee",
+      accessorKey: "employee_id",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -29,9 +30,18 @@ export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
             کارمند
          </Button>
       ),
+      cell: ({ row }) => {
+         const { data: employees } = useEmployees();
+         const rowData = row.original;
+         const employee = employees?.data?.find(
+           (item) => item?.id === rowData.employee_id
+         );
+   
+         return employee ? employee.fullName : "-";
+       },
    },
    {
-      accessorKey: "caseType",
+      accessorKey: "type",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -43,7 +53,7 @@ export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
       ),
    },
    {
-      accessorKey: "caseDate",
+      accessorKey: "case_date",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -54,12 +64,14 @@ export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
          </Button>
       ),
       cell: ({ row }) => {
-         const date = row.getValue("caseDate") as Date;
+         const rawDate = row.getValue("case_date") as string | null;
+         if (!rawDate) return "-";
+         const date = new Date(rawDate); 
          return date.toLocaleDateString("fa-IR");
       },
    },
    {
-      accessorKey: "subject",
+      accessorKey: "title",
       header: ({ column }) => (
          <Button
             variant="ghost"
