@@ -68,10 +68,8 @@ const StaffList: React.FC = () => {
           label="شماره تماس"
           placeholder="شماره تماس"
         />
-        <Form.Select name="gender" label="جنسیت" placeholder="جنسیت" required>
-          <Form.SelectItem value="مرد">آقا</Form.SelectItem>
-          <Form.SelectItem value="زن">خانم</Form.SelectItem>
-        </Form.Select>
+        <Form.MultiSelect name="gender" label="جنسیت"  options={[{label:"مرد", value:"مرد"}, {label:"زن", value:"زن"}]}  required/>
+
       </div>
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
@@ -133,6 +131,7 @@ const StaffList: React.FC = () => {
         formData.append(key, String(value));
       }
     });
+    console.log(data)
     mutation.mutate(formData);
   };
 

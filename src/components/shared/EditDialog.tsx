@@ -22,6 +22,7 @@ interface EditDialogProps<T extends z.ZodTypeAny> {
   onSave: (data: z.infer<T>) => void;
   schema: T;
   btnTitle?: string;
+  variant?: "outline" | "default";
 }
 
 export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
@@ -32,6 +33,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
   onSave,
   schema,
   btnTitle = "ذخیره",
+  variant ="outline"
 }: EditDialogProps<T>) {
   const [open, setOpen] = useState(false);
 
@@ -49,7 +51,7 @@ export function EditDialog<T extends z.ZodTypeAny<any, any, any>>({
     <Dialog open={open} onOpenChange={setOpen}  >
       <DialogTrigger asChild>
         <Button
-          variant="outline"
+          variant={variant}
           size="sm"
           onClick={() => form.reset(defaultValues)}
         >

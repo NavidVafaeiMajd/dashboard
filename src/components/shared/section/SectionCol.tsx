@@ -13,23 +13,24 @@ interface SectionColProps<T extends z.ZodTypeAny> {
   table?: React.ReactNode;
   FirstTitle?: string;
   SecoundTitle?: string;
+  addNewButton?: React.ReactNode;
 }
 
 const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
   form,
-
   formFields,
   onSubmit,
   table,
   FirstTitle = "فرم",
   SecoundTitle = "فرم",
+  addNewButton
 }: SectionColProps<T>) => {
 
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-5 items-start">
       <div className="md:col-span-2 bg-bgBack rounded-sm shadow">
-        <div className="border-b-red-500 border-b-2 p-5">{FirstTitle}</div>
+        <div className="border-b-red-500 border-b-2 px-5 min-h-15 flex justify-between items-center">{FirstTitle}</div>
         <Form
           formProp={form}
           onSubmit={onSubmit}
@@ -43,7 +44,10 @@ const SectionCol = <T extends z.ZodTypeAny<any, any, any>>({
         </Form>
       </div>
       <div className="md:col-span-4  bg-bgBack rounded-sm shadow overflow-x-auto!">
-        <div className="border-b-red-500 border-b-2 p-5">{SecoundTitle}</div>
+        <div className="border-b-red-500 border-b-2 px-5 min-h-15 flex justify-between items-center">
+          <div>{SecoundTitle}</div>
+        <div>{addNewButton}</div>
+        </div>
         {table && <div className="mt-5 bg-[#F9F9FB]">{table}</div>}
       </div>
     </div>

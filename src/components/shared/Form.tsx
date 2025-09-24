@@ -217,53 +217,53 @@ function FormRichText<T extends FieldValues>({
   );
 }
 
-// ---------- Select ----------
-interface FormSelectProps<T extends FieldValues> {
-  name: Path<T>;
-  label: string;
-  required?: boolean;
-  placeholder?: string;
-  className?: string;
-  children: React.ReactNode;
-}
+// // ---------- Select ----------
+// interface FormSelectProps<T extends FieldValues> {
+//   name: Path<T>;
+//   label: string;
+//   required?: boolean;
+//   placeholder?: string;
+//   className?: string;
+//   children: React.ReactNode;
+// }
 
-function FormSelect<T extends FieldValues>({
-  name,
-  label,
-  required,
-  placeholder,
-  className,
-  children,
-}: FormSelectProps<T>) {
-  const { control } = useFormContextSafe<T>();
+// function FormSelect<T extends FieldValues>({
+//   name,
+//   label,
+//   required,
+//   placeholder,
+//   className,
+//   children,
+// }: FormSelectProps<T>) {
+//   const { control } = useFormContextSafe<T>();
 
-  return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem className={`w-full space-y-2 ${className ?? ""}`}>
-          <FormLabel className="text-base">
-            {label} {required && <span className="text-red-500">*</span>}
-          </FormLabel>
-          <FormControl>
-            <ShadcnSelect
-              value={field.value}
-              onValueChange={field.onChange}
-              dir="rtl"
-            >
-              <SelectTrigger className="w-full min-h-12">
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
-              <SelectContent>{children}</SelectContent>
-            </ShadcnSelect>
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  );
-}
+//   return (
+//     <FormField
+//       control={control}
+//       name={name}
+//       render={({ field }) => (
+//         <FormItem className={`w-full space-y-2 ${className ?? ""}`}>
+//           <FormLabel className="text-base">
+//             {label} {required && <span className="text-red-500">*</span>}
+//           </FormLabel>
+//           <FormControl>
+//             <ShadcnSelect
+//               value={field.value}
+//               onValueChange={field.onChange}
+//               dir="rtl"
+//             >
+//               <SelectTrigger className="w-full min-h-12">
+//                 <SelectValue placeholder={placeholder} />
+//               </SelectTrigger>
+//               <SelectContent>{children}</SelectContent>
+//             </ShadcnSelect>
+//           </FormControl>
+//           <FormMessage />
+//         </FormItem>
+//       )}
+//     />
+//   );
+// }
 
 // ---------- Textarea ----------
 interface FormTextareaProps<T extends FieldValues> {
@@ -378,14 +378,13 @@ export function MultiSelect<T extends FieldValues>({
             {label} {required && <span className="text-red-500">*</span>}
           </FormLabel>
           <FormControl>
-            <Select
-              isMulti
+            <Select<{ label: string; value: string }, false>
+              isRtl
+              closeMenuOnSelect
               options={options}
-              value={options.filter((opt) => field.value?.includes(opt.value))}
-              onChange={(vals) =>
-                field.onChange(vals.map((val: any) => val.value))
-              }
-              className="min-h-[44px]"
+              className="min-h-[44px] h-full! mt-4"
+              value={options.find((opt) => opt.value === field.value) ?? null}
+              onChange={(val) => field.onChange(val ? (val as { label: string; value: string }).value : "")}
             />
           </FormControl>
           <div className="space-y-1 leading-none">
@@ -397,7 +396,7 @@ export function MultiSelect<T extends FieldValues>({
   );
 }
 
-//---------- MultiSelect ----------
+//---------- STAR ----------
 
 interface StarRateProps<T extends FieldValues> {
   name: Path<T>;
@@ -518,14 +517,14 @@ function FormTimePicker<T extends FieldValues>({
 }
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
-  Select: FormSelect,
+  // Select: FormSelect,
   Date: FormDate,
   RichText: FormRichText,
   Textarea: FormTextarea,
   Image: FormImage,
   Checkbox: FormCheckbox,
   SelectItem,
-  MultiSelect: MultiSelect,
+  FormSelect: MultiSelect,
   StarRate: StarRate,
   TimePicker: FormTimePicker,
 });
