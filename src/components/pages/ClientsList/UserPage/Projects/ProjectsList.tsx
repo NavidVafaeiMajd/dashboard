@@ -9,11 +9,11 @@ const ProjectsListTable = () => {
         <span>لیست همه پروژه ها </span>
       </div>
       <div className="p-3">
-          <DataTable
+          {/* <DataTable
             columns={columns}
             data={Projects_List}
             searchableKeys={["accountNumber", "accountType"]}
-          />
+          /> */}
       </div>
     </div>
   );

@@ -6,10 +6,35 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import ProjectsListTable from "./Projects/ProjectsList";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import { FaPhone } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const ClientPage = () => {
-  // const { id } = useParams();
-  // const navigate = useNavigate();
+  const { id } = useParams();
+
+  const useGetEmployee = async (): Promise<any> => {
+    const res = await fetch(`http://localhost:8000/api/clients/${id}`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    return res.json();
+  };
+
+  const {
+    data: queryData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery<any>({
+    queryKey: ["clients", id],
+    queryFn: useGetEmployee,
+  });
+
+  if (isLoading) return <div className="p-4">در حال بارگذاری...</div>;
+  if (isError)
+    return (
+      <div className="p-4 text-red-600">خطا: {(error as Error)?.message}</div>
+    );
 
   return (
     <>
@@ -18,31 +43,30 @@ const ClientPage = () => {
           <div>
             <div className="flex justify-between p-5 items-center">
               <div className="flex gap-3">
-                <div>
-                  <img
-                    className="w-25"
-                    src="https://trust.jaferi.ir/public/uploads/users/20240801_221626.jpg"
-                    alt=""
-                  />
-                </div>
                 <div className="flex flex-col">
-                  <span>اکبر محمدی</span>
-                  <span className="text-gray-400">رئیس واحد</span>
+                  <span>
+                    {queryData.first_name}
+                    {queryData.last_name}{" "}
+                  </span>
                 </div>
               </div>
               <div>
-                <span className="bg-greenLight text-greenDark py-1 px-4 rounded-sm text-sm!">
-                  فعال
-                </span>
+                {queryData?.status === "ممنوع"
+                  ? <span className="bg-red-200 text-red-500 py-1 px-4 rounded-sm text-sm!">ممنوع</span>
+                  : queryData?.status === "فعال"
+                  ? <span className="bg-greenLight text-greenDark py-1 px-4 rounded-sm text-sm!">فعال</span>
+                    : <span className="bg-amber-200 text-yellow-600 py-1 px-4 rounded-sm text-sm!">تعیین نشده</span>
+                }
+                
               </div>
             </div>
             <div className="p-5 bg-white">
               <div className="flex justify-between">
                 <span className="flex gap-3">
                   <FaPhone className="w-7! h-7!" />
-                 شماره
+                  شماره
                 </span>
-                <span>0912345678</span>
+                <span>{queryData.phone}</span>
               </div>
               <div className="h-[1px] bg-gray-200 my-5"></div>
               <div className="flex justify-between">
@@ -50,7 +74,7 @@ const ClientPage = () => {
                   <MdOutlineMail className="w-7! h-7!" />
                   ایمیل
                 </span>
-                <span>a@g.com</span>
+                <span>{queryData.gmail}</span>
               </div>
             </div>
           </div>
@@ -74,12 +98,11 @@ const ClientPage = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="basicInfo">
-          <BasicInfo/>
+          <BasicInfo queryData ={queryData} />
         </TabsContent>
         <TabsContent value="accountInfo">
-          <ProjectsListTable/>
+          <ProjectsListTable />
         </TabsContent>
-
       </Tabs>
     </>
   );

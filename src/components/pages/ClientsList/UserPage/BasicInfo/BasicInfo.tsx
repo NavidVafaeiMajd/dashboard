@@ -5,24 +5,24 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
-
-const BasicInfo = () => {
+interface Props {
+  queryData?: any;
+}
+const BasicInfo = ({ queryData }: Props) => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      username: "",
-      phoneNumber: "",
-      gender: "1",     // دیفالت: مرد
-      status: "2",     // دیفالت: فعال
-      country: "IR",   // دیفالت: ایران
-      province: "",
-      city: "",
-      postalCode: "",
-      address1: "",
-      address2: "",
+      first_name: queryData?.first_name == null ? "" : queryData?.first_name,
+      last_name: queryData?.last_name == null ? "" : queryData?.last_name,
+      email: queryData?.email == null ? "" : queryData?.email,
+      phone: queryData?.phone == null ? "" : queryData?.phone,
+      gender: queryData?.gender == null ? "" : queryData?.gender,
+      status: queryData?.status == null ? "" : queryData?.status,
+      province: queryData?.province == null ? "" : queryData?.province,
+      city: queryData?.city == null ? "" : queryData?.city,
+      postalCode: queryData?.postalCode == null ? "" : queryData?.postalCode,
+      address1: queryData?.address1 == null ? "" : queryData?.address1,
+      address2: queryData?.address2 == null ? "" : queryData?.address2,
     },
   });
 
@@ -47,13 +47,13 @@ const BasicInfo = () => {
             <div className="flex gap-5">
               <Form.Input
                 label="نام"
-                name="firstName"
+                name="first_name"
                 placeholder="نام"
                 required
               />
               <Form.Input
                 label="نام خانوادگی"
-                name="lastName"
+                name="last_name"
                 placeholder="نام خانوادگی"
                 required
               />
@@ -65,24 +65,19 @@ const BasicInfo = () => {
               />
             </div>
             <div className="flex gap-5">
-              <Form.Input
-                label="نام کاربری"
-                name="firstName"
-                placeholder="نام کاربری"
-                required
-              />
               <Form.Select
                 label="وضعیت"
                 name="gender"
                 placeholder=" وضعیت"
-                required
-              >
-                <Form.SelectItem value="1">ممنوع</Form.SelectItem>
-                <Form.SelectItem value="2">فعال</Form.SelectItem>
-              </Form.Select>
+                options={[
+                  { label: "ممنوع", value: "ممنوع" },
+                  { label: "فعال", value: "فعال" },
+                ]}
+              />
+
               <Form.Input
                 label="شماره تماس"
-                name="phoneNumber"
+                name="phone"
                 placeholder="شماره تماس"
                 required
               />
@@ -92,26 +87,26 @@ const BasicInfo = () => {
                 label="جنسیت"
                 name="gender"
                 placeholder="انتخاب جنسیت"
+                options={[
+                  { label: "مرد", value: "مرد" },
+                  { label: "زن", value: "زن" },
+                ]}
                 required
-              >
-                <Form.SelectItem value="1">مرد</Form.SelectItem>
-                <Form.SelectItem value="2">زن</Form.SelectItem>
-              </Form.Select>
-
+              />
             </div>
             <div className="flex gap-5">
               <Form.Input
                 placeholder="استان"
                 label="استان"
                 name="province"
-                required
+                
               />
-              <Form.Input placeholder="شهر" label="شهر" name="city" required />
+              <Form.Input placeholder="شهر" label="شهر" name="city"  />
               <Form.Input
                 placeholder="کدپستی"
                 label="کدپستی"
                 name="postalCode"
-                required
+                
               />
             </div>
             <div className="flex gap-5">
@@ -119,13 +114,13 @@ const BasicInfo = () => {
                 label="نشانی 1"
                 name="address1"
                 placeholder="نشانی 1"
-                required
+                
               />
               <Form.Input
                 label="نشانی 2"
                 name="address2"
                 placeholder="نشانی 2"
-                required
+                
               />
             </div>
 
