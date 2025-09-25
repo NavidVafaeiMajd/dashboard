@@ -5,6 +5,9 @@ import type z from "zod";
 import { validation } from "./validation";
 import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 interface Props {
   queryData?: any;
 }
@@ -26,9 +29,48 @@ const BasicInfo = ({ queryData }: Props) => {
     },
   });
 
+  const { id } = useParams();
+  
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (data: z.infer<typeof validation>) => {
+
+      const res = await fetch(
+        `http://localhost:8000/api/clients/${queryData?.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+
+      console.log("Response status:", res.status);
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        toast.error(`خطا ${res.status}: ${errorText}`);
+        throw new Error(`HTTP ${res.status}: ${errorText}`);
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
+      queryClient.invalidateQueries({
+        queryKey: ["clientsDetailes", id],
+      });
+    },
+    onError: () => {
+      toast.error("به‌روزرسانی ناموفق بود");
+    },
+  });
+
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
+    mutation.mutate(data)
   };
+
+
   return (
     <>
       <div>
@@ -59,7 +101,7 @@ const BasicInfo = ({ queryData }: Props) => {
               />
               <Form.Input
                 label="ایمیل"
-                name="firstName"
+                name="email"
                 placeholder="ایمیل"
                 required
               />
@@ -67,10 +109,10 @@ const BasicInfo = ({ queryData }: Props) => {
             <div className="flex gap-5">
               <Form.Select
                 label="وضعیت"
-                name="gender"
+                name="status"
                 placeholder=" وضعیت"
                 options={[
-                  { label: "ممنوع", value: "ممنوع" },
+                  { label: "غیرفعال", value: "غیرفعال" },
                   { label: "فعال", value: "فعال" },
                 ]}
               />

@@ -26,7 +26,7 @@ const ClientPage = () => {
     isError,
     error,
   } = useQuery<any>({
-    queryKey: ["clients", id],
+    queryKey: ["clientsDetailes", id],
     queryFn: useGetEmployee,
   });
 
@@ -51,8 +51,8 @@ const ClientPage = () => {
                 </div>
               </div>
               <div>
-                {queryData?.status === "ممنوع"
-                  ? <span className="bg-red-200 text-red-500 py-1 px-4 rounded-sm text-sm!">ممنوع</span>
+                {queryData?.status === "غیرفعال"
+                  ? <span className="bg-red-200 text-red-500 py-1 px-4 rounded-sm text-sm!">غیرفعال</span>
                   : queryData?.status === "فعال"
                   ? <span className="bg-greenLight text-greenDark py-1 px-4 rounded-sm text-sm!">فعال</span>
                     : <span className="bg-amber-200 text-yellow-600 py-1 px-4 rounded-sm text-sm!">تعیین نشده</span>
