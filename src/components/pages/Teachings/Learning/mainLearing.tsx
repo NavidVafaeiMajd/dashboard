@@ -1,10 +1,14 @@
 import { LearningRecordColumns } from "./column";
 import { DataTable } from "@/components/shared/data-table";
-import { LEARNING_RECORDS } from "./const";
 import { Form } from "@/components/shared/Form";
 import z from "zod";
 import { validation } from "./validation";
 import SectionAcc from "@/components/shared/section/SectionAcc";
+import { useEmployees } from "@/hook/useEmployees";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import SkeletonLoading from "@/components/ui/skeleton";
+import PostLoad from "@/components/ui/postLoad";
 
 export default function LearningPage() {
   const defaultValues = {
@@ -16,28 +20,42 @@ export default function LearningPage() {
     "exit-time": "",
     text: "",
   };
+
+  const { data: employee, isPending: employeesLoading } = useEmployees();
+
+  const mapped = employee?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.fullName,
+  }));
+
+  const { mutation, form } = usePostRows(
+    "trainings",
+    ["trainings"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
   const formFields = (
-    <>
+    <div className="required:">
+      {mutation.isPending && <PostLoad/>}
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
           label="مشخصات مدرس "
           name="infoTecher"
           placeholder=" مشخصات مدرس "
           required
-        >
-          <Form.SelectItem value="1">تست 1</Form.SelectItem>
-          <Form.SelectItem value="2">تست 2</Form.SelectItem>
-        </Form.Select>
+          options={[{ label: "test", value: "test" }]}
+        />
 
         <Form.Select
           label="مهارت آموزشی "
           name="skillslearn"
           placeholder="مهارت آموزشی "
           required
-        >
-          <Form.SelectItem value="1">fronten 1</Form.SelectItem>
-          <Form.SelectItem value="2">backend 2</Form.SelectItem>
-        </Form.Select>
+          options={[{ label: "test", value: "test" }]}
+        />
 
         <Form.Input
           label=" هزینه آموزش"
@@ -47,25 +65,35 @@ export default function LearningPage() {
         />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Select label="پرسنل" name="status" placeholder=" پرسنل" required>
-          <Form.SelectItem value="1">اکبر</Form.SelectItem>
-          <Form.SelectItem value="2">رضا</Form.SelectItem>
-        </Form.Select>
+        <Form.Select
+          label="کارمند"
+          name="employee_id"
+          placeholder="انتخاب کارمند"
+          options={mapped || []}
+          required
+        />
         <Form.Date label="تاریخ شروع" name="entry-time" />
         <Form.Date label="تاریخ پایان" name="exit-time" />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
         <Form.RichText label="شرح" name="text" required />
       </div>
-    </>
+    </div>
   );
+
+
+  const fetchUsers = () => useGetRowsToTable("trainings");
+
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
 
+  if(employeesLoading ) return (<SkeletonLoading/>)
+
   return (
     <div className="flex flex-col  px-4">
       <SectionAcc
+        form={form}
         schema={validation}
         defaultValues={defaultValues}
         formFields={formFields}
@@ -75,7 +103,8 @@ export default function LearningPage() {
         table={
           <DataTable
             columns={LearningRecordColumns}
-            data={LEARNING_RECORDS}
+            queryKey={["trainings"]}
+            queryFn={fetchUsers}
             searchableKeys={["infoTecher", "skillslearn"]}
           />
         }
