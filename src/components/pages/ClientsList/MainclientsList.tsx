@@ -1,8 +1,6 @@
 import { Form } from "@/components/shared/Form";
 import { DataTable } from "@/components/shared/data-table";
 import { z } from "zod";
-import SectionAccImg from "@/components/shared/section/SectionAccImg";
-import { CLIENTS_LIST } from "./const";
 import { columns } from "./columns";
 import Breadcrumb from "@/components/shared/breadcrumb";
 import { useEffect } from "react";
@@ -12,6 +10,9 @@ import { selectSchema } from "@/components/shared/validation";
 import { phoneSchema } from "@/components/shared/validation";
 import { emailSchema } from "@/components/shared/validation";
 import { usernameSchema } from "@/components/shared/validation";
+import { usePostRows } from "@/hook/usePostRows";
+import SectionAcc from "@/components/shared/section/SectionAcc";
+import { useGetRowsToTable } from "@/hook/useGetRows";
 const validation = z.object({
   firstName: nameSchema,
   lastName: nameSchema,
@@ -25,7 +26,7 @@ const validation = z.object({
 const defaultValues = {
   firstName: "",
   lastName: "",
-  gender: "" as unknown as "male" | "female", 
+  gender: "" as unknown as "male" | "female",
   phone: "",
   email: "",
   username: "",
@@ -33,24 +34,32 @@ const defaultValues = {
 };
 
 const PersonForm = () => {
-  const onSubmit = (formData: z.infer<typeof validation>) => {
-    console.log(formData);
-  };
   const title = "لیست همه ارباب رجوع";
   useEffect(() => {
     document.title = title;
   });
 
+  const fetchClient = () => useGetRowsToTable("employees");
+
+  const { mutation, form } = usePostRows(
+    "clients",
+    ["clients"],
+    defaultValues,
+    validation,
+    "مشتریان",
+    true
+  );
+
+  const onSubmit = (formData: z.infer<typeof validation>) => {
+    console.log(formData);
+    mutation.mutate(formData)
+  };
+
   return (
     <>
       <Breadcrumb>{title}</Breadcrumb>
-      <SectionAccImg
-        FileTitle="تصویر پروفایل"
-        file={
-          <>
-            <Form.Image name="image" label="تصویر پروفایل" />
-          </>
-        }
+      <SectionAcc
+        form={form}
         defaultValues={defaultValues}
         schema={validation}
         formFields={
@@ -74,11 +83,12 @@ const PersonForm = () => {
                 name="gender"
                 label="جنسیت"
                 placeholder="انتخاب جنسیت"
+                options={[
+                  { label: "مرد", value: "مرد" },
+                  { label: "مرد", value: "مرد" },
+                ]}
                 required
-              >
-                <Form.SelectItem value="male">آقا</Form.SelectItem>
-                <Form.SelectItem value="female">خانم</Form.SelectItem>
-              </Form.Select>
+              />
               <Form.Input
                 name="phone"
                 label="شماره تماس "
@@ -87,9 +97,19 @@ const PersonForm = () => {
               />
             </div>
             <div className="flex flex-col md:flex-row gap-5">
-            <Form.Input name="email" label="ایمیل" placeholder="ایمیل" required />
+              <Form.Input
+                name="email"
+                label="ایمیل"
+                placeholder="ایمیل"
+                required
+              />
 
-              <Form.Input name="username" label="حساب کاربری" placeholder="حساب کاربری" required />
+              <Form.Input
+                name="username"
+                label="حساب کاربری"
+                placeholder="حساب کاربری"
+                required
+              />
             </div>
           </>
         }
@@ -99,7 +119,8 @@ const PersonForm = () => {
         table={
           <DataTable
             columns={columns}
-            data={CLIENTS_LIST}
+            queryKey={["clients"]}
+            queryFn={fetchClient}
             searchableKeys={["firstName", "lastName", "phone", "email"]}
           />
         }
