@@ -2,8 +2,8 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { IoIosArrowBack } from "react-icons/io";
 import { MdOutlineMail } from "react-icons/md";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import ProjectsListTable from "./Projects/ProjectsList";
+// import { IoMdInformationCircleOutline } from "react-icons/io";
+// import ProjectsListTable from "./Projects/ProjectsList";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import { FaPhone } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -45,8 +45,8 @@ const ClientPage = () => {
               <div className="flex gap-3">
                 <div className="flex flex-col">
                   <span>
-                    {queryData.first_name}
-                    {queryData.last_name}{" "}
+                    {queryData.first_name}{" "}
+                    {queryData.last_name}
                   </span>
                 </div>
               </div>
@@ -74,7 +74,7 @@ const ClientPage = () => {
                   <MdOutlineMail className="w-7! h-7!" />
                   ایمیل
                 </span>
-                <span>{queryData.gmail}</span>
+                <span>{queryData.email}</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ const ClientPage = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="accountInfo">
+          {/* <TabsTrigger value="accountInfo">
             <span className="flex gap-2 justify-center items-center">
               <IoMdInformationCircleOutline className="w-7! h-7!" />
               پروژه ها
@@ -95,14 +95,14 @@ const ClientPage = () => {
             <span>
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
-          </TabsTrigger>
+          </TabsTrigger> */}
         </TabsList>
         <TabsContent value="basicInfo">
           <BasicInfo queryData ={queryData} />
         </TabsContent>
-        <TabsContent value="accountInfo">
+        {/* <TabsContent value="accountInfo">
           <ProjectsListTable />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </>
   );

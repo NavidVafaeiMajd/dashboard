@@ -1,6 +1,6 @@
-import { DataTable } from "@/components/shared/data-table";
-import { Projects_List } from "./const";
-import { columns } from "./columns";
+// import { DataTable } from "@/components/shared/data-table";
+// import { Projects_List } from "./const";
+// import { columns } from "./columns";
 const ProjectsListTable = () => {
 
   return (

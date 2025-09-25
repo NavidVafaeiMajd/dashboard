@@ -53,6 +53,7 @@ const PersonForm = () => {
   return (
     <>
       <Breadcrumb>{title}</Breadcrumb>
+      <div className="h-5"></div>
       <SectionAcc
         form={form}
         defaultValues={defaultValues}
@@ -80,7 +81,7 @@ const PersonForm = () => {
                 placeholder="انتخاب جنسیت"
                 options={[
                   { label: "مرد", value: "مرد" },
-                  { label: "مرد", value: "مرد" },
+                  { label: "زن", value: "زن" },
                 ]}
                 required
               />
