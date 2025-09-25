@@ -24,16 +24,23 @@ const DisciplinaryList = () => {
     description: "",
   };
 
-  const { data: employee, isPending: employeesLoading } = useEmployees();
 
   const { mutation, form } = usePostRows(
     "disciplinary-cases",
-    ["disciplinary"],
+    ["disciplinary-cases"],
     defaultValues,
     validation,
     "پرسنل",
     true
   );
+
+  const { data: employee , isPending: employeesLoading } = useEmployees();
+
+  const mapped = employee?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.fullName,
+  }));
+
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     const formData = {
@@ -69,32 +76,18 @@ const DisciplinaryList = () => {
                 label="کارمند"
                 name="employee_id"
                 placeholder="انتخاب کارمند"
+                options={mapped || []}
                 required
-              >
-                {employee?.data?.map((item, index) => (
-                  <Form.SelectItem key={index} value={String(item.id)}>
-                    {item.fullName ||
-                      item.name ||
-                      `${item.firstName} ${item.lastName}`}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+              />
 
               {/* نوع پرونده */}
               <Form.Select
                 label="نوع پرونده"
                 name="type"
                 placeholder="انتخاب نوع پرونده"
+                options={[{label  : " تخلف انظباطی" , value : "تخلف انظباطی"}]}
                 required
-              >
-                <Form.SelectItem value="تخلف انظباطی">
-                  تخلف انضباطی
-                </Form.SelectItem>
-                <Form.SelectItem value="2">تخلف اخلاقی</Form.SelectItem>
-                <Form.SelectItem value="3">تخلف کاری</Form.SelectItem>
-                <Form.SelectItem value="4">تخلف امنیتی</Form.SelectItem>
-                <Form.SelectItem value="5">سایر</Form.SelectItem>
-              </Form.Select>
+              />
             </div>
             <div className="flex gap-5">
               <Form.Input

@@ -152,12 +152,14 @@ interface FormDateProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
   className?: string;
+  onlyMonthPicker?: boolean;
 }
 
 function FormDate<T extends FieldValues>({
   name,
   label,
   className,
+  onlyMonthPicker = false,
 }: FormDateProps<T>) {
   const { control } = useFormContextSafe<T>();
 
@@ -172,7 +174,11 @@ function FormDate<T extends FieldValues>({
             <span className="text-red-500">*</span>
           </FormLabel>
           <FormControl>
-            <CuDatePicker value={field.value} onChange={field.onChange} />
+            <CuDatePicker
+              value={field.value}
+              onChange={field.onChange}
+              onlyMonthPicker={onlyMonthPicker}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -354,6 +360,7 @@ interface MultiSelectProps<T extends FieldValues> {
   options: { label: string; value: string }[];
   required?: boolean;
   className?: string;
+  placeholder?: string;
 }
 
 export function MultiSelect<T extends FieldValues>({
@@ -362,6 +369,7 @@ export function MultiSelect<T extends FieldValues>({
   options,
   required,
   className,
+  placeholder,
 }: MultiSelectProps<T>) {
   const { control } = useFormContextSafe<T>();
   return (
@@ -369,23 +377,26 @@ export function MultiSelect<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem
-          className={`flex flex-col w-full space-x-2 space-y-0 ${
-            className ?? ""
-          }`}
-        >
-          <FormLabel className="text-md">
+        <FormItem className={`grid gap-0! w-full ${className ?? ""}`}>
+          <FormLabel className="text-md mb-4!">
             {label} {required && <span className="text-red-500">*</span>}
           </FormLabel>
           <FormControl>
-            <Select<{ label: string; value: string }, false>
-              isRtl
-              closeMenuOnSelect
-              options={options}
-              className="min-h-[44px] h-full! mt-4"
-              value={options.find((opt) => opt.value === field.value) ?? null}
-              onChange={(val) => field.onChange(val ? (val as { label: string; value: string }).value : "")}
-            />
+            <div className="select-box">
+              <Select<{ label: string; value: string }, false>
+                isRtl
+                closeMenuOnSelect
+                placeholder={placeholder}
+                options={options}
+                className=" m-0!"
+                value={options.find((opt) => opt.value === field.value) ?? null}
+                onChange={(val) =>
+                  field.onChange(
+                    val ? (val as { label: string; value: string }).value : ""
+                  )
+                }
+              />
+            </div>
           </FormControl>
           <div className="space-y-1 leading-none">
             <FormMessage />
@@ -497,9 +508,7 @@ function FormTimePicker<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`flex flex-col space-x-2 space-y-0 ${
-            className ?? ""
-          }`}
+          className={`flex flex-col space-x-2 space-y-0 ${className ?? ""}`}
         >
           <FormLabel className="text-md">
             {label} {required && <span className="text-red-500">*</span>}
@@ -524,7 +533,7 @@ export const Form = Object.assign(FormRoot, {
   Image: FormImage,
   Checkbox: FormCheckbox,
   SelectItem,
-  FormSelect: MultiSelect,
+  Select: MultiSelect,
   StarRate: StarRate,
   TimePicker: FormTimePicker,
 });

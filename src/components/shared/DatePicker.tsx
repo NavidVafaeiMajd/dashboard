@@ -7,12 +7,14 @@ interface DatePickerProps {
    value: Date | null;
    onChange: (date: Date | null) => void;
    placeholder?: string;
+   onlyMonthPicker ?: boolean
 }
 
 const CuDatePicker: React.FC<DatePickerProps> = ({
    value,
    onChange,
    placeholder = "تاریخ",
+   onlyMonthPicker = false
 }) => {
    return (
       <DatePicker
@@ -20,6 +22,7 @@ const CuDatePicker: React.FC<DatePickerProps> = ({
          onChange={(date: any) =>
             onChange(date?.isValid ? date.toDate() : null)
          }
+         onlyMonthPicker ={onlyMonthPicker}
          format="YYYY/MM/DD"
          calendar={persian}
          locale={persian_fa}

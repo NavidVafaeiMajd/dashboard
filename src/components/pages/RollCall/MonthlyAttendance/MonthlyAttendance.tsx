@@ -1,11 +1,4 @@
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/shared/Form";
 import { useForm } from "react-hook-form";
 import { validation } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,6 +19,8 @@ import { DataTable } from "@/components/shared/data-table";
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import Table from "@/components/shared/section/Table";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { useEmployees } from "@/hook/useEmployees";
 
 const MonthlyAttendance = () => {
   const form = useForm<z.infer<typeof validation>>({
@@ -39,97 +34,63 @@ const MonthlyAttendance = () => {
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
-  const columns: ColumnDef<any>[] = useMemo(() => [
-    {
-      accessorKey: "date",
-      header: "تاریخ",
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("date"));
-        return date.toLocaleDateString("fa-IR");
+  const columns: ColumnDef<any>[] = useMemo(
+    () => [
+      {
+        accessorKey: "date",
+        header: "تاریخ",
+        cell: ({ row }) => {
+          const date = new Date(row.getValue("date"));
+          return date.toLocaleDateString("fa-IR");
+        },
       },
-    },
-    {
-      accessorKey: "status",
-      header: "وضعیت",
-    },
-    {
-      accessorKey: "description",
-      header: "توضیحات",
-    },
-  ], []);
+      {
+        accessorKey: "status",
+        header: "وضعیت",
+      },
+      {
+        accessorKey: "description",
+        header: "توضیحات",
+      },
+    ],
+    []
+  );
 
-  const data = [
-    { date: new Date(), status: "حاضر", description: "توضیحات نمونه" },
-    { date: new Date(), status: "غایب", description: "توضیحات نمونه" },
-  ];
+  const { data: employee, isPending: employeesLoading } = useEmployees();
+
+  const mapped = employee?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.fullName,
+  }));
+
+  const fetchMonthlyAttendance = () => useGetRowsToTable("attendances");
 
   return (
     <>
-        <Form {...form}>
-      <form
-        className="bg-bgBack w-full mb-5"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <div className="flex gap-x-10 w-4/5 justify-between items-end p-5">
-          <FormField
-            control={form.control}
-            name="emplyee"
-            render={({ field }) => (
-              <FormItem className="w-full h-20">
-                <FormLabel className="text-base">کارمند</FormLabel>
-                <FormControl>
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    dir="rtl"
-                  >
-                    <SelectTrigger className="w-full min-h-12">
-                      <SelectValue placeholder="کارمند" />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      {/* Options would be dynamically generated here */}
-                      <SelectItem value="employee1">کارمند 1</SelectItem>
-                      <SelectItem value="employee2">کارمند 2</SelectItem>
-                      <SelectItem value="employee3">کارمند 3</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+      <Form formProp={form} onSubmit={onSubmit}>
+        <div className="flex bg-white items-end gap-5 p-5 mb-5 rounded-sm">
+          <Form.Select
+            label="کارمند"
+            name="employee_id"
+            placeholder="انتخاب کارمند"
+            options={mapped || []}
+            required
           />
-
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem className="w-full space-y-2">
-                <FormLabel className="text-base">
-                  تاریخ
-                  <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <DatePicker
-                    value={field.value}
-                    onChange={field.onChange}
-                    calendar={persian}
-                    locale={persian_fa}
-                    onlyMonthPicker
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <Button className="min-h-11 w-20 text-lg" type="submit">
-            <Search />
-          </Button>
+          <Form.Date label="ماه" name="date" onlyMonthPicker />
+          <Button type="submit" className="py-6!"> جست و جو </Button>
         </div>
-      </form>
       </Form>
-      <Table table={<DataTable columns={columns} data={data} />}  Title="لیست گزارش"/>
+
+      <Table
+        table={
+          <DataTable
+            columns={columns}
+            queryKey={["attendances"]}
+            queryFn={fetchMonthlyAttendance}
+          />
+        }
+        Title="لیست گزارش"
+      />
     </>
   );
 };

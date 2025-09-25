@@ -166,7 +166,7 @@ body{
 button{
   cursor: pointer;
 }
-input , textarea , input.rmdp-input{
+input , textarea , input.rmdp-input {
   border: 1px dashed var(--color-border);
   transition: all .1s ease-in-out;
   padding: 10px 15px;
@@ -184,17 +184,28 @@ input:focus , textarea:focus{
   outline: none;
   border: 1px dashed var(--color-cupurple);
 }
-
-select{
+/* 
+select {
   width: 100%;
-    padding: 9px 15px;
-  border: 1px solid var(--color-border);
-  margin: 5px 0;
-  border-radius: 5px;
-  cursor: pointer;
-  outline: solid var(--color-blue-100);
-  background-color: white;
+    padding: 9px 15px !important;
+  border: 1px solid var(--color-border) !important;
+  margin: 5px 0 !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  outline: solid var(--color-blue-100) !important;
+  background-color: white !important;
+} */
+.select-box{
+  margin-bottom: 0 !important;
+  padding-top: 4px;
 }
+.select-box > div > div{
+  border: 1px dashed var(--color-border);
+  transition: all .1s ease-in-out;
+  padding: 2px 0;
+}
+
+
 button[type="submit"] , button[type="reset"]{
   background: var(--color-greenDark) !important;
   padding: 10px 20px;

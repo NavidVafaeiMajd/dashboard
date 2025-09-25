@@ -23,7 +23,6 @@ const ManualAttendance = () => {
     notes : ""
   };
 
-  const { data: employee } = useEmployees();
 
   const { mutation, form } = usePostRows(
     "attendances",
@@ -33,6 +32,9 @@ const ManualAttendance = () => {
     "تردد دستی",
     true
   );
+  
+  const { data: employee } = useEmployees();
+
   const mapped = employee?.data?.map((item) => ({
     value: String(item.id),
     label: item.fullName,
@@ -42,7 +44,7 @@ const ManualAttendance = () => {
     <>
       <Form.Date name="date" label="تاریخ" />
 
-      <Form.FormSelect
+      <Form.Select
         name="employee_id"
         label="کارمند"
         options={mapped || []}
