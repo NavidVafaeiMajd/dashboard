@@ -22,25 +22,13 @@ export const columns: ColumnDef<ClientsList>[] = [
       const user = row.original;
       return (
         <div className="flex items-center gap-3">
-          <img
-            src={user.avatar}
-            alt={user.fullName}
-            className="w-10 h-10 rounded-full object-cover"
-          />
           <div className="flex flex-col justify-start">
-            <span className="font-medium text-start">{user.fullName}</span>
+            <span className="font-medium text-start">{user.first_name}{ user.last_name }</span>
             <span className="text-xs text-gray-500">{user.email}</span>
           </div>
         </div>
       );
     },
-  },
-  {
-    accessorKey: "username",
-    header: "نام کاربری",
-    cell: ({ row }) => (
-      <div className="text-center">{row.getValue("username")}</div>
-    ),
   },
   {
     accessorKey: "phone",

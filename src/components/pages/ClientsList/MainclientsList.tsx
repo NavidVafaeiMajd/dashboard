@@ -4,33 +4,28 @@ import { z } from "zod";
 import { columns } from "./columns";
 import Breadcrumb from "@/components/shared/breadcrumb";
 import { useEffect } from "react";
-import { imageSchema } from "@/components/shared/validation";
 import { nameSchema } from "@/components/shared/validation";
 import { selectSchema } from "@/components/shared/validation";
 import { phoneSchema } from "@/components/shared/validation";
 import { emailSchema } from "@/components/shared/validation";
-import { usernameSchema } from "@/components/shared/validation";
 import { usePostRows } from "@/hook/usePostRows";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { useGetRowsToTable } from "@/hook/useGetRows";
+
 const validation = z.object({
-  firstName: nameSchema,
-  lastName: nameSchema,
+  first_name: nameSchema,
+  last_name: nameSchema,
   gender: selectSchema,
   phone: phoneSchema,
   email: emailSchema,
-  username: usernameSchema,
-  image: imageSchema,
 });
 
 const defaultValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   gender: "" as unknown as "male" | "female",
   phone: "",
   email: "",
-  username: "",
-  image: null as unknown as File,
 };
 
 const PersonForm = () => {
@@ -39,7 +34,7 @@ const PersonForm = () => {
     document.title = title;
   });
 
-  const fetchClient = () => useGetRowsToTable("employees");
+  const fetchClient = () => useGetRowsToTable("clients");
 
   const { mutation, form } = usePostRows(
     "clients",
@@ -66,13 +61,13 @@ const PersonForm = () => {
           <>
             <div className="flex flex-col md:flex-row gap-5">
               <Form.Input
-                name="firstName"
+                name="first_name"
                 label="نام "
                 required
                 placeholder="نام"
               />
               <Form.Input
-                name="lastName"
+                name="last_name"
                 label="نام خانوادگی "
                 required
                 placeholder="نام خانوادگی"
@@ -104,12 +99,6 @@ const PersonForm = () => {
                 required
               />
 
-              <Form.Input
-                name="username"
-                label="حساب کاربری"
-                placeholder="حساب کاربری"
-                required
-              />
             </div>
           </>
         }
