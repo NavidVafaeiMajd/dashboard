@@ -6,117 +6,126 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { useEmployees } from "@/hook/useEmployees";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 
 export interface DisciplinaryFile {
-   id: number;
-   employee_id: string;
-   type: string;
-   case_date: Date;
-   subject: string;
-   filedBy: string;
+  id: number;
+  employee_id: string;
+  type: string;
+  case_date: Date;
+  subject: string;
+  filedBy: string;
 
-   [key: string]: Date | number | string;
+  [key: string]: Date | number | string;
 }
 
 export const disciplinaryColumns: ColumnDef<DisciplinaryFile>[] = [
-   {
-      accessorKey: "employee_id",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            کارمند
-         </Button>
-      ),
-      cell: ({ row }) => {
-         const { data: employees } = useEmployees();
-         const rowData = row.original;
-         const employee = employees?.data?.find(
-           (item) => item?.id === rowData.employee_id
-         );
-   
-         return employee ? employee.fullName : "-";
-       },
-   },
-   {
-      accessorKey: "type",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            نوع پرونده
-         </Button>
-      ),
-   },
-   {
-      accessorKey: "case_date",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            تاریخ پرونده
-         </Button>
-      ),
-      cell: ({ row }) => {
-         const rawDate = row.getValue("case_date") as string | null;
-         if (!rawDate) return "-";
-         const date = new Date(rawDate); 
-         return date.toLocaleDateString("fa-IR");
-      },
-   },
-   {
-      accessorKey: "title",
-      header: ({ column }) => (
-         <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-         >
-            <LuArrowUpDown className="ml-2 h-4 w-4" />
-            موضوع
-         </Button>
-      ),
-   },
-   {
-      accessorKey: "id",
-      id: "actions",
-      header: "عملیات",
-      cell: ({ row }) => {
-         const r = row.original;
-         return (
-            <div className="flex items-center gap-2">
-               <EditDialog
-                  title="ویرایش پرونده انضباطی"
-                  triggerLabel="ویرایش"
-                  defaultValues={{
-                     caseDate: (r as any).caseDate || new Date(),
-                     subject: String((r as any).subject || ""),
-                     description: String((r as any).description || ""),
-                  }}
-                  schema={z.object({
-                     description: z.string().min(1, "شرح الزامی است"),
-                     caseDate: z.date({ error: "تاریخ پرونده الزامی است" }),
-                     subject: z.string().min(1, "موضوع الزامی است"),
-                  })}
-                  onSave={(vals) => {
-                     console.log("save disciplinary case", r.id, vals);
-                  }}
-                  fields={
-                     <>
-                        <Form.Input name="subject" label="موضوع" required />
-                        <Form.Date name="caseDate" label="تاریخ پرونده" />
-                        <Form.Textarea name="description" label="شرح" required />
-                     </>
-                  }
-               />
-               <DeleteDialog onConfirm={() => console.log("delete disciplinary case", r.id)} />
-            </div>
-         );
-      },
-   },
+  {
+    accessorKey: "employee_id",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <LuArrowUpDown className="ml-2 h-4 w-4" />
+        کارمند
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const { data: employees } = useEmployees();
+      const rowData = row.original;
+      const employee = employees?.data?.find(
+        (item) => item?.id === rowData.employee_id
+      );
+
+      return employee ? employee.fullName : "-";
+    },
+  },
+  {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <LuArrowUpDown className="ml-2 h-4 w-4" />
+        نوع پرونده
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "case_date",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <LuArrowUpDown className="ml-2 h-4 w-4" />
+        تاریخ پرونده
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const rawDate = row.getValue("case_date") as string | null;
+      if (!rawDate) return "-";
+      const date = new Date(rawDate);
+      return date.toLocaleDateString("fa-IR");
+    },
+  },
+  {
+    accessorKey: "title",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        <LuArrowUpDown className="ml-2 h-4 w-4" />
+        موضوع
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "id",
+    id: "actions",
+    header: "عملیات",
+    cell: ({ row }) => {
+       const r = row.original;
+       const deleteRow = useDeleteRows({
+         url: "disciplinary-cases",
+         queryKey: ["disciplinary-cases"],
+       });
+      return (
+        <div className="flex items-center gap-2">
+          <EditDialog
+            title="ویرایش پرونده انضباطی"
+            triggerLabel="ویرایش"
+            defaultValues={{
+              caseDate: (r as any).caseDate || new Date(),
+              subject: String((r as any).subject || ""),
+              description: String((r as any).description || ""),
+            }}
+            schema={z.object({
+              description: z.string().min(1, "شرح الزامی است"),
+              caseDate: z.date({ error: "تاریخ پرونده الزامی است" }),
+              subject: z.string().min(1, "موضوع الزامی است"),
+            })}
+            onSave={(vals) => {
+              console.log("save disciplinary case", r.id, vals);
+            }}
+            fields={
+              <>
+                <Form.Input name="subject" label="موضوع" required />
+                <Form.Date name="caseDate" label="تاریخ پرونده" />
+                <Form.Textarea name="description" label="شرح" required />
+              </>
+            }
+          />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(r.id);
+            }}
+          />{" "}
+        </div>
+      );
+    },
+  },
 ];

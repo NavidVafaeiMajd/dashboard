@@ -6,6 +6,7 @@ import { EditDialog } from "@/components/shared/EditDialog";
 import { z } from "zod";
 import { Form } from "@/components/shared/Form";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 
 export interface LeaveRequest {
   id: number;
@@ -156,6 +157,10 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         requestDate: String(new Date(r.requestDate).getTime()),
         status: String(r.status),
       }).toString();
+      const deleteRow = useDeleteRows({
+        url: "leaves",
+        queryKey: ["leaves"],
+      });
       return (
         <div className="flex items-center gap-2">
           <Link to={`/leave/details/${r.id}?${query}`}>
@@ -178,7 +183,11 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
               reason: z.string().min(1, "دلیل مرخصی الزامی است"),
             })}
           />
-          <DeleteDialog onConfirm={() => {}} />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(r.id);
+            }}
+          />
         </div>
       );
     },
