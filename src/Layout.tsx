@@ -156,9 +156,11 @@ const DisciplinaryList = lazy(
 );
 const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
-  );
-  import AuthProvider, { useAuth } from "./Context/AuthContext";
-  import Skeleton from "react-loading-skeleton";
+);
+import AuthProvider, { useAuth } from "./Context/AuthContext";
+import Skeleton from "react-loading-skeleton";
+import DocumentsLayout from "./components/pages/Documents/DocumentsLayout";
+import PublicDocuments from "./components/pages/Documents/PublicDocuments/PublicDocuments";
 const LayoutTeching = lazy(
   () => import("./components/pages/Teachings/layoutTeaching")
 );
@@ -623,6 +625,10 @@ const LayoutContent = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="documents" element={<DocumentsLayout />}>
+              <Route index element={<PublicDocuments />} />
+              <Route path="privte" element={<TecherInfo />} />
+            </Route>
 
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />
