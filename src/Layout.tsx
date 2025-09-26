@@ -161,6 +161,9 @@ import AuthProvider, { useAuth } from "./Context/AuthContext";
 import Skeleton from "react-loading-skeleton";
 import DocumentsLayout from "./components/pages/Documents/DocumentsLayout";
 import PublicDocuments from "./components/pages/Documents/PublicDocuments/PublicDocuments";
+const AccountPage = lazy(
+  () => import("./components/pages/AccountPage/AccountPage")
+);
 const LayoutTeching = lazy(
   () => import("./components/pages/Teachings/layoutTeaching")
 );
@@ -289,6 +292,14 @@ const LayoutContent = () => {
               element={
                 <ProtectedRoute>
                   <Desk />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="account"
+              element={
+                <ProtectedRoute>
+                  <AccountPage />
                 </ProtectedRoute>
               }
             />
@@ -629,7 +640,6 @@ const LayoutContent = () => {
               <Route index element={<PublicDocuments />} />
               <Route path="privte" element={<TecherInfo />} />
             </Route>
-
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
