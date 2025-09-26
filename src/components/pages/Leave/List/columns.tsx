@@ -30,9 +30,13 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         کارمند
       </Button>
     ),
+    cell: ({ row }) => {
+      const employee = row.getValue("employee") as any;
+      return employee.firstName + " " + employee.lastName;
+    },
   },
   {
-    accessorKey: "leaveType",
+    accessorKey: "type",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -44,7 +48,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
     ),
   },
   {
-    accessorKey: "duration",
+    accessorKey: "start_date",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -54,9 +58,20 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         مدت زمان مرخصی
       </Button>
     ),
+    cell: ({ row }) => {
+      const start = new Date(row.original.start_date).toLocaleDateString(
+        "fa-IR"
+      );
+      const end = new Date(row.original.end_date).toLocaleDateString("fa-IR");
+      return (
+        <>
+          از {start} تا {end}
+        </>
+      );
+    },
   },
   {
-    accessorKey: "days",
+    id: "days",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -66,9 +81,21 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         روزها
       </Button>
     ),
+    cell: ({ row }) => {
+      const orig = row.original as any;
+
+      const start = new Date(orig.start_date);
+      const end = new Date(orig.end_date);
+
+      // اختلاف به روز
+      const diffTime = end.getTime() - start.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 برای احتساب روز شروع
+
+      return <span>{diffDays}</span>;
+    },
   },
   {
-    accessorKey: "requestDate",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -79,7 +106,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const date = new Date(row.getValue("requestDate"));
+      const date = new Date(row.getValue("created_at"));
       return date.toLocaleDateString("fa-IR");
     },
   },
@@ -135,18 +162,19 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
             <Button size="sm">نمایش جزییات</Button>
           </Link>
           <EditDialog
-            fields={<>
-              <Form.Textarea name="notes" label="ملاحظات" />
-              <Form.Textarea name="reason" label="دلیل مرخصی" />
-              
-            </>}
+            fields={
+              <>
+                <Form.Textarea name="notes" label="ملاحظات" />
+                <Form.Textarea name="reason" label="دلیل مرخصی" />
+              </>
+            }
             defaultValues={{
               notes: "",
               reason: "",
             }}
             onSave={() => {}}
             schema={z.object({
-              notes: z.string( ).min(1, "ملاحظات الزامی است"),
+              notes: z.string().min(1, "ملاحظات الزامی است"),
               reason: z.string().min(1, "دلیل مرخصی الزامی است"),
             })}
           />

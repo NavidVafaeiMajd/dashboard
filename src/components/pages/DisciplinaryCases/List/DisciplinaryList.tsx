@@ -6,6 +6,7 @@ import DisciplinaryTable from "./DisciplinaryTable";
 import { usePostRows } from "@/hook/usePostRows";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { useEmployees } from "@/hook/useEmployees";
+import PostLoad from "@/components/ui/postLoad";
 
 const validation = z.object({
   employee_id: z.string(),
@@ -24,7 +25,6 @@ const DisciplinaryList = () => {
     description: "",
   };
 
-
   const { mutation, form } = usePostRows(
     "disciplinary-cases",
     ["disciplinary-cases"],
@@ -34,13 +34,12 @@ const DisciplinaryList = () => {
     true
   );
 
-  const { data: employee , isPending: employeesLoading } = useEmployees();
+  const { data: employee, isPending: employeesLoading } = useEmployees();
 
   const mapped = employee?.data?.map((item) => ({
     value: String(item.id),
     label: item.fullName,
   }));
-
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     const formData = {
@@ -64,13 +63,8 @@ const DisciplinaryList = () => {
         defaultValues={defaultValues}
         schema={validation}
         formFields={
-           <div className="relative">
-             {(mutation.isPending || employeesLoading) && (
-               <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
-                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-                 <span className="mr-2">در حال بارگذاری...</span>
-               </div>
-             )}
+          <div className="relative">
+            {(mutation.isPending || employeesLoading) && <PostLoad />}
             <div className="flex gap-5">
               <Form.Select
                 label="کارمند"
@@ -85,7 +79,7 @@ const DisciplinaryList = () => {
                 label="نوع پرونده"
                 name="type"
                 placeholder="انتخاب نوع پرونده"
-                options={[{label  : " تخلف انظباطی" , value : "تخلف انظباطی"}]}
+                options={[{ label: " تخلف انظباطی", value: "تخلف انظباطی" }]}
                 required
               />
             </div>
