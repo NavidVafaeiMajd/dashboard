@@ -1,6 +1,6 @@
 import Header from "./components/shared/Header";
 import Navbar from "./components/Navbar/Navbar";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { useBootstrapData } from "./hook/useBootstrapData";
 const Desk = lazy(() => import("./components/pages/Desk"));
 import {
@@ -158,7 +158,6 @@ const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
 );
 import AuthProvider, { useAuth } from "./Context/AuthContext";
-import Skeleton from "react-loading-skeleton";
 import DocumentsLayout from "./components/pages/Documents/DocumentsLayout";
 import PublicDocuments from "./components/pages/Documents/PublicDocuments/PublicDocuments";
 const AccountPage = lazy(

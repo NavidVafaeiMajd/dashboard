@@ -1,6 +1,4 @@
-import { SiTicktick } from "react-icons/si";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FiPieChart } from "react-icons/fi";
+
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineDotsVertical } from "react-icons/hi";
