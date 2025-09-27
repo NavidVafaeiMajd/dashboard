@@ -12,7 +12,7 @@ const Desk = () => {
   useEffect(() => {
     document.title = title;
   }, []);
-    
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["organizationStats"],
     queryFn: async () => {
@@ -27,17 +27,17 @@ const Desk = () => {
   if (isLoading) return <p>در حال بارگذاری...</p>;
   if (isError) return <p>خطایی رخ داده است</p>;
 
-    console.log(data)
+  console.log(data);
   return (
     <>
       <div className="min-h-200 py-10">
-        <FeedCart total_employees ={data?.total_employees} />
+        <FeedCart total_employees={data?.total_employees} />
         <div className="grid md:grid-cols-2 items-end mt-10 gap-10">
-          <DepartmentWiseChart />
-          <StaffPositionChart />
+          <DepartmentWiseChart department={data?.departments} />
+                  <StaffPositionChart designations={ data?.designations} />
           {/* <TicketStatusChart />
           <TicketPriorityChart /> */}
-          <StaffAttendanceChart />
+                  <StaffAttendanceChart present={data.present } absent={ data.absent} />
         </div>
       </div>
     </>

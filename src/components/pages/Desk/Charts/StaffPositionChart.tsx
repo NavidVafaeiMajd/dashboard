@@ -1,24 +1,18 @@
-import { useDepartments } from "@/hook/useDepartments";
-import { useDesignationsts } from "@/hook/useDesignationsts";
 import Chart from "react-apexcharts";
 
+interface Designations{
+    title: string;
+    total_employees: number;
+}
 
-
-const StaffPositionChart = () => {
-    const { data: designationsts, isPending: designationstsLoading } = useDesignationsts();
-
-  // استخراج برچسب‌ها
-  const labels =
-  designationsts?.data?.map(
-      (dept) => dept.name || dept.title || dept.department_name
-    ) || [];
+const StaffPositionChart = ({designations} : {designations : Designations[]}) => {
 
   return (
     <>
       <div className="text-left! desk-cart p-5 md:p-10">
         <Chart
           type="donut"
-          series={[4, 2, 1]}
+          series={designations?.map((item) => item.total_employees) ?? []}
           options={{
             chart: {
               fontFamily: "myFirstFont",
@@ -44,7 +38,7 @@ const StaffPositionChart = () => {
               },
             },
 
-            labels:labels,
+            labels:designations?.map((item) => item.title) ?? [],
 
             title: {
               text: " نمودار سمت کارکنان",

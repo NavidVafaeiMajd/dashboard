@@ -1,12 +1,18 @@
 import Chart from "react-apexcharts";
 
-const DepartmentWiseChart = () => {
+interface Department {
+    id: number;
+    name: string;
+    employee_count: number;
+}
+const DepartmentWiseChart = ({ department }: { department:Department[] }) => {
+    
   return (
     <>
       <div className="text-left! desk-cart p-1 md:p-10">
         <Chart
           type="donut"
-          series={[12, 1, 3]}
+          series={department?.map((item) => item.employee_count) ?? []}
           options={{
             chart: {
               fontFamily: "myFirstFont",
@@ -39,7 +45,7 @@ const DepartmentWiseChart = () => {
               },
             },
 
-            labels: ["فناوری اطلاعات", "ستاد مرکزی", "عملیات"],
+            labels: department?.map((item) => item.name) ?? [],
             title: {
               text: "نمودار واحد سازمانی",
               align: "right",
