@@ -22,6 +22,11 @@ const OrganizationalPosition = () => {
 
   const { data: departments, isPending: departmentsLoading } = useDepartments();
 
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
+
   const { mutation, form } = usePostRows(
     "designations",
     ["designations"],
@@ -67,14 +72,9 @@ const OrganizationalPosition = () => {
                 label="واحد سازمانی  "
                 name="department_id"
                 placeholder="انتخاب واحد سازمانی "
+                options={departmentsMapped || []}
                 required
-              >
-                {departments?.data?.map((dept, index) => (
-                  <Form.SelectItem key={index} value={String(dept.id)}>
-                    {dept.name || dept.title || dept.department_name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+              />
               <Form.Input
                 label="نام سمت سازمانی "
                 name="title"

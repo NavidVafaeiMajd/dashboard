@@ -9,10 +9,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useDepartments } from "@/hook/useDepartments";
 import { useDesignationsts } from "@/hook/useDesignationsts";
+import PostLoad from "@/components/ui/postLoad";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
   const { data: departments, isPending: departmentsLoading } = useDepartments();
-  const { data: designationsts, isPending: designationstsLoading } =useDesignationsts();
+  const { data: designationsts, isPending: designationstsLoading } =
+    useDesignationsts();
+
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
+
+  const designationstsMapped = designationsts?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.title,
+  }));
 
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
@@ -23,14 +35,14 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
       gender: queryData?.gender == null ? "" : queryData?.gender,
       personeliCode:
         queryData?.personeliCode == null ? "" : queryData?.personeliCode,
-        birthDate: queryData?.birthDate
+      birthDate: queryData?.birthDate
         ? new Date(queryData.birthDate)
         : new Date(),
-      
+
       department: queryData?.department_id
         ? String(queryData.department_id)
         : "",
-      
+
       designation: queryData?.designation_id
         ? String(queryData.designation_id)
         : "",
@@ -111,7 +123,10 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
   };
 
   return (
-    <>
+    <div className="relative">
+      {mutation.isPending && (<PostLoad />)}
+      {departmentsLoading && designationstsLoading && (<PostLoad/>)}
+      
       <div>
         <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
           <span>
@@ -150,11 +165,12 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="جنسیت"
                 name="gender"
                 placeholder="انتخاب جنسیت"
+                options={[
+                  { label: "مرد", value: "مرد" },
+                  { label: "زن", value: "زن" },
+                ]}
                 required
-              >
-                <Form.SelectItem value="مرد">مرد</Form.SelectItem>
-                <Form.SelectItem value="زن">زن</Form.SelectItem>
-              </Form.Select>
+              />
             </div>
             <div className="flex gap-5">
               <Form.Input
@@ -168,52 +184,45 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="وضعیت"
                 name="position"
                 placeholder="انتخاب وضعیت"
+                options={[
+                  { label: "فعال", value: "فعال" },
+                  { label: "ممنوع", value: "ممنوع" },
+                ]}
                 required
-              >
-                <Form.SelectItem value="فعال">فعال </Form.SelectItem>
-                <Form.SelectItem value="ممنوع">ممنوع</Form.SelectItem>
-              </Form.Select>
+              />
             </div>
             <div className="flex gap-5">
               <Form.Select
                 label="وضعیت تاهل"
                 name="maritalStatus"
                 placeholder="انتخاب وضعیت تاهل"
+                options={[
+                  { label: "مجرد", value: "مجرد" },
+                  { label: "متاهل", value: "متاهل" },
+                  { label: "بیوه", value: "بیوه" },
+                  {
+                    label: "طلاق گرفته یا جدا شده",
+                    value: "طلاق گرفته یا جدا شده",
+                  },
+                ]}
                 required
-              >
-                <Form.SelectItem value="مجرد">مجرد</Form.SelectItem>
-                <Form.SelectItem value="متاهل">متاهل</Form.SelectItem>
-                <Form.SelectItem value="بیوه">بیوه</Form.SelectItem>
-                <Form.SelectItem value="طلاق گرفته یا جدا شده">
-                  طلاق گرفته یا جدا شده
-                </Form.SelectItem>
-              </Form.Select>
+              />
             </div>
             <div className="flex flex-col md:flex-row gap-5">
               <Form.Select
                 name="department"
                 label="واحد سازمانی"
                 placeholder="واحد سازمانی"
+                options={departmentsMapped || []}
                 required
-              >
-                {departments?.data?.map((dept, index) => (
-                  <Form.SelectItem key={index} value={String(dept.id)}>
-                    {dept.name || dept.title || dept.department_name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+              />
               <Form.Select
                 name="designation"
                 label="سمت سازمانی"
                 placeholder="سمت سازمانی"
+                options={designationstsMapped || []}
                 required
-              >
-                {designationsts?.data?.map((dept, index) => (
-                  <Form.SelectItem key={index} value={String(dept.id)}>
-                    {dept.name || dept.title || dept.department_name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+              />
             </div>
             <div className="flex gap-5">
               <Form.Input placeholder="استان" label="استان" name="province" />
@@ -229,53 +238,57 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="مذهب"
                 name="religion"
                 placeholder="انتخاب مذهب"
-              >
-                <Form.SelectItem value="اسلام">اسلام</Form.SelectItem>
-                <Form.SelectItem value="مسیحیت">مسیحیت</Form.SelectItem>
-                <Form.SelectItem value="یهودیت">یهودیت</Form.SelectItem>
-                <Form.SelectItem value="زرتشتی">زرتشتی</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
+                options={[
+                  { label: "اسلام", value: "اسلام" },
+                  { label: "مسیحیت", value: "مسیحیت" },
+                  { label: "یهودیت", value: "یهودیت" },
+                  { label: "زرتشتی", value: "زرتشتی" },
+                  { label: "سایر", value: "سایر" },
+                ]}
+              />
               <Form.Select
                 label="گروه خونی"
                 name="bloodGroup"
                 placeholder="انتخاب گروه خونی"
-              >
-                <Form.SelectItem value="A+">A+</Form.SelectItem>
-                <Form.SelectItem value="A-">A-</Form.SelectItem>
-                <Form.SelectItem value="B+">B+</Form.SelectItem>
-                <Form.SelectItem value="B-">B-</Form.SelectItem>
-                <Form.SelectItem value="AB+">AB+</Form.SelectItem>
-                <Form.SelectItem value="AB-">AB-</Form.SelectItem>
-                <Form.SelectItem value="O+">O+</Form.SelectItem>
-                <Form.SelectItem value="O-">O-</Form.SelectItem>
-              </Form.Select>
+                options={[
+                  { label: "A+", value: "A+" },
+                  { label: "A-", value: "A-" },
+                  { label: "B+", value: "B+" },
+                  { label: "B-", value: "B-" },
+                  { label: "AB+", value: "AB+" },
+                  { label: "AB-", value: "AB-" },
+                  { label: "O+", value: "O+" },
+                  { label: "O-", value: "O-" },
+                ]}
+              />
             </div>
             <div className="flex gap-5">
               <Form.Select
                 label="ملیت"
                 name="nationality"
                 placeholder="انتخاب ملیت"
-              >
-                <Form.SelectItem value="ایرانی">ایرانی</Form.SelectItem>
-                <Form.SelectItem value="افغانستانی">افغانستانی</Form.SelectItem>
-                <Form.SelectItem value="عراقی">عراقی</Form.SelectItem>
-                <Form.SelectItem value="پاکستانی">پاکستانی</Form.SelectItem>
-                <Form.SelectItem value="ترک">ترک</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
+                options={[
+                  { label: "ایرانی", value: "ایرانی" },
+                  { label: "افغانستانی", value: "افغانستانی" },
+                  { label: "عراقی", value: "عراقی" },
+                  { label: "پاکستانی", value: "پاکستانی" },
+                  { label: "ترک", value: "ترک" },
+                  { label: "سایر", value: "سایر" },
+                ]}
+              />
               <Form.Select
                 label="تابعیت"
                 name="citizenship"
                 placeholder="انتخاب تابعیت"
-              >
-                <Form.SelectItem value="ایران">ایران</Form.SelectItem>
-                <Form.SelectItem value="افغانستان">افغانستان</Form.SelectItem>
-                <Form.SelectItem value="عراق">عراق</Form.SelectItem>
-                <Form.SelectItem value="پاکستان">پاکستان</Form.SelectItem>
-                <Form.SelectItem value="ترکیه">ترکیه</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
+                options={[
+                  { label: "ایران", value: "ایران" },
+                  { label: "افغانستان", value: "افغانستان" },
+                  { label: "عراق", value: "عراق" },
+                  { label: "پاکستان", value: "پاکستان" },
+                  { label: "ترکیه", value: "ترکیه" },
+                  { label: "سایر", value: "سایر" },
+                ]}
+              />
             </div>
             <div className="flex gap-5">
               <Form.Input
@@ -300,7 +313,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
           </Form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

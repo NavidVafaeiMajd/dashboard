@@ -29,6 +29,19 @@ const StaffList: React.FC = () => {
 
   const { data: departments, isPending: departmentsLoading } = useDepartments();
   const { data: designationsts, isPending: designationstsLoading } = useDesignationsts();
+    useDesignationsts();
+
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
+
+  const designationstsMapped = designationsts?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.title,
+  }));
+
+  console.log(designationsts)
 
   const { mutation, form } = usePostRows(
     "employees",
@@ -39,9 +52,10 @@ const StaffList: React.FC = () => {
     true
   );
 
+  console.log(departments);
   const formFields = (
     <div className="relative">
-      {mutation.isPending && (
+      {mutation.isPending &&  departmentsLoading && designationstsLoading &&(
         <div className="flex justify-center items-center absolute p-4 top-0 left-0 right-0 bottom-0 bg-bgBack/90 z-50">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
           <span className="mr-2">در حال ارسال اطلاعات...</span>
@@ -68,51 +82,51 @@ const StaffList: React.FC = () => {
           label="شماره تماس"
           placeholder="شماره تماس"
         />
-        <Form.MultiSelect name="gender" label="جنسیت"  options={[{label:"مرد", value:"مرد"}, {label:"زن", value:"زن"}]}  required/>
-
+        <Form.Select
+          name="gender"
+          label="جنسیت"
+          options={[
+            { label: "مرد", value: "مرد" },
+            { label: "زن", value: "زن" },
+          ]}
+          required
+        />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
           name="shift"
           label="شیفت اداره ای"
           placeholder="شیفت اداره ای"
+          options={[{ label: "صبح", value: "صبح" }]}
           required
-        >
-          <Form.SelectItem value="morning">صبح</Form.SelectItem>
-          <Form.SelectItem value="afternoon">عصر</Form.SelectItem>
-          <Form.SelectItem value="night">شب</Form.SelectItem>
-        </Form.Select>
-        <Form.Select name="position" label="وضعیت" placeholder="وضعیت" required>
-          <Form.SelectItem value="فعال">فعال</Form.SelectItem>
-          <Form.SelectItem value="ممنوع">ممنوع</Form.SelectItem>
-        </Form.Select>
+        />
+        <Form.Select
+          name="position"
+          label="وضعیت"
+          placeholder="وضعیت"
+          options={[
+            { label: "ممنوع", value: "ممنوع" },
+            { label: "فعال", value: "فعال" },
+          ]}
+          required
+        />
       </div>
 
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
-          name="department_id"
-          label="سمت سازمانی"
-          placeholder="سمت سازمانی"
-          required
-        >
-          {designationsts?.data?.map((dept, index) => (
-            <Form.SelectItem key={index} value={String(dept.id)}>
-              {dept.name || dept.title || dept.department_name}
-            </Form.SelectItem>
-          ))}
-        </Form.Select>
-        <Form.Select
           name="designations_id"
           label="واحد سازمانی"
           placeholder="واحد سازمانی"
+          options={departmentsMapped || []}
           required
-        >
-          {departments?.data?.map((dept , index) => (
-            <Form.SelectItem key={index} value={String(dept.id)}>
-              {dept.name || dept.title || dept.department_name}
-            </Form.SelectItem>
-          ))}
-        </Form.Select>
+        />
+        <Form.Select
+          name="department_id"
+          label="سمت سازمانی"
+          placeholder="سمت سازمانی"
+          options={designationstsMapped || []}
+          required
+        />
       </div>
     </div>
   );
@@ -131,7 +145,7 @@ const StaffList: React.FC = () => {
         formData.append(key, String(value));
       }
     });
-    console.log(data)
+    console.log(data);
     mutation.mutate(formData);
   };
 

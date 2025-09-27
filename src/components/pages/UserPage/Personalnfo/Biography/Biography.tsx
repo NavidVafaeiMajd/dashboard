@@ -43,12 +43,13 @@ const Biography = ({ queryData }: { queryData: any }) => {
         label="سابقه کار"
         name="workExperience"
         placeholder="انتخاب سابقه کار"
+        options={[
+          { label: "1-3 سال", value: "1-3" },
+          { label: "3-5 سال", value: "3-5" },
+          { label: "بیش از 5 سال", value: "5+" },
+        ]}
         required
-      >
-        <Form.SelectItem value="1-3">1-3 سال</Form.SelectItem>
-        <Form.SelectItem value="3-5">3-5 سال</Form.SelectItem>
-        <Form.SelectItem value="5+">بیش از 5 سال</Form.SelectItem>
-      </Form.Select>
+      />
       <div>
         <Button type="submit" className="mt-4">
           ذخیره
