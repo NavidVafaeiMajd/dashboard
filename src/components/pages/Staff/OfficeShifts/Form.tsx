@@ -7,6 +7,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TimeKeeper from "react-timekeeper";
 import { officeShift } from "@/components/shared/validtion";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createShift, type ShiftPayload } from "./service/shift";
 
 export type FormData = z.infer<typeof officeShift>;
 
@@ -67,10 +69,39 @@ const Form = ({ accordion, setAccordion }: Props) => {
     resolver: zodResolver(officeShift),
   });
 
+  const queryClient = useQueryClient();
+
+
+  const mutation = useMutation({
+    mutationFn: (newShift: ShiftPayload) => createShift(newShift),
+    onSuccess: () => {
+      toast.success("شیفت با موفقیت ثبت شد ✅");
+      queryClient.invalidateQueries({ queryKey: ["shifts"] });
+    },
+    onError: (error: any) => {
+      toast.error(error.message || "خطا در ثبت شیفت ❌");
+    },
+  });
+
   const onSubmit = (data: FormData) => {
-    const finalData = { ...data, weekTimes };
-    console.log("📦 Submitted Data:", finalData);
+    const shiftData: any = {
+      id: 1, // می‌تونی از بک‌اند بگیری یا اینجا بسازی
+      name: data.firstName,
+    };
+  
+    (Object.keys(weekTimes) as DayKey[]).forEach((day) => {
+      shiftData[`${day}_start`] = weekTimes[day].entry
+        ? `${weekTimes[day].entry}:00`
+        : null;
+      shiftData[`${day}_end`] = weekTimes[day].exit
+        ? `${weekTimes[day].exit}:00`
+        : null;
+    });
+  
+    console.log("📦 Final Data:", shiftData);
+    mutation.mutate(shiftData);
   };
+  
 
   const onError: SubmitErrorHandler<FormData> = (formErrors) => {
     Object.values(formErrors).forEach((error) => {

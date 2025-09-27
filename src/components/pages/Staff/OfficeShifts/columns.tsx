@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export const userColumns: ColumnDef<User>[] = [
    {
-      accessorKey: "shift",
+      accessorKey: "name",
       header: ({ column }) => {
          return (
             <Button
@@ -24,19 +24,19 @@ export const userColumns: ColumnDef<User>[] = [
    {
       accessorKey: "saturday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -57,19 +57,19 @@ export const userColumns: ColumnDef<User>[] = [
       {
       accessorKey: "sunday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -90,19 +90,19 @@ export const userColumns: ColumnDef<User>[] = [
    {
       accessorKey: "monday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -123,19 +123,19 @@ export const userColumns: ColumnDef<User>[] = [
       {
       accessorKey: "tuesday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -156,19 +156,19 @@ export const userColumns: ColumnDef<User>[] = [
       {
       accessorKey: "wednesday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -189,19 +189,19 @@ export const userColumns: ColumnDef<User>[] = [
       {
       accessorKey: "thursday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
@@ -222,19 +222,19 @@ export const userColumns: ColumnDef<User>[] = [
       {
       accessorKey: "friday",
       cell(props) {
-         const status = props.getValue() as { entry: string; exit: string };
+         const status = props.getValue();
          return (
             <span
                className={cn(
-                  status.exit === "" && status.entry === ""
+                  status === "تعطیل"
                      ? "bg-green-100 text-green-500"
                      : "",
                   "p-2 rounded-sm"
                )}
             >
-               {status.exit === "" && status.entry === ""
+               {status === "تعطیل" 
                   ? "تعطیلات"
-                  : `${status.entry} am به ${status.exit} pm`}
+                  : `${status}` }
             </span>
          );
       },
