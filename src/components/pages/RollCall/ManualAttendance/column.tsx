@@ -2,6 +2,7 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
+import { useEmployees } from "@/hook/useEmployees";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { z } from "zod";
@@ -30,7 +31,7 @@ const schema = z.object({
 
 export const columns: ColumnDef<ManualAttendance>[] = [
   {
-    accessorKey: "employee",
+    accessorKey: "full_name",
     header: ({ column }) => {
       return (
         <Button
@@ -62,7 +63,7 @@ export const columns: ColumnDef<ManualAttendance>[] = [
     },
   },
   {
-    accessorKey: "entryTime",
+    accessorKey: "check_in",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -74,7 +75,7 @@ export const columns: ColumnDef<ManualAttendance>[] = [
     ),
   },
   {
-    accessorKey: "exitTime",
+    accessorKey: "check_out",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -86,7 +87,7 @@ export const columns: ColumnDef<ManualAttendance>[] = [
     ),
   },
   {
-    accessorKey: "totalTime",
+    accessorKey: "total_work",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -102,6 +103,11 @@ export const columns: ColumnDef<ManualAttendance>[] = [
     accessorKey: "id",
     header: "عملیات",
     cell: () => {
+      const { data: employee } = useEmployees();
+      const mapped = employee?.data?.map((item) => ({
+        value: String(item.id),
+        label: item.fullName,
+      }));
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -113,9 +119,7 @@ export const columns: ColumnDef<ManualAttendance>[] = [
             schema={schema}
             fields={
               <>
-                <Form.Select name="employee" label="کارمند" required>
-                  <Form.SelectItem value="1"> کارمند 1</Form.SelectItem>
-                </Form.Select>
+                <Form.Select name="employee" label="کارمند" options={mapped||[]} required/>
                 <Form.Date name="date" label="تاریخ" />
                 <Form.TimePicker name="entryTime" label="زمان ورود" />
                 <Form.TimePicker name="exitTime" label="زمان خروج" />

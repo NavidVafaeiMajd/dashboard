@@ -16,7 +16,7 @@ export interface AttendanceListColumnProps extends Record<string, unknown> {
 
 export const columns: ColumnDef<AttendanceListColumnProps>[] = [
    {
-      accessorKey: "employee",
+      accessorKey: "full_name",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -56,7 +56,7 @@ export const columns: ColumnDef<AttendanceListColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "entryTime",
+      accessorKey: "check_in",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -68,7 +68,7 @@ export const columns: ColumnDef<AttendanceListColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "exitTime",
+      accessorKey: "check_out",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -80,7 +80,7 @@ export const columns: ColumnDef<AttendanceListColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "tardiness",
+      accessorKey: "late",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -92,7 +92,7 @@ export const columns: ColumnDef<AttendanceListColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "earlyLeave",
+      accessorKey: "early_leave",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -104,7 +104,7 @@ export const columns: ColumnDef<AttendanceListColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "totalHours",
+      accessorKey: "total_work",
       header: ({ column }) => (
          <Button
             variant="ghost"

@@ -13,8 +13,8 @@ import PostLoad from "@/components/ui/postLoad";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
   const { data: departments, isPending: departmentsLoading } = useDepartments();
-  const { data: designationsts, isPending: designationstsLoading } =
-    useDesignationsts();
+  const { data: designationsts, isPending: designationstsLoading } =useDesignationsts();
+
 
   const departmentsMapped = departments?.data?.map((item) => ({
     value: String(item.id),
@@ -25,6 +25,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
     value: String(item.id),
     label: item.title,
   }));
+
+
 
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),

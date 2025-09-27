@@ -7,6 +7,7 @@ import { validation } from "./validation";
 import { usePostRows } from "@/hook/usePostRows";
 import { useDepartments } from "@/hook/useDepartments";
 import { useDesignationsts } from "@/hook/useDesignationsts";
+import { useShifts } from "@/hook/useShifts";
 
 const StaffList: React.FC = () => {
   const title = "پرسنل";
@@ -20,7 +21,7 @@ const StaffList: React.FC = () => {
     personeliCode: "",
     phoneNumber: "",
     gender: "مرد",
-    shift: "صبح",
+    shift_id: "",
     department_id: "1",
     designation_id: "1",
     position: "فعال",
@@ -29,6 +30,7 @@ const StaffList: React.FC = () => {
 
   const { data: departments, isPending: departmentsLoading } = useDepartments();
   const { data: designationsts, isPending: designationstsLoading } = useDesignationsts();
+  const { data: shifts, isPending: shiftsLoading } = useShifts();
 
   const departmentsMapped = departments?.data?.map((item) => ({
     value: String(item.id),
@@ -38,6 +40,11 @@ const StaffList: React.FC = () => {
   const designationstsMapped = designationsts?.data?.map((item) => ({
     value: String(item.id),
     label: item.title,
+  }));
+
+  const shiftsMapped = shifts?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
   }));
 
   const { mutation, form } = usePostRows(
@@ -91,10 +98,10 @@ const StaffList: React.FC = () => {
       </div>
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
-          name="shift"
+          name="shift_id"
           label="شیفت اداره ای"
           placeholder="شیفت اداره ای"
-          options={[{ label: "صبح", value: "صبح" }]}
+          options={shiftsMapped || []}
           required
         />
         <Form.Select
@@ -142,7 +149,7 @@ const StaffList: React.FC = () => {
         formData.append(key, String(value));
       }
     });
-    console.log(formData);
+    console.log(data);
     mutation.mutate(formData);
   };
 
