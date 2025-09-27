@@ -35,7 +35,7 @@ export const validation = z.object({
 
    department_id: z.coerce.number().min(1, "واحد سازمانی الزامی است"),
 
-   designation_id: z.coerce.number().min(1, "واحد سازمانی الزامی است"),
+   designation_id: z.coerce.number().min(1, "سمت سازمانی الزامی است"),
 
    position: z.string().refine((val) => val !== "", {
      message: "لطفاً یک گزینه انتخاب کنید",

@@ -20,7 +20,7 @@ const StaffList: React.FC = () => {
     personeliCode: "",
     phoneNumber: "",
     gender: "مرد",
-    shift: "morning",
+    shift: "صبح",
     department_id: "1",
     designation_id: "1",
     position: "فعال",
@@ -29,7 +29,6 @@ const StaffList: React.FC = () => {
 
   const { data: departments, isPending: departmentsLoading } = useDepartments();
   const { data: designationsts, isPending: designationstsLoading } = useDesignationsts();
-    useDesignationsts();
 
   const departmentsMapped = departments?.data?.map((item) => ({
     value: String(item.id),
@@ -41,8 +40,6 @@ const StaffList: React.FC = () => {
     label: item.title,
   }));
 
-  console.log(designationsts)
-
   const { mutation, form } = usePostRows(
     "employees",
     ["employees"],
@@ -52,7 +49,6 @@ const StaffList: React.FC = () => {
     true
   );
 
-  console.log(departments);
   const formFields = (
     <div className="relative">
       {mutation.isPending &&  departmentsLoading && designationstsLoading &&(
@@ -81,6 +77,7 @@ const StaffList: React.FC = () => {
           name="phoneNumber"
           label="شماره تماس"
           placeholder="شماره تماس"
+          required
         />
         <Form.Select
           name="gender"
@@ -114,14 +111,14 @@ const StaffList: React.FC = () => {
 
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
-          name="designations_id"
+          name="department_id"
           label="واحد سازمانی"
           placeholder="واحد سازمانی"
           options={departmentsMapped || []}
           required
         />
         <Form.Select
-          name="department_id"
+          name="designation_id"
           label="سمت سازمانی"
           placeholder="سمت سازمانی"
           options={designationstsMapped || []}
@@ -145,7 +142,7 @@ const StaffList: React.FC = () => {
         formData.append(key, String(value));
       }
     });
-    console.log(data);
+    console.log(formData);
     mutation.mutate(formData);
   };
 

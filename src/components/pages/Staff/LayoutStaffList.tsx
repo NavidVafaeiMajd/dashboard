@@ -36,6 +36,14 @@ const LayoutStaffList = () => {
                            "office-shifts",
                            "شیفت و برنامه ریزی",
                            " شیفت ها",
+                        ],
+                        [
+                           <>
+                              <FaRegClock className="w-7 h-7" />
+                           </>,
+                           "employ-exit",
+                           "انفصال از خدمت",
+                           " انفصال ",
                         ]
                      ]}
                   />
