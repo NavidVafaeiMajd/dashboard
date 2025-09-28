@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Form } from "@/components/shared/Form";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { useDeleteRows } from "@/hook/useDeleteRows";
+import { useUpdateRows } from "@/hook/useUpdateRows";
 
 export interface LeaveRequest {
   id: number;
@@ -18,6 +19,12 @@ export interface LeaveRequest {
   status: "pending" | "approved" | "rejected";
   [key: string]: any;
 }
+
+const validation = z.object({
+  notes: z.string().min(1, "ملاحظات الزامی است"),
+  reason: z.string().min(1, "دلیل مرخصی الزامی است"),
+  status : z.string().min(1, "وضعیت الزامی است")
+})
 
 export const leaveColumns: ColumnDef<LeaveRequest>[] = [
   {
@@ -124,22 +131,17 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
     ),
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
-      const statusMap = {
-        pending: "درحال بررسی",
-        approved: "تایید شده",
-        rejected: "رد شده",
-      };
       return (
         <span
           className={`px-2 py-1 rounded-full text-xs font-medium ${
-            status === "approved"
+            status === "تایید شده"
               ? "bg-green-100 text-green-800"
-              : status === "rejected"
+              : status === "رد شده"
               ? "bg-red-100 text-red-800"
               : "bg-yellow-100 text-yellow-800"
           }`}
         >
-          {statusMap[status as keyof typeof statusMap]}
+          {status}
         </span>
       );
     },
@@ -157,6 +159,14 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         requestDate: String(new Date(r.requestDate).getTime()),
         status: String(r.status),
       }).toString();
+
+      const { mutation } = useUpdateRows(
+        `designations/${row.id}`,
+        ["designations"],
+        validation ,
+        "واحد سازمانی"
+      );
+
       const deleteRow = useDeleteRows({
         url: "leaves",
         queryKey: ["leaves"],
@@ -171,17 +181,18 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
               <>
                 <Form.Textarea name="notes" label="ملاحظات" />
                 <Form.Textarea name="reason" label="دلیل مرخصی" />
+                <Form.Select label="وضعیت" name="status" options={[{label : "در حال بررسی" , value :"در حال بررسی"} , {label : " تایید شده " , value :"تایید شده "} , {label : " رد شده " , value :" رد شده "}]}/>
               </>
             }
             defaultValues={{
               notes: "",
               reason: "",
+              status : "",
             }}
-            onSave={() => {}}
-            schema={z.object({
-              notes: z.string().min(1, "ملاحظات الزامی است"),
-              reason: z.string().min(1, "دلیل مرخصی الزامی است"),
-            })}
+            onSave={(data) => {
+              mutation.mutate(data)
+            }}
+            schema={validation}
           />
           <DeleteDialog
             onConfirm={() => {
