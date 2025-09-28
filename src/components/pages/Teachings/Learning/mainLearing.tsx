@@ -4,38 +4,56 @@ import { Form } from "@/components/shared/Form";
 import z from "zod";
 import { validation } from "./validation";
 import SectionAcc from "@/components/shared/section/SectionAcc";
-import { useEmployees } from "@/hook/useEmployees";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
-import SkeletonLoading from "@/components/ui/skeleton";
 import PostLoad from "@/components/ui/postLoad";
+import { useGetData } from "@/hook/useGetData";
+
+export type Skill = {
+  id: number;
+  name: string;
+};
+export type Teacher = {
+  id: number;
+  first_name: string;
+  last_name: string;
+};
+
 
 export default function LearningPage() {
   const defaultValues = {
-    infoTecher: "",
-    skillslearn: "",
-    priceLearn: "",
-    status: "",
-    "entry-time": "",
-    "exit-time": "",
-    text: "",
+    teacher_id: "",
+    skill_id: "",
+    cost: "",
+    personnel: "",
+    start_date: new Date(),
+    end_date: new Date(),
+    description: "",
   };
-
-  const { data: employee, isPending: employeesLoading } = useEmployees();
-
-  const mapped = employee?.data?.map((item) => ({
-    value: String(item.id),
-    label: item.fullName,
-  }));
 
   const { mutation, form } = usePostRows(
     "trainings",
     ["trainings"],
     defaultValues,
     validation,
-    "پرسنل",
+    "اموزش",
     true
   );
+
+  const { data : skills } = useGetData<Skill[]>("skills")
+  
+  const skillsMapped = skills?.map((item) => ({
+    value: String(item.id),
+    label: item.name ,
+  }));
+
+  const { data : teachers } = useGetData<Teacher[]>("teachers")
+  
+  const teachersMapped = teachers?.map((item) => ({
+    value: String(item.id),
+    label: item.first_name + " " + item.last_name,
+  }));
+
 
   const formFields = (
     <div className="required:">
@@ -43,40 +61,39 @@ export default function LearningPage() {
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select
           label="مشخصات مدرس "
-          name="infoTecher"
+          name="teacher_id"
           placeholder=" مشخصات مدرس "
           required
-          options={[{ label: "test", value: "test" }]}
+          options={teachersMapped || []}
         />
 
         <Form.Select
           label="مهارت آموزشی "
-          name="skillslearn"
+          name="skill_id"
           placeholder="مهارت آموزشی "
           required
-          options={[{ label: "test", value: "test" }]}
+          options={skillsMapped || []}
         />
 
         <Form.Input
           label=" هزینه آموزش"
-          name="priceLearn"
+          name="cost"
           placeholder=" هزینه آموزش"
           required
         />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.Select
-          label="کارمند"
-          name="employee_id"
-          placeholder="انتخاب کارمند"
-          options={mapped || []}
+        <Form.Input
+          label="تعداد دانشجو"
+          name="personnel"
+          placeholder="تعداد دانشجو"
           required
         />
-        <Form.Date label="تاریخ شروع" name="entry-time" />
-        <Form.Date label="تاریخ پایان" name="exit-time" />
+        <Form.Date label="تاریخ شروع" name="start_date" />
+        <Form.Date label="تاریخ پایان" name="end_date" />
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <Form.RichText label="شرح" name="text" required />
+        <Form.RichText label="شرح" name="description" required />
       </div>
     </div>
   );
@@ -85,11 +102,18 @@ export default function LearningPage() {
   const fetchUsers = () => useGetRowsToTable("trainings");
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    const payload = {
+      ...data,
+      cost: Number(data.cost),
+      personnel: Number(data.personnel),
+      start_date: new Date(data.start_date).toISOString().slice(0,19),
+      end_date: new Date(data.end_date).toISOString().slice(0,19),
+    };
+  
+    console.log(payload);
+    mutation.mutate(payload);
   };
-
-  if(employeesLoading ) return (<SkeletonLoading/>)
-
+  
   return (
     <div className="flex flex-col  px-4">
       <SectionAcc

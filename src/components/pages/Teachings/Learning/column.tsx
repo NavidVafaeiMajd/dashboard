@@ -5,6 +5,8 @@ import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { useGetData } from "@/hook/useGetData";
+import type { Skill, Teacher } from "./mainLearing";
 
 export interface LearningRecordType {
   id: string;
@@ -30,30 +32,36 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
     cell: ({ row }) => <div className="text-center">{row.getValue("skillslearn")}</div>,
   },
   {
-    accessorKey: "priceLearn",
+    accessorKey: "cost",
     header: "هزینه آموزش",
-    cell: ({ row }) => <div className="text-center">{row.getValue("priceLearn")}</div>,
-  },
+    cell: ({ row }) => {
+      const cost = row.getValue("cost") as number | string;
+      return (
+        <div className="text-center">
+          {new Intl.NumberFormat("fa-IR").format(Number(cost))} تومان
+        </div>
+      );
+    },
+  },  
   {
-    accessorKey: "status",
+    accessorKey: "personnel",
     header: "تعداد دانشجو",
-    cell: ({ row }) => <div className="text-center">{row.getValue("status")}</div>,
+    cell: ({ row }) => <div className="text-center">{row.getValue("personnel")}</div>,
   },
   {
-    accessorKey: "entry-time",
+    accessorKey: "start_date",
     header: "تاریخ شروع",
-    cell: ({ row }) => <div className="text-center">{row.getValue("entry-time")}</div>,
+    cell: ({ row }) => {
+      return <div className="text-center">{new Date(row.getValue("start_date")).toLocaleDateString("fa-IR")}</div>;
+    },
   },
   {
-    accessorKey: "exit-time",
+    accessorKey: "end_date",
     header: "تاریخ پایان",
-    cell: ({ row }) => <div className="text-center">{row.getValue("exit-time")}</div>,
-  },
-  {
-    accessorKey: "text",
-    header: "شرح",
-    cell: ({ row }) => <div className="text-center">{row.getValue("text")}</div>,
-  },
+    cell: ({ row }) => {
+      return <div className="text-center">{new Date(row.getValue("end_date")).toLocaleDateString("fa-IR")}</div>;
+    },
+  },  
   {
     id: "actions",
     header: "عملیات",
@@ -69,6 +77,21 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
         text: String(r.text),
         created: new Date().toLocaleDateString("fa-IR"),
       }).toString();
+
+      const { data : skills } = useGetData<Skill[]>("skills")
+  
+      const skillsMapped = skills?.map((item) => ({
+        value: String(item.id),
+        label: item.name ,
+      }));
+    
+      const { data : teachers } = useGetData<Teacher[]>("teachers")
+      
+      const teachersMapped = teachers?.map((item) => ({
+        value: String(item.id),
+        label: item.first_name + " " + item.last_name,
+      }));
+    
       return (
         <div className="flex items-center gap-2">
           <Link to={`/learning/details/${r.id}?${query}`}>
@@ -79,31 +102,31 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
             triggerLabel="ویرایش"
             fields={
               <>
-                <Form.Select name="infoTecher" label=" مهارت آموزشی" required>
-                  <Form.SelectItem value="1">مهارت آموزشی 1</Form.SelectItem>
-                  <Form.SelectItem value="2">مهارت آموزشی 2</Form.SelectItem>
-                </Form.Select>
-                <Form.Select name="skillslearn" label=" مشخصات مدرس" required>
-                  <Form.SelectItem value="1">مشخصات مدرس 1</Form.SelectItem>
-                  <Form.SelectItem value="2">مشخصات مدرس 2</Form.SelectItem>
-                </Form.Select>
+        <Form.Select
+          label="مشخصات مدرس "
+          name="teacher_id"
+          placeholder=" مشخصات مدرس "
+          required
+          options={teachersMapped || []}
+        />
+
+        <Form.Select
+          label="مهارت آموزشی "
+          name="skill_id"
+          placeholder="مهارت آموزشی "
+          required
+          options={skillsMapped || []}
+        />
                 <Form.Input name="priceLearn" label=" هزینه آموزش " required />
-                <Form.MultiSelect
-                    label="پرسنل"
-                    name="personnel"
-                    options={[
-                      { label: "پرسنل 1", value: "1" },
-                      { label: "پرسنل 2", value: "2" },
-                    ]}
-                    required
-                />
+                <Form.Input
+          label="تعداد دانشجو"
+          name="personnel"
+          placeholder="تعداد دانشجو"
+          required
+        />
                                     <Form.Date name="startDate" label=" تاریخ شروع  " />
                                     <Form.Date name="finishtDate" label=" تاریخ پایان " />
 
-                <Form.Select name="goalsRelated" label=" اهداف مرتبط" required>
-                  <Form.SelectItem value="1">اهداف مرتبط 1</Form.SelectItem>
-                  <Form.SelectItem value="2">اهداف مرتبط 2</Form.SelectItem>
-                </Form.Select>
                 <Form.RichText name="text" label=" شرح "  required />
 
               </>
