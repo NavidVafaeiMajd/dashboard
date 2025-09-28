@@ -5,21 +5,44 @@ import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
 import { performanceData } from "./const";
 import SectionAcc from "@/components/shared/section/SectionAcc";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { useDesignationsts } from "@/hook/useDesignationsts";
 
 const PerformanceRating = () => {
   const defaultValues = {
     name: "",
-    position: "",
+    designation_id: "",
     tecnicalTest: 1,
     organizationalTest: 1,
   };
+
+  const { mutation, form } = usePostRows(
+    "employee-ratings",
+    ["employee-ratings"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
+  const fetchUsers = () => useGetRowsToTable("employee-ratings");
+
+  const { data: designationsts, isPending: designationstsLoading } =
+    useDesignationsts();
+
+  const designationstsMapped = designationsts?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.title,
+  }));
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
   return (
     <div>
-        <SectionAcc
+      <SectionAcc
+        form={form}
         FirstTitle="تنظیم جدید شاخص عملکرد"
         SecoundTitle="لیست همه شاخص های عملکرد"
         defaultValues={defaultValues}
@@ -27,10 +50,13 @@ const PerformanceRating = () => {
         formFields={
           <>
             <Form.Input label="عنوان" name="name" required />
-            <Form.Select label="سمت سازمانی" name="position" required>
-              <Form.SelectItem value="1">item 1</Form.SelectItem>
-              <Form.SelectItem value="2">item 2</Form.SelectItem>
-            </Form.Select>
+            <Form.Select
+              name="designation_id"
+              label="سمت سازمانی"
+              placeholder="سمت سازمانی"
+              options={designationstsMapped || []}
+              required
+            />
 
             <div className="flex gap-x-5 flex-col md:flex-row md:justify-between">
               <div className="w-full">
@@ -44,7 +70,7 @@ const PerformanceRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست فنی 1</span>
-                  <Form.StarRate name="tecnicalTest"  />
+                  <Form.StarRate name="tecnicalTest" />
                 </div>
               </div>
               <div className="w-full">
@@ -58,7 +84,7 @@ const PerformanceRating = () => {
 
                 <div className="flex justify-between items-center border-b">
                   <span className="text-lg w-full">تست سازمانی 1</span>
-                  <Form.StarRate name="organizationalTest"  />
+                  <Form.StarRate name="organizationalTest" />
                 </div>
               </div>
             </div>
@@ -68,7 +94,8 @@ const PerformanceRating = () => {
         table={
           <DataTable
             columns={columns}
-            data={performanceData}
+            queryKey={["employee-ratings"]}
+            queryFn={fetchUsers}
             searchableKeys={[
               "title",
               "position",
