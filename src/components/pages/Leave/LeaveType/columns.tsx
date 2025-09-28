@@ -8,14 +8,14 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
 export interface leaveTypeColumnProps extends Record<string, unknown> {
    id: string;
-   name: string;
-   daysPerYear: number;
-   requiresApproval: string;
+   leave_types: string;
+   days_per_year: number;
+   requires_approval: string;
 }
 
 export const columns: ColumnDef<leaveTypeColumnProps>[] = [
    {
-      accessorKey: "name",
+      accessorKey: "type_name",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -27,7 +27,7 @@ export const columns: ColumnDef<leaveTypeColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "daysPerYear",
+      accessorKey: "days_per_year",
       header: ({ column }) => (
          <Button
             variant="ghost"
@@ -39,14 +39,14 @@ export const columns: ColumnDef<leaveTypeColumnProps>[] = [
       ),
    },
    {
-      accessorKey: "requiresApproval",
+      accessorKey: "requires_approval",
       header: ({ column }) => (
          <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
          >
             <LuArrowUpDown className="ml-2 h-4 w-4" />
-            نیاز به تایید دارد
+            وضعیت
          </Button>
       ),
    },
@@ -64,10 +64,7 @@ export const columns: ColumnDef<leaveTypeColumnProps>[] = [
                   fields={<>
                      <Form.Input name="name" label="نوع مرخصی" required />
                      <Form.Input name="daysPerYear" label="روزها در سال" required />
-                     <Form.Select name="requiresApproval" label="نیاز به تایید دارد" required >
-                        <Form.SelectItem value="1">بله</Form.SelectItem>
-                        <Form.SelectItem value="2">خیر</Form.SelectItem>
-                     </Form.Select>
+                     <Form.Select name="requiresApproval" label="نیاز به تایید دارد" options={[{label : "سازمانی" , value : true}]} required />
                   </>}
                   defaultValues={{
                      name: "",

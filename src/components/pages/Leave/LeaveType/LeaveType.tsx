@@ -4,8 +4,10 @@ import type z from "zod";
 import { Form } from "@/components/shared/Form";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
-import { LEAVE_TYPE_CONSTANTS } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { usePostRows } from "@/hook/usePostRows";
+import { boolean } from "zod";
 
 const LeaveType = () => {
    useEffect(() => {
@@ -13,22 +15,34 @@ const LeaveType = () => {
    }, []);
    
    const defaultValues= {
-      name: "",
-      daysPerYear: "",
-      requiresApproval: "",
-   }
+    type_name: "",
+    days_per_year: "",
+    requires_approval:false,
+  }
+  const { mutation, form } = usePostRows(
+    "leave-types",
+    ["leave-types"],
+    defaultValues,
+    validation,
+    "مرخصی",
+    true
+  );
 
+   const fetchLeavesType = () => useGetRowsToTable("leave-types");
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log("Form Data:", data);
+    mutation.mutate(data)
   };
    return (
       <div>
-         <SectionCol
+       <SectionCol
+         form={form}
           defaultValues={defaultValues}
           table={            <DataTable
             columns={columns}
-            data={LEAVE_TYPE_CONSTANTS}
-            searchableKeys={["name"]}
+            queryKey={["leave-types"]}
+            queryFn={fetchLeavesType}
+            searchableKeys={["type_name"]}
          />}
           onSubmit={(onSubmit)}
           FirstTitle=" ثبت جدید نوع مرخصی "
@@ -38,25 +52,23 @@ const LeaveType = () => {
              <>
               <Form.Input
                 label="نوع مرخصی"
-                name="name"
+                name="type_name"
                 placeholder="نوع مرخصی"
                 required
                 />
               <Form.Input
                 label="روزها در سال"
-                name="daysPerYear"
+                name="days_per_year"
                 placeholder="روزها در سال"
                 required
               />
               <Form.Select
-                label="نیاز به تایید دارد"
-                name="requiresApproval"
-                placeholder="انتخاب نیاز به تایید دارد"
+                label="وضعیت"
+                name="requires_approval"
+                placeholder="انتخاب وضعیت"
+                options={[{label : "اضافه بر سازمان" , value : true} , {label : "مرخصی سازمانی" , value : false}]}
                 required
-              >
-                <Form.SelectItem value="1">بله</Form.SelectItem>
-                <Form.SelectItem value="2">خیر</Form.SelectItem>
-              </Form.Select>
+              />
 
             </>
           }

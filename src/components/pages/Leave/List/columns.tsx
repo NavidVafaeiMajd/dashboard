@@ -37,7 +37,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
     },
   },
   {
-    accessorKey: "type",
+    accessorKey: "type_name",
     header: ({ column }) => (
       <Button
         variant="ghost"

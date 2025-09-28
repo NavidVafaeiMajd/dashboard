@@ -10,21 +10,32 @@ import { usePostRows } from "@/hook/usePostRows";
 import { useEmployees } from "@/hook/useEmployees";
 import SkeletonLoading from "@/components/ui/skeleton";
 import PostLoad from "@/components/ui/postLoad";
+import { useQuery } from "@tanstack/react-query";
 
 // ✅ تعریف اسکیمای ولیدیشن با zod
 const validation = z.object({
   employee_id: z.string().min(1, "انتخاب کارمند الزامی است"),
-  type: z.string().min(1, "انتخاب نوع مرخصی الزامی است"),
+  leave_type_id: z.string().min(1, "انتخاب نوع مرخصی الزامی است"),
   start_date: z.date({ error: "تاریخ شروع الزامی است" }),
   end_date: z.date({ error: "تاریخ پایان الزامی است" }),
   considerations: z.string().optional(),
   reason: z.string().min(1, "دلیل مرخصی الزامی است"),
 });
 
+interface LeaveType {
+  id: number;
+  type_name: string;
+}
+
+interface LeaveTypesResponse {
+  data: LeaveType[];
+}
+
+
 const LeaveList = () => {
   const defaultValues = {
     employee_id: "",
-    type: "",
+    leave_type_id: "",
     start_date: new Date(),
     end_date: new Date(),
     considerations: "",
@@ -41,6 +52,22 @@ const LeaveList = () => {
   );
 
   const { data: employee, isPending: employeesLoading } = useEmployees();
+
+  const { data: leaveTypes } = useQuery<LeaveTypesResponse>({
+    queryKey: ["leaveTypes"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:8000/api/leave-types");
+      if (!res.ok) {
+        throw new Error("Failed to fetch leave types");
+      }
+      return res.json();
+    },
+  });
+  
+  const leaveMapped = leaveTypes?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.type_name, // بستگی به API داره
+  }));
 
   const mapped = employee?.data?.map((item) => ({
     value: String(item.id),
@@ -88,10 +115,10 @@ const LeaveList = () => {
               {/* نوع مرخصی */}
               <Form.Select
                 label="نوع مرخصی"
-                name="type"
+                name="leave_type_id"
                 placeholder="انتخاب نوع مرخصی"
                 required
-                options={[{ label: "استحقاقی", value: "استحقاقی" }]}
+                options={leaveMapped || []}
               />
 
               {/* تاریخ‌ها */}

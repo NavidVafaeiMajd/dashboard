@@ -357,7 +357,7 @@ function FormImage<T extends FieldValues>({
 interface MultiSelectProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
-  options: { label: string; value: string }[];
+  options: { label: string; value: any }[];
   required?: boolean;
   className?: string;
   placeholder?: string;
