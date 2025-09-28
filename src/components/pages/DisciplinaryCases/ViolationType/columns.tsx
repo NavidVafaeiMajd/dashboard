@@ -50,7 +50,7 @@ export const columns: ColumnDef<violationTypeColumnProps>[] = [
         `disciplinary-types/${r.id}`,
         ["disciplinary-types"],
         validation,
-        "واحد سازمانی"
+        "نوع تخلف "
       );
       return (
         <div className="flex items-center gap-2">

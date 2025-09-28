@@ -3,49 +3,73 @@ import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
+import { useDeleteRows } from "@/hook/useDeleteRows";
+import { useUpdateRows } from "@/hook/useUpdateRows";
 export interface SkillsRank {
-  skillsType: string;
-  creatDate: string;
+  name: string;
+  created_at: string;
   [key: string]: string | number;
 }
 
+const validation = z.object({
+  name: z.string().min(1, "مهارت اموزشی الزامی است"),
+});
 
-
-export  const columns: ColumnDef<SkillsRank>[] = [
-    {
-      accessorKey: "skillsType",
-      header: "مهارت اموزشی",
-      cell: ({ row }) => <div className="text-right">{row.getValue("skillsType")}</div>,
-    },
-    {
-      accessorKey: "creatDate",
-      header: "تاریخ ایجاد",
-      cell: ({ row }) => <div className="text-center">{row.getValue("creatDate")}</div>,
+export const columns: ColumnDef<SkillsRank>[] = [
+  {
+    accessorKey: "name",
+    header: "مهارت اموزشی",
+    cell: ({ row }) => <div className="text-right">{row.getValue("name")}</div>,
   },
+  {
+    accessorKey: "created_at",
+    header: "تاریخ ایجاد",
+    cell: ({ row }) => {
+      const value = row.getValue("created_at") as string;
+      const date = new Date(value);
+
+      return date.toLocaleDateString("fa-IR");
+    },
+  },
+
   {
     id: "actions",
     header: "عملیات",
-    cell: () => {
+    cell: ({ row }) => {
+      const r = row.original;
+      const deleteRow = useDeleteRows({
+        url: "skills",
+        queryKey: ["skills"],
+      });
+      const { mutation } = useUpdateRows(
+        `skills/${r.id}`,
+        ["skills"],
+        validation,
+        "نوع تخلف "
+      );
       return (
         <div className="flex items-center gap-2">
           <EditDialog
-            onSave={() => {}}
-          fields={<>
-            <Form.Input name="skillsType" label="مهارت اموزشی" required />
-          </>}
-          defaultValues={{
-            skillsType: "",
-          }}
-          schema={z.object({
-            skillsType: z.string().min(1, "مهارت اموزشی الزامی است"),
-          })}
+            onSave={(data) => {
+              mutation.mutate(data)
+            }}
+            fields={
+              <>
+                <Form.Input name="name" label="مهارت اموزشی" required />
+              </>
+            }
+            defaultValues={{
+              name: "",
+            }}
+            schema={validation}
           />
-          <DeleteDialog onConfirm={() => {}} />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(Number(r.id));
+            }}
+          />
         </div>
       );
-
     },
-    }
-   
-  ];
-
+  },
+];

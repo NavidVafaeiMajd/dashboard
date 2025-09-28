@@ -3,30 +3,46 @@ import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { validation } from "./validation";
 import { columns } from "./column";
-import { SKILLS_CREAT } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import PostLoad from "@/components/ui/postLoad";
 
 export default function TraningSkills() {
   const defaultValues = {
-    skillsteching: "",
+    name: "",
   };
+
+  const { mutation, form } = usePostRows(
+    "skills",
+    ["skills"],
+    defaultValues,
+    validation,
+    "مهارت ها",
+    true
+  );
+
   const formFields = (
     <>
+      {mutation.isPending && <PostLoad/>}
       <Form.Input
         label=" مهارت آموزشی "
-        name="skillsteching"
+        name="name"
         placeholder="  مهارت آموزشی "
         required
       />
     </>
   );
 
+  const fetchSkills = () => useGetRowsToTable("skills");
+
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    mutation.mutate(data)
   };
   return (
     <div>
       <SectionCol
+        form={form}
         schema={validation}
         defaultValues={defaultValues}
         formFields={formFields}
@@ -36,7 +52,8 @@ export default function TraningSkills() {
         table={
           <DataTable
             columns={columns}
-            data={SKILLS_CREAT}
+            queryKey={["skills"]}
+            queryFn={fetchSkills}
             searchableKeys={["skillsteching"]}
           />
         }

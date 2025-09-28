@@ -7,19 +7,25 @@ import { usePostRows } from "@/hook/usePostRows";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { useEmployees } from "@/hook/useEmployees";
 import PostLoad from "@/components/ui/postLoad";
+import { useQuery } from "@tanstack/react-query";
 
 const validation = z.object({
   employee_id: z.string(),
-  type: z.string().min(1, "انتخاب نوع پرونده الزامی است"),
+  disciplinary_type_id: z.string().min(1, "انتخاب نوع پرونده الزامی است"),
   title: z.string().min(1, "موضوع الزامی است"),
   case_date: z.date({ error: "تاریخ پرونده الزامی است" }),
   description: z.string().min(1, "شرح الزامی است"),
 });
 
+interface DisciplinaryTypes {
+  id: number;
+  name: string;
+}
+
 const DisciplinaryList = () => {
   const defaultValues = {
     employee_id: "",
-    type: "",
+    disciplinary_type_id: "",
     title: "",
     case_date: new Date(),
     description: "",
@@ -35,6 +41,23 @@ const DisciplinaryList = () => {
   );
 
   const { data: employee, isPending: employeesLoading } = useEmployees();
+
+  const { data: disciplinaryTypes } = useQuery<DisciplinaryTypes[]>({
+    queryKey: ["disciplinary-types"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:8000/api/disciplinary-types");
+      if (!res.ok) {
+        throw new Error("Failed to fetch leave types");
+      }
+      return res.json();
+    },
+  });
+  
+  const disciplinaryMapped = disciplinaryTypes?.map((item) => ({
+    value: String(item.id),
+    label: item.name, //
+  }));
+
 
   const mapped = employee?.data?.map((item) => ({
     value: String(item.id),
@@ -77,9 +100,9 @@ const DisciplinaryList = () => {
               {/* نوع پرونده */}
               <Form.Select
                 label="نوع پرونده"
-                name="type"
+                name="disciplinary_type_id"
                 placeholder="انتخاب نوع پرونده"
-                options={[{ label: " تخلف انظباطی", value: "تخلف انظباطی" }]}
+                options={disciplinaryMapped || []}
                 required
               />
             </div>
