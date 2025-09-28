@@ -3,9 +3,10 @@ import { validation } from "./validation";
 import type z from "zod";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./columns";
-import { VIOLATION_TYPE_CONSTANTS } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
 import { Form } from "@/components/shared/Form";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
 
 const ViolationType = () => {
   useEffect(() => {
@@ -15,18 +16,33 @@ const ViolationType = () => {
     name: "",
   };
 
+  const { mutation, form } = usePostRows(
+    "disciplinary-types",
+    ["disciplinary-types"],
+    defaultValues,
+    validation,
+    "نوع تخلف",
+    true
+  );
+
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
+    mutation.mutate(data)
   };
+
+  const fetchDisciplinary = () => useGetRowsToTable("disciplinary-types");
+
 
   return (
     <div>
       <SectionCol
+        form={form}
         defaultValues={defaultValues}
         table={
           <DataTable
             columns={columns}
-            data={VIOLATION_TYPE_CONSTANTS}
+            queryKey={["disciplinary-types"]}
+            queryFn={fetchDisciplinary}
             searchableKeys={["name"]}
           />
         }

@@ -30,7 +30,7 @@ const DisciplinaryList = () => {
     ["disciplinary-cases"],
     defaultValues,
     validation,
-    "پرسنل",
+    "تخلف",
     true
   );
 
