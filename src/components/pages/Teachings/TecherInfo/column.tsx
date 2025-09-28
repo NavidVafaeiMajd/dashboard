@@ -1,45 +1,72 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { TecherInfoType } from "./const";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
-import { z } from "zod";
+import { useDeleteRows } from "@/hook/useDeleteRows";
+import { useUpdateRows } from "@/hook/useUpdateRows";
+import { validation } from "./validation";
+
+export interface TecherInfoType {
+  name: string;
+  lname: string;
+  phone: string;
+  email: string;
+  skills: string;
+  mark: string;
+  [key: string]: string | number;
+}
 
 export const TecherInfoColumns: ColumnDef<TecherInfoType>[] = [
   {
-    accessorKey: "name",
-    header: "مشخصات مدرس",
-    cell: ({ row }) => <div className="text-center">{row.getValue("name")}</div>,
+    accessorKey: "first_name",
+    header: "نام ",
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("first_name")}</div>
+    ),
   },
   {
-    accessorKey: "lname",
+    accessorKey: "last_name",
     header: "نام خانوادگی",
-    cell: ({ row }) => <div className="text-center">{row.getValue("lname")}</div>,
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("last_name")}</div>
+    ),
   },
   {
     accessorKey: "phone",
     header: "شماره تماس",
-    cell: ({ row }) => <div className="text-center">{row.getValue("phone")}</div>,
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("phone")}</div>
+    ),
   },
   {
     accessorKey: "email",
     header: "ایمیل",
-    cell: ({ row }) => <div className="text-center">{row.getValue("email")}</div>,
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("email")}</div>
+    ),
   },
   {
-    accessorKey: "skills",
+    accessorKey: "specialty",
     header: "تخصص",
-    cell: ({ row }) => <div className="text-center">{row.getValue("skills")}</div>,
-  },
-  {
-    accessorKey: "mark",
-    header: "اضافه شده توسط",
-    cell: ({ row }) => <div className="text-center">{row.getValue("mark")}</div>,
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("specialty")}</div>
+    ),
   },
   {
     id: "actions",
     header: "عملیات",
-    cell: () => {
+    cell: ({ row }) => {
+      const r = row.original;
+      const deleteRow = useDeleteRows({
+        url: "disciplinary-cases",
+        queryKey: ["disciplinary-cases"],
+      });
+      const { mutation } = useUpdateRows(
+        `teachers/${r.id}`,
+        ["teachers"],
+        validation,
+        "نوع تخلف "
+      );
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -47,37 +74,33 @@ export const TecherInfoColumns: ColumnDef<TecherInfoType>[] = [
             triggerLabel="ویرایش"
             fields={
               <>
-                <Form.Input name="name" label="نام" required />
-                <Form.Input name="lname" label="نام خانوادگی" required />
+                <Form.Input name="first_name" label="نام" required />
+                <Form.Input name="last_name" label="نام خانوادگی" required />
                 <Form.Input name="phone" label="شماره تماس" required />
                 <Form.Input name="email" label="ایمیل" required />
-                <Form.Textarea name="skills" label="تخصص" required />
-                <Form.Textarea name="location" label="نشانی"  />
+                <Form.Textarea name="specialty" label="تخصص" required />
+                <Form.Textarea name="address" label="نشانی" />
               </>
             }
             defaultValues={{
-              name: "",
-              lname: "",
+              first_name: "",
+              last_name: "",
               phone: "",
               email: "",
-              skills: "",
-              location: "",
+              specialty: "",
+              address: "",
             }}
             onSave={(data) => {
               console.log(data);
+              mutation.mutate(data)
             }}
-            schema={z.object({
-
-              name: z.string().min(1, "نام الزامی است"),
-              lname: z.string().min(1, "نام خانوادگی الزامی است"),
-              phone: z.string().min(1, "شماره تماس الزامی است"),
-              email: z.string().min(1, "ایمیل الزامی است"),
-              skills: z.string().min(1, "تخصص الزامی است"),
-              location: z.string().optional(),
-            })}
-
+            schema={validation}
           />
-          <DeleteDialog onConfirm={() => {}} />
+          <DeleteDialog
+            onConfirm={() => {
+              deleteRow.mutate(Number(r.id));
+            }}
+          />
         </div>
       );
     },

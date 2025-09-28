@@ -3,17 +3,18 @@ import { Form } from "@/components/shared/Form";
 import { z } from "zod";
 import { validation } from "./validation";
 import { TecherInfoColumns } from "./column";
-import { TecherInfo as TecherInfoData } from "./const";
 import SectionAcc from "@/components/shared/section/SectionAcc";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
 
 export default function TecherInfo() {
   const defaultValues = {
-    name: "",
-    lname: "",
+    first_name: "",
+    last_name: "",
     phone: "",
     email: "",
-    skills: "",
-    location: "",
+    specialty: "",
+    address: "",
   };
   const formFields = (
     <>
@@ -22,14 +23,14 @@ export default function TecherInfo() {
           <div className="w-[100%] flex gap-[2.5rem] justify-between flex-col md:flex-row">
             <Form.Input
               label=" نام  "
-              name="name"
+              name="first_name"
               placeholder=" مشخصات مدرس "
               required
               className="w-[100%]"
             />
             <Form.Input
               label="نام خانوادگی"
-              name="lname"
+              name="last_name"
               placeholder=" مشخصات مدرس "
               required
               className="w-[100%]"
@@ -55,7 +56,7 @@ export default function TecherInfo() {
         <div className="w-[100%] md:w-[50%]">
           <Form.Textarea
             label="تخصص "
-            name="skills"
+            name="specialty"
             placeholder=" مشخصات مدرس "
             required
             textareaClassName="min-h-[130px]!"
@@ -66,38 +67,51 @@ export default function TecherInfo() {
       <div>
         <Form.Textarea
           label="نشانی"
-          name="location"
+          name="address"
           placeholder=" مشخصات مدرس "
-          required className="max-w-full!"
+          required
+          className="max-w-full!"
         />
       </div>
     </>
   );
 
+  const { mutation, form } = usePostRows(
+    "teachers",
+    ["teachers"],
+    defaultValues,
+    validation,
+    "مدرس ها",
+    true
+  );
+  const fetchTeachers = () => useGetRowsToTable("teachers");
+
+
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
+    mutation.mutate(data)
   };
   return (
     <div>
-          <div className="overflow-x-auto">
-          <SectionAcc
-        schema={validation}
-        defaultValues={defaultValues}
-        formFields={formFields}
-        onSubmit={onSubmit}
-        FirstTitle="ثبت جدید مشخصات مدرس"
-        SecoundTitle="لیست همه مشخصات مدرس"
-        table={
-          <DataTable
-            columns={TecherInfoColumns} 
-            data={TecherInfoData}
-            searchableKeys={["name", "lname", "skills"]}
-            
-          />
-        }
-      />
-          </div>
-
+      <div className="overflow-x-auto">
+        <SectionAcc
+          form={form}
+          schema={validation}
+          defaultValues={defaultValues}
+          formFields={formFields}
+          onSubmit={onSubmit}
+          FirstTitle="ثبت جدید مشخصات مدرس"
+          SecoundTitle="لیست همه مشخصات مدرس"
+          table={
+            <DataTable
+              columns={TecherInfoColumns}
+              queryKey={["teachers"]}
+              queryFn={fetchTeachers}
+              searchableKeys={["name", "lname", "skills"]}
+            />
+          }
+        />
+      </div>
     </div>
   );
 }
