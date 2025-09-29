@@ -14,7 +14,7 @@ export interface TechnicalIndicatorRow extends Record<string, unknown> {
 
 export const columns: ColumnDef<TechnicalIndicatorRow>[] = [
   {
-    accessorKey: "sorting",
+    accessorKey: "name",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -26,7 +26,7 @@ export const columns: ColumnDef<TechnicalIndicatorRow>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "created_at",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -37,7 +37,7 @@ export const columns: ColumnDef<TechnicalIndicatorRow>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
+      const date = new Date(row.getValue("created_at"));
       return date.toLocaleDateString("fa-IR");
     },
   },

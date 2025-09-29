@@ -8,13 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select as ShadcnSelect,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
+// import {
+//   Select as ShadcnSelect,
+//   SelectTrigger,
+//   SelectValue,
+//   SelectContent,
+//   SelectItem,
+// } from "@/components/ui/select";
 import {
   Accordion,
   AccordionItem,
@@ -524,6 +524,31 @@ function FormTimePicker<T extends FieldValues>({
     />
   );
 }
+// ---------- Hidden Input ----------
+interface FormHiddenProps<T extends FieldValues> {
+  name: Path<T>;
+  value?: any;
+}
+
+function FormHidden<T extends FieldValues>({ name, value }: FormHiddenProps<T>) {
+  const { control } = useFormContextSafe<T>();
+
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <input
+          type="hidden"
+          {...field}
+          value={value ?? field.value}
+        />
+      )}
+    />
+  );
+}
+
+
 export const Form = Object.assign(FormRoot, {
   Input: FormInput,
   // Select: FormSelect,
@@ -532,8 +557,9 @@ export const Form = Object.assign(FormRoot, {
   Textarea: FormTextarea,
   Image: FormImage,
   Checkbox: FormCheckbox,
-  SelectItem,
+  // SelectItem,
   Select: MultiSelect,
   StarRate: StarRate,
   TimePicker: FormTimePicker,
+  Hidden : FormHidden,
 });

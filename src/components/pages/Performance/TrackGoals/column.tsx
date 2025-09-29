@@ -6,7 +6,7 @@ import StarRating from "@/components/shared/StarRating";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
-import { z } from "zod";
+import {  z } from "zod";
 
 export interface trackGoals extends Record<string, unknown> {
    id: number;
@@ -107,11 +107,12 @@ export const columns: ColumnDef<trackGoals>[] = [
          );
       },
 
-      cell(props) {
+      cell({ row }) {
+         const r = row.original;
          return (
             <StarRating
                readonly
-               star={props.getValue() as number}
+               star={Number(r.goal_rating)}
             />
          );
       },

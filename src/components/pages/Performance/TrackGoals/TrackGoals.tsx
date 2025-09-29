@@ -5,17 +5,24 @@ import { validation } from "./validation";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { usePostRows } from "@/hook/usePostRows";
+import { useGetData } from "@/hook/useGetData";
+import type z from "zod";
 
+const defaultValues = {
+  description: "",
+  start_date: new Date(),
+  end_date: new Date(),
+  goal_types_id: "",
+  title: "",
+  goal_rating:0,   // string
+  goal_progress:0, // string
+};
+
+type TrackGoals = {
+  id: number;
+  name: string;
+};
 const TrackGoals = () => {
-  const defaultValues = {
-    description: "",
-    endDate: new Date(),
-    startDate: new Date(),
-    purpose: "",
-    purposeType: "",
-    subject: "",
-  };
-
   const { mutation, form } = usePostRows(
     "okr-goals",
     ["okr-goals"],
@@ -27,7 +34,23 @@ const TrackGoals = () => {
 
   const fetchOkrGoals = () => useGetRowsToTable("okr-goals");
 
-  const onSubmit = () => {};
+  const { data: trackGoals } = useGetData<TrackGoals[]>("goal-types");
+
+  const trackGoalsMapped = trackGoals?.map((item) => ({
+    value: String(item.id),
+    label: item.name, //
+  }));
+
+  const onSubmit = (data: z.infer<typeof validation>) => {
+    const payload = {
+      ...data,
+      start_date: new Date(data.start_date).toISOString().slice(0, 19), 
+      end_date: new Date(data.end_date).toISOString().slice(0, 19),
+    };
+  
+    console.log(payload)
+    mutation.mutate(payload);
+  };
 
   return (
     <div className="flex flex-col gap-y-5">
@@ -38,34 +61,45 @@ const TrackGoals = () => {
         formFields={
           <>
             <div className="flex justify-between items-center gap-x-5">
-              <Form.Input
+              <Form.Select
                 label="انواع هدف"
-                name="purposeType"
+                name="goal_types_id"
                 placeholder="انواع هدف"
+                options={trackGoalsMapped || []}
                 required
               />
 
               <Form.Input
                 label="موضوع"
-                name="subject"
+                name="title"
                 required
                 placeholder="موضوع"
               />
 
               <Form.Input
-                label="دستیابی به هدف"
-                name="purpose"
-                placeholder="دستیابی به هدف"
+                label="امتیاز کلی"
+                name="goal_rating"
+                placeholder="امتیاز کلی"
                 required
               />
             </div>
             <div className="flex items-center gap-x-5">
               <Form.Date
                 label="تاریخ شروع"
-                name="startDate"
+                name="start_date"
                 className="w-100"
               />
-              <Form.Date label="تاریخ پایان" name="endDate" className="w-100" />
+              <Form.Date
+                label="تاریخ پایان"
+                name="end_date"
+                className="w-100"
+              />
+              <Form.Input
+                label="درصد پیشرفت  "
+                name="goal_progress"
+                placeholder=" درصد پیشرفت  "
+                required
+              />
             </div>
 
             <Form.RichText label="شرح" name="description" />

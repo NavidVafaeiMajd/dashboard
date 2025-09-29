@@ -3,7 +3,6 @@ import type z from "zod";
 import { validation } from "./validation";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./Technical/column";
-import { setupIndicatorData } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
 import { Button } from "@/components/ui/button";
 import {  useNavigate } from "react-router-dom";
@@ -12,15 +11,15 @@ import { usePostRows } from "@/hook/usePostRows";
 
 
 const defaultValues = {
-  sorting: "",
+  name: "",
 };
 
 const TechnicalIndicator = () => {
   const navigate = useNavigate();
 
   const { mutation, form } = usePostRows(
-    "employee-ratings",
-    ["employee-ratings"],
+    "indicators",
+    ["indicators"],
     defaultValues,
     validation,
     "پرسنل",
@@ -31,6 +30,7 @@ const TechnicalIndicator = () => {
 
   const OnSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
+    mutation.mutate(data)
   };
 
 
@@ -54,8 +54,9 @@ const TechnicalIndicator = () => {
           schema={validation}
           formFields={
             <>
+              <Form.Hidden name="type" value="صلاحیت های فنی"/>
               <Form.Input
-                name="sorting"
+                name="name"
                 label="صلاحیت فنی"
                 placeholder="صلاحیت فنی"
                 required
