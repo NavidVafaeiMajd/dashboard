@@ -13,11 +13,6 @@ export interface organizationUnitColumnProps extends Record<string, unknown> {
   name: string;
   created_at: Date;
 }
-
-const defaultValues = {
-  name: "",
-};
-
 const validation = z.object({
   name: z.string().min(1, "نام واحد سازمانی الزامی است"),
 });
@@ -78,7 +73,9 @@ export const columns: ColumnDef<organizationUnitColumnProps>[] = [
                 <Form.Input name="name" label="نام " required />
               </>
             }
-            defaultValues={defaultValues}
+            defaultValues={ {
+              name: user.name,
+            }}
             onSave={(data) => {
               mutation.mutate(data);
             }}

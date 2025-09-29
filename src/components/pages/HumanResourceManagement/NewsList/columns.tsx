@@ -125,8 +125,12 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
         validation,
         " ابلاغیه "
       );
-      const { data: departments } = useDepartments();
-
+      const { data: departments } = useDepartments();      
+      const departmentsMapped = departments?.data?.map((item) => ({
+        value: String(item.id),
+        label: item.name,
+      }));
+    
       return (
         <div className="flex items-center gap-2">
           <EditDialog
@@ -143,15 +147,10 @@ export const columns: ColumnDef<PolicyColumnProps>[] = [
                   <Form.Select
                     name="department_id"
                     label="واحد سازمانی"
+                    options={departmentsMapped || []}
                     required
                     placeholder="انتخاب واحد سازمانی"
-                  >
-                    {departments?.data?.map((dept, index) => (
-                      <Form.SelectItem key={index} value={String(dept.id)}>
-                        {dept.name || dept.title || dept.department_name}
-                      </Form.SelectItem>
-                    ))}
-                  </Form.Select>
+                  />
                 </div>
                 <div>
                   <Form.Input name="summary" label="اختصاری" />

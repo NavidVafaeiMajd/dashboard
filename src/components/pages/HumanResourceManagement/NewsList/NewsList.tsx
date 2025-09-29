@@ -31,6 +31,11 @@ const NewsList: React.FC = () => {
     "ابلاغیه",
     true
   );
+
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
   const formFields = (
     <div className="relative">
       {(mutation.isPending || departmentsLoading) && (
@@ -57,15 +62,10 @@ const NewsList: React.FC = () => {
         <Form.Select
           name="department_id"
           label="واحد سازمانی"
+          options={departmentsMapped || []}
           required
           placeholder="انتخاب واحد سازمانی"
-        >
-          {departments?.data?.map((dept, index) => (
-            <Form.SelectItem key={index} value={String(dept.id)}>
-              {dept.name || dept.title || dept.department_name}
-            </Form.SelectItem>
-          ))}
-        </Form.Select>
+        />
         <Form.Input
           name="summary"
           label="اختصاری"

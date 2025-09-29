@@ -8,6 +8,7 @@ import SectionAcc from "@/components/shared/section/SectionAcc";
 import { useEmployees } from "@/hook/useEmployees";
 import PostLoad from "@/components/ui/postLoad";
 import { useQuery } from "@tanstack/react-query";
+import { useGetData } from "@/hook/useGetData";
 
 const validation = z.object({
   employee_id: z.string(),
@@ -41,17 +42,7 @@ const DisciplinaryList = () => {
   );
 
   const { data: employee, isPending: employeesLoading } = useEmployees();
-
-  const { data: disciplinaryTypes } = useQuery<DisciplinaryTypes[]>({
-    queryKey: ["disciplinary-types"],
-    queryFn: async () => {
-      const res = await fetch("http://localhost:8000/api/disciplinary-types");
-      if (!res.ok) {
-        throw new Error("Failed to fetch leave types");
-      }
-      return res.json();
-    },
-  });
+  const {data : disciplinaryTypes} = useGetData<DisciplinaryTypes[]>("disciplinary-types")
   
   const disciplinaryMapped = disciplinaryTypes?.map((item) => ({
     value: String(item.id),

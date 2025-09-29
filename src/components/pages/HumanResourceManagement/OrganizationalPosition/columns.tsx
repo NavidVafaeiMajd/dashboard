@@ -14,11 +14,6 @@ export interface designationColumnProps extends Record<string, unknown> {
   description?: string | undefined;
 }
 
-const defaultValues = {
-  department_id: "",
-  title: "",
-  description: "",
-};
 
 const validation = z.object({
   department_id: z.string().min(1, "واحد سازمانی الزامی است"),
@@ -80,6 +75,10 @@ export const columns: ColumnDef<designationColumnProps>[] = [
          validation,
          "واحد سازمانی"
        );
+       const departmentsMapped = departments?.data?.map((item) => ({
+         value: String(item.id),
+         label: item.name,
+       }));
       return (
         <div className="flex items-center gap-2">
             <EditDialog
@@ -88,13 +87,7 @@ export const columns: ColumnDef<designationColumnProps>[] = [
             triggerLabel="ویرایش"
             fields={
               <>
-                <Form.Select name="department_id" label="واحد سازمانی" required>
-                  {departments?.data?.map((dept, index) => (
-                    <Form.SelectItem key={index} value={String(dept.id)}>
-                      {dept.name || dept.title || dept.department_name}
-                    </Form.SelectItem>
-                  ))}
-                </Form.Select>
+                <Form.Select name="department_id" label="واحد سازمانی" options={departmentsMapped ||[]} required/>
                 <Form.Input
                   name="title"
                   label="نام سمت سازمانی"
@@ -103,7 +96,11 @@ export const columns: ColumnDef<designationColumnProps>[] = [
                 <Form.Textarea name="description" label="شرح" />
               </>
             }
-            defaultValues={defaultValues}
+            defaultValues={{
+              department_id: rowInf.department_id,
+              title: rowInf.title,
+              description: rowInf.description,
+            }}
             onSave={(data) => {
               mutation.mutate(data)
             }}
