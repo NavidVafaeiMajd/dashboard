@@ -4,105 +4,96 @@ import PostLoad from "@/components/ui/postLoad";
 import { usePostRows } from "@/hook/usePostRows";
 import z from "zod";
 import DocumentsTable from "./DocumentsTable";
-import { useEmployees } from "@/hook/useEmployees";
+import { useDepartments } from "@/hook/useDepartments";
+import { imageSchema } from "@/components/shared/validation";
 
-const validation = z.object({
-    employee_id: z.string(),
-    type: z.string().min(1, "انتخاب نوع پرونده الزامی است"),
-    title: z.string().min(1, "موضوع الزامی است"),
-    case_date: z.date({ error: "تاریخ پرونده الزامی است" }),
-    description: z.string().min(1, "شرح الزامی است"),
-  });
+export const validation = z.object({
+  department_id: z.string().min(1, "انتخاب دپارتمان الزامی است"),
+  document_type: z.string().min(1, "نوع سند الزامی است"),
+  document_name: z.string().min(1, "نام سند الزامی است"),
+  file: imageSchema,
+});
 
-  
 const PublicDocuments = () => {
+  const defaultValues = {
+    department_id: "",
+    document_type: "",
+    document_name: "",
+    file: "",
+  };
 
-    const defaultValues = {
-        employee_id: "",
-        type: "",
-        title: "",
-        case_date: new Date(),
-        description: "",
-      };
+  const { mutation, form } = usePostRows(
+    "upload-files",
+    ["upload-files"],
+    defaultValues,
+    validation,
+    "سند",
+    true
+  );
+
+  const onSubmit = (data: z.infer<typeof validation>) => {
+    const formData = new FormData();
+    formData.append("department_id", data.department_id);
+    formData.append("document_type", data.document_type);
+    formData.append("document_name", data.document_name);
     
-      const { mutation, form } = usePostRows(
-        "disciplinary-cases",
-        ["disciplinary-cases"],
-        defaultValues,
-        validation,
-        "پرسنل",
-        true
-      );
-    
-      const { data: employee, isPending: employeesLoading } = useEmployees();
-    
-      const mapped = employee?.data?.map((item) => ({
-        value: String(item.id),
-        label: item.fullName,
-      }));
-    
-      const onSubmit = (data: z.infer<typeof validation>) => {
-        const formData = {
-          ...data,
-          case_date: data.case_date?.toISOString().slice(0, 19),
-          employee_id: data.employee_id || parseInt(data.employee_id),
-        };
-    
-        console.log(formData);
-        mutation.mutate(formData);
-      };
-    
-      return (
-        <div>
-          <SectionAcc
-            form={form}
-            FirstTitle="پیوست پرونده"
-            onSubmit={onSubmit}
-            table={<DocumentsTable />}
-            SecoundTitle="ثبت جدید مورد"
-            defaultValues={defaultValues}
-            schema={validation}
-            formFields={
-              <div className="relative">
-                {(mutation.isPending || employeesLoading) && <PostLoad />}
-                <div className="flex gap-5">
-                  <Form.Select
-                    label="کارمند"
-                    name="employee_id"
-                    placeholder="انتخاب کارمند"
-                    options={mapped || []}
-                    required
-                  />
-    
-                  {/* نوع پرونده */}
-                  <Form.Select
-                    label="نوع پرونده"
-                    name="type"
-                    placeholder="انتخاب نوع پرونده"
-                    options={[{ label: " تخلف انظباطی", value: "تخلف انظباطی" }]}
-                    required
-                  />
-                </div>
-                <div className="flex gap-5">
-                  <Form.Input
-                    label="موضوع"
-                    name="title"
-                    placeholder="موضوع پرونده را وارد کنید"
-                    required
-                  />
-                  <Form.Date label="تاریخ پرونده" name="case_date" />
-                </div>
-                <Form.Textarea
-                  label="شرح"
-                  name="description"
-                  placeholder="شرح کامل پرونده را وارد کنید"
-                  required
-                />
-              </div>
-            }
-          />
-        </div>
-      );
-}
- 
+    // فایل را به FormData اضافه می‌کنیم
+    if (data.file instanceof File) {
+      formData.append("file", data.file);
+    }
+  
+    mutation.mutate(formData);
+  };
+  
+  const { data: departments } = useDepartments();
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
+
+  return (
+    <div>
+      <SectionAcc
+        form={form}
+        FirstTitle="پیوست پرونده"
+        onSubmit={onSubmit}
+        table={<DocumentsTable />}
+        SecoundTitle="ثبت جدید مورد"
+        defaultValues={defaultValues}
+        schema={validation}
+        formFields={
+          <div className="relative">
+            {mutation.isPending && <PostLoad />}
+            <div className="flex gap-5">
+              <Form.Select
+                label="واحد سازمانی"
+                name="department_id"
+                placeholder="واحد سازمانی"
+                options={departmentsMapped || []}
+                required
+              />
+
+              <Form.Input
+                label="نام سند "
+                name="document_name"
+                placeholder="نام سند  "
+                required
+              />
+            </div>
+            <div className="flex gap-5">
+              <Form.Input
+                label="نوع سند"
+                name="document_type"
+                placeholder="نوع سند"
+                required
+              />
+              <Form.Image label="تاریخ پرونده" name="file" />
+            </div>
+          </div>
+        }
+      />
+    </div>
+  );
+};
+
 export default PublicDocuments;

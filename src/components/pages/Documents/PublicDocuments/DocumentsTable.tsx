@@ -3,14 +3,14 @@ import { disciplinaryColumns } from "./columns";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 
 const DocumentsTable: React.FC = () => {
-  const fetchDocuments = () => useGetRowsToTable("disciplinary-cases");
+  const fetchUploadFiles = () => useGetRowsToTable("upload-files");
 
   return (
     <div className="mt-8">
       <DataTable
          columns={disciplinaryColumns}
-         queryKey={["disciplinary-cases"]}
-         queryFn={fetchDocuments}
+         queryKey={["upload-files"]}
+         queryFn={fetchUploadFiles}
         searchableKeys={["employee", "caseType", "subject"]}
       />
     </div>
