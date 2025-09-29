@@ -30,7 +30,7 @@ function Progress({
             style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
          >
             <span className="text-sm flex text-white gap-x-2 items-center">
-               {value!.toLocaleString("fa-IR")}
+               {value!?.toLocaleString("fa-IR")}
                {value! !== 0 && "%"}
             </span>
          </ProgressPrimitive.Indicator>

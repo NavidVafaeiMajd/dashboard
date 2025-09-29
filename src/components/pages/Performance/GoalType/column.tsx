@@ -10,7 +10,7 @@ export interface GoalType extends Record<string, unknown> {
 
 export const columns: ColumnDef<GoalType>[] = [
    {
-      accessorKey: "purposeType",
+      accessorKey: "name",
       header: ({ column }) => {
          return (
             <Button
@@ -26,7 +26,7 @@ export const columns: ColumnDef<GoalType>[] = [
       },
    },
    {
-      accessorKey: "createdAt",
+      accessorKey: "created_at",
       header: ({ column }) => {
          return (
             <Button
@@ -41,7 +41,7 @@ export const columns: ColumnDef<GoalType>[] = [
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("createdAt"));
+         const date = new Date(row.getValue("created_at"));
          return date.toLocaleDateString("fa-IR");
       },
    },

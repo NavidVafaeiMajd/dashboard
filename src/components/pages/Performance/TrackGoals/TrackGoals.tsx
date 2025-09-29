@@ -1,9 +1,10 @@
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
-import { goalsData } from "./const";
 import { Form } from "@/components/shared/Form";
 import { validation } from "./validation";
 import SectionAcc from "@/components/shared/section/SectionAcc";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { usePostRows } from "@/hook/usePostRows";
 
 const TrackGoals = () => {
   const defaultValues = {
@@ -15,11 +16,23 @@ const TrackGoals = () => {
     subject: "",
   };
 
+  const { mutation, form } = usePostRows(
+    "okr-goals",
+    ["okr-goals"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
+  const fetchOkrGoals = () => useGetRowsToTable("okr-goals");
+
   const onSubmit = () => {};
 
   return (
     <div className="flex flex-col gap-y-5">
       <SectionAcc
+        form={form}
         defaultValues={defaultValues}
         schema={validation}
         formFields={
@@ -64,7 +77,8 @@ const TrackGoals = () => {
         table={
           <DataTable
             columns={columns}
-            data={goalsData}
+            queryKey={["okr-goals"]}
+            queryFn={fetchOkrGoals}
             searchableKeys={[
               "typeOfGoal",
               "title",

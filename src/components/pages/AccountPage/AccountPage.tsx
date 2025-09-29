@@ -17,8 +17,8 @@ import { HiUserCircle } from "react-icons/hi2";
 const AccountPage = () => {
   const { id } = useParams();
 
-  const useGetEmployee = async (): Promise<any> => {
-    const res = await fetch(`http://localhost:8000/api/employees/${id}`);
+  const useGetProfile = async (): Promise<any> => {
+    const res = await fetch(`http://localhost:8000/api/profile`);
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -31,8 +31,8 @@ const AccountPage = () => {
     isError,
     error,
   } = useQuery<any>({
-    queryKey: ["employeesDetailse", id],
-    queryFn: useGetEmployee,
+    queryKey: ["profile", id],
+    queryFn: useGetProfile,
   });
 
   if (isLoading) return <div className="p-4">در حال بارگذاری...</div>;

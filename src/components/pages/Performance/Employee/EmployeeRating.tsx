@@ -3,8 +3,10 @@ import type z from "zod";
 import { validation } from "./validation";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from "./column";
-import { employeeData } from "./const";
 import SectionAcc from "@/components/shared/section/SectionAcc";
+import { usePostRows } from "@/hook/usePostRows";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { useEmployees } from "@/hook/useEmployees";
 
 const EmployeeRating = () => {
   const defaultValues = {
@@ -14,6 +16,25 @@ const EmployeeRating = () => {
     tecnicalTest: 1,
     organizationalTest: 1,
   };
+  const { mutation, form } = usePostRows(
+    "employee-ratings",
+    ["employee-ratings"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
+  const fetchEmployeeRatings = () => useGetRowsToTable("employee-ratings");
+
+
+  const { data: employee, isPending: employeesLoading } = useEmployees();
+
+  const mapped = employee?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.fullName,
+  }));
+
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
@@ -21,6 +42,7 @@ const EmployeeRating = () => {
   return (
     <div className="space-y-5">
       <SectionAcc
+        form={form}
         defaultValues={defaultValues}
         schema={validation}
         formFields={
@@ -36,12 +58,9 @@ const EmployeeRating = () => {
                 label="کارمند"
                 name="employee"
                 required
+                options={mapped||[]}
                 className="w-100"
-              >
-                <Form.SelectItem value="1">item 1</Form.SelectItem>
-                <Form.SelectItem value="2">item 2</Form.SelectItem>
-              </Form.Select>
-
+              />
               <Form.Date label="انتخاب ماه" name="date" className="w-100" />
             </div>
 
@@ -81,7 +100,8 @@ const EmployeeRating = () => {
         table={
           <DataTable
             columns={columns}
-            data={employeeData}
+            queryKey={["employee-ratings"]}
+            queryFn={fetchEmployeeRatings}
             searchableKeys={[
               "title",
               "position",

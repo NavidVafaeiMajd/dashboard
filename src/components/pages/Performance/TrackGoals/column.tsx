@@ -20,7 +20,7 @@ export interface trackGoals extends Record<string, unknown> {
 
 export const columns: ColumnDef<trackGoals>[] = [
    {
-      accessorKey: "typeOfGoal",
+      accessorKey: "goal_types_id",
       header: ({ column }) => {
          return (
             <Button
@@ -52,7 +52,7 @@ export const columns: ColumnDef<trackGoals>[] = [
       },
    },
    {
-      accessorKey: "startDate",
+      accessorKey: "start_date",
       header: ({ column }) => {
          return (
             <Button
@@ -67,12 +67,12 @@ export const columns: ColumnDef<trackGoals>[] = [
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("startDate"));
+         const date = new Date(row.getValue("start_date"));
          return date.toLocaleDateString("fa-IR");
       },
    },
    {
-      accessorKey: "endDate",
+      accessorKey: "end_date",
       header: ({ column }) => {
          return (
             <Button
@@ -87,12 +87,12 @@ export const columns: ColumnDef<trackGoals>[] = [
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("endDate"));
+         const date = new Date(row.getValue("end_date"));
          return date.toLocaleDateString("fa-IR");
       },
    },
    {
-      accessorKey: "totalRating",
+      accessorKey: "goal_rating",
       header: ({ column }) => {
          return (
             <Button
@@ -117,7 +117,7 @@ export const columns: ColumnDef<trackGoals>[] = [
       },
    },
    {
-      accessorKey: "progress",
+      accessorKey: "goal_progress",
       header: ({ column }) => {
          return (
             <Button

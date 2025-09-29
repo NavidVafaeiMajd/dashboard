@@ -7,16 +7,33 @@ import { setupIndicatorData } from "./const";
 import SectionCol from "@/components/shared/section/SectionCol";
 import { Button } from "@/components/ui/button";
 import {  useNavigate } from "react-router-dom";
+import { useGetRowsToTable } from "@/hook/useGetRows";
+import { usePostRows } from "@/hook/usePostRows";
+
+
+const defaultValues = {
+  sorting: "",
+};
 
 const TechnicalIndicator = () => {
+  const navigate = useNavigate();
+
+  const { mutation, form } = usePostRows(
+    "employee-ratings",
+    ["employee-ratings"],
+    defaultValues,
+    validation,
+    "پرسنل",
+    true
+  );
+
+  const fetchIndicators = () => useGetRowsToTable("indicators");
+
   const OnSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);
   };
 
-  const navigate = useNavigate();
-  const defaultValues = {
-    sorting: "",
-  };
+
 
   return (
       <div className="space-y-4 w-full">
@@ -32,6 +49,7 @@ const TechnicalIndicator = () => {
 
       <div>
         <SectionCol
+          form={form}
           defaultValues={defaultValues}
           schema={validation}
           formFields={
@@ -50,7 +68,8 @@ const TechnicalIndicator = () => {
           table={
             <DataTable
               columns={columns}
-              data={setupIndicatorData}
+              queryKey={["indicators"]}
+              queryFn={fetchIndicators}
               searchableKeys={["sorting"]}
             />
           }
