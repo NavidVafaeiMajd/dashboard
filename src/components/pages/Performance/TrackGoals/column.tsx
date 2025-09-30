@@ -20,21 +20,25 @@ export interface trackGoals extends Record<string, unknown> {
 
 export const columns: ColumnDef<trackGoals>[] = [
    {
-      accessorKey: "goal_types_id",
+      accessorKey: "goal_type",
       header: ({ column }) => {
-         return (
-            <Button
-               variant="ghost"
-               onClick={() =>
-                  column.toggleSorting(column.getIsSorted() === "asc")
-               }
-            >
-               <LuArrowUpDown className="ml-2 h-4 w-4" />
-               نوع هدف
-            </Button>
-         );
+        return (
+          <Button
+            variant="ghost"
+            onClick={() =>
+              column.toggleSorting(column.getIsSorted() === "asc")
+            }
+          >
+            <LuArrowUpDown className="ml-2 h-4 w-4" />
+            نوع هدف
+          </Button>
+        );
       },
-   },
+      cell: ({ row }) => {
+         const goalType = row.getValue("goal_type") as { name?: string } | null;
+         return goalType?.name ?? "-";
+       },       
+    },
    {
       accessorKey: "title",
       header: ({ column }) => {

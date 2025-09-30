@@ -17,7 +17,7 @@ const LeaveType = () => {
    const defaultValues= {
     type_name: "",
     days_per_year: "",
-    requires_approval:false,
+    requires_approval:"",
   }
   const { mutation, form } = usePostRows(
     "leave-types",
@@ -30,8 +30,13 @@ const LeaveType = () => {
 
    const fetchLeavesType = () => useGetRowsToTable("leave-types");
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log("Form Data:", data);
-    mutation.mutate(data)
+    const formData = {
+      ...data, 
+      days_per_year: Number(data.days_per_year),
+    }
+    console.log("Form Data:", formData);
+
+    mutation.mutate(formData)
   };
    return (
       <div>
@@ -66,7 +71,7 @@ const LeaveType = () => {
                 label="وضعیت"
                 name="requires_approval"
                 placeholder="انتخاب وضعیت"
-                options={[{label : "اضافه بر سازمان" , value : true} , {label : "مرخصی سازمانی" , value : false}]}
+                options={[{label : "اضافه بر سازمان" , value : "اضافه بر سازمان"} , {label : "مرخصی سازمانی" , value : "سازمانی"}]}
                 required
               />
 
