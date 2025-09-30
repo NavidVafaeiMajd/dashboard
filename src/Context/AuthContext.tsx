@@ -9,7 +9,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (userData: User) => void;
+  login: (userData: User, token?: string) => void;
   logout: () => void;
 }
 
@@ -26,14 +26,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = (userData: User) => {
+  const login = (userData: User, token?: string) => {
     setUser(userData);
     Cookies.set("user", JSON.stringify(userData), { expires: 1 }); // 1 روز اعتبار
+    if (token) {
+      Cookies.set("token", token, { expires: 1 });
+    }
   };
 
   const logout = () => {
     setUser(null);
     Cookies.remove("user");
+    Cookies.remove("token");
   };
   return (
     <>
@@ -47,9 +51,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 export default AuthProvider;
 
 export const useAuth = () => {
-  const user = Cookies.get("user"); // یا localStorage.getItem("user")
-  const isLoggedIn = Boolean(user);
-  return { isLoggedIn, user };
+  const token = Cookies.get("token");
+  const user = Cookies.get("user");
+  const isLoggedIn = Boolean(token);
+  return { isLoggedIn, user, token };
 };
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
