@@ -7,14 +7,19 @@ import SectionAcc from "@/components/shared/section/SectionAcc";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { useEmployees } from "@/hook/useEmployees";
-
+import { useGetData } from "@/hook/useGetData";
+type Technical = {
+  id: string;
+  name: string;
+};
 const EmployeeRating = () => {
   const defaultValues = {
     date: new Date(),
     employee: "",
     name: "",
-    tecnicalTest: 1,
-    organizationalTest: 1,
+
+    technicalRatings: {} as Record<string, number>,
+    behavioralRatings: {} as Record<string, number>,
   };
   const { mutation, form } = usePostRows(
     "employee-ratings",
@@ -27,6 +32,10 @@ const EmployeeRating = () => {
 
   const fetchEmployeeRatings = () => useGetRowsToTable("employee-ratings");
 
+  const { data: technical } = useGetData<Technical[]>("indicators/technical");
+  const { data: behavioral } = useGetData<Technical[]>("indicators/behavioral");
+
+
 
   const { data: employee, isPending: employeesLoading } = useEmployees();
 
@@ -35,9 +44,27 @@ const EmployeeRating = () => {
     label: item.fullName,
   }));
 
-
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    const toYMD = (d: Date) => {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
+
+    const payload = {
+      title: data.name,
+      employee_id: Number(data.employee),
+      month: toYMD(new Date(data.date)),
+      details: {
+        ...(data as any).technicalRatings,
+        ...(data as any).behavioralRatings,
+      } as Record<string, number>,
+    };
+
+    console.log(payload as any)
+
+    mutation.mutate(payload as any);
   };
   return (
     <div className="space-y-5">
@@ -58,7 +85,7 @@ const EmployeeRating = () => {
                 label="کارمند"
                 name="employee"
                 required
-                options={mapped||[]}
+                options={mapped || []}
                 className="w-100"
               />
               <Form.Date label="انتخاب ماه" name="date" className="w-100" />
@@ -69,29 +96,54 @@ const EmployeeRating = () => {
                 <div className="bg-gray-300 font-medium w-full px-2 py-4">
                   <span className="text-lg">شایستگی های فنی</span>
                 </div>
-                <div className="bg-green-200 px-2 py-4 w-full flex justify-between">
-                  <span className="w-full text-lg">نشانگر</span>
-                  <span className="w-full text-lg">تنظیم اندیکاتور</span>
-                </div>
 
-                <div className="flex justify-between items-center border-b">
-                  <span className="text-lg w-full">تست فنی 1</span>
-                  <Form.StarRate name="tecnicalTest"  />
-                </div>
+                <table className="w-full ">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border">نشانگر</th>
+                      <th className="border">
+                        تنظیم اندیکاتور
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {technical?.map((item) => (
+                      <tr key={item.id} className="border-b ">
+                        <td className=" text-center m-0! p-0!">{item.name}</td>
+                        <td className=" text-center m-0! p-0! ">
+                          <Form.StarRate className="flex justify-center! items-center!"  name={`technicalRatings.${item.id}` as any} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+
               <div className="w-full">
                 <div className="bg-gray-300 font-medium w-full px-2 py-4">
                   <span className="text-lg">شایستگی های سازمانی</span>
                 </div>
-                <div className="bg-green-200 px-2 py-4 w-full flex justify-between">
-                  <span className="w-full text-lg">نشانگر</span>
-                  <span className="w-full text-lg">تنظیم اندیکاتور</span>
-                </div>
 
-                <div className="flex justify-between items-center border-b">
-                  <span className="text-lg w-full">تست سازمانی 1</span>
-                  <Form.StarRate name="organizationalTest"  />
-                </div>
+                <table className="w-full ">
+                  <thead>
+                    <tr className="bg-green-200">
+                      <th className="border">نشانگر</th>
+                      <th className="border">
+                        تنظیم اندیکاتور
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {behavioral?.map((item) => (
+                      <tr key={item.id} className="border-b ">
+                        <td className=" text-center m-0! p-0!">{item.name}</td>
+                        <td className=" text-center m-0! p-0! ">
+                          <Form.StarRate className="flex justify-center! items-center!"  name={`behavioralRatings.${item.id}` as any} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </>

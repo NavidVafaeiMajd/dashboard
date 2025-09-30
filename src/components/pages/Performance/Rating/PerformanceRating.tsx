@@ -8,6 +8,7 @@ import SectionAcc from "@/components/shared/section/SectionAcc";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { useDesignationsts } from "@/hook/useDesignationsts";
+import { useGetData } from "@/hook/useGetData";
 
 const PerformanceRating = () => {
   const defaultValues = {
@@ -16,6 +17,7 @@ const PerformanceRating = () => {
     tecnicalTest: 1,
     organizationalTest: 1,
   };
+
 
   const { mutation, form } = usePostRows(
     "employee-ratings",

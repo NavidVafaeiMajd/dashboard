@@ -425,7 +425,7 @@ export function StarRate<T extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`flex flex-col w-full space-x-2 space-y-0 ${
+          className={`flex flex-col w-full  space-y-0 ${
             className ?? ""
           }`}
         >

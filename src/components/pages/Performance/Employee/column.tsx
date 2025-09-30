@@ -5,10 +5,23 @@ import { LuArrowUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 
+export interface Employee {
+   id: number;
+   firstName: string;
+   lastName: string;
+   phoneNumber: string;
+   gender: string;
+   personeliCode: string;
+   birthDate: string;
+   position: string;
+   // ... بقیه فیلدها
+}
+
+
 export interface employeeRating extends Record<string, unknown> {
    id: number;
    title: string;
-   employee: string;
+   employee: Employee;
    evaluationDate: Date;
    addedBy: string;
    totalRating: number;
@@ -47,10 +60,13 @@ export const columns: ColumnDef<employeeRating>[] = [
             </Button>
          );
       },
-   },
-
+      cell: ({ row }) => {
+        const employee = row.original.employee;
+        return `${employee.firstName} ${employee.lastName}`;
+      }
+    },
    {
-      accessorKey: "evaluationDate",
+      accessorKey: "month",
       header: ({ column }) => {
          return (
             <Button
@@ -65,24 +81,8 @@ export const columns: ColumnDef<employeeRating>[] = [
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("evaluationDate"));
+         const date = new Date(row.getValue("month"));
          return date.toLocaleDateString("fa-IR");
-      },
-   },
-   {
-      accessorKey: "addedBy",
-      header: ({ column }) => {
-         return (
-            <Button
-               variant="ghost"
-               onClick={() =>
-                  column.toggleSorting(column.getIsSorted() === "asc")
-               }
-            >
-               <LuArrowUpDown className="ml-2 h-4 w-4" />
-               اضافه شده توسط
-            </Button>
-         );
       },
    },
    {
@@ -111,7 +111,7 @@ export const columns: ColumnDef<employeeRating>[] = [
       },
    },
    {
-      accessorKey: "createdAt",
+      accessorKey: "created_at",
       header: ({ column }) => {
          return (
             <Button
@@ -126,7 +126,7 @@ export const columns: ColumnDef<employeeRating>[] = [
          );
       },
       cell: ({ row }) => {
-         const date = new Date(row.getValue("createdAt"));
+         const date = new Date(row.getValue("created_at"));
          return date.toLocaleDateString("fa-IR");
       },
    },

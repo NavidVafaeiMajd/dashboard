@@ -1,6 +1,11 @@
+import Cookies from "js-cookie";
+
 export const useGetRowsToTable = async (url: string): Promise<{ data: any[] }> => {
    try {
-     const res = await fetch(`http://localhost:8000/api/${url}`);
+    const token = Cookies.get("token");
+    const res = await fetch(`http://localhost:8000/api/${url}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
      
      if (!res.ok) {
        throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
