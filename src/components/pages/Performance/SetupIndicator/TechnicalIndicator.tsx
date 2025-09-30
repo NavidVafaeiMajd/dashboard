@@ -19,18 +19,24 @@ const TechnicalIndicator = () => {
 
   const { mutation, form } = usePostRows(
     "indicators",
-    ["indicators"],
+    ["indicators/technical"],
     defaultValues,
     validation,
-    "پرسنل",
+    "صلاحیت فنی",
     true
   );
 
-  const fetchIndicators = () => useGetRowsToTable("indicators");
+  const fetchIndicators = () => useGetRowsToTable("indicators/technical");
 
   const OnSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
-    mutation.mutate(data)
+    const formData = {
+      ...data, 
+      type: "صلاحیت های فنی",
+    }
+
+    console.log(formData);
+
+    mutation.mutate(formData)
   };
 
 
@@ -69,7 +75,7 @@ const TechnicalIndicator = () => {
           table={
             <DataTable
               columns={columns}
-              queryKey={["indicators"]}
+              queryKey={["indicators/technical"]}
               queryFn={fetchIndicators}
               searchableKeys={["sorting"]}
             />

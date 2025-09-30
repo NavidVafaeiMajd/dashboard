@@ -542,11 +542,13 @@ function FormHidden<T extends FieldValues>({ name, value }: FormHiddenProps<T>) 
           type="hidden"
           {...field}
           value={value ?? field.value}
+          onChange={(e) => field.onChange(e.target.value)}
         />
       )}
     />
   );
 }
+
 
 
 export const Form = Object.assign(FormRoot, {
