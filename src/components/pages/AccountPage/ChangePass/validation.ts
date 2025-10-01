@@ -2,19 +2,19 @@ import { z } from "zod";
 
 export const validation = z
   .object({
-    currentPassword: z
+    old_password: z
       .string()
       .min(6, "رمز فعلی باید حداقل ۶ کاراکتر باشد"),
 
-    newPassword: z
+      password: z
       .string()
       .min(6, "رمز جدید باید حداقل ۶ کاراکتر باشد"),
 
-    confirmPassword: z
+      password_confirmation: z
       .string()
       .min(6, "تکرار رمز جدید باید حداقل ۶ کاراکتر باشد"),
   })
-  .refine((data) => data.newPassword === data.confirmPassword, {
+  .refine((data) => data.password === data.password_confirmation, {
     message: "رمز جدید و تکرار آن باید یکسان باشند",
     path: ["confirmPassword"], // خطا رو روی فیلد تکرار رمز نشون بده
   });

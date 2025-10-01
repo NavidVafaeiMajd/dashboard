@@ -13,9 +13,9 @@ const ChangePass = () => {
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      old_password: "",
+      password: "",
+      password_confirmation: "",
     },
   });
 
@@ -31,11 +31,8 @@ const ChangePass = () => {
 
       const res = await fetch("http://localhost:8000/api/profile/change-password", {
         method: "POST",
-        headers,
-        body: JSON.stringify({
-          current_password: data.currentPassword,
-          new_password: data.newPassword,
-        }),
+        headers: { ...headers, Accept: "application/json" },
+        body: JSON.stringify(data),
       });
 
       if (!res.ok) {
@@ -55,12 +52,9 @@ const ChangePass = () => {
   });
 
   const onSubmit = (data: z.infer<typeof validation>) => {
-    const formData = {
-      old_password: data.currentPassword,
-      password : data.confirmPassword
-    }
-    console.log(formData )
-    mutation.mutate(formData );
+ 
+    console.log(data )
+    mutation.mutate(data );
   };
 
   return (
@@ -77,20 +71,20 @@ const ChangePass = () => {
         >
           <Form.Input
             label="رمز فعلی"
-            name="currentPassword"
+            name="old_password"
             placeholder="رمز فعلی خود را وارد کنید"
             required
           />
           <div className="flex gap-5">
             <Form.Input
               label="رمز جدید"
-              name="newPassword"
+              name="password"
               placeholder="رمز جدید را وارد کنید"
               required
             />
             <Form.Input
               label="تکرار رمز جدید"
-              name="confirmPassword"
+              name="password_confirmation"
               placeholder="رمز جدید را دوباره وارد کنید"
               required
             />
