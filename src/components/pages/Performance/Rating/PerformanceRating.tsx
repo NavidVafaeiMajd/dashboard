@@ -1,103 +1,41 @@
-import { Form } from "@/components/shared/Form";
-import type z from "zod";
-import { validation } from "./validation";
-import { DataTable } from "@/components/shared/data-table";
-import { columns } from "./column";
-import { performanceData } from "./const";
-import SectionAcc from "@/components/shared/section/SectionAcc";
-import { usePostRows } from "@/hook/usePostRows";
-import { useGetRowsToTable } from "@/hook/useGetRows";
-import { useDesignationsts } from "@/hook/useDesignationsts";
-import { useGetData } from "@/hook/useGetData";
+import Cookies from "js-cookie";
+import { useQuery } from "@tanstack/react-query";
+import { JsonTable } from "@/components/shared/json-table";
+import { columns, transformTechnicalData } from "./column";
+import Table from "@/components/shared/section/Table";
+
+async function fetchRatings() {
+  const token = Cookies.get("token");
+  const res = await fetch("http://localhost:8000/api/indicators/averages", {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  });
+  if (!res.ok) throw new Error("خطا در گرفتن دیتا از سرور");
+  return res.json(); // { technical: Record<string, ...>, behavioral: ... }
+}
 
 const PerformanceRating = () => {
-  const defaultValues = {
-    name: "",
-    designation_id: "",
-    tecnicalTest: 1,
-    organizationalTest: 1,
-  };
+  const { data : technical , isLoading, isError, error } = useQuery({
+    queryKey: ["technical"],
+    queryFn: fetchRatings,
+    select: (json: any) => transformTechnicalData(json?.technical ?? {}), // -> آرایه
+  });
 
+  const { data : behavioral  } = useQuery({
+    queryKey: ["behavioral"],
+    queryFn: fetchRatings,
+    select: (json: any) => transformTechnicalData(json?.behavioral ?? {}), // -> آرایه
+  });
 
-  const { mutation, form } = usePostRows(
-    "employee-ratings",
-    ["employee-ratings"],
-    defaultValues,
-    validation,
-    "پرسنل",
-    true
-  );
+  if (isLoading) return <div>در حال بارگذاری...</div>;
+  if (isError) return <div>خطا: {(error as Error).message}</div>;
 
-  const fetchUsers = () => useGetRowsToTable("employee-ratings");
-
-  const { data: designationsts, isPending: designationstsLoading } =
-    useDesignationsts();
-
-  const designationstsMapped = designationsts?.data?.map((item) => ({
-    value: String(item.id),
-    label: item.title,
-  }));
-
-  const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
-  };
   return (
-    <div>
-      <SectionAcc
-        form={form}
-        FirstTitle="تنظیم جدید شاخص عملکرد"
-        SecoundTitle="لیست همه شاخص های عملکرد"
-        defaultValues={defaultValues}
-        schema={validation}
-        formFields={
-          <>
-            <Form.Input label="عنوان" name="name" required />
-            <Form.Select
-              name="designation_id"
-              label="سمت سازمانی"
-              placeholder="سمت سازمانی"
-              options={designationstsMapped || []}
-              required
-            />
-
-            <div className="flex gap-x-5 flex-col md:flex-row md:justify-between">
-              <div className="w-full">
-                <div className="bg-gray-300 font-medium w-full px-2 py-4">
-                  <span className="text-lg">شایستگی های فنی</span>
-                </div>
-                <div className="bg-green-200 px-2 py-4 w-full flex justify-between">
-                  <span className="w-full text-lg">نشانگر</span>
-                  <span className="w-full text-lg">تنظیم اندیکاتور</span>
-                </div>
-
-                <div className="flex justify-between items-center border-b">
-                  <span className="text-lg w-full">تست فنی 1</span>
-                  <Form.StarRate name="tecnicalTest" />
-                </div>
-              </div>
-              <div className="w-full">
-                <div className="bg-gray-300 font-medium w-full px-2 py-4">
-                  <span className="text-lg">شایستگی های سازمانی</span>
-                </div>
-                <div className="bg-green-200 px-2 py-4 w-full flex justify-between">
-                  <span className="w-full text-lg">نشانگر</span>
-                  <span className="w-full text-lg">تنظیم اندیکاتور</span>
-                </div>
-
-                <div className="flex justify-between items-center border-b">
-                  <span className="text-lg w-full">تست سازمانی 1</span>
-                  <Form.StarRate name="organizationalTest" />
-                </div>
-              </div>
-            </div>
-          </>
-        }
-        onSubmit={onSubmit}
+    <div className="grid grid-cols-2 gap-5">
+      <Table
         table={
-          <DataTable
+          <JsonTable
             columns={columns}
-            queryKey={["employee-ratings"]}
-            queryFn={fetchUsers}
+            data={technical || []} // الان آرایه است
             searchableKeys={[
               "title",
               "position",
@@ -107,6 +45,23 @@ const PerformanceRating = () => {
             ]}
           />
         }
+        Title="میانگین شاخص های فنی"
+      />
+            <Table
+        table={
+          <JsonTable
+            columns={columns}
+            data={behavioral || []} // الان آرایه است
+            searchableKeys={[
+              "title",
+              "position",
+              "totalRating",
+              "addedBy",
+              "createdAt",
+            ]}
+          />
+        }
+        Title="میانگین شاخص های سازمانی"
       />
     </div>
   );

@@ -28,8 +28,8 @@ const LayoutPerformance = () => {
                               <FaUserFriends className="w-7 h-7" />
                            </>,
                            "indicator-rating",
-                           "رتبه بندی شاخص ها",
-                           "تنظیمات نشانگر",
+                           " میانگین شاخص ها ",
+                           "تنظیمات میانگین شاخص ها",
                         ],
                         [
                            <>
