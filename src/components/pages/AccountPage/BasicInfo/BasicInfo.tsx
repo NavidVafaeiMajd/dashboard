@@ -7,26 +7,11 @@ import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useDepartments } from "@/hook/useDepartments";
-import { useDesignationsts } from "@/hook/useDesignationsts";
+
 import PostLoad from "@/components/ui/postLoad";
 import Cookies from "js-cookie";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
-  const { data: departments, isPending: departmentsLoading } = useDepartments();
-  const { data: designationsts, isPending: designationstsLoading } =
-    useDesignationsts();
-
-  const departmentsMapped = departments?.data?.map((item) => ({
-    value: String(item.id),
-    label: item.name,
-  }));
-
-  const designationstsMapped = designationsts?.data?.map((item) => ({
-    value: String(item.id),
-    label: item.title,
-  }));
-
 
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
@@ -99,8 +84,6 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
   return (
     <div className="relative">
       {mutation.isPending && <PostLoad />}
-      {departmentsLoading && designationstsLoading && <PostLoad />}
-
       <div>
         <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
           <span>
@@ -140,8 +123,8 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 name="gender"
                 placeholder="انتخاب جنسیت"
                 options={[
-                  { label: "مرد", value: "male" },
-                  { label: "زن", value: "femail" },
+                  { label: "مرد", value: "مرد" },
+                  { label: "زن", value: "زن" },
                 ]}
                 required
               />

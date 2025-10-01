@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { validation } from "./validation";
 import { usePostRows } from "@/hook/usePostRows";
-import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
@@ -11,13 +10,10 @@ import Cookies from "js-cookie";
 
 
 const ProfileImg = ({ queryData }: { queryData: any }) => {
-  const { id } = useParams();
 
   const defaultValues = {
     image: queryData?.image == null ? undefined : queryData?.image,
   };
-
-
 
   const { form, mutation } = usePostRows(
     `profile/avatar`,
@@ -39,8 +35,8 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
         headers.Authorization = `Bearer ${token}`;
       }
 
-      const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}/image`, {
-        method: "DELETE",
+      const res = await fetch(`http://localhost:8000/api/profile/deletePhoto`, {
+        method: "POST",
         headers,
       });
       if (!res.ok) {
@@ -50,7 +46,7 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
     },
     onSuccess: () => {
       toast.success("تصویر با موفقیت حذف شد");
-      queryClient.invalidateQueries({ queryKey: ["employeesDetailse", id] });
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
       // Clear the form image field
       form.setValue("image", undefined);
     },
