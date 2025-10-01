@@ -2,31 +2,29 @@ import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { EditDialog } from "@/components/shared/EditDialog";
 import { Form } from "@/components/shared/Form";
 import { Button } from "@/components/ui/button";
+import { useDeleteRows } from "@/hook/useDeleteRows";
 import { useEmployees } from "@/hook/useEmployees";
+import { useUpdateRows } from "@/hook/useUpdateRows";
 import type { ColumnDef } from "@tanstack/react-table";
 import { LuArrowUpDown } from "react-icons/lu";
 import { z } from "zod";
+import { validation } from "./validation";
 
 export interface ManualAttendance extends Record<string, unknown> {
   id: number;
-  employee: string;
+  employee_id: string;
   date: Date;
   entryTime: string;
   exitTime: string;
   totalTime: string;
 }
 
-const defaultValues = {
-  employee: "",
-  date: new Date(),
-  entryTime: "",
-  exitTime:"" ,
-};
+
 const schema = z.object({
-  employee: z.string().min(1, "لطفا یک کارمند انتخاب کنید"),
+  employee_id: z.string().min(1, "لطفا یک کارمند انتخاب کنید"),
   date: z.any(),
-  entryTime: z.string().min(1, "لطفا زمان ورود را وارد کنید"),
-  exitTime: z.string().min(1, "لطفا زمان خروج را وارد کنید"),
+  check_in: z.string().min(1, "لطفا زمان ورود را وارد کنید"),
+  check_out: z.string().min(1, "لطفا زمان خروج را وارد کنید"),
 });
 
 export const columns: ColumnDef<ManualAttendance>[] = [
@@ -102,32 +100,50 @@ export const columns: ColumnDef<ManualAttendance>[] = [
     id: "actions",
     accessorKey: "id",
     header: "عملیات",
-    cell: () => {
+    cell: ({row}) => {
       const { data: employee } = useEmployees();
       const mapped = employee?.data?.map((item) => ({
         value: String(item.id),
         label: item.fullName,
       }));
+
+      const r = row.original;
+
+      const deleteRow = useDeleteRows({
+        url: "attendances",
+        queryKey: ["attendances"],
+      });
+      const { mutation } = useUpdateRows(
+        `attendances/${r.id}`,
+        ["attendances"],
+        validation,
+        "ثبت کارکنان دستی"
+      );
       return (
         <div className="flex items-center gap-2">
           <EditDialog
             triggerLabel="ویرایش"
-            defaultValues={defaultValues}
+            defaultValues={{
+              employee_id: r.employee_id,
+              date: new Date(r.date),
+              check_in: r.exitTime,
+              check_out:r.exitTime ,
+            }}
             onSave={(data) => {
-              console.log(data);
+              mutation.mutate(data)
             }}
             schema={schema}
             fields={
               <>
-                <Form.Select name="employee" label="کارمند" options={mapped||[]} required/>
+                <Form.Select name="employee_id" label="کارمند" options={mapped||[]} required/>
                 <Form.Date name="date" label="تاریخ" />
-                <Form.TimePicker name="entryTime" label="زمان ورود" />
-                <Form.TimePicker name="exitTime" label="زمان خروج" />
+                <Form.TimePicker name="check_in" label="زمان ورود" />
+                <Form.TimePicker name="check_out" label="زمان خروج" />
               </>
             }
           />
-          <DeleteDialog onConfirm={() => {}} />
-        </div>
+          <DeleteDialog onConfirm={() => deleteRow.mutate(r.id as any)} />
+          </div>
       );
     },
   },
