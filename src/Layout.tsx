@@ -160,6 +160,7 @@ const ViolationType = lazy(
 import AuthProvider, { useAuth } from "./Context/AuthContext";
 import DocumentsLayout from "./components/pages/Documents/DocumentsLayout";
 import PublicDocuments from "./components/pages/Documents/PublicDocuments/PublicDocuments";
+import PrivateDocuments from "./components/pages/Documents/PrivateDocuments/PrivateDocuments";
 const AccountPage = lazy(
   () => import("./components/pages/AccountPage/AccountPage")
 );
@@ -637,7 +638,7 @@ const LayoutContent = () => {
             />
             <Route path="documents" element={<DocumentsLayout />}>
               <Route index element={<PublicDocuments />} />
-              <Route path="privte" element={<TecherInfo />} />
+              <Route path="private" element={<PrivateDocuments />} />
             </Route>
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />

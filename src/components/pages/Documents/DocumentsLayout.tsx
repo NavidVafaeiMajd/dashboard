@@ -34,7 +34,7 @@ const DocumentsLayout = () => {
                             <>
                                <IoMdExit className="w-7 h-7" />
                             </>,
-                            "privte",
+                            "private",
                             " اسناد های خصوصی  ",
                             "مدیریت اسناد های حصوصی ",
                          ],
