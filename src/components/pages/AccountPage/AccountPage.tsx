@@ -5,20 +5,20 @@ import { MdOutlineMail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
-import { IoPersonAddSharp } from "react-icons/io5";
 import BasicInfo from "./BasicInfo/BasicInfo";
-import AccountInfo from "./AccountInfo/AccountInfo";
-import Personalnfo from "./Personalnfo/Personalnfo";
 import ProfileImg from "./ProfileImg/ProfileImg";
-import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { HiUserCircle } from "react-icons/hi2";
+import Cookies from "js-cookie";
+import ChangePass from "./ChangePass/ChangePass";
 
 const AccountPage = () => {
-  const { id } = useParams();
 
   const useGetProfile = async (): Promise<any> => {
-    const res = await fetch(`http://localhost:8000/api/profile`);
+    const token = Cookies.get("token");
+    const res = await fetch(`http://localhost:8000/api/profile` ,{
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -31,7 +31,7 @@ const AccountPage = () => {
     isError,
     error,
   } = useQuery<any>({
-    queryKey: ["profile", id],
+    queryKey: ["profile"],
     queryFn: useGetProfile,
   });
 
@@ -57,27 +57,32 @@ const AccountPage = () => {
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <span>
-                    {queryData?.firstName} {queryData?.lastName}
+                    {queryData?.first_name} {queryData?.last_name}
                   </span>
                   <span className="text-gray-400">
-                    {queryData?.designation.title}{" "}
+                    ادمین
                   </span>
                 </div>
               </div>
               <div>
                 <span className="bg-greenLight text-greenDark py-1 px-4 rounded-sm text-sm!">
-                  {queryData?.position}
+                  فعال
                 </span>
               </div>
             </div>
             <div className="p-5 bg-white">
-              <div>
+              <div className="flex justify-between">
                 <span className="flex gap-3">
                   <FaRegUser className="w-7! h-7!" />
-                  مدیر
+                  شماره
+                </span>
+                <span>
+                {queryData?.phone}
                 </span>
               </div>
-              <div className="h-[1px] bg-gray-200 my-5"></div>
+              <div className="h-[1px] bg-gray-200 my-5">
+              
+              </div>
               <div className="flex justify-between">
                 <span className="flex gap-3">
                   <MdOutlineMail className="w-7! h-7!" />
@@ -96,15 +101,6 @@ const AccountPage = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="personalInfo">
-            <span className="flex gap-2 justify-center items-center">
-              <IoPersonAddSharp className="w-7! h-7!" />
-              اطلاعات شخصی
-            </span>
-            <span>
-              <IoIosArrowBack className="w-7! h-7!" />
-            </span>
-          </TabsTrigger>
           <TabsTrigger value="profImg">
             <span className="flex gap-2 justify-center items-center">
               <CiImageOn className="w-7! h-7!" />
@@ -114,10 +110,10 @@ const AccountPage = () => {
               <IoIosArrowBack className="w-7! h-7!" />
             </span>
           </TabsTrigger>
-          <TabsTrigger value="accountInfo">
+          <TabsTrigger value="password">
             <span className="flex gap-2 justify-center items-center">
               <IoMdInformationCircleOutline className="w-7! h-7!" />
-              اطلاعات حساب
+              رمز عبور
             </span>
             <span>
               <IoIosArrowBack className="w-7! h-7!" />
@@ -127,14 +123,11 @@ const AccountPage = () => {
         <TabsContent value="basicInfo">
           <BasicInfo queryData={queryData} />
         </TabsContent>
-        <TabsContent value="personalInfo">
-          <Personalnfo queryData={queryData} />
-        </TabsContent>
         <TabsContent value="profImg">
           <ProfileImg queryData={queryData} />
         </TabsContent>
-        <TabsContent value="accountInfo">
-          <AccountInfo queryData={queryData?.salary} />
+        <TabsContent value="password">
+          <ChangePass />
         </TabsContent>
       </Tabs>
     </>

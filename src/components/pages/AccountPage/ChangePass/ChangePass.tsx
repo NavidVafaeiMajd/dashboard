@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { z } from "zod";
 import { validation } from "./validation";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 
 const ChangePass = () => {
   const form = useForm<z.infer<typeof validation>>({
@@ -16,8 +19,48 @@ const ChangePass = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: async (data: z.infer<typeof validation>) => {
+      const token = Cookies.get("token");
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const res = await fetch("http://localhost:8000/api/profile/change-password", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          current_password: data.currentPassword,
+          new_password: data.newPassword,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(errorText);
+      }
+
+      return res.json();
+    },
+    onSuccess: () => {
+      toast.success("رمز عبور با موفقیت تغییر کرد");
+      form.reset();
+    },
+    onError: (error: any) => {
+      toast.error(`خطا: ${error.message}`);
+    },
+  });
+
   const onSubmit = (data: z.infer<typeof validation>) => {
-    console.log(data);
+    const formData = {
+      old_password: data.currentPassword,
+      password : data.confirmPassword
+    }
+    console.log(formData )
+    mutation.mutate(formData );
   };
 
   return (

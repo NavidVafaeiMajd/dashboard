@@ -6,6 +6,7 @@ import { usePostRows } from "@/hook/usePostRows";
 import { useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 
 
@@ -19,8 +20,8 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
 
 
   const { form, mutation } = usePostRows(
-    `employees/${queryData?.id}/image`,
-    ["employeesDetailse", id as string],
+    `profile/avatar`,
+    ["profile"],
     defaultValues,
     validation,
      "تصویر پروفایل"
@@ -30,8 +31,17 @@ const ProfileImg = ({ queryData }: { queryData: any }) => {
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
+      const token = Cookies.get("token");
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
       const res = await fetch(`http://localhost:8000/api/employees/${queryData?.id}/image`, {
         method: "DELETE",
+        headers,
       });
       if (!res.ok) {
         throw new Error("حذف تصویر ناموفق بود");

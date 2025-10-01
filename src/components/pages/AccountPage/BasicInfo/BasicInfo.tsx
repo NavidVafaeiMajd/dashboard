@@ -9,43 +9,44 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useDepartments } from "@/hook/useDepartments";
 import { useDesignationsts } from "@/hook/useDesignationsts";
+import PostLoad from "@/components/ui/postLoad";
+import Cookies from "js-cookie";
 
 const BasicInfo = ({ queryData }: { queryData: any }) => {
   const { data: departments, isPending: departmentsLoading } = useDepartments();
-  const { data: designationsts, isPending: designationstsLoading } =useDesignationsts();
+  const { data: designationsts, isPending: designationstsLoading } =
+    useDesignationsts();
+
+  const departmentsMapped = departments?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.name,
+  }));
+
+  const designationstsMapped = designationsts?.data?.map((item) => ({
+    value: String(item.id),
+    label: item.title,
+  }));
+
 
   const form = useForm<z.infer<typeof validation>>({
     resolver: zodResolver(validation),
     defaultValues: {
-      firstName: queryData?.firstName == null ? "" : queryData?.firstName,
-      lastName: queryData?.lastName == null ? "" : queryData?.lastName,
-      phoneNumber: queryData?.phoneNumber == null ? "" : queryData?.phoneNumber,
+      first_name: queryData?.first_name == null ? "" : queryData?.first_name,
+      last_name: queryData?.last_name == null ? "" : queryData?.last_name,
+      phone: queryData?.phone == null ? "" : queryData?.phone,
       gender: queryData?.gender == null ? "" : queryData?.gender,
-      personeliCode:
-        queryData?.personeliCode == null ? "" : queryData?.personeliCode,
-        birthDate: queryData?.birthDate
-        ? new Date(queryData.birthDate)
-        : new Date(),
-      
-      department: queryData?.department_id
-        ? String(queryData.department_id)
-        : "",
-      
-      designation: queryData?.designation_id
-        ? String(queryData.designation_id)
-        : "",
-      position: queryData?.position == null ? "" : queryData?.position,
       province: queryData?.province == null ? "" : queryData?.province,
+      country: queryData?.country == null ? "" : queryData?.country,
       city: queryData?.city == null ? "" : queryData?.city,
-      postalCode: queryData?.postalCode == null ? "" : queryData?.postalCode,
-      religion: queryData?.religion == null ? "" : queryData?.religion,
-      bloodGroup: queryData?.bloodGroup == null ? "" : queryData?.bloodGroup,
-      nationality: queryData?.nationality == null ? "" : queryData?.nationality,
-      citizenship: queryData?.citizenship == null ? "" : queryData?.citizenship,
-      address1: queryData?.address1 == null ? "" : queryData?.address1,
-      address2: queryData?.address2 == null ? "" : queryData?.address2,
-      maritalStatus:
-        queryData?.maritalStatus == null ? "" : queryData?.maritalStatus,
+      postal_code: queryData?.postal_code == null ? "" : queryData?.postal_code,
+      address: queryData?.address == null ? "" : queryData?.address,
+      username: queryData?.username == null ? "" : queryData?.username,
+      company_type: queryData?.company_type ?? "",
+      company_name: queryData?.company_name ?? "",
+      national_id: queryData?.national_id ?? "",
+      economic_code: queryData?.economic_code ?? "",
+      registration_number: queryData?.registration_number ?? "",
+      email: queryData?.email ?? "",
     },
   });
 
@@ -53,35 +54,20 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
 
   const mutation = useMutation({
     mutationFn: async (data: z.infer<typeof validation>) => {
-      // Transform data to match API structure
-      const apiData = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        phoneNumber: data.phoneNumber,
-        gender: data.gender,
-        personeliCode: data.personeliCode,
-        birthDate: data.birthDate?.toISOString().split("T")[0], // Convert Date to YYYY-MM-DD
-        position: data.position,
-        maritalStatus: data.maritalStatus,
-        province: data.province,
-        city: data.city,
-        postalCode: data.postalCode,
-        religion: data.religion,
-        bloodGroup: data.bloodGroup,
-        nationality: data.nationality,
-        citizenship: data.citizenship,
-        address1: data.address1,
-        address2: data.address2,
-        department_id: data.department ? parseInt(data.department) : null,
-        designation_id: data.designation ? parseInt(data.designation) : null,
+      const token = Cookies.get("token");
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
       };
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
 
       const res = await fetch(
-        `http://localhost:8000/api/employees/${queryData?.id}`,
+        `http://localhost:8000/api/profile`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(apiData),
+          headers,
+          body: JSON.stringify(data),
         }
       );
 
@@ -97,7 +83,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
     onSuccess: () => {
       toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
       queryClient.invalidateQueries({
-        queryKey: ["employeesDetailse", queryData?.id],
+        queryKey: ["profile"],
       });
     },
     onError: () => {
@@ -111,7 +97,10 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
   };
 
   return (
-    <>
+    <div className="relative">
+      {mutation.isPending && <PostLoad />}
+      {departmentsLoading && designationstsLoading && <PostLoad />}
+
       <div>
         <div className="flex gap-2 border-b-red-500 border-b-2 p-3">
           <span>
@@ -128,13 +117,13 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
             <div className="flex gap-5">
               <Form.Input
                 label="نام"
-                name="firstName"
+                name="first_name"
                 placeholder="نام"
                 required
               />
               <Form.Input
                 label="نام خانوادگی"
-                name="lastName"
+                name="last_name"
                 placeholder="نام خانوادگی"
                 required
               />
@@ -142,7 +131,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
             <div className="flex gap-5">
               <Form.Input
                 label="شماره تماس"
-                name="phoneNumber"
+                name="phone"
                 placeholder="شماره تماس"
                 required
               />
@@ -150,143 +139,44 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
                 label="جنسیت"
                 name="gender"
                 placeholder="انتخاب جنسیت"
-                required
-              >
-                <Form.SelectItem value="مرد">مرد</Form.SelectItem>
-                <Form.SelectItem value="زن">زن</Form.SelectItem>
-              </Form.Select>
-            </div>
-            <div className="flex gap-5">
-              <Form.Input
-                label="کدپرسنلی"
-                name="personeliCode"
-                placeholder="کدپرسنلی"
+                options={[
+                  { label: "مرد", value: "male" },
+                  { label: "زن", value: "femail" },
+                ]}
                 required
               />
-              <Form.Date label="تاریخ تولد" name="birthDate" />
-              <Form.Select
-                label="وضعیت"
-                name="position"
-                placeholder="انتخاب وضعیت"
-                required
-              >
-                <Form.SelectItem value="فعال">فعال </Form.SelectItem>
-                <Form.SelectItem value="ممنوع">ممنوع</Form.SelectItem>
-              </Form.Select>
             </div>
             <div className="flex gap-5">
-              <Form.Select
-                label="وضعیت تاهل"
-                name="maritalStatus"
-                placeholder="انتخاب وضعیت تاهل"
-                required
-              >
-                <Form.SelectItem value="مجرد">مجرد</Form.SelectItem>
-                <Form.SelectItem value="متاهل">متاهل</Form.SelectItem>
-                <Form.SelectItem value="بیوه">بیوه</Form.SelectItem>
-                <Form.SelectItem value="طلاق گرفته یا جدا شده">
-                  طلاق گرفته یا جدا شده
-                </Form.SelectItem>
-              </Form.Select>
-            </div>
-            <div className="flex flex-col md:flex-row gap-5">
-              <Form.Select
-                name="department"
-                label="واحد سازمانی"
-                placeholder="واحد سازمانی"
-                required
-              >
-                {departments?.data?.map((dept, index) => (
-                  <Form.SelectItem key={index} value={String(dept.id)}>
-                    {dept.name || dept.title || dept.department_name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
-              <Form.Select
-                name="designation"
-                label="سمت سازمانی"
-                placeholder="سمت سازمانی"
-                required
-              >
-                {designationsts?.data?.map((dept, index) => (
-                  <Form.SelectItem key={index} value={String(dept.id)}>
-                    {dept.name || dept.title || dept.department_name}
-                  </Form.SelectItem>
-                ))}
-              </Form.Select>
+              <Form.Input label="نام کاربری" name="username" />
+              <Form.Input label="ایمیل " name="email" />
             </div>
             <div className="flex gap-5">
+              <Form.Input label="نوع شرکت" name="company_type" />
+              <Form.Input label="اسم شرکت" name="company_name" />
+              
+            </div>
+            <div className="flex gap-5">
+              <Form.Input label="شناسه ملی " name="national_id" />
+              <Form.Input label="کد اقتصادی " name="economic_code" />
+              <Form.Input label="شماره ثبت شرکت  " name="registration_number" />
+              
+            </div>
+            <div className="flex gap-5">
+            <Form.Input placeholder="کشور" label="کشور" name="country" />
               <Form.Input placeholder="استان" label="استان" name="province" />
               <Form.Input placeholder="شهر" label="شهر" name="city" />
               <Form.Input
                 placeholder="کدپستی"
                 label="کدپستی"
-                name="postalCode"
+                name="postal_code"
               />
             </div>
-            <div className="flex gap-5">
-              <Form.Select
-                label="مذهب"
-                name="religion"
-                placeholder="انتخاب مذهب"
-              >
-                <Form.SelectItem value="اسلام">اسلام</Form.SelectItem>
-                <Form.SelectItem value="مسیحیت">مسیحیت</Form.SelectItem>
-                <Form.SelectItem value="یهودیت">یهودیت</Form.SelectItem>
-                <Form.SelectItem value="زرتشتی">زرتشتی</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
-              <Form.Select
-                label="گروه خونی"
-                name="bloodGroup"
-                placeholder="انتخاب گروه خونی"
-              >
-                <Form.SelectItem value="A+">A+</Form.SelectItem>
-                <Form.SelectItem value="A-">A-</Form.SelectItem>
-                <Form.SelectItem value="B+">B+</Form.SelectItem>
-                <Form.SelectItem value="B-">B-</Form.SelectItem>
-                <Form.SelectItem value="AB+">AB+</Form.SelectItem>
-                <Form.SelectItem value="AB-">AB-</Form.SelectItem>
-                <Form.SelectItem value="O+">O+</Form.SelectItem>
-                <Form.SelectItem value="O-">O-</Form.SelectItem>
-              </Form.Select>
-            </div>
-            <div className="flex gap-5">
-              <Form.Select
-                label="ملیت"
-                name="nationality"
-                placeholder="انتخاب ملیت"
-              >
-                <Form.SelectItem value="ایرانی">ایرانی</Form.SelectItem>
-                <Form.SelectItem value="افغانستانی">افغانستانی</Form.SelectItem>
-                <Form.SelectItem value="عراقی">عراقی</Form.SelectItem>
-                <Form.SelectItem value="پاکستانی">پاکستانی</Form.SelectItem>
-                <Form.SelectItem value="ترک">ترک</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
-              <Form.Select
-                label="تابعیت"
-                name="citizenship"
-                placeholder="انتخاب تابعیت"
-              >
-                <Form.SelectItem value="ایران">ایران</Form.SelectItem>
-                <Form.SelectItem value="افغانستان">افغانستان</Form.SelectItem>
-                <Form.SelectItem value="عراق">عراق</Form.SelectItem>
-                <Form.SelectItem value="پاکستان">پاکستان</Form.SelectItem>
-                <Form.SelectItem value="ترکیه">ترکیه</Form.SelectItem>
-                <Form.SelectItem value="سایر">سایر</Form.SelectItem>
-              </Form.Select>
-            </div>
+
             <div className="flex gap-5">
               <Form.Input
-                label="نشانی 1"
-                name="address1"
-                placeholder="نشانی 1"
-              />
-              <Form.Input
-                label="نشانی 2"
-                name="address2"
-                placeholder="نشانی 2"
+                label="نشانی"
+                name="address"
+                placeholder="نشانی"
               />
             </div>
 
@@ -300,7 +190,7 @@ const BasicInfo = ({ queryData }: { queryData: any }) => {
           </Form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
