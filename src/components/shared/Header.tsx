@@ -1,15 +1,19 @@
-
 import { AiOutlineMenu } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useProfile } from "@/hook/useProfile";
+import { HiUserCircle } from "react-icons/hi2";
+
 interface ChildProps {
   headerMenu: () => void;
 }
 const Header: React.FC<ChildProps> = ({ headerMenu }) => {
   const [fisrtMenu, setFisrtMenu] = useState(false);
   const [secoundMenu, setSecoundMenu] = useState(false);
+  const { data: queryData, isLoading } = useProfile();
+
   return (
     <>
       <div className="bg-primary max-md:bg-[#161C25] text-white h-[75px] px-10 w-full! ">
@@ -32,21 +36,31 @@ const Header: React.FC<ChildProps> = ({ headerMenu }) => {
                 fisrtMenu ? "max-md:top-[75px]" : "max-md:top-[0px]"
               } max-md:fixed max-md:-z-10!  max-md:bg-white max-md:right-0 max-md:w-full max-md:text-primary `}
             >
-              <li className="px-5 py-1">
-                <a href="#" className="flex items-center gap-2">
-                  <div>
-                    <img
-                      className="w-10 rounded-full"
-                      src="https://trust.jaferi.ir/public/uploads/users/thumb/Untitled-1.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span>jaferi jaferi</span>
-                    <span>jaferi</span>
-                  </div>
-                </a>
-              </li>
+              {isLoading ? (
+                "درحال بارگزاری"
+              ) : (
+                <li className="px-5 py-1">
+                  <a href="#" className="flex items-center gap-2">
+                    <div>
+                      {queryData?.image ? (
+                        <img
+                          className="w-20 rounded-full"
+                          src={`http://localhost:8000/${queryData?.image}`}
+                          alt=""
+                        />
+                      ) : (
+                        <HiUserCircle className="w-20 h-25" />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <span>
+                        {queryData?.first_name} {queryData?.last_name}
+                      </span>
+                      <span>{queryData?.username}</span>
+                    </div>
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
           <div id="left-header" className="flex items-center gap-3 relative">

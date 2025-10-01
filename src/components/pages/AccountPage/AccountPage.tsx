@@ -7,33 +7,12 @@ import { IoMdInformationCircleOutline } from "react-icons/io";
 import { CiImageOn } from "react-icons/ci";
 import BasicInfo from "./BasicInfo/BasicInfo";
 import ProfileImg from "./ProfileImg/ProfileImg";
-import { useQuery } from "@tanstack/react-query";
 import { HiUserCircle } from "react-icons/hi2";
-import Cookies from "js-cookie";
 import ChangePass from "./ChangePass/ChangePass";
+import { useProfile } from "@/hook/useProfile";
 
 const AccountPage = () => {
-
-  const useGetProfile = async (): Promise<any> => {
-    const token = Cookies.get("token");
-    const res = await fetch(`http://localhost:8000/api/profile` ,{
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    return res.json();
-  };
-
-  const {
-    data: queryData,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<any>({
-    queryKey: ["profile"],
-    queryFn: useGetProfile,
-  });
+  const { data: queryData, isLoading, isError, error } = useProfile();
 
   if (isLoading) return <div className="p-4">در حال بارگذاری...</div>;
   if (isError)
@@ -50,18 +29,20 @@ const AccountPage = () => {
               <div className="flex gap-3">
                 <div>
                   {queryData?.image ? (
-                    <img className="w-25" src={`http://localhost:8000/${queryData?.image}`} alt="" />
+                    <img
+                      className="w-25"
+                      src={`http://localhost:8000/${queryData?.image}`}
+                      alt=""
+                    />
                   ) : (
-                    <HiUserCircle className="w-20 h-25"/>
+                    <HiUserCircle className="w-20 h-25" />
                   )}
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <span>
                     {queryData?.first_name} {queryData?.last_name}
                   </span>
-                  <span className="text-gray-400">
-                    ادمین
-                  </span>
+                  <span className="text-gray-400">ادمین</span>
                 </div>
               </div>
               <div>
@@ -76,13 +57,9 @@ const AccountPage = () => {
                   <FaRegUser className="w-7! h-7!" />
                   شماره
                 </span>
-                <span>
-                {queryData?.phone}
-                </span>
+                <span>{queryData?.phone}</span>
               </div>
-              <div className="h-[1px] bg-gray-200 my-5">
-              
-              </div>
+              <div className="h-[1px] bg-gray-200 my-5"></div>
               <div className="flex justify-between">
                 <span className="flex gap-3">
                   <MdOutlineMail className="w-7! h-7!" />
