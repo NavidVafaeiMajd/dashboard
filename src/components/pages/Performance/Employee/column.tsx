@@ -86,7 +86,7 @@ export const columns: ColumnDef<employeeRating>[] = [
       },
    },
    {
-      accessorKey: "totalRating",
+      accessorKey: "indicator_average",
       header: ({ column }) => {
          return (
             <Button

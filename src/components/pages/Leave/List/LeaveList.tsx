@@ -3,16 +3,13 @@ import { stats } from "./consts";
 import LeaveTable from "./LeaveTable";
 import { Form } from "@/components/shared/Form";
 import z from "zod";
-import LeaveStatus from "../charts/LeaveStatus";
-import LeaveTypeStatus from "../charts/LeaveTypeStatus";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { usePostRows } from "@/hook/usePostRows";
 import { useEmployees } from "@/hook/useEmployees";
 import SkeletonLoading from "@/components/ui/skeleton";
 import PostLoad from "@/components/ui/postLoad";
-import { useQuery } from "@tanstack/react-query";
+import { useGetData } from "@/hook/useGetData";
 
-// ✅ تعریف اسکیمای ولیدیشن با zod
 const validation = z.object({
   employee_id: z.string().min(1, "انتخاب کارمند الزامی است"),
   leave_type_id: z.string().min(1, "انتخاب نوع مرخصی الزامی است"),
@@ -27,9 +24,7 @@ interface LeaveType {
   type_name: string;
 }
 
-interface LeaveTypesResponse {
-  data: LeaveType[];
-}
+interface LeaveTypesResponse extends Array<LeaveType> {}
 
 
 const LeaveList = () => {
@@ -53,18 +48,9 @@ const LeaveList = () => {
 
   const { data: employee, isPending: employeesLoading } = useEmployees();
 
-  const { data: leaveTypes } = useQuery<LeaveTypesResponse>({
-    queryKey: ["leaveTypes"],
-    queryFn: async () => {
-      const res = await fetch("http://localhost:8000/api/leave-types");
-      if (!res.ok) {
-        throw new Error("Failed to fetch leave types");
-      }
-      return res.json();
-    },
-  });
+  const {data : leaveTypes} = useGetData<LeaveTypesResponse>("leave-types");
   
-  const leaveMapped = leaveTypes?.data?.map((item) => ({
+  const leaveMapped = leaveTypes?.map((item) => ({
     value: String(item.id),
     label: item.type_name, // بستگی به API داره
   }));
@@ -141,14 +127,7 @@ const LeaveList = () => {
           }
         />
       </div>
-      <div className="grid md:grid-cols-2 gap-5">
-        <div>
-          <LeaveStatus />
-        </div>
-        <div>
-          <LeaveTypeStatus />
-        </div>
-      </div>
+
     </div>
   );
 };

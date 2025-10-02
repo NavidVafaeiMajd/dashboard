@@ -23,7 +23,7 @@ export default function TraningSkills() {
   );
 
   const formFields = (
-    <>
+    <div className="relative">
       {mutation.isPending && <PostLoad/>}
       <Form.Input
         label=" مهارت آموزشی "
@@ -31,7 +31,7 @@ export default function TraningSkills() {
         placeholder="  مهارت آموزشی "
         required
       />
-    </>
+    </div>
   );
 
   const fetchSkills = () => useGetRowsToTable("skills");

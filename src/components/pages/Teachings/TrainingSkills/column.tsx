@@ -59,7 +59,7 @@ export const columns: ColumnDef<SkillsRank>[] = [
               </>
             }
             defaultValues={{
-              name: "",
+              name: String(r.name || ""),
             }}
             schema={validation}
           />

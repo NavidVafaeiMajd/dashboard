@@ -6,6 +6,7 @@ import { TecherInfoColumns } from "./column";
 import SectionAcc from "@/components/shared/section/SectionAcc";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
+import PostLoad from "@/components/ui/postLoad";
 
 export default function TecherInfo() {
   const defaultValues = {
@@ -16,9 +17,20 @@ export default function TecherInfo() {
     specialty: "",
     address: "",
   };
+  const { mutation, form } = usePostRows(
+    "teachers",
+    ["teachers"],
+    defaultValues,
+    validation,
+    "مدرس ها",
+    true
+  );
+  const fetchTeachers = () => useGetRowsToTable("teachers");
+
   const formFields = (
     <>
       <div className="gap-[2.5rem]  flex justify-between items-start! flex-col md:flex-row w-full!">
+        {(mutation.isPending) && <PostLoad />}
         <div className="flex  gap-[5px] flex-col md:w-[50%] w-full!">
           <div className="w-[100%] flex gap-[2.5rem] justify-between flex-col md:flex-row">
             <Form.Input
@@ -76,16 +88,7 @@ export default function TecherInfo() {
     </>
   );
 
-  const { mutation, form } = usePostRows(
-    "teachers",
-    ["teachers"],
-    defaultValues,
-    validation,
-    "مدرس ها",
-    true
-  );
-  const fetchTeachers = () => useGetRowsToTable("teachers");
-
+ 
 
   const onSubmit = (data: z.infer<typeof validation>) => {
     console.log(data);

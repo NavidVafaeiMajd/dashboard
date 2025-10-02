@@ -7,6 +7,7 @@ import SectionCol from "@/components/shared/section/SectionCol";
 import { Form } from "@/components/shared/Form";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
+import PostLoad from "@/components/ui/postLoad";
 
 const ViolationType = () => {
   useEffect(() => {
@@ -51,14 +52,15 @@ const ViolationType = () => {
         SecoundTitle=" لیست همه انواع تخلف"
         schema={validation}
         formFields={
-          <>
+          <div className="relative">
+            {mutation.isPending && <PostLoad />}
             <Form.Input
               label="نوع پرونده"
               name="name"
               required
               placeholder="نوع پرونده را انتخاب کنید"
             ></Form.Input>
-          </>
+          </div>
         }
       />
     </div>

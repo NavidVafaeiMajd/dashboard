@@ -7,6 +7,7 @@ import { useGetRowsToTable } from "@/hook/useGetRows";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetData } from "@/hook/useGetData";
 import type z from "zod";
+import PostLoad from "@/components/ui/postLoad";
 
 const defaultValues = {
   description: "",
@@ -59,7 +60,8 @@ const TrackGoals = () => {
         defaultValues={defaultValues}
         schema={validation}
         formFields={
-          <>
+          <div className="relative">
+            {mutation.isPending && <PostLoad />}
             <div className="flex justify-between items-center gap-x-5">
               <Form.Select
                 label="انواع هدف"
@@ -103,7 +105,7 @@ const TrackGoals = () => {
             </div>
 
             <Form.RichText label="شرح" name="description" />
-          </>
+          </div>
         }
         onSubmit={onSubmit}
         FirstTitle="ثبت جدید"

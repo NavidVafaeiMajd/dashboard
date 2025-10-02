@@ -58,8 +58,8 @@ export const TecherInfoColumns: ColumnDef<TecherInfoType>[] = [
     cell: ({ row }) => {
       const r = row.original;
       const deleteRow = useDeleteRows({
-        url: "disciplinary-cases",
-        queryKey: ["disciplinary-cases"],
+        url: "teachers",
+        queryKey: ["teachers"],
       });
       const { mutation } = useUpdateRows(
         `teachers/${r.id}`,
@@ -83,12 +83,12 @@ export const TecherInfoColumns: ColumnDef<TecherInfoType>[] = [
               </>
             }
             defaultValues={{
-              first_name: "",
-              last_name: "",
-              phone: "",
-              email: "",
-              specialty: "",
-              address: "",
+              first_name: String(r.first_name || ""),
+              last_name: String(r.last_name || ""),
+              phone: String(r.phone || ""),
+              email: String(r.email || ""),
+              specialty: String(r.specialty || ""),
+              address: String(r.address || ""),
             }}
             onSave={(data) => {
               console.log(data);

@@ -9,6 +9,7 @@ import SectionCol from "@/components/shared/section/SectionCol";
 import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { useEmployees } from "@/hook/useEmployees";
+import PostLoad from "@/components/ui/postLoad";
 
 const ManualAttendance = () => {
   useEffect(() => {
@@ -41,7 +42,8 @@ const ManualAttendance = () => {
   }));
 
   const formFields = (
-    <>
+    <div className="relative">
+      {mutation.isPending && <PostLoad />}
       <Form.Date name="date" label="تاریخ" />
 
       <Form.Select
@@ -53,7 +55,7 @@ const ManualAttendance = () => {
       <Form.TimePicker label="زمان ورود" name="check_in" />
       <Form.TimePicker label="زمان خروج" name="check_out" />
       <Form.Textarea label="یاداشت" name="notes" />
-    </>
+    </div>
   );
 
   const fetchAttendances = () => useGetRowsToTable("attendances");

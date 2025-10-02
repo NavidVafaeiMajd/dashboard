@@ -56,7 +56,7 @@ export default function LearningPage() {
 
 
   const formFields = (
-    <div className="required:">
+    <div className="relative">
       {mutation.isPending && <PostLoad/>}
       <div className="flex flex-col md:flex-row gap-5">
         <Form.Select

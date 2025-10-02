@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {  useNavigate } from "react-router-dom";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { usePostRows } from "@/hook/usePostRows";
+import PostLoad from "@/components/ui/postLoad";
 
 
 const defaultValues = {
@@ -59,7 +60,8 @@ const TechnicalIndicator = () => {
           defaultValues={defaultValues}
           schema={validation}
           formFields={
-            <>
+            <div className="relative">
+              {mutation.isPending && <PostLoad />}
               <Form.Hidden name="type" value="صلاحیت های فنی"/>
               <Form.Input
                 name="name"
@@ -67,7 +69,7 @@ const TechnicalIndicator = () => {
                 placeholder="صلاحیت فنی"
                 required
               />
-            </>
+            </div>
           }
           onSubmit={OnSubmit}
           FirstTitle="ثبت جدید صلاحیت فنی"

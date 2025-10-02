@@ -8,6 +8,7 @@ import { usePostRows } from "@/hook/usePostRows";
 import { useGetRowsToTable } from "@/hook/useGetRows";
 import { useEmployees } from "@/hook/useEmployees";
 import { useGetData } from "@/hook/useGetData";
+import PostLoad from "@/components/ui/postLoad";
 type Technical = {
   id: string;
   name: string;
@@ -73,7 +74,8 @@ const EmployeeRating = () => {
         defaultValues={defaultValues}
         schema={validation}
         formFields={
-          <>
+          <div className="relative">
+            {(mutation.isPending || employeesLoading )&& <PostLoad />}
             <div className="flex items-center justify-between gap-x-5">
               <Form.Input
                 label="عنوان"
@@ -146,7 +148,7 @@ const EmployeeRating = () => {
                 </table>
               </div>
             </div>
-          </>
+          </div>
         }
         onSubmit={onSubmit}
         table={

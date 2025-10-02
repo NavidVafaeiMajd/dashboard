@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useMemo, useState } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import Table from "@/components/shared/section/Table";
-import { useGetRowsToTable } from "@/hook/useGetRows";
 import { useEmployees } from "@/hook/useEmployees";
 import { JsonTable } from "@/components/shared/json-table";
 import { useMutation } from "@tanstack/react-query";

@@ -7,29 +7,58 @@ import { z } from "zod";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { useGetData } from "@/hook/useGetData";
 import type { Skill, Teacher } from "./mainLearing";
+import { useUpdateRows } from "@/hook/useUpdateRows";
 
 export interface LearningRecordType {
-  id: string;
-  infoTecher: string;
-  skillslearn: string;
-  priceLearn: string;
-  status: string;
-  "entry-time": string;
-  "exit-time": string;
-  text: string;
-  [key: string]: string | number;
+  id: number;
+  teacher_id: number;
+  skill_id: number;
+  cost: number;
+  personnel: number;
+  start_date: string;
+  end_date: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  teacher: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    phone: string;
+    email: string;
+    specialty: string;
+    address: string;
+    created_at: string;
+    updated_at: string;
+  };
+  skill: {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+  };
 }
 
 export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
   {
-    accessorKey: "infoTecher",
+    accessorKey: "teacher",
     header: "مشخصات مدرس",
-    cell: ({ row }) => <div className="text-center">{row.getValue("infoTecher")}</div>,
+    cell: ({ row }) => {
+      const teacher = row.original.teacher;
+      return (
+        <div className="text-center">
+          {teacher ? `${teacher.first_name} ${teacher.last_name}` : ""}
+        </div>
+      );
+    },
   },
   {
-    accessorKey: "skillslearn",
+    accessorKey: "skill",
     header: "مهارت آموزشی",
-    cell: ({ row }) => <div className="text-center">{row.getValue("skillslearn")}</div>,
+    cell: ({ row }) => {
+      const skill = row.original.skill;
+      return <div className="text-center">{skill ? skill.name : ""}</div>;
+    },
   },
   {
     accessorKey: "cost",
@@ -42,56 +71,87 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
         </div>
       );
     },
-  },  
+  },
   {
     accessorKey: "personnel",
     header: "تعداد دانشجو",
-    cell: ({ row }) => <div className="text-center">{row.getValue("personnel")}</div>,
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("personnel")}</div>
+    ),
   },
   {
     accessorKey: "start_date",
     header: "تاریخ شروع",
     cell: ({ row }) => {
-      return <div className="text-center">{new Date(row.getValue("start_date")).toLocaleDateString("fa-IR")}</div>;
+      const date = row.getValue("start_date") as string;
+      return (
+        <div className="text-center">
+          {new Date(date).toLocaleDateString("fa-IR")}
+        </div>
+      );
     },
   },
   {
     accessorKey: "end_date",
     header: "تاریخ پایان",
     cell: ({ row }) => {
-      return <div className="text-center">{new Date(row.getValue("end_date")).toLocaleDateString("fa-IR")}</div>;
+      const date = row.getValue("end_date") as string;
+      return (
+        <div className="text-center">
+          {new Date(date).toLocaleDateString("fa-IR")}
+        </div>
+      );
     },
-  },  
+  },
   {
     id: "actions",
     header: "عملیات",
     cell: ({ row }) => {
       const r = row.original;
       const query = new URLSearchParams({
-        infoTecher: String(r.infoTecher),
-        skillslearn: String(r.skillslearn),
-        priceLearn: String(r.priceLearn),
-        status: String(r.status),
-        entry: String(r["entry-time"]),
-        exit: String(r["exit-time"]),
-        text: String(r.text),
+        teacher: r.teacher
+          ? `${r.teacher.first_name} ${r.teacher.last_name}`
+          : "",
+        skill: r.skill ? r.skill.name : "",
+        cost: String(r.cost),
+        personnel: String(r.personnel),
+        start_date: r.start_date,
+        end_date: r.end_date,
+        description: r.description,
         created: new Date().toLocaleDateString("fa-IR"),
       }).toString();
 
-      const { data : skills } = useGetData<Skill[]>("skills")
-  
+      const { data: skills } = useGetData<Skill[]>("skills");
+
       const skillsMapped = skills?.map((item) => ({
         value: String(item.id),
-        label: item.name ,
+        label: item.name,
       }));
-    
-      const { data : teachers } = useGetData<Teacher[]>("teachers")
-      
+
+      const { data: teachers } = useGetData<Teacher[]>("teachers");
+
       const teachersMapped = teachers?.map((item) => ({
         value: String(item.id),
         label: item.first_name + " " + item.last_name,
       }));
-    
+
+       const validation = z.object({
+         teacher_id: z.string().min(1, "مشخصات مدرس الزامی است"),
+         skill_id: z.string().min(1, "مهارت آموزشی الزامی است"),
+         cost: z.string().optional(),
+         personnel: z.string().optional(),
+         start_date: z.string().min(1, "تاریخ شروع الزامی است"),
+         end_date: z.string().optional(),
+         description: z.string().optional(),
+       });
+
+      const { mutation } = useUpdateRows(
+        `trainings/${r.id}`,
+        ["trainings"],
+        validation,
+        "اموزش"
+      );
+
       return (
         <div className="flex items-center gap-2">
           <Link to={`/learning/details/${r.id}?${query}`}>
@@ -102,60 +162,61 @@ export const LearningRecordColumns: ColumnDef<LearningRecordType>[] = [
             triggerLabel="ویرایش"
             fields={
               <>
-        <Form.Select
-          label="مشخصات مدرس "
-          name="teacher_id"
-          placeholder=" مشخصات مدرس "
-          required
-          options={teachersMapped || []}
-        />
+                <Form.Select
+                  label="مشخصات مدرس "
+                  name="teacher_id"
+                  placeholder=" مشخصات مدرس "
+                  required
+                  options={teachersMapped || []}
+                />
 
-        <Form.Select
-          label="مهارت آموزشی "
-          name="skill_id"
-          placeholder="مهارت آموزشی "
-          required
-          options={skillsMapped || []}
-        />
-                <Form.Input name="priceLearn" label=" هزینه آموزش " required />
-                <Form.Input
-          label="تعداد دانشجو"
-          name="personnel"
-          placeholder="تعداد دانشجو"
-          required
-        />
-                                    <Form.Date name="startDate" label=" تاریخ شروع  " />
-                                    <Form.Date name="finishtDate" label=" تاریخ پایان " />
+                <Form.Select
+                  label="مهارت آموزشی "
+                  name="skill_id"
+                  placeholder="مهارت آموزشی "
+                  required
+                  options={skillsMapped || []}
+                />
+                 <Form.Input 
+                   name="cost" 
+                   label=" هزینه آموزش " 
+                 />
+                 <Form.Input
+                   label="تعداد دانشجو"
+                   name="personnel"
+                   placeholder="تعداد دانشجو"
+                 />
+                 <Form.Date name="start_date" label=" تاریخ شروع  " />
+                 <Form.Date name="end_date" label=" تاریخ پایان " />
 
-                <Form.RichText name="text" label=" شرح "  required />
-
+                 <Form.RichText name="description" label=" شرح " />
               </>
             }
             defaultValues={{
-              infoTecher: "",
-              skillslearn: "",
-              priceLearn: "",
-              status: "",
-              startDate: new Date(),
-              finishtDate: new Date(),
-              text: "",
-              goalsRelated: "",
-              personnel: "",
+              teacher_id: String(r.teacher_id || ""),
+              skill_id: String(r.skill_id || ""),
+              cost: String(r.cost || ""),
+              personnel: String(r.personnel || ""),
+              start_date: r.start_date ? new Date(r.start_date).toISOString().slice(0, 19) : "",
+              end_date: r.end_date ? new Date(r.end_date).toISOString().slice(0, 19) : "",
+              description: r.description || "",
             }}
             onSave={(data) => {
-              console.log(data);
+              const convertedData = {
+                ...data,
+                cost: data.cost ? Number(data.cost) : undefined,
+                personnel: data.personnel ? Number(data.personnel) : undefined,
+              };
+              mutation.mutate(convertedData)
             }}
             schema={z.object({
-
-              infoTecher: z.string().min(1, "مشخصات مدرس الزامی است"),
-              skillslearn: z.string().min(1, "مهارت آموزشی الزامی است"),
-              priceLearn: z.string().min(1, "هزینه آموزش الزامی است"),
-              status: z.string().min(1, "پرسنل الزامی است"),
-              startDate: z.date( { error: "تاریخ شروع الزامی است" }),
-              finishtDate: z.date( { error: "تاریخ پایان الزامی است" }),
-              text: z.string().min(1, "شرح الزامی است"),
-              goalsRelated: z.string().min(1, "اهداف مرتبط الزامی است"),
-              personnel: z.string().min(1, "پرسنل الزامی است"),
+              teacher_id: z.string().min(1, "مشخصات مدرس الزامی است"),
+              skill_id: z.string().min(1, "مهارت آموزشی الزامی است"),
+              cost: z.string().optional(),
+              personnel: z.string().optional(),
+              start_date: z.string().min(1, "تاریخ شروع الزامی است"),
+              end_date: z.string().optional(),
+              description: z.string().optional(),
             })}
           />
           <DeleteDialog onConfirm={() => {}} />
