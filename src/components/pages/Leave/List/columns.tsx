@@ -13,23 +13,27 @@ import { useGetData } from "@/hook/useGetData";
 
 export interface LeaveRequest {
   id: number;
+  employee_id: string;
   employee_full_name: string;
+  leave_type_id: string;
   leaveType: string;
-  duration: string;
-  days: number;
-  requestDate: Date;
-  status: "pending" | "approved" | "rejected";
+  start_date: string;
+  end_date: string;
+  reason?: string;
+  considerations?: string;
+  status?: "درحال بررسی" | "تایید شده" | "رد شده" | "";
   [key: string]: any;
 }
+
 
 const validation = z.object({
   employee_id: z.string().min(1, "انتخاب کارمند الزامی است"),
   leave_type_id: z.string().min(1, "انتخاب نوع مرخصی الزامی است"),
-  start_date: z.string().min(1, "تاریخ شروع الزامی است"),
-  end_date: z.string().min(1, "تاریخ پایان الزامی است"),
-  considerations: z.string().optional(),
+  start_date: z.date({message: "تاریخ شروع الزامی است"}),
+  end_date: z.date({message: "تاریخ پایان الزامی است"}),
   reason: z.string().optional(),
-  status: z.string().optional()
+  considerations: z.string().optional(),
+  status: z.enum(["درحال بررسی", "تایید شده", "رد شده"]).optional()
 })
 
 export const leaveColumns: ColumnDef<LeaveRequest>[] = [
@@ -73,9 +77,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const start = new Date(row.original.start_date).toLocaleDateString(
-        "fa-IR"
-      );
+      const start = new Date(row.original.start_date).toLocaleDateString("fa-IR");
       const end = new Date(row.original.end_date).toLocaleDateString("fa-IR");
       return (
         <>
@@ -96,10 +98,8 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
       </Button>
     ),
     cell: ({ row }) => {
-      const orig = row.original as any;
-
-      const start = new Date(orig.start_date);
-      const end = new Date(orig.end_date);
+      const start = new Date(row.original.start_date);
+      const end = new Date(row.original.end_date);
 
       // اختلاف به روز
       const diffTime = end.getTime() - start.getTime();
@@ -153,7 +153,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
       const { mutation } = useUpdateRows(
         `leaves/${r.id}`,
         ["leaves"],
-        validation ,
+        validation,
         "مرخصی"
       );
 
@@ -175,6 +175,7 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
         value: String(item.id),
         label: item.type_name,
       })) : [];
+
       return (
         <div className="flex items-center gap-2">
           <Link to={`/leave/details/${r.id}?${query}`}>
@@ -203,12 +204,10 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
                   <Form.Date 
                     label="تاریخ شروع" 
                     name="start_date" 
-                    
                   />
                   <Form.Date 
                     label="تاریخ پایان" 
                     name="end_date" 
-                    
                   />
                 </div>
 
@@ -235,14 +234,20 @@ export const leaveColumns: ColumnDef<LeaveRequest>[] = [
             defaultValues={{
               employee_id: String(r.employee_id || ""),
               leave_type_id: String(r.leave_type_id || ""),
-              start_date: r.start_date ? new Date(r.start_date).toISOString().slice(0, 19) : "",
-              end_date: r.end_date ? new Date(r.end_date).toISOString().slice(0, 19) : "",
+              start_date: new Date(r.start_date),
+              end_date: new Date(r.end_date),
               considerations: r.considerations || "",
               reason: r.reason || "",
-              status: r.status || "",
+              status: r.status || "درحال بررسی",
             }}
             onSave={(data) => {
-              mutation.mutate(data)
+              const formattedData = {
+                ...data,
+                start_date: data.start_date.toISOString().slice(0, 19),
+                end_date: data.end_date.toISOString().slice(0, 19)
+              };
+              console.log(formattedData);
+              mutation.mutate(formattedData);
             }}
             schema={validation}
           />

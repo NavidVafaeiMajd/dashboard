@@ -158,9 +158,10 @@ const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
 );
 import AuthProvider, { useAuth } from "./Context/AuthContext";
-import DocumentsLayout from "./components/pages/Documents/DocumentsLayout";
-import PublicDocuments from "./components/pages/Documents/PublicDocuments/PublicDocuments";
-import PrivateDocuments from "./components/pages/Documents/PrivateDocuments/PrivateDocuments";
+// Documents components - now lazy loaded
+const DocumentsLayout = lazy(() => import("./components/pages/Documents/DocumentsLayout"));
+const PublicDocuments = lazy(() => import("./components/pages/Documents/PublicDocuments/PublicDocuments"));
+const PrivateDocuments = lazy(() => import("./components/pages/Documents/PrivateDocuments/PrivateDocuments"));
 const AccountPage = lazy(
   () => import("./components/pages/AccountPage/AccountPage")
 );
