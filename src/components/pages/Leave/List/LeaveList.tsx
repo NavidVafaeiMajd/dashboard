@@ -1,5 +1,5 @@
 import StatBox from "@/components/shared/StatBox";
-import { stats } from "./consts";
+import { useLeaveStats } from "./consts";
 import LeaveTable from "./LeaveTable";
 import { Form } from "@/components/shared/Form";
 import z from "zod";
@@ -28,6 +28,8 @@ interface LeaveTypesResponse extends Array<LeaveType> {}
 
 
 const LeaveList = () => {
+  const { stats, isLoading: statsLoading } = useLeaveStats();
+  
   const defaultValues = {
     employee_id: "",
     leave_type_id: "",
@@ -72,7 +74,7 @@ const LeaveList = () => {
 
   return (
     <div className="flex flex-col gap-y-10 relative">
-      {(mutation.isPending || employeesLoading) && <SkeletonLoading />}
+      {(mutation.isPending || employeesLoading || statsLoading) && <SkeletonLoading />}
 
       <div>
         <StatBox data={stats} />
