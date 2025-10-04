@@ -12,6 +12,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineRadar } from "react-icons/md";
 import { BsExclamationCircle } from "react-icons/bs";
 import { useNavbar } from "@/Context/NavbarContext";
+import { RiCustomerService2Fill } from "react-icons/ri";
 
 const Navbar = () => {
   const navb = useNavbar();
@@ -100,6 +101,21 @@ const Navbar = () => {
             ]}
             dropInfo={[]}
           />
+          <NavbarItems
+            DropMenu={true}
+            itemInfo={[
+              <>
+                {" "}
+                <RiCustomerService2Fill className="w-7 h-7" /> CRM
+              </>,
+              "/crm",
+            ]}
+            dropInfo={[
+              ["نیرو ها", "/crm"],
+              ["لیست مشتریان", "/crm/clients-list"],
+              ["آمار", "/crm/statistics"],
+            ]}
+          />
           {/* <NavbarItems
                   DropMenu={false}
                   itemInfo={[
@@ -165,7 +181,7 @@ const Navbar = () => {
             itemInfo={[
               <>
                 {" "}
-                <BsExclamationCircle className="w-7 h-7" /> مدیریت اسناد  {" "}
+                <BsExclamationCircle className="w-7 h-7" /> مدیریت اسناد{" "}
               </>,
               "/documents",
             ]}

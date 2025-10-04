@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar/Navbar";
 import { lazy } from "react";
 import { useBootstrapData } from "./hook/useBootstrapData";
 const Desk = lazy(() => import("./components/pages/Desk"));
+const LayoutCRM = lazy(() => import("./components/pages/CRM/Layout"));
+const MarketingStaff = lazy(() => import("./components/pages/CRM/MarketingStaff/MarketingStaff"));
 import {
   BrowserRouter as Router,
   Routes,
@@ -158,6 +160,7 @@ const ViolationType = lazy(
   () => import("./components/pages/DisciplinaryCases/ViolationType")
 );
 import AuthProvider, { useAuth } from "./Context/AuthContext";
+import MarketingStaffDetails from "./components/pages/CRM/MarketingStaff/UserPage/UserPage";
 // Documents components - now lazy loaded
 const DocumentsLayout = lazy(() => import("./components/pages/Documents/DocumentsLayout"));
 const PublicDocuments = lazy(() => import("./components/pages/Documents/PublicDocuments/PublicDocuments"));
@@ -641,6 +644,18 @@ const LayoutContent = () => {
               <Route index element={<PublicDocuments />} />
               <Route path="private" element={<PrivateDocuments />} />
             </Route>
+            <Route
+              path="crm"
+              element={
+                <ProtectedRoute>
+                  <LayoutCRM />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<MarketingStaff />} />
+            </Route>
+            <Route path="marketing-staff/:id" element={<MarketingStaffDetails/>} />
+
             {/* Not Found */}
             <Route path="*" element={<NotFound />} />
           </Routes>
