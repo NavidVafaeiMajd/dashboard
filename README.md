@@ -1,69 +1,140 @@
-# React + TypeScript + Vite 
+# HR‌ Dashboard Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of Contents
 
-Currently, two official plugins are available:
+1.  [Introduction](#introduction)
+2.  [Features](#features)
+3.  [Tech Stack](#tech-stack)
+4.  [Project Structure](#project-structure)
+5.  [Installation](#installation)
+6.  [Environment Variables](#environment-variables)
+7.  [Scripts](#scripts)
+8.  [Development Workflow](#development-workflow)
+9.  [Building & Deployment](#building--deployment)
+10. [Linting & Formatting](#linting--formatting)
+11. [Contributing](#contributing)
+12. [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+------------------------------------------------------------------------
 
-## Expanding the ESLint configuration
+## Introduction
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This is a **React + TypeScript + Vite** dashboard boilerplate. It
+provides a minimal but solid starting point to build scalable web
+applications with a modern toolchain, hot-module reloading, and
+excellent TypeScript support.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+------------------------------------------------------------------------
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+-   Fast development with **Vite**
+-   Type-safe code using **TypeScript**
+-   Scalable and clean project structure
+-   ESLint configured for code quality
+-   Environment variable support
+-   Ready for production build
+
+------------------------------------------------------------------------
+
+## Tech Stack
+
+-   **Frontend:** React, TypeScript\
+-   **Build Tool:** Vite\
+-   **Linting:** ESLint\
+-   **Package Manager:** pnpm (npm/yarn supported)\
+-   **Configs:** tsconfig, vite.config
+
+------------------------------------------------------------------------
+
+## Project Structure
+
+    /.vscode
+    /public
+    /src
+      ├── components/
+      ├── pages/
+      ├── layouts/
+      ├── hooks/
+      ├── utils/
+      ├── types/
+      └── main.tsx
+    .env
+    .gitignore
+    package.json
+    pnpm-lock.yaml
+    tsconfig.json
+    tsconfig.app.json
+    vite.config.ts
+
+------------------------------------------------------------------------
+
+## Installation
+
+``` bash
+git clone https://github.com/NavidVafaeiMajd/dashboard.git
+cd dashboard
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+------------------------------------------------------------------------
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Environment Variables
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Create a `.env` file:
+
+    VITE_API_URL=https://api.example.com
+    VITE_SOME_KEY=your_key_here
+
+------------------------------------------------------------------------
+
+## Scripts
+
+-   `dev` --- start development server\
+-   `build` --- production build\
+-   `preview` --- preview build locally\
+-   `lint` --- run ESLint\
+-   `lint:fix` --- auto-fix lint issues
+
+------------------------------------------------------------------------
+
+## Development Workflow
+
+-   Use feature branches\
+-   Keep components reusable\
+-   Use hooks for logic\
+-   Store common types in `/types`\
+-   Run lint before commits
+
+------------------------------------------------------------------------
+
+## Building & Deployment
+
+``` bash
+pnpm build
 ```
+
+Deploy the `dist/` folder to any static hosting service.
+
+------------------------------------------------------------------------
+
+## Linting & Formatting
+
+Use:
+
+``` bash
+pnpm lint
+pnpm lint:fix
+```
+
+------------------------------------------------------------------------
+
+## Contributing
+
+1.  Fork the repo\
+2.  Create a branch\
+3.  Commit changes\
+4.  Push\
+5.  Open a Pull Request
+
